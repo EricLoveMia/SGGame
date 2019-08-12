@@ -1,8 +1,6 @@
 package cn.eric.game.fujiatianxia6.po;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Scanner;
+import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 
 /**
  * 

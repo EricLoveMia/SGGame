@@ -1,8 +1,12 @@
-package cn.eric.game.fujiatianxia6.po;
+package cn.eric.game.fujiatianxia6.factory;
 
 import java.util.*;
 import java.util.stream.Collectors;
 
+import cn.eric.game.fujiatianxia6.po.AttackCity;
+import cn.eric.game.fujiatianxia6.po.BattleField;
+import cn.eric.game.fujiatianxia6.po.City;
+import cn.eric.game.fujiatianxia6.po.General;
 import org.dom4j.DocumentException;
 
 import cn.eric.game.fujiatianxia6.test.Dom4JforXML;

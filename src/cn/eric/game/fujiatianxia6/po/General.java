@@ -338,8 +338,8 @@ public class General {
 
 	@Override
 	public String toString() {
-		return "General [name=" + name + ", attack=" + attack + ", command=" + command + ", intelligence="
-				+ intelligence + ", charm=" + charm + ", politics=" + politics + ", vitality=" + vitality + ", landfc="
+		return "General [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="
+				+ intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", vitality=" + vitality + ", landfc="
 				+ landfc + ", mountainfc=" + mountainfc + ", riverfc=" + riverfc + "]";
 	}
 

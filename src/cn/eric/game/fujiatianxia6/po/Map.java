@@ -1,5 +1,7 @@
 package cn.eric.game.fujiatianxia6.po;
 
+import cn.eric.game.fujiatianxia6.factory.CityFactory;
+
 /**
  * 
 * <p>Title: Map<／p>

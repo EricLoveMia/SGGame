@@ -1,10 +1,9 @@
 package cn.eric.game.fujiatianxia6.controller;
 
 import cn.eric.game.fujiatianxia6.factory.WeaponFactory;
-import cn.eric.game.fujiatianxia6.po.BuildingFactory;
-import cn.eric.game.fujiatianxia6.po.GeneralFactory;
-import cn.eric.game.fujiatianxia6.po.Skill;
-import cn.eric.game.fujiatianxia6.po.SkillFactory;
+import cn.eric.game.fujiatianxia6.factory.BuildingFactory;
+import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
+import cn.eric.game.fujiatianxia6.factory.SkillFactory;
 import cn.eric.game.fujiatianxia6.service.Game;
 
 public class StartGame {

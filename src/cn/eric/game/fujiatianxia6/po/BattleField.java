@@ -3,6 +3,8 @@ package cn.eric.game.fujiatianxia6.po;
 import java.util.HashMap;
 import java.util.Optional;
 
+import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
+import cn.eric.game.fujiatianxia6.factory.SkillFactory;
 import cn.eric.game.fujiatianxia6.service.ArmsService;
 import cn.eric.game.fujiatianxia6.service.Util;
 

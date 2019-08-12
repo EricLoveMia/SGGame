@@ -2,11 +2,9 @@ package cn.eric.game.fujiatianxia6.service;
 
 import cn.eric.game.fujiatianxia6.po.Arms;
 import cn.eric.game.fujiatianxia6.po.General;
-import cn.eric.game.fujiatianxia6.po.GeneralFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 /**
  * @author Eric

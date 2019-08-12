@@ -1,7 +1,6 @@
 package cn.eric.game.fujiatianxia6.factory;
 
 import cn.eric.game.fujiatianxia6.po.General;
-import cn.eric.game.fujiatianxia6.po.GeneralFactory;
 import cn.eric.game.fujiatianxia6.po.Weapon;
 import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
 import org.dom4j.DocumentException;

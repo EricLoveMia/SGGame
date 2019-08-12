@@ -1,8 +1,11 @@
-package cn.eric.game.fujiatianxia6.po;
+package cn.eric.game.fujiatianxia6.factory;
 
-import cn.eric.game.fujiatianxia6.service.ArmsService;
+import cn.eric.game.fujiatianxia6.po.Building;
+import cn.eric.game.fujiatianxia6.po.City;
+import cn.eric.game.fujiatianxia6.po.General;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 // 城市建筑物工厂类
 public class BuildingFactory {
@@ -53,7 +56,7 @@ public class BuildingFactory {
 		}
 	}
 	
-	public static void buildInCity(City city,General general){
+	public static void buildInCity(City city, General general) throws CloneNotSupportedException {
 		// 升级已有的建筑
 		if(city.getBildings().size() > 0) {
 			System.out.println("是否要升级建筑");
@@ -104,15 +107,16 @@ public class BuildingFactory {
 						|| (choise == 7 && (countBuildsInCity(city,7) < 1)) || (choise == 8 && (countBuildsInCity(city,8) < 1))
 						|| (choise == 9 && (countBuildsInCity(city,9) < 1))){
 
-					if(general.getMoney() < getBuildById(choise).purchase){
+					Building clone = (Building) getBuildById(choise).clone();
+					if(general.getMoney() < clone.purchase){
 						System.out.println("对不起您的钱不够");
 						if(general.isReboot()){
 							break;
 						}
 					}else{
 						try{
-							city.getBildings().add(getBuildById(choise));
-							general.setMoney(general.getMoney() - getBuildById(choise).purchase);
+							city.getBildings().add(clone);
+							general.setMoney(general.getMoney() - clone.purchase);
 							resetCityByNewBilding(city,choise);
 						}catch(Exception e){
 							e.printStackTrace();
@@ -248,5 +252,56 @@ public class BuildingFactory {
         city.setSoilders(city.getSoilders() - add);
         System.out.println("城市" + city.getName() + "增加了枪兵" + add/2 + "个");
         System.out.println("城市" + city.getName() + "增加了弓兵" + add/2 + "个");
+	}
+
+	// 升级建筑
+    public static void upgradedBuild(City defence, General player) {
+		// 查看城市中有哪些建筑
+		showBuildings(defence);
+		System.out.println("请选择需要升级的建筑 0 放弃");
+		int choise = 0;
+		Map<Integer, Building> collect = defence.getBildings().stream().collect(Collectors.toMap(building -> building.id, building -> building));
+
+		if(player.isReboot()){
+			if(collect.size() == 0){
+				choise = 0;
+			}else{
+				// 查看金额够升级哪个的 先看级别 再看金钱 升级费用不能超过总金额的一半
+				Set<Map.Entry<Integer, Building>> entries = collect.entrySet();
+				Iterator<Map.Entry<Integer, Building>> iterator = entries.iterator();
+				while (iterator.hasNext()) {
+					Map.Entry<Integer, Building> next = iterator.next();
+					if(next.getValue().level < defence.getType()){
+						if(next.getValue().upgradeLevel < player.getMoney()/2){
+							choise = next.getKey();
+							break;
+						}
+					}
+				}
+			}
+		}else{
+			Scanner input = new Scanner(System.in);
+			choise = input.nextInt();
+		}
+		if(choise == 0){
+			return;
+		}
+		if(collect.get(choise) == null){
+			System.out.println("对不起，没有对应的建筑");
+			return;
+		}
+		if(collect.get(choise).upgradeLevel > player.getMoney()){
+			System.out.println("对不起，您没有足够的金钱");
+			return;
+		}
+		if(collect.get(choise).level >= defence.getType()){
+			System.out.println("对不起，建筑等级无法超过城市的等级");
+			return;
+		}
+		// 升级
+		collect.get(choise).level = collect.get(choise).level + 1;
+		player.setMoney(player.getMoney() - collect.get(choise).upgradeLevel);
+
+		System.out.println(collect.get(choise).name + "升级成功，目前等级" + collect.get(choise).level);
 	}
 }

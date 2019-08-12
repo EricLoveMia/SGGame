@@ -3,7 +3,7 @@ package cn.eric.game.fujiatianxia6.service;
 import java.util.*;
 import java.util.function.Function;
 
-import cn.eric.game.fujiatianxia6.factory.WeaponFactory;
+import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.po.*;
 import cn.eric.game.fujiatianxia6.po.Map;
 
@@ -205,6 +205,9 @@ public class Game {
     public int throwShifter(int no) {
         int step = 0;
         System.out.print("\n\n" + players[no - 1].getName() + ", 请您按任意字母键后回车启动掷骰子： ");
+        if(players[no - 1].isReboot()){
+            return (int) (Math.random() * 10) % 6 + 1;
+        }
         Scanner input = new Scanner(System.in);
         String answer = input.next();
         step = (int) (Math.random() * 10) % 6 + 1;   //产生一个1~6的数字,即掷的骰子数目
@@ -235,7 +238,9 @@ public class Game {
                 System.out.println(" 1 毫不犹豫买  2 日子都活不了了，买啥买");
                 int choise = 2;
                 if(players[no - 1].isReboot()) {
-                    if(players[no - 1].getMoney() > city.getPurchase()) {
+                    if(players[no - 1].getMoney() > city.getPurchase()
+                            && (players[no - 1].getArmy() > 4000)
+                            && GeneralFactory.getaoundGeneral(players[no - 1].getGenerals()).size() > 2) {
                         choise = 1;
                     }
                 }else {
@@ -258,7 +263,7 @@ public class Game {
             case 1:   //幸运轮盘
                 System.out.println("\n◆◇◆◇◆欢迎进入幸运轮盘◆◇◆◇◆");
                 //Scanner inputLucky = new Scanner(System.in);
-                System.out.println("   1. 立即获得一个武将  2. 获得2000兵  3.随机给自己的一个城市升级，如果满级则失效  4.增加2000块钱  5.增加在野武将好感度  6.给你鼓鼓掌，祝你一统天下");
+                System.out.println("   1. 立即获得一个武将  2. 获得2000兵  3.随机给自己的一个城市升级，如果满级则失效  4.增加2000块钱  5.随机获得500非剑兵  6.给你鼓鼓掌，祝你一统天下");
                 int lucky = (int) (Math.random() * 10) % 6 + 1;
                 switch (lucky) {
                     case 1:
@@ -278,9 +283,26 @@ public class Game {
                         players[no - 1].setMoney(players[no - 1].getMoney() + 2000);
                         break;
                     case 5:
-                        System.out.println("增加在野武将好感度");
-
-                        break;
+                        int type = new Random().nextInt(3);
+                        switch (type){
+                            case 0:
+                                System.out.printf("恭喜获得500骑兵");
+                                players[no - 1].setCavalrys(players[no - 1].getCavalrys() + 500);
+                                break;
+                            case 1:
+                                System.out.printf("恭喜获得500枪兵");
+                                players[no - 1].setInfantry(players[no - 1].getInfantry() + 500);
+                                break;
+                            case 2:
+                                System.out.printf("恭喜获得500弓兵");
+                                players[no - 1].setArchers(players[no - 1].getArchers() + 500);
+                                break;
+                            default:
+                                System.out.printf("恭喜获得500枪兵");
+                                players[no - 1].setInfantry(players[no - 1].getInfantry() + 500);
+                                break;
+                        }
+                        //break;
                     case 6:
                         System.out.println("恭喜你，可以购买一个专属武器");
                         WeaponFactory.purchaseWeapon(players[no - 1]);
@@ -288,7 +310,6 @@ public class Game {
                     default:
                         break;
                 }
-
 
                 System.out.println("=============================\n");
                 System.out.println(":~)  " + "幸福的我都要哭了...");
@@ -350,10 +371,17 @@ public class Game {
                 System.out.println(defence.toString());
                 System.out.println(defence.getDenfenceGenerals().toString());
                 if (base == map.map[position]) {
-                    System.out.println("======主公好======\n");
-                    // 选择武将及放置的兵力
+                    System.out.println("======主公好====== 选择0 放弃增减武将和兵力金钱\n");
+                    // TODO  选择武将及放置的兵力
+
                     chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
-                    BuildingFactory.buildInCity(defence, players[no - 1]);
+                    // 升级建筑
+                    BuildingFactory.upgradedBuild(defence, players[no - 1]);
+                    try {
+                        BuildingFactory.buildInCity(defence, players[no - 1]);
+                    } catch (CloneNotSupportedException e) {
+                        e.printStackTrace();
+                    }
                 } else {
                     int passMoney = (int) (defence.getMoney() * 0.1);
 
@@ -630,9 +658,10 @@ public class Game {
                 break;
         }
 
-        // 设置剑兵 放剑兵的 1/5
-        city.setSoilders(general.getArmy()/5);
-        general.setArmy(general.getArmy() - general.getArmy()/5);
+        // 设置剑兵 放剑兵的 1/5 最多4000
+        int number = general.getArmy()/5>4000?4000:general.getArmy()/5;
+        city.setSoilders(number);
+        general.setArmy(general.getArmy() - number);
 
 
         // 设置资金 尝试用函数
@@ -682,11 +711,11 @@ public class Game {
             General g = (General) iterator.next();
             System.out.println("姓名：" + g.getName() + "武力：" + g.getAttack() + "智力：" + g.getIntelligence() + "统帅" + g.getCommand() + "兵种" + g.getArms() + "平原战力" + g.getLandfc() + "山地战力" + g.getMountainfc() + "河流战力" + g.getRiverfc() + "\n" + "技能" + SkillFactory.getSkillByID(g.getSkill()).getName() + ":" + SkillFactory.getSkillByID(g.getSkill()).getMemo());
         }
-        players[0].setMoney(20000);
-        players[0].setArmy(10000);
+        players[0].setMoney(40000);
+        players[0].setArmy(20000);
         if ("董卓".equals(players[0].getName())) {
-            players[0].setMoney(40000);
-            players[0].setArmy(15000);
+            players[0].setMoney(100000);
+            players[0].setArmy(40000);
             players[0].setCavalrys(5000); // 骑兵
             players[0].setInfantry(3000); // 枪兵
             players[0].setArchers(5000); // 工兵

@@ -1,7 +1,5 @@
 package cn.eric.game.fujiatianxia6.service;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -9,9 +7,9 @@ import cn.eric.game.fujiatianxia6.po.AttackCity;
 import cn.eric.game.fujiatianxia6.po.BattleField;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
-import cn.eric.game.fujiatianxia6.po.GeneralFactory;
-import cn.eric.game.fujiatianxia6.po.OneOnOne;
-import cn.eric.game.fujiatianxia6.po.SkillFactory;
+import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
+import cn.eric.game.fujiatianxia6.factory.OneOnOne;
+import cn.eric.game.fujiatianxia6.factory.SkillFactory;
 
 /**
  * 

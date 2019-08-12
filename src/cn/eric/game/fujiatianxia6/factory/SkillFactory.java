@@ -1,13 +1,16 @@
-package cn.eric.game.fujiatianxia6.po;
+package cn.eric.game.fujiatianxia6.factory;
 
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import cn.eric.game.fujiatianxia6.po.BattleField;
+import cn.eric.game.fujiatianxia6.po.General;
+import cn.eric.game.fujiatianxia6.po.Skill;
 import cn.eric.game.fujiatianxia6.service.Fight;
 import org.dom4j.DocumentException;
 
-import cn.eric.game.fujiatianxia6.po.OneOnOne.FightData;
+import cn.eric.game.fujiatianxia6.factory.OneOnOne.FightData;
 import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
 
 public class SkillFactory {
@@ -18,7 +21,7 @@ public class SkillFactory {
 	 * 
 	* @Title: init
 	* @Description: 初始化
-	* @param     设定文件
+	* @param
 	* @return void    返回类型
 	* @throws
 	 */
@@ -60,7 +63,7 @@ public class SkillFactory {
 	* @return Object    返回类型
 	* @throws
 	 */
-	public static Object changeBefore(int type, int AttOrDef, General general,General generalB,Object virgin) {
+	public static Object changeBefore(int type, int AttOrDef, General general, General generalB, Object virgin) {
 		Object result = new Object(); 
 		if(type == 1){
 			result = OneOnOne_Change(AttOrDef,general,virgin);

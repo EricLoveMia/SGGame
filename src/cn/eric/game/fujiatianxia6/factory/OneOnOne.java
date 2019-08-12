@@ -1,7 +1,8 @@
-package cn.eric.game.fujiatianxia6.po;
+package cn.eric.game.fujiatianxia6.factory;
 
-import java.util.ArrayList;
-import java.util.List;
+import cn.eric.game.fujiatianxia6.factory.SkillFactory;
+import cn.eric.game.fujiatianxia6.po.General;
+
 import java.util.Random;
 import java.util.Scanner;
 

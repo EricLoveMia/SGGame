@@ -76,12 +76,19 @@ public class ResearchService {
         int choose;
         Scanner input = null;
         if(player.isReboot()){
-            choose = new Random().nextInt(4) + 1;
+            if(player.getMoney() < 10000){
+                choose = 0;
+            }else {
+                choose = new Random().nextInt(4) + 1;
+            }
         }else {
             input = new Scanner(System.in);
             choose = input.nextInt();
         }
         while(choose>4 || choose<=0){
+            if(choose == 0){
+                return;
+            }
             System.out.println("输入错误 请选择");
             num = 1;
             for (Arms arms : player.getArmsTotal()) {
