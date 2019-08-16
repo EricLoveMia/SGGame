@@ -21,7 +21,7 @@ public class Game {
         map = new Map();
         map.createMap();  //生成地图
         playerPos1 = 0;   //设置玩家1起始位置
-        playerPos2 = 0;   //设置玩家2起始位置
+        playerPos2 = 50;   //设置玩家2起始位置
         goAndStop[0] = "on";  //记录玩家1下一次走或停
         goAndStop[1] = "on";  //设置玩家2下一次走或停
     }

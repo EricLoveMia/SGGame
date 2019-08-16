@@ -562,6 +562,10 @@ public class SkillFactory {
         if("1".equals(general.getSkill()) && new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()){
             System.out.println("仁德触发，随机获得一个武将");
             List<General> generals = GeneralFactory.allFreeGenerals();
+            if(generals == null || generals.size() == 0){
+				System.out.println("已经没有在野武将了");
+				return;
+			}
             int index = new Random().nextInt(generals.size());
 
             for (General initGeneral : GeneralFactory.getInitGenerals()) {

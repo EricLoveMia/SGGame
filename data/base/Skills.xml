@@ -172,7 +172,7 @@
 		<id>25</id>
 		<name>金刚</name>
 		<memo>野战中，如果伤害超过限定值，则只承受限定值伤害，限定值与统帅、武力相关，基础限定值300</memo>
-		<data>500</data>
+		<data>300</data>
 		<time>4</time>
 	</skill>
 	<skill>
@@ -192,8 +192,8 @@
 	<skill>
 		<id>27</id>
 		<name>医圣</name>
-		<memo>野战每回合结束后，可以救治部分伤兵恢复战斗力，基础比例40%，浮动比例与智力相关</memo>
-		<data>40</data>
+		<memo>野战每回合结束后，可以救治部分伤兵恢复战斗力，基础比例30%，浮动比例与智力相关</memo>
+		<data>30</data>
 		<time>4</time>
 	</skill>
 	<skill>

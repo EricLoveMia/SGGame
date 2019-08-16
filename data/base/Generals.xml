@@ -230,8 +230,8 @@
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
-		<skill>99</skill>
-		<relation>85050505</relation>
+		<skill>22</skill>
+		<relation>95050505</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -722,7 +722,7 @@
 		<landfc>A</landfc>
 		<mountainfc>S</mountainfc>
 		<riverfc>B</riverfc>
-		<skill>弓将</skill>
+		<skill>17</skill>
 		<relation>00202020</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
@@ -758,7 +758,7 @@
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
 		<riverfc>C</riverfc>
-		<skill>铁壁</skill>
+		<skill>30</skill>
 		<relation>00900000</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
