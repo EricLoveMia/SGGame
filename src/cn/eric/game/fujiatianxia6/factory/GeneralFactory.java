@@ -164,8 +164,6 @@ public class GeneralFactory {
 
     /***
      *
-     * @menu
-     * @description: TODO
      * @author Eric
      * @date 17:21 2019/7/29
      * @param leader
@@ -207,6 +205,9 @@ public class GeneralFactory {
                     GeneralFactory.sortByAttack(aoundGenerals);
                     return aoundGenerals.get(aoundGenerals.size()-1);
                 case 4:
+                    if(aoundGenerals.size() <= 2){
+                        return null;
+                    }
                     GeneralFactory.sortByIntel(aoundGenerals);
                     return aoundGenerals.get(aoundGenerals.size()-1);
                 default:
@@ -222,7 +223,11 @@ public class GeneralFactory {
             } else if (choise < 0 || (choise > aoundGenerals.size() + 1)) {
                 System.out.println("请选择合适的数字");
             } else {
-                return temp[choise];
+                try {
+                    return temp[choise];
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 
@@ -351,7 +356,17 @@ public class GeneralFactory {
         });
         ac.setDefenceChief(denfenceGenerals.get(0));
         System.out.println("防守主将：" + denfenceGenerals.get(0).toString());
-        denfenceGenerals.remove(0);
+
+        if(denfenceGenerals.size() > 1){
+            ac.setDefenceCounsellor(denfenceGenerals.get(1));
+            System.out.println("防守副将：" + denfenceGenerals.get(1).toString());
+        }
+        if(denfenceGenerals.size() > 2){
+            ac.setDefenceVice(denfenceGenerals.get(2));
+            System.out.println("防守军师：" + denfenceGenerals.get(2).toString());
+        }
+
+        //denfenceGenerals.remove(0);
     }
 
     /**
@@ -418,5 +433,45 @@ public class GeneralFactory {
     public static General generalByAttactAuto(General attack, List<General> getaoundGeneral) {
         return getaoundGeneral.stream().sorted(Comparator.comparing(General::getAttack,Comparator.reverseOrder()))
                 .collect(Collectors.toList()).get(0);
+    }
+
+    // 检查已经死掉的主公
+    public static void checkDeadGenerals(General[] players) {
+
+        for (int i = 0; i < players.length; i++) {
+            checkDead(players[i]);
+        }
+
+
+    }
+
+    private static void checkDead(General player) {
+        if(player.getMoney() <= 0){
+            System.out.println(player.getName()+"已经破产，所有武将下野，所属城市武将下野，士兵减半，城市发展金减半");
+            List<General> generals = player.getGenerals();
+            List<City> cityList = CityFactory.findCityByLeader(player);
+
+            for (City city : cityList) {
+                city.setBelongTo(0);
+                city.setMoney(city.getMoney()/2);
+                city.setSoilders(city.getSoilders()/2);
+                city.setInfantry(city.getInfantry()/2);
+                city.setCavalrys(city.getCavalrys()/2);
+                city.setArchers(city.getArchers()/2);
+            }
+
+            for (General general : generals) {
+                if(general.getId().equals(player.getId())){
+                    // general.setStatus("4");
+                }else{
+                    general.setBelongTo("0");
+                    general.setStatus("0");
+                    general.setCityid("");
+                }
+            }
+
+            player.setCityid("");
+            player.setStatus("4");
+        }
     }
 }

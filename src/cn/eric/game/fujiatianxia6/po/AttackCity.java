@@ -298,6 +298,7 @@ public class AttackCity {
 		if(city.getSoilders() > 0){
 			if(city.getSoilders() >= temp){
 				city.setSoilders(city.getSoilders() - temp);
+				return;
 			}else{
 				temp = temp - city.getSoilders();
 				city.setSoilders(0);
@@ -332,9 +333,9 @@ public class AttackCity {
 			lostA = temp * countA / (countC + countI + countA);
 		}
 		
-		city.setCavalrys(city.getCavalrys() - lostC);
-		city.setInfantry(city.getInfantry() - lostI);
-		city.setArchers(city.getArchers() - lostA);		
+		city.setCavalrys((city.getCavalrys() <= lostC) ? 0:(city.getCavalrys()-lostC));
+		city.setInfantry((city.getInfantry() <= lostI) ? 0:(city.getInfantry() - lostI));
+		city.setArchers((city.getArchers() <= lostA) ? 0:(city.getArchers() - lostA));
 	}
 
 	public void setLeader(General leader) {

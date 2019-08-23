@@ -8,9 +8,15 @@ import cn.eric.game.fujiatianxia6.po.*;
 import cn.eric.game.fujiatianxia6.po.Map;
 
 public class Game {
+
     Map map;  //地图
-    int playerPos1; //对战中玩家1的当前位置
-    int playerPos2; //对战中玩家2的当前位置
+    int num;
+//    int playerPos1; //对战中玩家1的当前位置
+//    int playerPos2; //对战中玩家2的当前位置
+//    int playerPos3; //对战中玩家3的当前位置
+//    int playerPos4; //对战中玩家4的当前位置
+
+    int[] playPos;
     String[] goAndStop = new String[2];   //走或停标识设置
     General[] players = new General[2];  //对战角色
 
@@ -18,12 +24,33 @@ public class Game {
      * 初始化游戏的一局
      */
     public void init() {
+        System.out.println("请选择玩家数量(包括AI)");
+        Scanner input = new Scanner(System.in);
+        num = input.nextInt();
+        while(num < 2 || num > 4){
+            System.out.println("请输入2-4 的数字");
+            num = input.nextInt();
+        }
+
+        // 玩家的当前位置
+        playPos = new int[num];
+        // 走或停标识设置
+        goAndStop = new String[num];
+        // 对战角色
+        players = new General[num];
+
         map = new Map();
         map.createMap();  //生成地图
-        playerPos1 = 0;   //设置玩家1起始位置
-        playerPos2 = 50;   //设置玩家2起始位置
-        goAndStop[0] = "on";  //记录玩家1下一次走或停
-        goAndStop[1] = "on";  //设置玩家2下一次走或停
+        for (int i = 0; i < num; i++) {
+            playPos[i] = i * (100 / num);
+            goAndStop[i] = "on";
+        }
+
+
+//        playerPos1 = 0;   //设置玩家1起始位置
+//        playerPos2 = 50;   //设置玩家2起始位置
+//        goAndStop[0] = "on";  //记录玩家1下一次走或停
+//        goAndStop[1] = "on";  //设置玩家2下一次走或停
     }
 
     /**
@@ -48,20 +75,32 @@ public class Game {
         System.out.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※\n\n\n");
 
 
-        System.out.println("\n~~~~~~~~~~~~~~~~~~~两  人  对  战~~~~~~~~~~~~~~~~~~~");
+        System.out.println("\n~~~~~~~~~~~~~~~~~~~多  人  对  战~~~~~~~~~~~~~~~~~~~");
         System.out.println("\n请选择角色: 1. 刘备 容易收服武将，诸葛亮bug  \n " + "2. 曹操 野战单挑都厉害  \n 3. 孙权 水战无敌，周瑜bug  \n 4. 董卓 三国第一武将在手，单挑无敌，群雄归附初始兵钱加倍 \n");
         Scanner input = new Scanner(System.in);
-        System.out.print("请玩家1选择角色:  ");
-        int role1 = input.nextInt();
-        int role2;
-        do {
-            System.out.print("请玩家2选择角色： ");
-            role2 = input.nextInt();  //双方选择角色代号
-        } while (role2 == role1);  //不允许角色重复
-        setRole(1, role1);   //设置玩家1代表的角色
-        setRole(2, role2);   //设置玩家2代表的角色
-        initGeneralResources(role1, role2);
+        int[] roles = new int[num];
+        int role = 0;
+        for (int i = 0; i < num; i++) {
+            while(hasbechoose(roles,role)) {
+                System.out.print("请玩家" + (i+1) + "选择角色:  ,不能与其他角色重复");
+                role = input.nextInt();
+            }
+            // 设置玩家代表的角色
+            setRole(i + 1, role);
+            roles[i] = role;
+        }
+
+        initGeneralResources(roles);
         play();   //开始两人对战
+    }
+
+    private boolean hasbechoose(int[] roles, int role) {
+        for (int i = 0; i < roles.length; i++) {
+            if(roles[i] == role){
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -106,68 +145,45 @@ public class Game {
         //显示对战地图
         System.out.println("\n图例： " + "☁ 暂停  ◎幸运轮盘  ♚酒馆  ♞募兵  ♙空城  ♔ " + players[0].getName() + "的城池 ♗ " + players[1].getName() + "的城池\n");
 
-        map.showMap(playerPos1, playerPos2);
+        map.showMap(playPos);
         map.initCity();
         //游戏开始
         int step;  //存储骰子数目
         System.out.println(players[0].getMoney() + " " + players[1].getMoney());
-        while (players[0].getMoney() > 0 && players[1].getMoney() > 0) {    //有任何一方的钱少于0
+        // TODO 有任何一方的钱少于0
+        while (players[0].getMoney() > 0 && players[1].getMoney() > 0) {
             //轮流掷骰子
-            if (goAndStop[0].equals("on")) {
-                //玩家1掷骰子
-                step = throwShifter(1);   //掷骰子
-                System.out.println("\n-----------------");  //显示结果信息
-                System.out.println("骰子数： " + step);
-                if (playerPos1 + step < 0) {
-                    playerPos1 = 0;
-                } else if (playerPos1 + step > 99) { //如果大于99格，则表示已经走完一圈，要重新计算
-                    playerPos1 = playerPos1 + step - 100;
-                } else {
-                    playerPos1 = playerPos1 + step;
+            for (int i = 0; i < players.length; i++) {
+                if(players[i].getStatus().equals("4")){
+                    System.out.println(players[i].getName() + "已经破产");
+                    continue;
                 }
-                map.showMap(playerPos1, playerPos2); //显示当前地图
-                playerPos1 = getCurPos(1, playerPos1, step);   //计算这一次移动后的当前位置
-                System.out.println("\n您当前位置：  " + playerPos1);
-                System.out.println("对方当前位置：" + playerPos2);
-                System.out.println("-----------------\n");
-//        		  if(playerPos1 == 99){  //如果走到终点
-//            		  break;   //退出
-//            	  }
-            } else {
-                System.out.println("\n" + players[0].getName() + "停掷一次！\n");   //显示此次暂停信息
-                goAndStop[0] = "on";   //设置下次可掷状态
+                if (goAndStop[i].equals("on")) {
+                    //玩家1掷骰子
+                    step = throwShifter(i+1);   //掷骰子
+                    System.out.println("\n-----------------");  //显示结果信息
+                    System.out.println("骰子数： " + step);
+                    if (playPos[i] + step < 0) {
+                        playPos[i] = 0;
+                    } else if (playPos[i] + step > 99) { //如果大于99格，则表示已经走完一圈，要重新计算
+                        playPos[i] = playPos[i] + step - 100;
+                    } else {
+                        playPos[i] = playPos[i] + step;
+                    }
+                    // 计算这一次移动后的当前位置
+                    playPos[i] = getCurPos(i+1, playPos[i], step);
+                    System.out.println("-----------------\n");
+                } else {
+                    // 显示此次暂停信息
+                    System.out.println("\n" + players[i].getName() + "停掷一次！\n");
+                    // 设置下次可掷状态
+                    goAndStop[i] = "on";
+                }
+
+                System.out.println("\n\n\n\n");
             }
 
-            System.out.println("\n\n\n\n");
 
-            if (goAndStop[1].equals("on")) {
-                //玩家2掷骰子
-                step = throwShifter(2); //掷骰子
-                System.out.println("\n-----------------"); //显示结果信息
-                System.out.println("骰子数： " + step);
-
-                if (playerPos2 + step < 0) {
-                    playerPos2 = 0;
-                } else if (playerPos2 + step > 99) {
-                    playerPos2 = playerPos2 + step - 100;
-                } else {
-                    playerPos2 = playerPos2 + step;
-                }
-                map.showMap(playerPos1, playerPos2);
-
-                playerPos2 = getCurPos(2, playerPos2, step);   //计算这一次移动后的当前位置
-                System.out.println("\n您当前位置：  " + playerPos2);
-                System.out.println("对方当前位置：" + playerPos1);
-                System.out.println("-----------------\n");
-//        		  if(playerPos2 == 99){  //如果走到终点
-//            		  break;   //退出
-//            	  }
-            } else {
-                System.out.println("\n" + players[1].getName() + "停掷一次！\n");  //显示此次暂停信息
-                goAndStop[1] = "on";  //设置下次可掷状态
-            }
-
-            System.out.println("\n\n\n\n");
             //各城市开始计算收益，包括钱 兵 武器
             //金钱收益  当前城市金钱 * 繁华指数 * 太守的政治
             CityFactory.computeMoney();
@@ -180,11 +196,15 @@ public class Game {
             // 研究队列 都减1 如果到0 就从研究队列中去除
             ResearchService.researchAll();
             //查看每回合结束后触发技能的武将是否触发 例如制衡
-            SkillFactory.changeAfter(9, 0, players[0], null, null);
-            SkillFactory.changeAfter(9, 0, players[1], null, null);
+            for (int i = 0; i < players.length; i++) {
+                SkillFactory.changeAfter(9, 0, players[i], null, null);
+            }
 
-            //TODO
-            //查看
+            // 如果玩家的金钱小于0 所属城市归0 所属武将下野
+            GeneralFactory.checkDeadGenerals(players);
+
+            // 显示当前地图
+            map.showMap(playPos);
         }
 
         //游戏结束
@@ -239,7 +259,7 @@ public class Game {
                 int choise = 2;
                 if(players[no - 1].isReboot()) {
                     if(players[no - 1].getMoney() > city.getPurchase()
-                            && (players[no - 1].getArmy() > 4000)
+                            && (players[no - 1].getArmy() > 3000)
                             && GeneralFactory.getaoundGeneral(players[no - 1].getGenerals()).size() > 2) {
                         choise = 1;
                     }
@@ -373,8 +393,9 @@ public class Game {
                 if (base == map.map[position]) {
                     System.out.println("======主公好====== 选择0 放弃增减武将和兵力金钱\n");
                     // TODO  选择武将及放置的兵力
-
                     chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
+                    // 升级城市
+                    CityFactory.upgradeCity(defence,players[no - 1]);
                     // 升级建筑
                     BuildingFactory.upgradedBuild(defence, players[no - 1]);
                     try {
@@ -427,7 +448,7 @@ public class Game {
                                 System.out.println("您胜利了，不需要交过路费");
                             } else {
                                 System.out.println("您失败了，要交双倍过路费:" + passMoney * 2);
-                                doublePay(no, passMoney);
+                                doublePay(no, passMoney,defence);
                             }
                             break;
                         case 2:
@@ -437,7 +458,7 @@ public class Game {
                                 System.out.println("您胜利了，不需要交过路费");
                             } else {
                                 System.out.println("您失败了，要交双倍过路费:" + passMoney * 2);
-                                doublePay(no, passMoney);
+                                doublePay(no, passMoney,defence);
                             }
                             break;
                         case 3:
@@ -451,18 +472,22 @@ public class Game {
                                 chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
                             } else {
                                 System.out.println("您失败了，要交双倍过路费 :" + passMoney * 2);
-                                doublePay(no, passMoney);
+                                doublePay(no, passMoney,defence);
                             }
                             break;
                         case 4:
                             System.out.println("交了" + passMoney + "过路费");
+                            General generalById = GeneralFactory.getGeneralById(defence.getBelongTo().toString());
+                            if(passMoney == 0 || generalById == null){
+                                break;
+                            }
                             if (players[no - 1].getMoney() < passMoney) {
                                 System.out.println("您没钱了，游戏失败");
-                                players[2 - no].setMoney(players[2 - no].getMoney() + players[no - 1].getMoney());
-                                players[no - 1].setMoney(0);
+                                generalById.setMoney(generalById.getMoney() + players[no - 1].getMoney());
+                                players[no -1].setMoney(0);
                             } else {
                                 players[no - 1].setMoney(players[no - 1].getMoney() - passMoney);
-                                players[2 - no].setMoney(players[2 - no].getMoney() + passMoney);
+                                generalById.setMoney(generalById.getMoney() + passMoney);
                             }
                             break;
                         default:
@@ -508,14 +533,16 @@ public class Game {
     }
 
     // 双倍赔偿
-    private void doublePay(int no, int passMoney) {
+    private void doublePay(int no, int passMoney,City defence) {
+        passMoney = passMoney * 2;
+        General generalById = GeneralFactory.getGeneralById(defence.getBelongTo().toString());
         if (players[no - 1].getMoney() < passMoney) {
             System.out.println("您没钱了，游戏失败");
-            players[2 - no].setMoney(players[2 - no].getMoney() + players[no - 1].getMoney());
+            generalById.setMoney(generalById.getMoney() + players[no - 1].getMoney());
             players[no - 1].setMoney(0);
         } else {
             players[no - 1].setMoney(players[no - 1].getMoney() - passMoney);
-            players[2 - no].setMoney(players[2 - no].getMoney() + passMoney);
+            generalById.setMoney(generalById.getMoney() + passMoney);
         }
     }
 
@@ -536,7 +563,26 @@ public class Game {
             generals.add(generalByChoose);
             city.setDenfenceGenerals(generals);
             System.out.println("武将设置完成" + generalByChoose.getName() + "派驻" + city.getName());
+        }else{
+
+            if(city.getDenfenceGenerals().size() == 0) {
+                System.out.println("未设置武将，不能占领城市，拿走城市内的发展金和剩余兵力");
+                general.setMoney(general.getMoney() + city.getMoney());
+                general.setArmy(general.getArmy() + city.getSoilders());
+                general.setArchers(general.getArchers() + city.getArchers());
+                general.setInfantry(general.getInfantry() + city.getInfantry());
+                general.setCavalrys(general.getCavalrys() + city.getCavalrys());
+
+                city.setMoney(0);
+                city.setSoilders(0);
+                city.setInfantry(0);
+                city.setArchers(0);
+                city.setCavalrys(0);
+                city.setBelongTo(0);
+                return;
+            }
         }
+
         int choise = 0;
         Scanner input = null;
         // TODO roboot
@@ -632,26 +678,29 @@ public class Game {
         switch (topography){
             case 1:
                 if(general.getCavalrys() > 2000){
-                    city.setCavalrys(1000);
+                    if(city.getCavalrys() > 2000){
+                        break;
+                    }
+                    city.setCavalrys(city.getCavalrys() + 1000);
                     general.setCavalrys(general.getCavalrys() - 1000);
-                }else{
-                    setSoilders(city, general);
                 }
                 break;
             case 2:
                 if(general.getInfantry() > 2000){
-                    city.setInfantry(1000);
+                    if(city.getInfantry() > 2000){
+                        break;
+                    }
+                    city.setInfantry(city.getInfantry() + 1000);
                     general.setInfantry(general.getInfantry() - 1000);
-                }else{
-                    setSoilders(city, general);
                 }
                 break;
             case 3:
                 if(general.getArchers() > 2000){
-                    city.setArchers(1000);
+                    if(city.getArchers() > 2000){
+                        break;
+                    }
+                    city.setArchers(city.getArchers() + 1000);
                     general.setArchers(general.getArchers() - 1000);
-                }else{
-                    setSoilders(city, general);
                 }
                 break;
             default:
@@ -660,7 +709,13 @@ public class Game {
 
         // 设置剑兵 放剑兵的 1/5 最多4000
         int number = general.getArmy()/5>4000?4000:general.getArmy()/5;
-        city.setSoilders(number);
+        if(city.getSoilders() >= 4000){
+            number = number / 2;
+        }
+        if(city.getSoilders() >= 8000){
+            number = number / 4;
+        }
+        city.setSoilders(city.getSoilders() + number);
         general.setArmy(general.getArmy() - number);
 
 
@@ -670,17 +725,20 @@ public class Game {
                 return 2000;
             }else if(a > 3000){
                 return 1000;
-            }else if(a > 1000){
-                return 300;
             }else{
-                return 0;
+                return -1;
             }
         };
 
         Integer cityMoney = (Integer) FunctionService.setMoneyByFunction(general.getMoney(), setCityMoney);
 
-        city.setMoney(city.getMoney() + cityMoney);
-        general.setMoney(general.getMoney() - cityMoney);
+        if(cityMoney == -1){
+            general.setMoney((int) (general.getMoney() + city.getMoney() * 0.9));
+            city.setMoney((int) (city.getMoney() * 0.1));
+        }else{
+            city.setMoney(city.getMoney() + cityMoney);
+            general.setMoney(general.getMoney() - cityMoney);
+        }
 
     }
 
@@ -703,73 +761,111 @@ public class Game {
      * @Title: initGeneralResources
      * @Description: 初始化资源
      */
-    private void initGeneralResources(int role1, int role2) {
-        // 给角色1 加武将
-        players[0].setGenerals(GeneralFactory.setBeginGenerals(String.valueOf(role1)));
-        System.out.println(players[0].getName() + "的所属武将有");
-        for (Iterator iterator = players[0].getGenerals().iterator(); iterator.hasNext(); ) {
-            General g = (General) iterator.next();
-            System.out.println("姓名：" + g.getName() + "武力：" + g.getAttack() + "智力：" + g.getIntelligence() + "统帅" + g.getCommand() + "兵种" + g.getArms() + "平原战力" + g.getLandfc() + "山地战力" + g.getMountainfc() + "河流战力" + g.getRiverfc() + "\n" + "技能" + SkillFactory.getSkillByID(g.getSkill()).getName() + ":" + SkillFactory.getSkillByID(g.getSkill()).getMemo());
+    private void initGeneralResources(int[] roles) {
+        for (int i = 0; i < roles.length; i++) {
+            players[i].setGenerals(GeneralFactory.setBeginGenerals(String.valueOf(roles[i])));
+            System.out.println(players[i].getName() + "的所属武将有");
+            for (Iterator iterator = players[i].getGenerals().iterator(); iterator.hasNext(); ) {
+                General g = (General) iterator.next();
+                System.out.println("姓名：" + g.getName() + "武力：" + g.getAttack() + "智力：" + g.getIntelligence() + "统帅" + g.getCommand() + "兵种" + g.getArms() + "平原战力" + g.getLandfc() + "山地战力" + g.getMountainfc() + "河流战力" + g.getRiverfc() + "\n" + "技能" + SkillFactory.getSkillByID(g.getSkill()).getName() + ":" + SkillFactory.getSkillByID(g.getSkill()).getMemo());
+            }
+            players[i].setMoney(40000);
+            players[i].setArmy(20000);
+            if ("董卓".equals(players[i].getName())) {
+                players[i].setMoney(50000);
+                players[i].setArmy(25000);
+                players[i].setCavalrys(6000); // 骑兵
+                players[i].setInfantry(2000); // 枪兵
+                players[i].setArchers(2000); // 弓兵
+            }
+            if ("刘备".equals(players[i].getName())) {
+                players[i].setCavalrys(1000); // 骑兵
+                players[i].setInfantry(3000); // 枪兵
+                players[i].setArchers(2000); // 弓兵
+            }
+            if ("曹操".equals(players[i].getName())) {
+                players[i].setCavalrys(4000); // 骑兵
+                players[i].setInfantry(1000); // 枪兵
+                players[i].setArchers(1000); // 弓兵
+            }
+            if ("孙权".equals(players[i].getName())) {
+                players[i].setCavalrys(0); // 骑兵
+                players[i].setInfantry(1000); // 枪兵
+                players[i].setArchers(5000); // 弓兵
+            }
+            if(i>0){
+                players[i].setReboot(true);
+            }
+            ArmsService.setArms(players[i]);
         }
-        players[0].setMoney(40000);
-        players[0].setArmy(20000);
-        if ("董卓".equals(players[0].getName())) {
-            players[0].setMoney(100000);
-            players[0].setArmy(40000);
-            players[0].setCavalrys(5000); // 骑兵
-            players[0].setInfantry(3000); // 枪兵
-            players[0].setArchers(5000); // 工兵
-        }
-        if ("刘备".equals(players[0].getName())) {
-            players[0].setCavalrys(1000); // 骑兵
-            players[0].setInfantry(3000); // 枪兵
-            players[0].setArchers(2000); // 弓兵
-        }
-        if ("曹操".equals(players[0].getName())) {
-            players[0].setCavalrys(4000); // 骑兵
-            players[0].setInfantry(1000); // 枪兵
-            players[0].setArchers(1000); // 弓兵
-        }
-        if ("孙权".equals(players[0].getName())) {
-            players[0].setCavalrys(0); // 骑兵
-            players[0].setInfantry(1000); // 枪兵
-            players[0].setArchers(5000); // 弓兵
-        }
-        ArmsService.setArms(players[0]);
-        // 给角色2 加武将
-        System.out.println(role2);
-        players[1].setGenerals(GeneralFactory.setBeginGenerals(String.valueOf(role2)));
-        System.out.println(players[1].getName() + "的所属武将有");
-        for (Iterator iterator = players[1].getGenerals().iterator(); iterator.hasNext(); ) {
-            General g = (General) iterator.next();
-            System.out.println("姓名：" + g.getName() + "武力：" + g.getAttack() + "智力：" + g.getIntelligence() + "统帅" + g.getCommand() + "兵种" + g.getArms() + "平原战力" + g.getLandfc() + "山地战力" + g.getMountainfc() + "河流战力" + g.getRiverfc() + "\n" + "技能" + SkillFactory.getSkillByID(g.getSkill()).getName() + ":" + SkillFactory.getSkillByID(g.getSkill()).getMemo());
-        }
-        players[1].setMoney(20000);
-        players[1].setArmy(10000);
-        if ("董卓".equals(players[1].getName())) {
-            players[1].setMoney(40000);
-            players[1].setArmy(15000);
-            players[1].setCavalrys(5000); // 骑兵
-            players[1].setInfantry(3000); // 枪兵
-            players[1].setArchers(5000); // 工兵
-        }
-        if ("刘备".equals(players[1].getName())) {
-            players[1].setCavalrys(1000); // 骑兵
-            players[1].setInfantry(3000); // 枪兵
-            players[1].setArchers(2000); // 弓兵
-        }
-        if ("曹操".equals(players[1].getName())) {
-            players[1].setCavalrys(4000); // 骑兵
-            players[1].setInfantry(1000); // 枪兵
-            players[1].setArchers(1000); // 弓兵
-        }
-        if ("孙权".equals(players[1].getName())) {
-            players[1].setCavalrys(0); // 骑兵
-            players[1].setInfantry(1000); // 枪兵
-            players[1].setArchers(5000); // 弓兵
-        }
-        // 目前默认第二个是机器人
-        players[1].setReboot(true);
-        ArmsService.setArms(players[1]);
+
+
+//        // 给角色1 加武将
+//        players[0].setGenerals(GeneralFactory.setBeginGenerals(String.valueOf(role1)));
+//        System.out.println(players[0].getName() + "的所属武将有");
+//        for (Iterator iterator = players[0].getGenerals().iterator(); iterator.hasNext(); ) {
+//            General g = (General) iterator.next();
+//            System.out.println("姓名：" + g.getName() + "武力：" + g.getAttack() + "智力：" + g.getIntelligence() + "统帅" + g.getCommand() + "兵种" + g.getArms() + "平原战力" + g.getLandfc() + "山地战力" + g.getMountainfc() + "河流战力" + g.getRiverfc() + "\n" + "技能" + SkillFactory.getSkillByID(g.getSkill()).getName() + ":" + SkillFactory.getSkillByID(g.getSkill()).getMemo());
+//        }
+//        players[0].setMoney(40000);
+//        players[0].setArmy(20000);
+//        if ("董卓".equals(players[0].getName())) {
+//            players[0].setMoney(100000);
+//            players[0].setArmy(40000);
+//            players[0].setCavalrys(5000); // 骑兵
+//            players[0].setInfantry(3000); // 枪兵
+//            players[0].setArchers(5000); // 工兵
+//        }
+//        if ("刘备".equals(players[0].getName())) {
+//            players[0].setCavalrys(1000); // 骑兵
+//            players[0].setInfantry(3000); // 枪兵
+//            players[0].setArchers(2000); // 弓兵
+//        }
+//        if ("曹操".equals(players[0].getName())) {
+//            players[0].setCavalrys(4000); // 骑兵
+//            players[0].setInfantry(1000); // 枪兵
+//            players[0].setArchers(1000); // 弓兵
+//        }
+//        if ("孙权".equals(players[0].getName())) {
+//            players[0].setCavalrys(0); // 骑兵
+//            players[0].setInfantry(1000); // 枪兵
+//            players[0].setArchers(5000); // 弓兵
+//        }
+//        ArmsService.setArms(players[0]);
+//        // 给角色2 加武将
+//        System.out.println(role2);
+//        players[1].setGenerals(GeneralFactory.setBeginGenerals(String.valueOf(role2)));
+//        System.out.println(players[1].getName() + "的所属武将有");
+//        for (Iterator iterator = players[1].getGenerals().iterator(); iterator.hasNext(); ) {
+//            General g = (General) iterator.next();
+//            System.out.println("姓名：" + g.getName() + "武力：" + g.getAttack() + "智力：" + g.getIntelligence() + "统帅" + g.getCommand() + "兵种" + g.getArms() + "平原战力" + g.getLandfc() + "山地战力" + g.getMountainfc() + "河流战力" + g.getRiverfc() + "\n" + "技能" + SkillFactory.getSkillByID(g.getSkill()).getName() + ":" + SkillFactory.getSkillByID(g.getSkill()).getMemo());
+//        }
+//        players[1].setMoney(40000);
+//        players[1].setArmy(20000);
+//        if ("董卓".equals(players[1].getName())) {
+//            players[1].setMoney(40000);
+//            players[1].setArmy(15000);
+//            players[1].setCavalrys(5000); // 骑兵
+//            players[1].setInfantry(3000); // 枪兵
+//            players[1].setArchers(5000); // 工兵
+//        }
+//        if ("刘备".equals(players[1].getName())) {
+//            players[1].setCavalrys(1000); // 骑兵
+//            players[1].setInfantry(3000); // 枪兵
+//            players[1].setArchers(2000); // 弓兵
+//        }
+//        if ("曹操".equals(players[1].getName())) {
+//            players[1].setCavalrys(4000); // 骑兵
+//            players[1].setInfantry(1000); // 枪兵
+//            players[1].setArchers(1000); // 弓兵
+//        }
+//        if ("孙权".equals(players[1].getName())) {
+//            players[1].setCavalrys(0); // 骑兵
+//            players[1].setInfantry(1000); // 枪兵
+//            players[1].setArchers(5000); // 弓兵
+//        }
+//        // 目前默认第二个是机器人
+//        players[1].setReboot(true);
+//        ArmsService.setArms(players[1]);
     }
 }

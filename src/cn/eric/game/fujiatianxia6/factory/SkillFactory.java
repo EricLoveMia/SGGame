@@ -583,17 +583,111 @@ public class SkillFactory {
      *  野战回合结束后，防守方 技能触发
      */
     private static void battleField_After_Defence(BattleField virgin) {
+		General defenceChief = virgin.getDefenceChief();
+		General defenceCounsellor = virgin.getDefenceCounsellor();
+		General defenceVice = virgin.getDefenceVice();
+		if(defenceChief != null){
+			battleField_After_Defence(defenceChief,virgin);
+		}
 
-    }
 
-    /**
+	}
+
+	/**
+	 *  野战回合结束后，防守方 技能触发
+	 */
+	private static void battleField_After_Defence(General general, BattleField virgin) {
+		// 金刚
+		if("25".equals(general.getSkill())){
+			int defLost = virgin.getDefLost();
+			Skill skillByID = SkillFactory.getSkillByID(general.getSkill());
+			int data = skillByID.getData() - (Integer.parseInt(general.getCommand()) + Integer.parseInt(general.getIntelligence()))/2;
+			if(defLost > data) {
+				System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,损失兵力减少至" + data + "("+defLost+")");
+				virgin.setAttLost(data);
+			}
+		}
+		// 医疗
+		if("26".equals(general.getSkill()) || "27".equals(general.getSkill())){
+			int defLost = virgin.getDefLost();
+			Skill skillByID = SkillFactory.getSkillByID(general.getSkill());
+			int extra;
+			int intelligence = Integer.parseInt(general.getIntelligence());
+			if(intelligence < 50){
+				extra = 0;
+			}else if(intelligence < 70){
+				extra = 5;
+			}else if(intelligence < 90){
+				extra = 8;
+			}else if(intelligence < 100){
+				extra = 10;
+			}else{
+				extra = 15;
+			}
+			int data = defLost * (skillByID.getData() + extra)/100 ;
+			System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,救治兵力" + data + "("+defLost+")");
+			virgin.setAttLost(defLost - data);
+		}
+	}
+
+	/**
      *  野战回合结束后，进攻方 技能触发
      */
     private static void battleField_After_Attack(BattleField virgin) {
 
-    }
+		General attackChief = virgin.getAttackChief();
+		General attackCounsellor = virgin.getAttackCounsellor();
+		General attackVice = virgin.getAttackVice();
 
-    private static void beCatched(General lord, General lost) {
+		if(attackChief != null){
+			battleField_After_Attack(attackChief,virgin);
+		}
+		if(attackCounsellor != null){
+			battleField_After_Attack(attackCounsellor,virgin);
+		}
+		if(attackVice != null){
+			battleField_After_Attack(attackVice,virgin);
+		}
+	}
+
+	private static void battleField_After_Attack(General general, BattleField virgin) {
+		// 金刚
+		if("25".equals(general.getSkill())){
+			int attLost = virgin.getAttLost();
+			Skill skillByID = SkillFactory.getSkillByID(general.getSkill());
+			int data = skillByID.getData() - (Integer.parseInt(general.getCommand()) + Integer.parseInt(general.getIntelligence()))/2;
+			if(attLost > data) {
+				System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,损失兵力减少至" + data + "("+attLost+")");
+				virgin.setAttLost(data);
+			}
+		}
+		// 医疗
+		if("26".equals(general.getSkill()) || "27".equals(general.getSkill())){
+			int attLost = virgin.getAttLost();
+			Skill skillByID = SkillFactory.getSkillByID(general.getSkill());
+			int extra;
+			int intelligence = Integer.parseInt(general.getIntelligence());
+			if(intelligence < 50){
+				extra = 0;
+			}else if(intelligence < 70){
+				extra = 5;
+			}else if(intelligence < 90){
+				extra = 8;
+			}else if(intelligence < 100){
+				extra = 10;
+			}else{
+				extra = 15;
+			}
+			int data = attLost * (skillByID.getData() + extra)/100 ;
+			System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,救治兵力" + data + "("+attLost+")");
+			virgin.setAttLost(attLost - data);
+		}
+
+
+
+	}
+
+	private static void beCatched(General lord, General lost) {
 		if("1".equals(lord.getSkill())){  //仁德 
 			System.out.println("武将" + lord.getName() + "技能：" + SkillFactory.getSkillByID(lord.getSkill()).getName() + "触发,武将直接加入阵营");
 			lost.setBelongTo(lord.getId());
