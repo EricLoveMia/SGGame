@@ -203,6 +203,9 @@ public class Game {
             // 如果玩家的金钱小于0 所属城市归0 所属武将下野
             GeneralFactory.checkDeadGenerals(players);
 
+            // 根据声望 获得金钱和兵力
+            GeneralFactory.getMoneyAndArmyByReputation(players);
+
             // 显示当前地图
             map.showMap(playPos);
         }
@@ -270,9 +273,12 @@ public class Game {
                     if ((players[no - 1].getMoney() - city.getPurchase() >= 0)) {
                         System.out.println("购买成功");
                         players[no - 1].setMoney(players[no - 1].getMoney() - city.getPurchase());
-                        getCity(position, base, city);
+                        // getCity(position, base, city);
                         // 选择武将及放置的兵力
-                        chooseDefenceGeneralAndSoilders(city, players[no - 1]);
+                        int i = chooseDefenceGeneralAndSoilders(city, players[no - 1]);
+                        if(i==1){
+                            getCity(position, base, city);
+                        }
                     } else {
                         System.out.println("钱不够");
                     }
@@ -404,94 +410,136 @@ public class Game {
                         e.printStackTrace();
                     }
                 } else {
-                    int passMoney = (int) (defence.getMoney() * 0.1);
+                    if (defence.getBelongTo() == 0) {
+                        System.out.println("该城市没有归属主公，直接占领");
+                        if(players[no - 1].isReboot()){
 
-                    System.out.println("======快交过路费：" + passMoney + "\n");
-                    System.out.println("请选择：1、野战 2、单挑 3、攻城 4、乖乖交钱\n");
-                    int choiseBuySoilder;
-                    if (players[no - 1].isReboot()) {
-                        // 机器人自动选择
-                        int defencCount = Optional.ofNullable(defence.getSoilders()).orElse(0) + Optional.ofNullable(defence.getArchers()).orElse(0) + Optional.ofNullable(defence.getInfantry()).orElse(0) + Optional.ofNullable(defence.getCavalrys()).orElse(0);
-                        int attCount = Optional.ofNullable(players[no - 1].getArmy()).orElse(0) + Optional.ofNullable(players[no - 1].getArchers()).orElse(0) + Optional.ofNullable(players[no - 1].getInfantry()).orElse(0) + Optional.ofNullable(players[no - 1].getCavalrys()).orElse(0);
-
-                        if (attCount > defencCount * 5) {
-                            choiseBuySoilder = 3;
-                        } else {
-                            // 如果人数少于防守方，只选择单挑,二十几率交钱
-                            if (attCount < defencCount) {
-                                if (new Random().nextInt(100) <= 20) {
-                                    choiseBuySoilder = 4;
-                                } else {
-                                    choiseBuySoilder = 2;
-                                }
-                            } else {
-                                // 如果人数大于防守方，又不够攻城，默认野战 二十几率交钱
-                                if (new Random().nextInt(100) <= 20) {
-                                    choiseBuySoilder = 4;
-                                } else {
-                                    choiseBuySoilder = 1;
-                                }
+                            // 选择武将及放置的兵力
+                            int i = chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
+                            if(i == 1){
+                                getCity(position, base, defence);
+                            }else{
+                                getCity(position, 0, defence);
+                            }
+                        }else{
+                           // getCity(position, base, defence);
+                            // 选择武将及放置的兵力
+                            int i = chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
+                            if(i == 1){
+                                getCity(position, base, defence);
+                            }else{
+                                getCity(position, 0, defence);
                             }
                         }
                     } else {
-                        choiseBuySoilder = input.nextInt();
-                        while (choiseBuySoilder > 4 || choiseBuySoilder <= 0) {
-                            System.out.println("输入错误 请选择：1、野战 2、单挑 3、攻城 4、乖乖交钱\n");
+                        int passMoney = (int) (defence.getMoney() * defence.getType() * 0.1 * (defence.getProsperity()/1000 + 1));
+
+                        System.out.println("======快交过路费：" + passMoney + "\n");
+                        System.out.println("请选择：1、野战 2、单挑 3、攻城 4、乖乖交钱\n");
+                        int choiseBuySoilder;
+                        if (players[no - 1].isReboot()) {
+                            // 机器人自动选择
+                            int defencCount = Optional.ofNullable(defence.getSoilders()).orElse(0) + Optional.ofNullable(defence.getArchers()).orElse(0) + Optional.ofNullable(defence.getInfantry()).orElse(0) + Optional.ofNullable(defence.getCavalrys()).orElse(0);
+                            int attCount = Optional.ofNullable(players[no - 1].getArmy()).orElse(0) + Optional.ofNullable(players[no - 1].getArchers()).orElse(0) + Optional.ofNullable(players[no - 1].getInfantry()).orElse(0) + Optional.ofNullable(players[no - 1].getCavalrys()).orElse(0);
+
+                            if (attCount > defencCount * 5) {
+                                choiseBuySoilder = 3;
+                            } else {
+                                // 如果人数少于防守方，只选择单挑,二十几率交钱
+                                if (attCount < defencCount) {
+                                    if (new Random().nextInt(100) <= 20) {
+                                        choiseBuySoilder = 4;
+                                    } else {
+                                        choiseBuySoilder = 2;
+                                    }
+                                } else {
+                                    // 如果人数大于防守方，又不够攻城，默认野战 二十几率交钱
+                                    if (new Random().nextInt(100) <= 20) {
+                                        choiseBuySoilder = 4;
+                                    } else {
+                                        choiseBuySoilder = 1;
+                                    }
+                                }
+                            }
+                        } else {
                             choiseBuySoilder = input.nextInt();
+                            while (choiseBuySoilder > 4 || choiseBuySoilder <= 0) {
+                                System.out.println("输入错误 请选择：1、野战 2、单挑 3、攻城 4、乖乖交钱\n");
+                                choiseBuySoilder = input.nextInt();
+                            }
                         }
-                    }
-                    switch (choiseBuySoilder) {
-                        case 1:
-                            System.out.println("野战开始");
-                            boolean resultField = Fight.fieldOperationsFight(players[no - 1], defence);
-                            if (resultField) {
-                                System.out.println("您胜利了，不需要交过路费");
-                            } else {
-                                System.out.println("您失败了，要交双倍过路费:" + passMoney * 2);
-                                doublePay(no, passMoney,defence);
-                            }
-                            break;
-                        case 2:
-                            System.out.println("单挑开始");
-                            boolean result = Fight.oneOnOneFight(players[no - 1], defence);
-                            if (result) {
-                                System.out.println("您胜利了，不需要交过路费");
-                            } else {
-                                System.out.println("您失败了，要交双倍过路费:" + passMoney * 2);
-                                doublePay(no, passMoney,defence);
-                            }
-                            break;
-                        case 3:
-                            System.out.println("攻城开始");
-                            boolean attackCityResult = Fight.attackCity(players[no - 1], defence);
-                            if (attackCityResult) {
-                                System.out.println("您胜利了，不需要交过路费");
-                                System.out.println("占领城市，请选择守城武将和兵力");
-                                getCity(position, base, defence);
-                                // 选择武将及放置的兵力
-                                chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
-                            } else {
-                                System.out.println("您失败了，要交双倍过路费 :" + passMoney * 2);
-                                doublePay(no, passMoney,defence);
-                            }
-                            break;
-                        case 4:
-                            System.out.println("交了" + passMoney + "过路费");
-                            General generalById = GeneralFactory.getGeneralById(defence.getBelongTo().toString());
-                            if(passMoney == 0 || generalById == null){
+                        switch (choiseBuySoilder) {
+                            case 1:
+                                System.out.println("野战开始");
+                                boolean resultField = Fight.fieldOperationsFight(players[no - 1], defence);
+                                if (resultField) {
+                                    System.out.println("您胜利了，不需要交过路费 声望提升40 获得100特色兵力");
+                                    // TODO
+                                    Integer topography = defence.getTopography();
+                                    if (topography == 1) {
+                                        players[no - 1].setCavalrys(players[no - 1].getCavalrys() + 100);
+                                    } else if (topography == 2) {
+                                        players[no - 1].setInfantry(players[no - 1].getInfantry() + 100);
+                                    } else if (topography == 3) {
+                                        players[no - 1].setArchers(players[no - 1].getArchers() + 100);
+                                    }
+                                    players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) + 40);
+                                } else {
+                                    System.out.println("您失败了 声望下降20，要交双倍过路费:" + passMoney * 2);
+                                    players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) - 20);
+                                    doublePay(no, passMoney, defence);
+                                }
                                 break;
-                            }
-                            if (players[no - 1].getMoney() < passMoney) {
-                                System.out.println("您没钱了，游戏失败");
-                                generalById.setMoney(generalById.getMoney() + players[no - 1].getMoney());
-                                players[no -1].setMoney(0);
-                            } else {
-                                players[no - 1].setMoney(players[no - 1].getMoney() - passMoney);
-                                generalById.setMoney(generalById.getMoney() + passMoney);
-                            }
-                            break;
-                        default:
-                            break;
+                            case 2:
+                                System.out.println("单挑开始");
+                                boolean result = Fight.oneOnOneFight(players[no - 1], defence);
+                                if (result) {
+                                    System.out.println("您胜利了，不需要交过路费 声望提升15");
+                                    players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) + 15);
+                                } else {
+                                    System.out.println("您失败了 声望下降5，要交双倍过路费:" + passMoney * 2);
+                                    players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) - 5);
+                                    doublePay(no, passMoney, defence);
+                                }
+                                break;
+                            case 3:
+                                System.out.println("攻城开始");
+                                boolean attackCityResult = Fight.attackCity(players[no - 1], defence);
+                                if (attackCityResult) {
+                                    System.out.println("您胜利了，不需要交过路费 声望提升 200 ");
+                                    players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) + 200);
+                                    System.out.println("占领城市，请选择守城武将和兵力");
+
+                                    // 选择武将及放置的兵力
+                                    int i = chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
+                                    if(i == 1){
+                                        getCity(position, base, defence);
+                                    }
+
+                                } else {
+                                    System.out.println("您失败了 声望下降50 ，要交双倍过路费 :" + passMoney * 2);
+                                    players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) - 50);
+                                    doublePay(no, passMoney, defence);
+                                }
+                                break;
+                            case 4:
+                                System.out.println("交了" + passMoney + "过路费");
+                                General generalById = GeneralFactory.getGeneralById(defence.getBelongTo().toString());
+                                if (passMoney == 0 || generalById == null) {
+                                    break;
+                                }
+                                if (players[no - 1].getMoney() < passMoney) {
+                                    System.out.println("您没钱了，游戏失败");
+                                    generalById.setMoney(generalById.getMoney() + players[no - 1].getMoney());
+                                    players[no - 1].setMoney(0);
+                                } else {
+                                    players[no - 1].setMoney(players[no - 1].getMoney() - passMoney);
+                                    generalById.setMoney(generalById.getMoney() + passMoney);
+                                }
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 }
                 break;
@@ -554,7 +602,7 @@ public class Game {
      * @Title: chooseDefenceGeneralAndSoilders
      * @Description: 给城市配置武将及兵力
      */
-    private void chooseDefenceGeneralAndSoilders(City city, General general) {
+    private int chooseDefenceGeneralAndSoilders(City city, General general) {
         // 设置武将
         General generalByChoose = GeneralFactory.getGeneralByChoose(general, null,4);
         if (null != generalByChoose) {
@@ -579,7 +627,7 @@ public class Game {
                 city.setArchers(0);
                 city.setCavalrys(0);
                 city.setBelongTo(0);
-                return;
+                return 0;
             }
         }
 
@@ -666,6 +714,7 @@ public class Game {
         }
         city.setBelongTo(Integer.parseInt(general.getId()));
         city.toString();
+        return 1;
     }
 
     // 机器人设置兵力和金钱
@@ -774,21 +823,25 @@ public class Game {
             if ("董卓".equals(players[i].getName())) {
                 players[i].setMoney(50000);
                 players[i].setArmy(25000);
+                players[i].setReputation(300);
                 players[i].setCavalrys(6000); // 骑兵
                 players[i].setInfantry(2000); // 枪兵
                 players[i].setArchers(2000); // 弓兵
             }
             if ("刘备".equals(players[i].getName())) {
+                players[i].setReputation(300);
                 players[i].setCavalrys(1000); // 骑兵
                 players[i].setInfantry(3000); // 枪兵
                 players[i].setArchers(2000); // 弓兵
             }
             if ("曹操".equals(players[i].getName())) {
+                players[i].setReputation(300);
                 players[i].setCavalrys(4000); // 骑兵
                 players[i].setInfantry(1000); // 枪兵
                 players[i].setArchers(1000); // 弓兵
             }
             if ("孙权".equals(players[i].getName())) {
+                players[i].setReputation(300);
                 players[i].setCavalrys(0); // 骑兵
                 players[i].setInfantry(1000); // 枪兵
                 players[i].setArchers(5000); // 弓兵

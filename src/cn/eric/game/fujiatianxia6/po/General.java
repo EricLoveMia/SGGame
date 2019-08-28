@@ -85,6 +85,9 @@ public class General {
 	private Rsearch research; // 剩余研究时间
 
 	private boolean reboot; // 是否为机器人
+
+	private Integer reputation; // 声望
+
 	public General(){
 		
 	}
@@ -349,5 +352,13 @@ public class General {
 
 	public void setReboot(boolean reboot) {
 		this.reboot = reboot;
+	}
+
+	public Integer getReputation() {
+		return reputation;
+	}
+
+	public void setReputation(Integer reputation) {
+		this.reputation = reputation;
 	}
 }

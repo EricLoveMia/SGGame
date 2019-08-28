@@ -342,6 +342,9 @@ public class BattleField {
                 city.setArchers((city.getArchers() - defLostCount) < 0 ? 0 : (city.getArchers() - defLostCount));
             }
 
+            // 武将回归
+
+
             // 如果攻击方剩余的兵力多，则获胜
             if (attackAmyNum >= defenceAmyNum) {
                 return true;

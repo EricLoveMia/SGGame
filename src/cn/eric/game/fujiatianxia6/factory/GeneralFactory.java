@@ -208,7 +208,11 @@ public class GeneralFactory {
                     if(aoundGenerals.size() <= 2){
                         return null;
                     }
-                    GeneralFactory.sortByIntel(aoundGenerals);
+                    GeneralFactory.sortByCommand(aoundGenerals);
+                    // 主公不能作为守城将领
+                    if(leader.getId().equals(aoundGenerals.get(aoundGenerals.size()-1).getId())){
+                        return aoundGenerals.get(aoundGenerals.size()-2);
+                    }
                     return aoundGenerals.get(aoundGenerals.size()-1);
                 default:
                     return null;
@@ -472,6 +476,19 @@ public class GeneralFactory {
 
             player.setCityid("");
             player.setStatus("4");
+        }
+    }
+
+    public static void getMoneyAndArmyByReputation(General[] players) {
+
+        for (General player : players) {
+            // 增加金钱
+            player.setMoney(player.getMoney() + player.getReputation());
+            // 增加士兵
+            player.setArmy(player.getArmy() + player.getReputation()/10);
+            player.setArchers(player.getArchers() + player.getReputation()/30);
+            player.setInfantry(player.getInfantry() + player.getReputation()/30);
+            player.setCavalrys(player.getCavalrys() + player.getReputation()/30);
         }
     }
 }

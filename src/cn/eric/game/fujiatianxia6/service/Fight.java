@@ -185,6 +185,14 @@ public class Fight {
             if (BF.getAttackCounsellor() != null) {
                 BF.getAttackCounsellor().setCityid("");
             }
+            //
+            defence.getDenfenceGenerals().add(BF.getDefenceChief());
+            if (BF.getDefenceCounsellor() != null) {
+                defence.getDenfenceGenerals().add(BF.getDefenceCounsellor());
+            }
+            if (BF.getDefenceVice() != null) {
+                defence.getDenfenceGenerals().add(BF.getDefenceVice());
+            }
         }
         return result;
     }

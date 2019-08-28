@@ -149,7 +149,7 @@ public class AttackCity {
 			// city.setSoilders(city.getSoilders() - temp);
 			resetCitySoilders(temp);
 			deffenceSoliderTotal = deffenceSoliderTotal - temp;
-			System.out.println("第" + count + "波进攻结束，防守方剩余剑兵：" + city.getSoilders() + "骑兵：" + city.getCavalrys() + "枪兵：" + city.getInfantry() + "弓箭手：" + city.getArchers());
+			System.out.println("第" + count + "波进攻结束，防守方总兵力 "+deffenceSoliderTotal+",剩余剑兵：" + city.getSoilders() + "骑兵：" + city.getCavalrys() + "枪兵：" + city.getInfantry() + "弓箭手：" + city.getArchers());
 			
 			// 攻城方损失守城方损失兵力的1.3倍*(守城方统帅-攻城方统帅) * 守方建筑加成
 			int tempAttack = (int) (defenceBulidingAdd * temp * 1.3 * (1 + (float)(Integer.parseInt(DefenceChief.getCommand()) - Integer.parseInt(AttackChief.getCommand()))/100));
