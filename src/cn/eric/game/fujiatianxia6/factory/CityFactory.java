@@ -61,7 +61,7 @@ public class CityFactory {
     }
 
     /**
-     * @param 设定文件
+     * @param
      * @return void    返回类型
      * @throws
      * @Title: computeMoney

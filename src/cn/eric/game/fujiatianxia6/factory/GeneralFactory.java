@@ -32,7 +32,7 @@ public class GeneralFactory {
     }
 
     /**
-     * @param 参数说明
+     * @param
      * @return void    返回类型
      * @throws DocumentException
      * @Title: initGeneralList
@@ -462,6 +462,7 @@ public class GeneralFactory {
                 city.setInfantry(city.getInfantry()/2);
                 city.setCavalrys(city.getCavalrys()/2);
                 city.setArchers(city.getArchers()/2);
+                city.setDenfenceGenerals(new ArrayList<>(4));
             }
 
             for (General general : generals) {

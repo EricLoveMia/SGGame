@@ -4,6 +4,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
+import cn.eric.game.fujiatianxia6.po.AttackCity;
 import cn.eric.game.fujiatianxia6.po.BattleField;
 import cn.eric.game.fujiatianxia6.po.General;
 import cn.eric.game.fujiatianxia6.po.Skill;
@@ -71,7 +72,95 @@ public class SkillFactory {
 		if(type == 2){
 			result = BattleField_Change(AttOrDef,general,virgin);
 		}
+		if(type == 3){
+			result = AttackCity_Change_Before(AttOrDef,virgin);
+		}
 		return result;
+	}
+
+	private static Object AttackCity_Change_Before(int attOrDef, Object virgin) {
+
+		AttackCity attackCity = (AttackCity) virgin;
+
+		if( (attackCity.getAttackChief() != null && "13".equals(attackCity.getAttackChief().getSkill())
+				&& (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getAttackChief().getSkill()).getData()))
+				|| (attackCity.getAttackVice() != null && "13".equals(attackCity.getAttackVice().getSkill())
+				&& (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getAttackVice().getSkill()).getData()))
+				|| (attackCity.getAttackCounsellor() != null && "13".equals(attackCity.getAttackCounsellor().getSkill())
+				&& (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getAttackCounsellor().getSkill()).getData()))) { //神算 触发几率
+			// 只有进攻方的技能触发
+			System.out.println("神算技能触发，防守方无法释放技能");
+			if(attackCity.getAttackChief() != null){
+				attackCity = AttackCity_Change_Before(1, attackCity.getAttackChief(), attackCity);
+			}
+			if(attackCity.getAttackCounsellor() != null){
+				attackCity = AttackCity_Change_Before(1, attackCity.getAttackCounsellor(), attackCity);
+			}
+			if(attackCity.getAttackVice() != null){
+				attackCity = AttackCity_Change_Before(1, attackCity.getAttackVice(), attackCity);
+			}
+		}else if( (attackCity.getDefenceChief() != null && "13".equals(attackCity.getDefenceChief().getSkill())
+				&& (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getDefenceChief().getSkill()).getData()))
+				|| (attackCity.getDefenceVice() != null && "13".equals(attackCity.getDefenceVice().getSkill())
+				&& (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getDefenceVice().getSkill()).getData()))
+				|| (attackCity.getDefenceCounsellor() != null && "13".equals(attackCity.getDefenceCounsellor().getSkill())
+				&& (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getDefenceCounsellor().getSkill()).getData()))){ //神算 触发几率
+			// 只有进攻方的技能触发
+			System.out.println("神算技能触发，进攻方无法释放技能");
+			if(attackCity.getDefenceChief() != null){
+				attackCity = AttackCity_Change_Before(2, attackCity.getDefenceChief(), attackCity);
+			}
+			if(attackCity.getDefenceCounsellor() != null){
+				attackCity = AttackCity_Change_Before(2, attackCity.getDefenceCounsellor(), attackCity);
+			}
+			if(attackCity.getDefenceVice() != null){
+				attackCity = AttackCity_Change_Before(2, attackCity.getDefenceVice(), attackCity);
+			}
+		}else {
+			// 没有神算
+			if(attackCity.getAttackChief() != null){
+				attackCity = AttackCity_Change_Before(1, attackCity.getAttackChief(), attackCity);
+			}
+			if(attackCity.getDefenceChief() != null){
+				attackCity = AttackCity_Change_Before(2, attackCity.getDefenceChief(), attackCity);
+			}
+			if(attackCity.getAttackCounsellor() != null){
+				attackCity = AttackCity_Change_Before(1, attackCity.getAttackCounsellor(), attackCity);
+			}
+			if(attackCity.getDefenceCounsellor() != null){
+				attackCity = AttackCity_Change_Before(2, attackCity.getDefenceCounsellor(), attackCity);
+			}
+			if(attackCity.getAttackVice() != null){
+				attackCity = AttackCity_Change_Before(1, attackCity.getAttackVice(), attackCity);
+			}
+			if(attackCity.getDefenceVice() != null){
+				attackCity = AttackCity_Change_Before(2, attackCity.getDefenceVice(), attackCity);
+			}
+		}
+
+		return attackCity;
+	}
+
+	private static AttackCity AttackCity_Change_Before(int attOrDef, General general, AttackCity virgin) {
+		if("16".equals(general.getSkill())){  // 威风
+			System.out.println("武将："+general.getName()+"触发技能：威风 对方所有兵种等级降一级");
+			if(attOrDef == 1){
+				virgin.setDefencelevelAddition(-1);
+			}else{
+				virgin.setAttactlevelAddition(-1);
+			}
+		}
+		if("39".equals(general.getSkill())){  // 昂扬
+			System.out.println("武将："+general.getName()+"触发技能：昂扬 所有兵种等级升一级");
+			if(attOrDef == 1){
+				virgin.setAttactlevelAddition(1);
+			}else{
+				virgin.setDefencelevelAddition(1);
+			}
+		}
+		// 造谣 逃走兵力
+
+		return virgin;
 	}
 
 	// 野战修改
@@ -99,6 +188,22 @@ public class SkillFactory {
 				BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
 			}
 		}
+        if("16".equals(general.getSkill())){  // 威风
+            System.out.println("武将："+general.getName()+"触发技能：威风 对方所有兵种等级降一级");
+            if(attOrDef == 1){
+                BF.setDefencelevelAddition(-1);
+            }else{
+                BF.setAttactlevelAddition(-1);
+            }
+        }
+        if("39".equals(general.getSkill())){  // 昂扬
+            System.out.println("武将："+general.getName()+"触发技能：昂扬 所有兵种等级升一级");
+            if(attOrDef == 1){
+                BF.setAttactlevelAddition(1);
+            }else{
+                BF.setDefencelevelAddition(1);
+            }
+        }
 		// 攻心
 		if("23".equals(general.getSkill()) && new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()){
 			System.out.println("武将："+general.getName()+ SkillFactory.getSkillByID(general.getSkill()).getMemo());
@@ -116,13 +221,12 @@ public class SkillFactory {
 				BF.setDefenceAmyNum(BF.getDefenceAmyNum() + lostNum);
 			}
 		}
-
 		// 反间  王允 貂蝉
 		if("24".equals(general.getSkill()) && new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()){
 			System.out.println("武将-"+general.getName() + "技能触发："+ SkillFactory.getSkillByID(general.getSkill()).getMemo());
 			int lostNum;
 			if(attOrDef == 1){
-				lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 100);
+				lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
 				System.out.println("防守方互相攻击造成损失" + lostNum);
 				BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
 			}else{
@@ -169,17 +273,6 @@ public class SkillFactory {
 				BF.setAttLost(BF.getAttLost() + addLost);
 			}				
 			System.out.println("增加伤亡：" + addLost);
-		}
-
-		// 坚守
-		if("14".equals(general.getSkill())){
-			int addLost = 0;
-			if(attOrDef == 2){
-				System.out.println("武将："+general.getName()+"触发技能：坚守 野战或者攻城防守中，极大的减少本队损失的人数，减少的额度与统帅值有关，最大20%");			
-				addLost = (int) (BF.getDefLost() * (Float.parseFloat(general.getAttack()))/500);
-				System.out.println("减少损失" + addLost + "(" + BF.getDefLost() + ")");
-				BF.setDefLost(BF.getDefLost() - addLost);
-			}				
 		}
 
 		// 火神
@@ -374,6 +467,97 @@ public class SkillFactory {
 			}
 		}
 
+        // 攻心
+        if("23".equals(general.getSkill()) && new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()){
+            System.out.println("武将："+general.getName()+ SkillFactory.getSkillByID(general.getSkill()).getMemo());
+            int lostNum;
+            if(attOrDef == 1){
+                lostNum = (int) (BF.getAttackAmyNum() * ((Float.parseFloat(general.getCommand()))/50
+                        + (Float.parseFloat(general.getIntelligence()))/50) / 100);
+                System.out.println("防守方有" + lostNum + "兵力进入进攻方部队");
+                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
+                BF.setAttackAmyNum(BF.getAttackAmyNum() + lostNum);
+            }else{
+                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()))/1000);
+                System.out.println("进攻方有" + lostNum + "兵力进入防守方部队");
+                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
+                BF.setDefenceAmyNum(BF.getDefenceAmyNum() + lostNum);
+            }
+        }
+        // 反间  王允 貂蝉
+        if("24".equals(general.getSkill()) && new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()){
+            System.out.println("武将-"+general.getName() + "技能触发："+ SkillFactory.getSkillByID(general.getSkill()).getMemo());
+            int lostNum;
+            if(attOrDef == 1){
+                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
+                System.out.println("防守方互相攻击造成损失" + lostNum);
+                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
+            }else{
+                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2)/1000);
+                System.out.println("进攻方互相攻击造成损失" + lostNum);
+                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
+            }
+        }
+
+        // 38 霸王
+        if("38".equals(general.getSkill())){
+            // 增加的损失数
+            int addLost = 0;
+            if(attOrDef == 1){
+                System.out.println("武将："+general.getName()+"触发技能：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
+                System.out.println("减少伤亡" + (int)(BF.getAttLost() * 0.2) + "(" + BF.getAttLost() + ")");
+                BF.setAttLost((int)(BF.getAttLost() * 0.8));
+                // 几率增加损失
+                if(new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()) {
+                    System.out.println("武将："+general.getName()+"触发技能 会心一击");
+                    addLost = (int) (BF.getDefLost() * 0.5);
+                    System.out.println("增加伤亡：" + addLost + "(" + BF.getDefLost() + ")");
+                    BF.setDefLost(BF.getDefLost() + addLost);
+                }
+            }
+            if(attOrDef == 2){
+                System.out.println("武将："+general.getName()+"触发技能：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
+                System.out.println("减少伤亡" + (int)(BF.getDefLost() * 0.2) + "(" + BF.getDefLost() + ")");
+                BF.setDefLost((int)(BF.getDefLost() * 0.8));
+                // 几率增加损失
+                if(new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()) {
+                    System.out.println("武将："+general.getName()+"触发技能 会心一击");
+                    addLost = (int) (BF.getAttLost() * 0.5);
+                    System.out.println("增加伤亡：" + addLost + "(" + BF.getAttLost() + ")");
+                    BF.setAttLost(BF.getAttLost() + addLost);
+                }
+            }
+        }
+
+        // 37 勇将
+        if("37".equals(general.getSkill())){
+            // 增加的损失数
+            int addLost = 0;
+            if(attOrDef == 1 && (BF.getDefenceType() == 2 || BF.getDefenceType() == 3)){
+                System.out.println("武将："+general.getName()+"触发技能：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
+                System.out.println("减少伤亡" + (int)(BF.getAttLost() * 0.2) + "(" + BF.getAttLost() + ")");
+                BF.setAttLost((int)(BF.getAttLost() * 0.8));
+                // 几率增加损失
+                if(new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()) {
+                    System.out.println("武将："+general.getName()+"触发技能 会心一击");
+                    addLost = (int) (BF.getDefLost() * 0.5);
+                    System.out.println("增加伤亡：" + addLost + "(" + BF.getDefLost() + ")");
+                    BF.setDefLost(BF.getDefLost() + addLost);
+                }
+            }
+            if(attOrDef == 2 && (BF.getDefenceType() == 2 || BF.getDefenceType() == 3)){
+                System.out.println("武将："+general.getName()+"触发技能：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
+                System.out.println("减少伤亡" + (int)(BF.getDefLost() * 0.2) + "(" + BF.getDefLost() + ")");
+                BF.setDefLost((int)(BF.getDefLost() * 0.8));
+                // 几率增加损失
+                if(new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()) {
+                    System.out.println("武将："+general.getName()+"触发技能 会心一击");
+                    addLost = (int) (BF.getAttLost() * 0.5);
+                    System.out.println("增加伤亡：" + addLost + "(" + BF.getAttLost() + ")");
+                    BF.setAttLost(BF.getAttLost() + addLost);
+                }
+            }
+        }
 
 		return BF;
 	}
@@ -533,6 +717,11 @@ public class SkillFactory {
             battleField_After_Attack((BattleField) virgin);
             battleField_After_Defence((BattleField) virgin);
         }
+		// 野战
+		if(type == 3){
+			attackCity_After_Attack((AttackCity) virgin);
+			attackCity_After_Defence((AttackCity) virgin);
+		}
 		// 单挑结束后
         if(type == 5){
 			Fight.PostwarCalculation pc = (Fight.PostwarCalculation) virgin;
@@ -544,6 +733,50 @@ public class SkillFactory {
             rountAfter(generalA);
         }
 		
+	}
+
+	/**
+	 *  攻城回合结束后触发技能 防守
+	 */
+	private static void attackCity_After_Defence(AttackCity virgin) {
+
+		if(virgin.getDefenceChief() != null){
+			attackCity_After_Defence(virgin.getDefenceChief(),virgin);
+		}
+		if(virgin.getDefenceCounsellor() != null){
+			attackCity_After_Defence(virgin.getDefenceCounsellor(),virgin);
+		}
+		if(virgin.getDefenceVice() != null){
+			attackCity_After_Defence(virgin.getDefenceVice(),virgin);
+		}
+
+	}
+
+	private static void attackCity_After_Defence(General general, AttackCity virgin) {
+		// 坚守
+		if("14".equals(general.getSkill())){
+			int addLost;
+			System.out.println("武将："+general.getName()+"触发技能：坚守 野战或者攻城防守中，极大的减少本队损失的人数，减少的额度与统帅值有关，最大20%");
+			addLost = (int) (virgin.getDefenceLost() * (Float.parseFloat(general.getCommand()))/500);
+			System.out.println("减少损失" + addLost + "(" + virgin.getDefenceLost() + ")");
+			virgin.setDefenceLost(virgin.getDefenceLost() - addLost);
+		}
+
+		// 铁壁
+		if("30".equals(general.getSkill())){
+			int defLost = virgin.getDefenceLost();
+			Skill skillByID = SkillFactory.getSkillByID(general.getSkill());
+			int data = skillByID.getData() + (Integer.parseInt(general.getCommand() + general.getAttack() + general.getCharm()))/10;
+			defLost = defLost * ( 1 - data/100);
+			System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,损失兵力减少" + data + "%("+defLost+")");
+			virgin.setDefenceLost(defLost);
+		}
+	}
+
+	private static void attackCity_After_Attack(AttackCity virgin) {
+
+
+
 	}
 
 	/**
@@ -589,7 +822,12 @@ public class SkillFactory {
 		if(defenceChief != null){
 			battleField_After_Defence(defenceChief,virgin);
 		}
-
+		if(defenceCounsellor != null){
+			battleField_After_Defence(defenceCounsellor,virgin);
+		}
+		if(defenceVice != null){
+			battleField_After_Defence(defenceVice,virgin);
+		}
 
 	}
 
@@ -604,7 +842,7 @@ public class SkillFactory {
 			int data = skillByID.getData() - (Integer.parseInt(general.getCommand()) + Integer.parseInt(general.getIntelligence()))/2;
 			if(defLost > data) {
 				System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,损失兵力减少至" + data + "("+defLost+")");
-				virgin.setAttLost(data);
+				virgin.setDefLost(data);
 			}
 		}
 		// 医疗
@@ -626,8 +864,26 @@ public class SkillFactory {
 			}
 			int data = defLost * (skillByID.getData() + extra)/100 ;
 			System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,救治兵力" + data + "("+defLost+")");
-			virgin.setAttLost(defLost - data);
+			virgin.setDefLost(defLost - data);
 		}
+		// 坚守
+		if("14".equals(general.getSkill())){
+			int addLost;
+			System.out.println("武将："+general.getName()+"触发技能：坚守 野战或者攻城防守中，极大的减少本队损失的人数，减少的额度与统帅值有关，最大20%");
+			addLost = (int) (virgin.getDefLost() * (Float.parseFloat(general.getCommand()))/500);
+			System.out.println("减少损失" + addLost + "(" + virgin.getDefLost() + ")");
+			virgin.setDefLost(virgin.getDefLost() - addLost);
+		}
+
+//		// 铁壁
+//		if("30".equals(general.getSkill())){
+//			int defLost = virgin.getDefLost();
+//			Skill skillByID = SkillFactory.getSkillByID(general.getSkill());
+//			int data = skillByID.getData() + (Integer.parseInt(general.getCommand() + general.getAttack() + general.getCharm()))/20;
+//			defLost = defLost * ( 1 - data/100);
+//			System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,损失兵力减少" + data + "%("+defLost+")");
+//			virgin.setDefLost(defLost);
+//		}
 	}
 
 	/**

@@ -177,7 +177,7 @@ public class OneOnOne {
 			// 进攻方先选
 			if(strengthA >= 100){
 				while(true){
-					if(getAttackG().isReboot()){
+					if(GeneralFactory.getGeneralById(getAttackG().getBelongTo()).isReboot()){
 						c1 = 4;
 						break;
 					}else {
@@ -194,7 +194,7 @@ public class OneOnOne {
 				}
 			}else{
 				while(true){
-					if(getAttackG().isReboot()){
+					if(GeneralFactory.getGeneralById(getAttackG().getBelongTo()).isReboot()){
 						c1 = new Random().nextInt(3) + 1;
 						break;
 					}else {

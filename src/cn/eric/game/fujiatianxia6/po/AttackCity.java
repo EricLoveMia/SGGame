@@ -1,6 +1,7 @@
 package cn.eric.game.fujiatianxia6.po;
 
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
+import cn.eric.game.fujiatianxia6.factory.SkillFactory;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,11 @@ public class AttackCity {
 	private City city;
 	
 	private Integer attackSoliderTotalCopy = 0;
+	private int attactlevelAddition = 0;
+	private int defencelevelAddition = 0;
+
+	private int defenceLost = 0;
+	private int attackLost = 0;
 	
 	public General getLeader() {
 		return Leader;
@@ -51,17 +57,30 @@ public class AttackCity {
 		for(Arms arms : Leader.getArmsTotal()){
 			levelMap.put(arms.getName(), arms.getLevel());
 		}
-		
+
+		int swordLevel = levelMap.get("剑兵") + attactlevelAddition;
+		int cavalrysLevel = levelMap.get("骑兵") + attactlevelAddition;
+		int infantrysLevel = levelMap.get("枪兵") + attactlevelAddition;
+		int archersLevel = levelMap.get("弓兵") + attactlevelAddition;
+
+
+
 		// 根据城市的属性 计算总战力
 		if(city.getTopography() == 1){
-			attackSoliderTotal = (int) (soliders*1 + cavalrys * FightConfig.factorOfArchersInLand * (1 + levelMap.get("骑兵")*0.1) 
-					+ infantry * FightConfig.factorOfInfantryInLand * (1 + levelMap.get("枪兵")*0.1) + archers * FightConfig.factorOfArchersInLand * (1 + levelMap.get("弓兵")*0.1));
+			attackSoliderTotal = (int) (soliders * (1 + swordLevel * 0.1)
+					+ cavalrys * FightConfig.factorOfArchersInLand * (1 + cavalrysLevel * 0.1)
+					+ infantry * FightConfig.factorOfInfantryInLand * (1 + infantrysLevel*0.1)
+					+ archers * FightConfig.factorOfArchersInLand * (1 + archersLevel*0.1));
 		}else if(city.getTopography() == 2){
-			attackSoliderTotal = (int) (soliders*1 + cavalrys * FightConfig.factorOfCavalrysInMountain * (1 + levelMap.get("骑兵")*0.1) 
-					+ infantry * FightConfig.factorOfInfantryInMountain * (1 + levelMap.get("枪兵")*0.1) + archers * FightConfig.factorOfArchersInMountain * (1 + levelMap.get("弓兵")*0.1));
+			attackSoliderTotal = (int) (soliders * (1 + swordLevel * 0.1)
+					+ cavalrys * FightConfig.factorOfCavalrysInMountain * (1 + cavalrysLevel*0.1)
+					+ infantry * FightConfig.factorOfInfantryInMountain * (1 + infantrysLevel*0.1)
+					+ archers * FightConfig.factorOfArchersInMountain * (1 + archersLevel*0.1));
 		}else if(city.getTopography() == 3){
-			attackSoliderTotal = (int) (soliders*1 + cavalrys * FightConfig.factorOfCavalrysInRiver * (1 + levelMap.get("骑兵")*0.1)
-					+ infantry * FightConfig.factorOfInfantryInRiver * (1 + levelMap.get("枪兵")*0.1) + archers * FightConfig.factorOfArchersInRiver * (1 + levelMap.get("弓兵")*0.1));
+			attackSoliderTotal = (int) (soliders * (1 + swordLevel * 0.1)
+					+ cavalrys * FightConfig.factorOfCavalrysInRiver * (1 + cavalrysLevel*0.1)
+					+ infantry * FightConfig.factorOfInfantryInRiver * (1 + infantrysLevel*0.1)
+					+ archers * FightConfig.factorOfArchersInRiver * (1 + archersLevel*0.1));
 		}	
 		return attackSoliderTotal;
 	}
@@ -78,16 +97,27 @@ public class AttackCity {
 			levelMap.put(arms.getName(), arms.getLevel());
 		}
 
+		int swordLevel = levelMap.get("剑兵") + defencelevelAddition;
+		int cavalrysLevel = levelMap.get("骑兵") + defencelevelAddition;
+		int infantrysLevel = levelMap.get("枪兵") + defencelevelAddition;
+		int archersLevel = levelMap.get("弓兵") + defencelevelAddition;
+
 		int deffenceSoliderTotal = 0;
 		if(city.getTopography() == 1){
-			deffenceSoliderTotal = (int) (city.getSoilders()*1 + city.getCavalrys() * FightConfig.factorOfArchersInLand * (1 + levelMap.get("骑兵")*0.1)
-					+ city.getInfantry() * FightConfig.factorOfInfantryInLand * (1 + levelMap.get("枪兵")*0.1) + city.getArchers() * FightConfig.factorOfArchersInLand * (1 + levelMap.get("弓兵")*0.1));
+			deffenceSoliderTotal = (int) (city.getSoilders() * (1 + swordLevel * 0.1)
+					+ city.getCavalrys() * FightConfig.factorOfArchersInLand * (1 + cavalrysLevel*0.1)
+					+ city.getInfantry() * FightConfig.factorOfInfantryInLand * (1 + infantrysLevel*0.1)
+					+ city.getArchers() * FightConfig.factorOfArchersInLand * (1 + archersLevel*0.1));
 		}else if(city.getTopography() == 2){
-			deffenceSoliderTotal = (int) (city.getSoilders()*1 + city.getCavalrys() * FightConfig.factorOfCavalrysInMountain * (1 + levelMap.get("骑兵")*0.1)
-					+ city.getInfantry() * FightConfig.factorOfInfantryInMountain * (1 + levelMap.get("枪兵")*0.1) + city.getArchers() * FightConfig.factorOfArchersInMountain * (1 + levelMap.get("弓兵")*0.1));
+			deffenceSoliderTotal = (int) (city.getSoilders() * (1 + swordLevel * 0.1)
+					+ city.getCavalrys() * FightConfig.factorOfCavalrysInMountain * (1 + cavalrysLevel*0.1)
+					+ city.getInfantry() * FightConfig.factorOfInfantryInMountain * (1 + infantrysLevel*0.1)
+					+ city.getArchers() * FightConfig.factorOfArchersInMountain * (1 + archersLevel*0.1));
 		}else if(city.getTopography() == 3){
-			deffenceSoliderTotal = (int) (city.getSoilders()*1 + city.getCavalrys() * FightConfig.factorOfCavalrysInRiver * (1 + levelMap.get("骑兵")*0.1)
-					+ city.getInfantry() * FightConfig.factorOfInfantryInRiver * (1 + levelMap.get("枪兵")*0.1) + city.getArchers() * FightConfig.factorOfArchersInRiver * (1 + levelMap.get("弓兵")*0.1));
+			deffenceSoliderTotal = (int) (city.getSoilders() * (1 + swordLevel * 0.1)
+					+ city.getCavalrys() * FightConfig.factorOfCavalrysInRiver * (1 + cavalrysLevel*0.1)
+					+ city.getInfantry() * FightConfig.factorOfInfantryInRiver * (1 + infantrysLevel*0.1)
+					+ city.getArchers() * FightConfig.factorOfArchersInRiver * (1 + archersLevel*0.1));
 		}
 
 
@@ -115,6 +145,9 @@ public class AttackCity {
 	 public boolean attack(){
 		int count = 0;
 		// 攻城至一方的兵力完全消耗完为止
+		// 攻城前技能触发
+		SkillFactory.changeBefore(3,3,null,null,this);
+
 		// 获得加成值
 		attackSoliderTotal = getAttackSoliderTotal();
 		deffenceSoliderTotal = getDeffenceSoliderTotal();
@@ -129,8 +162,12 @@ public class AttackCity {
 				return false;
 			}
 			// 每次攻城，攻城方先消耗守城兵力的10%-20% 根据守将的统帅  (int)(5000 - 2000 * (0.1 + (float)((int)(Math.random() * 99))/1000 ))
-			attackSoliderTotal = (int) (attackSoliderTotal - defenceBulidingAdd * deffenceSoliderTotal * (0.1 + (float)((int)(Math.random() * (Integer.parseInt(DefenceChief.getCommand()))))/1000 ));
-			System.out.println("第" + count + "波进攻，进攻方推进到城墙，剩余总兵力" + attackSoliderTotal);
+			if(count == 1 && checkSkillOfAttack()) {
+				System.out.println("第" + count + "波进攻，进攻方推进到城墙，未损失兵力，剩余总兵力" + attackSoliderTotal);
+			}else {
+				attackSoliderTotal = (int) (attackSoliderTotal - defenceBulidingAdd * deffenceSoliderTotal * (0.1 + (float) ((int) (Math.random() * (Integer.parseInt(DefenceChief.getCommand())))) / 1000));
+				System.out.println("第" + count + "波进攻，进攻方推进到城墙，剩余总兵力" + attackSoliderTotal);
+			}
 			if(attackSoliderTotal<=0){
 				System.out.println("攻城人数已全部损失，撤军");
 				// 进攻方结算
@@ -141,24 +178,26 @@ public class AttackCity {
 				return false;
 			}
 			// 一回合，守城方损失 进攻方兵力*(0.2*统帅)*(0.1*武力)的  (int) (5000 * ((0.2 * 99/100) + (0.1 * 99/100)))
-			int temp = (int) (attackSoliderTotal * ((0.06 * Integer.parseInt(AttackChief.getCommand())/100) + (0.04 * Integer.parseInt(AttackChief.getCommand())/100)));
-			if(deffenceSoliderTotal < temp){
-				temp = deffenceSoliderTotal;
+			defenceLost = (int) (attackSoliderTotal * ((0.06 * Integer.parseInt(AttackChief.getCommand())/100) + (0.04 * Integer.parseInt(AttackChief.getCommand())/100)));
+			if(deffenceSoliderTotal < defenceLost){
+				defenceLost = deffenceSoliderTotal;
 			}			
-			// 城市内开始结算剩余兵力
-			// city.setSoilders(city.getSoilders() - temp);
-			resetCitySoilders(temp);
-			deffenceSoliderTotal = deffenceSoliderTotal - temp;
-			System.out.println("第" + count + "波进攻结束，防守方总兵力 "+deffenceSoliderTotal+",剩余剑兵：" + city.getSoilders() + "骑兵：" + city.getCavalrys() + "枪兵：" + city.getInfantry() + "弓箭手：" + city.getArchers());
-			
+
 			// 攻城方损失守城方损失兵力的1.3倍*(守城方统帅-攻城方统帅) * 守方建筑加成
-			int tempAttack = (int) (defenceBulidingAdd * temp * 1.3 * (1 + (float)(Integer.parseInt(DefenceChief.getCommand()) - Integer.parseInt(AttackChief.getCommand()))/100));
-			if(attackSoliderTotal <= tempAttack){
-				tempAttack = attackSoliderTotal;
+			attackLost = (int) (defenceBulidingAdd * defenceLost * 1.3 * (1 + (float)(Integer.parseInt(DefenceChief.getCommand()) - Integer.parseInt(AttackChief.getCommand()))/100));
+			if(attackSoliderTotal <= attackLost){
+				attackLost = attackSoliderTotal;
 			}
-			attackSoliderTotal  = (int) (attackSoliderTotal - tempAttack);
-			
-			// 进攻方开始结算剩余兵力			
+			//
+			SkillFactory.changeMiddle(3,3,null,null,this);
+			SkillFactory.changeAfter(3,3,null,null,this);
+
+			// 城市内开始结算剩余兵力
+			resetCitySoilders(defenceLost);
+			deffenceSoliderTotal = deffenceSoliderTotal - defenceLost;
+			attackSoliderTotal  = attackSoliderTotal - attackLost;
+			System.out.println("第" + count + "波进攻结束，防守方总兵力 "+deffenceSoliderTotal+",剩余剑兵：" + city.getSoilders() + "骑兵：" + city.getCavalrys() + "枪兵：" + city.getInfantry() + "弓箭手：" + city.getArchers());
+			// 进攻方开始结算剩余兵力
 			System.out.println("第" + count + "波进攻结束，进攻方剩余总兵力" + attackSoliderTotal);
 			try {
 				Thread.sleep(2000);
@@ -197,6 +236,26 @@ public class AttackCity {
 			}
 			city.setDenfenceGenerals(new ArrayList<>());
 			return true;		
+		}
+		return false;
+	}
+
+	private boolean checkSkillOfAttack() {
+
+		if (getAttackChief() != null) {
+			if("29".equals(getAttackChief().getSkill())){
+				return true;
+			}
+		}
+		if (getAttackCounsellor() != null){
+			if("29".equals(getAttackCounsellor().getSkill())){
+				return true;
+			}
+		}
+		if (getAttackVice() != null){
+			if("29".equals(getAttackVice().getSkill())){
+				return true;
+			}
 		}
 		return false;
 	}
@@ -437,5 +496,45 @@ public class AttackCity {
 
 	public void setAttackSoliderTotalCopy(Integer attackSoliderTotalCopy) {
 		this.attackSoliderTotalCopy = attackSoliderTotalCopy;
+	}
+
+	public Double getDefenceBulidingAdd() {
+		return defenceBulidingAdd;
+	}
+
+	public void setDefenceBulidingAdd(Double defenceBulidingAdd) {
+		this.defenceBulidingAdd = defenceBulidingAdd;
+	}
+
+	public int getAttactlevelAddition() {
+		return attactlevelAddition;
+	}
+
+	public void setAttactlevelAddition(int attactlevelAddition) {
+		this.attactlevelAddition = attactlevelAddition;
+	}
+
+	public int getDefencelevelAddition() {
+		return defencelevelAddition;
+	}
+
+	public void setDefencelevelAddition(int defencelevelAddition) {
+		this.defencelevelAddition = defencelevelAddition;
+	}
+
+	public int getDefenceLost() {
+		return defenceLost;
+	}
+
+	public void setDefenceLost(int defenceLost) {
+		this.defenceLost = defenceLost;
+	}
+
+	public int getAttackLost() {
+		return attackLost;
+	}
+
+	public void setAttackLost(int attackLost) {
+		this.attackLost = attackLost;
 	}
 }

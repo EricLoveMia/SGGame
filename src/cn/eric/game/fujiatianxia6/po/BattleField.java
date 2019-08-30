@@ -37,6 +37,10 @@ public class BattleField {
     private int defenceType = 0; //  1 普通 2 骑兵 3 枪兵 4 弓兵
     private double defenceFactor = 1;
 
+    private int attactlevelAddition = 0;
+    private int defencelevelAddition = 0;
+
+
     public General getAttackChief() {
         return AttackChief;
     }
@@ -174,7 +178,7 @@ public class BattleField {
                         attackAmyNum = 1000;
                     }
                     armType = "剑士";
-                    attackFactor = 1.0;
+                    attackFactor = 1.0 * (1 + (ArmsService.getArmsByGeneralAndName(general,"剑兵").getLevel() + attactlevelAddition ) * 0.1);
                     break;
                 case 2: // 骑兵
                     if (general.getCavalrys() < 1000) {
@@ -191,7 +195,7 @@ public class BattleField {
                     } else {
                         attackFactor = FightConfig.factorOfCavalrysInRiver;
                     }
-                    attackFactor = attackFactor * (1 + ArmsService.getArmsByGeneralAndName(general, "骑兵").getLevel() * 0.1);
+                    attackFactor = attackFactor * (1 + (ArmsService.getArmsByGeneralAndName(general, "骑兵").getLevel() + attactlevelAddition ) * 0.1);
                     break;
                 case 3: // 枪兵
                     if (general.getInfantry() < 1000) {
@@ -205,7 +209,7 @@ public class BattleField {
                     } else {
                         attackFactor = FightConfig.factorOfInfantryInLand;
                     }
-                    attackFactor = attackFactor * (1 + ArmsService.getArmsByGeneralAndName(general, "枪兵").getLevel() * 0.1);
+                    attackFactor = attackFactor * (1 + (ArmsService.getArmsByGeneralAndName(general, "枪兵").getLevel() + attactlevelAddition ) * 0.1);
                     break;
                 case 4: // 弓兵
                     if (general.getArchers() < 1000) {
@@ -221,7 +225,7 @@ public class BattleField {
                     } else {
                         attackFactor = FightConfig.factorOfArchersInLand;
                     }
-                    attackFactor = attackFactor * (1 + ArmsService.getArmsByGeneralAndName(general, "弓兵").getLevel() * 0.1);
+                    attackFactor = attackFactor * (1 + ( ArmsService.getArmsByGeneralAndName(general, "弓兵").getLevel() + attactlevelAddition ) * 0.1);
                     break;
                 default:
                     if (general.getArmy() < 1000) {
@@ -399,16 +403,28 @@ public class BattleField {
         // 适应兵种  平原 骑>枪>弓  山地 枪>弓>骑   水道 弓>枪>骑  战力分别是 200% 160% 120%
         switch (city.getTopography()) {
             case 1: // 平原
-                setDefenceAmyType(1.0, FightConfig.factorOfCavalrysInLand * (1 + levelMap.get("骑兵") * 0.1), FightConfig.factorOfInfantryInLand * (1 + levelMap.get("枪兵") * 0.1), FightConfig.factorOfArchersInLand * (1 + levelMap.get("弓兵") * 0.1));
+                setDefenceAmyType(1.0 * (1 + (levelMap.get("剑兵") + defencelevelAddition) * 0.1),
+                        FightConfig.factorOfCavalrysInLand * (1 + (levelMap.get("骑兵")+ defencelevelAddition) * 0.1),
+                        FightConfig.factorOfInfantryInLand * (1 + (levelMap.get("枪兵")+ defencelevelAddition) * 0.1),
+                        FightConfig.factorOfArchersInLand * (1 + (levelMap.get("弓兵")+ defencelevelAddition) * 0.1));
                 break;
             case 2: // 山地
-                setDefenceAmyType(1.0, FightConfig.factorOfCavalrysInMountain * (1 + levelMap.get("骑兵") * 0.1), FightConfig.factorOfInfantryInMountain * (1 + levelMap.get("枪兵") * 0.1), FightConfig.factorOfArchersInMountain * (1 + levelMap.get("弓兵") * 0.1));
+                setDefenceAmyType(1.0 * (1 + (levelMap.get("剑兵") + defencelevelAddition) * 0.1),
+                        FightConfig.factorOfCavalrysInMountain * (1 + (levelMap.get("骑兵")+ defencelevelAddition) * 0.1),
+                        FightConfig.factorOfInfantryInMountain * (1 + (levelMap.get("枪兵")+ defencelevelAddition) * 0.1),
+                        FightConfig.factorOfArchersInMountain * (1 + (levelMap.get("弓兵")+ defencelevelAddition) * 0.1));
                 break;
             case 3: // 水道
-                setDefenceAmyType(1.0, FightConfig.factorOfCavalrysInRiver * (1 + levelMap.get("骑兵") * 0.1), FightConfig.factorOfInfantryInRiver * (1 + levelMap.get("枪兵") * 0.1), FightConfig.factorOfArchersInRiver * (1 + levelMap.get("弓兵") * 0.1));
+                setDefenceAmyType(1.0 * (1 + (levelMap.get("剑兵") + defencelevelAddition) * 0.1),
+                        FightConfig.factorOfCavalrysInRiver * (1 + (levelMap.get("骑兵")+ defencelevelAddition) * 0.1),
+                        FightConfig.factorOfInfantryInRiver * (1 + (levelMap.get("枪兵")+ defencelevelAddition) * 0.1),
+                        FightConfig.factorOfArchersInRiver * (1 + (levelMap.get("弓兵")+ defencelevelAddition) * 0.1));
                 break;
             default:// 平原
-                setDefenceAmyType(1.0, FightConfig.factorOfCavalrysInLand * (1 + levelMap.get("骑兵") * 0.1), FightConfig.factorOfInfantryInLand * (1 + levelMap.get("枪兵") * 0.1), FightConfig.factorOfArchersInLand * (1 + levelMap.get("弓兵") * 0.1));
+                setDefenceAmyType(1.0 * (1 + (levelMap.get("剑兵") + defencelevelAddition) * 0.1),
+                        FightConfig.factorOfCavalrysInLand * (1 + (levelMap.get("骑兵")+ defencelevelAddition) * 0.1),
+                        FightConfig.factorOfInfantryInLand * (1 + (levelMap.get("枪兵")+ defencelevelAddition) * 0.1),
+                        FightConfig.factorOfArchersInLand * (1 + (levelMap.get("弓兵")+ defencelevelAddition) * 0.1));
                 break;
         }
     }
@@ -541,5 +557,21 @@ public class BattleField {
 
     public void setDefenceFactor(double defenceFactor) {
         this.defenceFactor = defenceFactor;
+    }
+
+    public int getAttactlevelAddition() {
+        return attactlevelAddition;
+    }
+
+    public void setAttactlevelAddition(int attactlevelAddition) {
+        this.attactlevelAddition = attactlevelAddition;
+    }
+
+    public int getDefencelevelAddition() {
+        return defencelevelAddition;
+    }
+
+    public void setDefencelevelAddition(int defencelevelAddition) {
+        this.defencelevelAddition = defencelevelAddition;
     }
 }
