@@ -766,16 +766,73 @@ public class SkillFactory {
 		if("30".equals(general.getSkill())){
 			int defLost = virgin.getDefenceLost();
 			Skill skillByID = SkillFactory.getSkillByID(general.getSkill());
-			int data = skillByID.getData() + (Integer.parseInt(general.getCommand() + general.getAttack() + general.getCharm()))/10;
+			int data = skillByID.getData() + (Integer.parseInt(general.getCommand())
+					+ Integer.parseInt(general.getAttack()) + Integer.parseInt(general.getCharm()))/10;
 			defLost = defLost * ( 1 - data/100);
 			System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,损失兵力减少" + data + "%("+defLost+")");
 			virgin.setDefenceLost(defLost);
 		}
+
+		// 医疗
+		if("26".equals(general.getSkill()) || "27".equals(general.getSkill())){
+			int defLost = virgin.getDefenceLost();
+			Skill skillByID = SkillFactory.getSkillByID(general.getSkill());
+			int extra;
+			int intelligence = Integer.parseInt(general.getIntelligence());
+			if(intelligence < 50){
+				extra = 0;
+			}else if(intelligence < 70){
+				extra = 5;
+			}else if(intelligence < 90){
+				extra = 8;
+			}else if(intelligence < 100){
+				extra = 10;
+			}else{
+				extra = 15;
+			}
+			int data = defLost * (skillByID.getData() + extra)/100 ;
+			System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,救治兵力" + data + "("+defLost+")");
+			virgin.setDefenceLost(defLost - data);
+		}
 	}
 
 	private static void attackCity_After_Attack(AttackCity virgin) {
+		if(virgin.getAttackChief() != null){
+			attackCity_After_Attack(virgin.getAttackChief(),virgin);
+		}
+		if(virgin.getAttackCounsellor() != null){
+			attackCity_After_Attack(virgin.getAttackCounsellor(),virgin);
+		}
+		if(virgin.getAttackVice() != null){
+			attackCity_After_Attack(virgin.getAttackVice(),virgin);
+		}
 
 
+	}
+
+	private static void attackCity_After_Attack(General general, AttackCity virgin) {
+
+		// 医疗
+		if("26".equals(general.getSkill()) || "27".equals(general.getSkill())){
+			int attackLost = virgin.getAttackLost();
+			Skill skillByID = SkillFactory.getSkillByID(general.getSkill());
+			int extra;
+			int intelligence = Integer.parseInt(general.getIntelligence());
+			if(intelligence < 50){
+				extra = 0;
+			}else if(intelligence < 70){
+				extra = 5;
+			}else if(intelligence < 90){
+				extra = 8;
+			}else if(intelligence < 100){
+				extra = 10;
+			}else{
+				extra = 15;
+			}
+			int data = attackLost * (skillByID.getData() + extra)/100 ;
+			System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,救治兵力" + data + "("+attackLost+")");
+			virgin.setAttackLost(attackLost - data);
+		}
 
 	}
 

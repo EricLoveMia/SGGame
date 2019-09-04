@@ -1105,4 +1105,22 @@
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
+	<general id="61">
+		<name>陈登</name>
+		<king>0</king>
+		<attack>64</attack>
+		<command>79</command>
+		<intelligence>81</intelligence>
+		<charm>75</charm>
+		<politics>80</politics>
+		<vitality>90</vitality>
+		<arms>3</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>40</skill>
+		<relation>90200020</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
 </generals>

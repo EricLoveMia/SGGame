@@ -98,11 +98,20 @@ public class CityFactory {
     public static void updateCityRandom(General general) {
         // 先找到一个城市，必须是级别小于3的
         List<City> findCitys = findCityByLeader(general);
-        for (City city : findCitys) {
-            if (city.getType() == 4) {
-                findCitys.remove(city);
+//        for (City city : findCitys) {
+//            if (city.getType() == 4) {
+//                findCitys.remove(city);
+//            }
+//        }
+        Iterator<City> iterator = findCitys.iterator();
+
+        while(iterator.hasNext()){
+            City next = iterator.next();
+            if (next.getType() == 4) {
+                iterator.remove();
             }
         }
+
         // 随机升级一个
         if (findCitys.size() > 0) {
             City city = findCitys.get(new Random().nextInt(findCitys.size()));
