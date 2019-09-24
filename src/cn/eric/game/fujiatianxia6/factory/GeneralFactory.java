@@ -131,10 +131,14 @@ public class GeneralFactory {
         //按照适应性进行排序
         int a = 1;
         Collections.sort(wineGenerals, (o1, o2) -> {
-            if (Integer.parseInt(o2.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2)) >= Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))) {
+            if (Integer.parseInt(o2.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))
+                    > Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))) {
                 return 1;
-            } else {
+            } else if (Integer.parseInt(o2.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))
+                    < Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))){
                 return -1;
+            } else{
+                return 0;
             }
         });
         if(a == 1){

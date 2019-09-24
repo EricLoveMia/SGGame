@@ -28,7 +28,7 @@ public class BuildingFactory {
 	 * 
 	* @Title: showBuildings
 	* @Description: 显示可选建筑的名称
-	* @param     设定文件
+	* @param
 	* @return void    返回类型
 	* @throws
 	 */
@@ -216,6 +216,7 @@ public class BuildingFactory {
 
         // 转换的数量是 10 + 级别 * 4;  最高5级 最多一回合20个
 		int add = 10 + 4 * buildingLevel;
+		add = SkillFactory.CheckCitySkill(add,city.getDenfenceGenerals(),3);
 
 		// 如果已经超过了本城的数量
 		if (add > city.getSoilders()) {
@@ -241,6 +242,8 @@ public class BuildingFactory {
 
         // 转换的数量是 10 + 级别 * 2;  最高5级 最多一回合20个
         int add = 10 + 4 * buildingLevel;
+
+        add = SkillFactory.CheckCitySkill(add,city.getDenfenceGenerals(),2);
 
         // 如果已经超过了本城的数量
         if (add > city.getSoilders()) {

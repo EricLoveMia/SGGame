@@ -1123,4 +1123,22 @@
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
+	<general id="62">
+		<name>公孙瓒</name>
+		<king>0</king>
+		<attack>83</attack>
+		<command>84</command>
+		<intelligence>76</intelligence>
+		<charm>75</charm>
+		<politics>80</politics>
+		<vitality>90</vitality>
+		<arms>3</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>44</skill>
+		<relation>90101010</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
 </generals>
