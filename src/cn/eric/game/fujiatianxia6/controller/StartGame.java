@@ -18,7 +18,6 @@ public class StartGame {
 		BuildingFactory.initBuildings(); // 初始化建筑
 		WeaponFactory.init(); // 初始化专属武器库
 		Game game = new Game();   //创建游戏类
-		
   	    game.start();             //开始游戏
 	}
 }
