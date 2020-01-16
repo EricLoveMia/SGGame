@@ -9,16 +9,22 @@ import cn.eric.game.fujiatianxia6.po.Map;
 
 public class Game {
 
-    Map map;  //地图
-    int num;
+    static Map map;  //地图
+    static int num;
 //    int playerPos1; //对战中玩家1的当前位置
 //    int playerPos2; //对战中玩家2的当前位置
 //    int playerPos3; //对战中玩家3的当前位置
 //    int playerPos4; //对战中玩家4的当前位置
 
-    int[] playPos;
-    String[] goAndStop = new String[2];   //走或停标识设置
-    General[] players = new General[2];  //对战角色
+    static int[] playPos;
+    static String[] goAndStop = new String[num];   //走或停标识设置
+    static General[] players = new General[num];  //对战角色
+
+    public void startWithSave() {
+        //map = new Map();
+        //map.createMap();  //生成地图
+        play();
+    }
 
     /**
      * 初始化游戏的一局
@@ -66,14 +72,6 @@ public class Game {
     public void start() {
         //初始化
         init();
-        System.out.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※");
-        System.out.println("//                                                //");
-        System.out.println("//                                                //");
-        System.out.println("//                富甲天下6                         //");
-        System.out.println("//                                                //");
-        System.out.println("//                                                //");
-        System.out.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※\n\n\n");
-
 
         System.out.println("\n~~~~~~~~~~~~~~~~~~~多  人  对  战~~~~~~~~~~~~~~~~~~~");
         System.out.println("\n请选择角色: 1. 刘备 容易收服武将，诸葛亮bug  \n " + "2. 曹操 野战单挑都厉害  \n 3. 孙权 水战无敌，周瑜bug  \n 4. 董卓 三国第一武将在手，单挑无敌，群雄归附初始兵钱加倍 \n");
@@ -91,7 +89,7 @@ public class Game {
         }
 
         initGeneralResources(roles);
-        play();   //开始两人对战
+        play();   //开始对战
     }
 
     private boolean hasbechoose(int[] roles, int role) {
@@ -205,6 +203,13 @@ public class Game {
 
             // 根据声望 获得金钱和兵力
             GeneralFactory.getMoneyAndArmyByReputation(players);
+
+            // 自动保存进度
+            try {
+                SaveService.save();
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
 
             // 显示当前地图
             map.showMap(playPos);
@@ -328,7 +333,7 @@ public class Game {
                                 players[no - 1].setInfantry(players[no - 1].getInfantry() + 500);
                                 break;
                         }
-                        //break;
+                        break;
                     case 6:
                         System.out.println("恭喜你，可以购买一个专属武器");
                         WeaponFactory.purchaseWeapon(players[no - 1]);
@@ -920,5 +925,47 @@ public class Game {
 //        // 目前默认第二个是机器人
 //        players[1].setReboot(true);
 //        ArmsService.setArms(players[1]);
+    }
+
+    public static Map getMap() {
+        return map;
+    }
+
+    public static void setMap(Map map) {
+        Game.map = map;
+    }
+
+    public static int getNum() {
+        return num;
+    }
+
+    public static void setNum(int num) {
+        Game.num = num;
+    }
+
+    public static int[] getPlayPos() {
+        return playPos;
+    }
+
+    public static void setPlayPos(int[] playPos) {
+
+            Game.playPos = playPos;
+
+    }
+
+    public static String[] getGoAndStop() {
+        return goAndStop;
+    }
+
+    public static void setGoAndStop(String[] goAndStop) {
+        Game.goAndStop = goAndStop;
+    }
+
+    public static General[] getPlayers() {
+        return players;
+    }
+
+    public static void setPlayers(General[] players) {
+        Game.players = players;
     }
 }

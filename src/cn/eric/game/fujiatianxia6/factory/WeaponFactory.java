@@ -26,7 +26,7 @@ public class WeaponFactory {
         try {
             weapons = Dom4JforXML.createWeapons();
             weaponMap = weapons.stream().collect(Collectors.toMap(Weapon::getGeneralId,a->a,(key1, key2) -> key2));
-            System.out.println(weaponMap.toString());
+            // System.out.println(weaponMap.toString());
         } catch (DocumentException e) {
             e.printStackTrace();
         }
@@ -71,9 +71,11 @@ public class WeaponFactory {
 
     private static List<Weapon> findWeaponsByGenerals(List<General> generals) {
         List<Weapon> weaponList = new ArrayList<>();
-        for (General general: generals) {
-            if(weaponMap.get(general.getId()) != null){
-                weaponList.add(weaponMap.get(general.getId()));
+        if (generals != null && generals.size() > 0){
+            for (General general : generals) {
+                if (weaponMap.get(general.getId()) != null) {
+                    weaponList.add(weaponMap.get(general.getId()));
+                }
             }
         }
         return weaponList;

@@ -208,4 +208,20 @@ public class Map {
         }
     }
 
+    public void reloadCity() {
+        // 初始化募兵所
+        int cityIndex = 1;
+        int citySize = 3;
+        for (int i = 0; i < map.length; i++) {
+            //如果是城市
+            if (map[i] == 0 || map[i] == 11 || map[i] == 21 || map[i] == 31 || map[i] == 41) {
+                mapObj[i] = CityFactory.citys[cityIndex];
+                if (--citySize == 0) {  //表示需要一个新的城市
+                    cityIndex++;
+                    citySize = 3;
+                }
+            }
+        }
+    }
+
 }

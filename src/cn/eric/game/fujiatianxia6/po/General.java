@@ -14,7 +14,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 * @date 2017年8月3日 下午3:43:23
  */
 @XStreamAlias("general")
-public class General {
+public class General implements Cloneable{
 	@XStreamAsAttribute
 	private String id; 
 	
@@ -90,6 +90,12 @@ public class General {
 
 	public General(){
 		
+	}
+
+	@Override
+	public Object clone() throws CloneNotSupportedException {
+		General general = (General) super.clone();
+		return general;
 	}
 
 	public String getId() {
@@ -277,12 +283,14 @@ public class General {
 	}
 
 	public void setWeapon(Weapon weapon) {
-		this.weapon = weapon;
-		this.attack = Integer.parseInt(this.attack) + weapon.getAttack() + "";
-		this.command = Integer.parseInt(this.command) + weapon.getCommand() + "";
-		this.charm = Integer.parseInt(this.charm) + weapon.getCharm() + "";
-		this.intelligence = Integer.parseInt(this.intelligence) + weapon.getIntelligence() + "";
-		this.politics = Integer.parseInt(this.politics) + weapon.getPolitics() + "";
+		if(weapon != null) {
+			this.weapon = weapon;
+			this.attack = Integer.parseInt(this.attack) + weapon.getAttack() + "";
+			this.command = Integer.parseInt(this.command) + weapon.getCommand() + "";
+			this.charm = Integer.parseInt(this.charm) + weapon.getCharm() + "";
+			this.intelligence = Integer.parseInt(this.intelligence) + weapon.getIntelligence() + "";
+			this.politics = Integer.parseInt(this.politics) + weapon.getPolitics() + "";
+		}
 	}
 
 	public Integer getCavalrys() {

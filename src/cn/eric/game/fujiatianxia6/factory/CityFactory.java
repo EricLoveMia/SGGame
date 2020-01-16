@@ -213,4 +213,12 @@ public class CityFactory {
         }
 
     }
+
+    public static City[] getCitys() {
+        return citys;
+    }
+
+    public static void setCitys(City[] citys) {
+        CityFactory.citys = citys;
+    }
 }

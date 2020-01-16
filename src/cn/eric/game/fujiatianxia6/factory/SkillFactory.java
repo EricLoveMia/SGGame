@@ -2,6 +2,7 @@ package cn.eric.game.fujiatianxia6.factory;
 
 import java.util.Iterator;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 import cn.eric.game.fujiatianxia6.po.AttackCity;
@@ -231,7 +232,7 @@ public class SkillFactory {
         BattleField BF = (BattleField) virgin;
         // 奸雄
         if ("2".equals(general.getSkill())) {
-            if (new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()) {
+            if (new Random().nextInt(100) <= Objects.requireNonNull(SkillFactory.getSkillByID(general.getSkill())).getData()) {
                 // 如果是进攻方 进攻方损失降低到0
                 if (attOrDef == 1) {
                     if (IntelligenceCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
@@ -253,10 +254,10 @@ public class SkillFactory {
             // 增加最大30%的损失 专属后 最大50%
             int addLost = 0;
             if (attOrDef == 1) {
-                addLost = (int) (BF.getDefLost() * (Float.parseFloat(general.getAttack())) / 1000) * 3;
+                addLost = (int) (BF.getDefLost() * (Float.parseFloat(general.getAttack())) / 1000) * SkillFactory.getSkillByID(general.getSkill()).getData() / 10;
                 BF.setDefLost(BF.getDefLost() + addLost);
             } else {
-                addLost = (int) (BF.getAttLost() * (Float.parseFloat(general.getAttack())) / 1000) * 3;
+                addLost = (int) (BF.getAttLost() * (Float.parseFloat(general.getAttack())) / 1000) * SkillFactory.getSkillByID(general.getSkill()).getData() / 10;
                 BF.setAttLost(BF.getAttLost() + addLost);
             }
             System.out.println("增加伤亡：" + addLost);
@@ -547,7 +548,7 @@ public class SkillFactory {
 
         // 白马
         if ("44".equals(general.getSkill())) {
-            // 增加最大30%的损失 专属后 最大50%
+            // 增加最大30%的损失
             int addLost = 0;
             if (attOrDef == 1 && BF.getAttackType() == 3) {
                 if (new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()) {

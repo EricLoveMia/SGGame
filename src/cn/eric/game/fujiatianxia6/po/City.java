@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.po;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
 * @author 00322027
 * @date 2017年8月3日 下午3:34:37
  */
-public class City {
+public class City implements Serializable {
 	private String id;
 	private int type;   // 类型  1 小城  2 中城  3 大城  4 特大城 5 巨型城
 	private String name;   // 城市的名字 徐州 

@@ -46,6 +46,14 @@ public class GeneralFactory {
         }
     }
 
+    public GeneralFactory(String filePath) {
+        try {
+            initGenerals = Dom4JforXML.loadGenerals(filePath);
+        } catch (DocumentException e) {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * @param @return 参数说明
      * @return General    返回类型
