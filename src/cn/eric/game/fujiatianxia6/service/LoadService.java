@@ -8,6 +8,7 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -34,7 +35,23 @@ public class LoadService {
         List<City> cityList = JSONObject.parseArray(cityString, City.class);
         City[] citys = new City[cityList.size()];
         cityList.toArray(citys);
-        // TODO 给城池配置武将（不能直接从文本中读取，这样就变成了两个对象，两个相同的武将了）
+        // 给城池配置武将（不能直接从文本中读取，这样就变成了两个对象，两个相同的武将了,必须要从武将工厂里面获取）
+        for (City city : citys) {
+            if(city != null) {
+                List<General> denfenceGeneralsNew = new ArrayList<>();
+                List<General> denfenceGenerals = city.getDenfenceGenerals();
+                if (denfenceGenerals != null && denfenceGenerals.size() > 0) {
+                    for (General denfenceGeneral : denfenceGenerals) {
+                        // 根据ID 获取
+                        denfenceGeneralsNew.add(GeneralFactory.getGeneralById(denfenceGeneral.getId()));
+                    }
+                }
+                if (denfenceGeneralsNew.size() > 0) {
+                    city.setDenfenceGenerals(denfenceGeneralsNew);
+                }
+            }
+        }
+
         CityFactory.setCitys(citys);
 
         // 设定角色 一定要是从武将库中获取 再赋值

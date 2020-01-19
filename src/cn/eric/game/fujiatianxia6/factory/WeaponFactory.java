@@ -63,6 +63,8 @@ public class WeaponFactory {
                     generalById.setWeapon(weaponList.get(choise-1));
                     // 从map中去掉
                     weaponMap.remove(weaponList.get(choise - 1).getGeneralId());
+                    // 减钱
+                    generalById.setMoney(player.getMoney() - weaponList.get(choise-1).getPrice());
                     break;
                 }
             }

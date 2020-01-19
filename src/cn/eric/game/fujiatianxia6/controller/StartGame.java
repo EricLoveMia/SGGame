@@ -1,9 +1,6 @@
 package cn.eric.game.fujiatianxia6.controller;
 
-import cn.eric.game.fujiatianxia6.factory.WeaponFactory;
-import cn.eric.game.fujiatianxia6.factory.BuildingFactory;
-import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
-import cn.eric.game.fujiatianxia6.factory.SkillFactory;
+import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.service.Game;
 import cn.eric.game.fujiatianxia6.service.LoadService;
 
@@ -31,8 +28,12 @@ public class StartGame {
 			SkillFactory.init();// 初始化技能
 			BuildingFactory.initBuildings(); // 初始化建筑
 			WeaponFactory.init(); // 初始化专属武器库
-			Game game = new Game();   //创建游戏类
-			game.start();             //开始游戏
+			// 初始化城市
+			CityFactory.init();
+			// 创建游戏类
+			Game game = new Game();
+			// 开始游戏
+			game.start();
 		}else if(choose == 2){
 			System.out.println("※※※※※※※※※※※※※※※数据读取中※※※※※※※※※※※※※※※\n\n\n");
 			LoadService.loadAutoSave();

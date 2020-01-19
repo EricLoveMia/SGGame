@@ -189,8 +189,6 @@ public class Map {
     }
 
     public void initCity() {
-        // 初始化城市
-        CityFactory.init();
         // 初始化酒馆
         // 初始化幸运
         // 初始化募兵所

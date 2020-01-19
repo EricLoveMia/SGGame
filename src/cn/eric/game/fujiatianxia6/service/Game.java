@@ -89,6 +89,7 @@ public class Game {
         }
 
         initGeneralResources(roles);
+        map.initCity();
         play();   //开始对战
     }
 
@@ -142,9 +143,7 @@ public class Game {
 
         //显示对战地图
         System.out.println("\n图例： " + "☁ 暂停  ◎幸运轮盘  ♚酒馆  ♞募兵  ♙空城  ♔ " + players[0].getName() + "的城池 ♗ " + players[1].getName() + "的城池\n");
-
         map.showMap(playPos);
-        map.initCity();
         //游戏开始
         int step;  //存储骰子数目
         System.out.println(players[0].getMoney() + " " + players[1].getMoney());
@@ -232,6 +231,15 @@ public class Game {
      */
     public int throwShifter(int no) {
         int step = 0;
+        if(!players[no - 1].isReboot()){
+            System.out.println("可以输入命令查看相关信息，输入-help获取所有命令，输入0 继续");
+            Scanner input = new Scanner(System.in);
+            String choose = input.nextLine();
+            while(!"0".equals(choose)){
+                CommandLineSerivce.getInstance().getCommandLine(choose);
+                choose = input.nextLine();
+            }
+        }
         System.out.print("\n\n" + players[no - 1].getName() + ", 请您按任意字母键后回车启动掷骰子： ");
         if(players[no - 1].isReboot()){
             return (int) (Math.random() * 10) % 6 + 1;

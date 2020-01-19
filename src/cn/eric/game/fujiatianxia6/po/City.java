@@ -41,7 +41,9 @@ public class City implements Serializable {
 	private int bows;
 	
 	private int special; // 特殊城市  1 
-	
+	public City(){
+
+	}
 	public City(Integer id, int type, String name, String memo, Integer purchase, Integer upgradeLevel,int prosperity,Integer topography) {
 		this.id = id.toString();
 		this.type = type;
@@ -187,7 +189,59 @@ public class City implements Serializable {
 				+ belongTo + ", topography=" + topography + "]";
 	}
 
-	
+	public void setPurchase(int purchase) {
+		this.purchase = purchase;
+	}
 
-	
+	public void setUpgradeLevel(int upgradeLevel) {
+		this.upgradeLevel = upgradeLevel;
+	}
+
+	public void setCavalrys(int cavalrys) {
+		this.cavalrys = cavalrys;
+	}
+
+	public void setInfantry(int infantry) {
+		this.infantry = infantry;
+	}
+
+	public void setArchers(int archers) {
+		this.archers = archers;
+	}
+
+	public void setSoilders(int soilders) {
+		this.soilders = soilders;
+	}
+
+	public void setBelongTo(int belongTo) {
+		this.belongTo = belongTo;
+	}
+
+	public void setTopography(int topography) {
+		this.topography = topography;
+	}
+
+	public void setBlank(int blank) {
+		this.blank = blank;
+	}
+
+	public void setHorses(int horses) {
+		this.horses = horses;
+	}
+
+	public void setSpears(int spears) {
+		this.spears = spears;
+	}
+
+	public void setBows(int bows) {
+		this.bows = bows;
+	}
+
+	public int getSpecial() {
+		return special;
+	}
+
+	public void setSpecial(int special) {
+		this.special = special;
+	}
 }
