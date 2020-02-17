@@ -154,7 +154,7 @@ public class Map {
         int h = 1;
         for (int i = start; i <= end; i++) {
             System.out.print(getGraph(map[100 - h], 100 - h, playerPos));
-            for (int j = 30; j > 0; j--) {  //输出24个空格
+            for (int j = 32; j > 0; j--) {  //输出24个空格
                 System.out.print("  ");
             }
             System.out.print(getGraph(map[i], i, playerPos));

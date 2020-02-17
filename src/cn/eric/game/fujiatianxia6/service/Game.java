@@ -356,7 +356,7 @@ public class Game {
             case 2:   //酒馆
                 List<General> wineGenerals = Tavern.getGenerals(players[no - 1].getId());
                 System.out.println("~:-(  " + "进入酒馆，请选择您要邀请的武将...");
-                General generalByChoose = GeneralFactory.getGeneralByChoose(players[no - 1], wineGenerals,0);
+                General generalByChoose = GeneralFactory.getGeneralByChoose(players[no - 1], wineGenerals,0,null);
                 if (generalByChoose != null) {
                     players[no - 1].getGenerals().add(generalByChoose);
                     generalByChoose.setBelongTo(players[no - 1].getId());
@@ -617,7 +617,7 @@ public class Game {
      */
     private int chooseDefenceGeneralAndSoilders(City city, General general) {
         // 设置武将
-        General generalByChoose = GeneralFactory.getGeneralByChoose(general, null,4);
+        General generalByChoose = GeneralFactory.getGeneralByChoose(general, null,4,city);
         if (null != generalByChoose) {
             generalByChoose.setCityid(city.getId());
             List<General> generals = city.getDenfenceGenerals();

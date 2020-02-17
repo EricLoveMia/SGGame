@@ -462,12 +462,14 @@ public class SkillFactory {
             if (attOrDef == 1) {
                 lostNum = (int) (BF.getAttackAmyNum() * ((Float.parseFloat(general.getCommand())) / 50 + (Float.parseFloat(general.getIntelligence())) / 50) / 100);
                 System.out.println("防守方有" + lostNum + "兵力进入进攻方部队");
-                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
+                BF.setDefLost(BF.getDefLost() + lostNum);
+                // BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
                 BF.setAttackAmyNum(BF.getAttackAmyNum() + lostNum);
             } else {
                 lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
                 System.out.println("进攻方有" + lostNum + "兵力进入防守方部队");
-                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
+                BF.setAttLost(BF.getAttLost() + lostNum);
+                // BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
                 BF.setDefenceAmyNum(BF.getDefenceAmyNum() + lostNum);
             }
         }
@@ -478,11 +480,13 @@ public class SkillFactory {
             if (attOrDef == 1) {
                 lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
                 System.out.println("防守方互相攻击造成损失" + lostNum);
-                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
+                BF.setDefLost(BF.getDefLost() + lostNum);
+                // BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
             } else {
                 lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
                 System.out.println("进攻方互相攻击造成损失" + lostNum);
-                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
+                BF.setAttLost(BF.getAttLost() + lostNum);
+                // BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
             }
         }
 

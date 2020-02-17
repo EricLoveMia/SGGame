@@ -184,7 +184,7 @@ public class GeneralFactory {
      * @throws
      * @return cn.eric.game.fujiatianxia6.po.General
      **/
-    public static General getGeneralByChoose(General leader, List<General> generals,int type) {
+    public static General getGeneralByChoose(General leader, List<General> generals,int type,City city) {
 
         List<General> aoundGenerals;
         if (null == generals) {
@@ -220,6 +220,10 @@ public class GeneralFactory {
                     if(aoundGenerals.size() <= 2){
                         return null;
                     }
+                    // 地形  1 平原 2 山地 3 水道
+                    Integer topography = city.getTopography();
+                    // TODO 根据技能值 加权取将军
+
                     GeneralFactory.sortByCommand(aoundGenerals);
                     // 主公不能作为守城将领
                     if(leader.getId().equals(aoundGenerals.get(aoundGenerals.size()-1).getId())){

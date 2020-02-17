@@ -46,7 +46,7 @@ public class Fight {
             General generalByChoose;
             // 机器人自动选择
 
-            generalByChoose = GeneralFactory.getGeneralByChoose(attack, GeneralFactory.getaoundGeneral(attack.getGenerals()), 3);
+            generalByChoose = GeneralFactory.getGeneralByChoose(attack, GeneralFactory.getaoundGeneral(attack.getGenerals()), 3,null);
 
             System.out.println(generalByChoose.toString());
             System.out.println("防守方 自动选择武将来单挑");
@@ -82,7 +82,7 @@ public class Fight {
             // 1、进攻方挑选将领 主将 副将 军师 野战上阵士兵数1000 如果随身人数不足，则取最大值
             while (BF.getAttackChief() == null) {
                 System.out.println("请选择主将");
-                General generalChief = GeneralFactory.getGeneralByChoose(general, null, 2);
+                General generalChief = GeneralFactory.getGeneralByChoose(general, null, 2,null);
                 if (generalChief == null) {
                     System.out.println("进攻方 主将不能为空，请重新选择");
                 } else {
@@ -92,14 +92,14 @@ public class Fight {
             }
 
             System.out.println("请选择副将");
-            General generalVice = GeneralFactory.getGeneralByChoose(general, null, 2);
+            General generalVice = GeneralFactory.getGeneralByChoose(general, null, 2,null);
             if (generalVice != null) {
                 generalVice.setCityid(defence.getId());
                 BF.setAttackVice(generalVice);
             }
 
             System.out.println("请选择军师");
-            General counsellor = GeneralFactory.getGeneralByChoose(general, null, 2);
+            General counsellor = GeneralFactory.getGeneralByChoose(general, null, 2,null);
             if (counsellor != null) {
                 counsellor.setCityid(defence.getId());
                 BF.setAttackCounsellor(counsellor);
@@ -221,7 +221,7 @@ public class Fight {
             ac.setLeader(general);
             while (ac.getAttackChief() == null) {
                 System.out.println("请选择主将");
-                attackChief = GeneralFactory.getGeneralByChoose(general, null, 1);
+                attackChief = GeneralFactory.getGeneralByChoose(general, null, 1,null);
                 if (attackChief == null) {
                     System.out.println("进攻方 主将不能为空，请重新选择");
                 } else {
@@ -231,7 +231,7 @@ public class Fight {
             }
             // 选择副将
             System.out.println("请选择副将");
-            General attackCounsellor = GeneralFactory.getGeneralByChoose(general, null, 1);
+            General attackCounsellor = GeneralFactory.getGeneralByChoose(general, null, 1,null);
             if (attackCounsellor != null) {
                 ac.setAttackCounsellor(attackCounsellor);
                 // 暂时放在城里进行交战，交战结束后恢复
@@ -239,7 +239,7 @@ public class Fight {
             }
             // 选择军师
             System.out.println("请选择军师");
-            General attackVice = GeneralFactory.getGeneralByChoose(general, null, 1);
+            General attackVice = GeneralFactory.getGeneralByChoose(general, null, 1,null);
             if (attackVice != null) {
                 ac.setAttackVice(attackVice);
                 // 暂时放在城里进行交战，交战结束后恢复
