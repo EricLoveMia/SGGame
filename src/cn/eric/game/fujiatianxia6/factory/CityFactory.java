@@ -149,10 +149,16 @@ public class CityFactory {
                     for (int j = 0; j < citys[i].getBildings().size(); j++) {
                         if(citys[i].getDenfenceGenerals().size() > 0) {
                             GeneralFactory.sortByCommand(citys[i].getDenfenceGenerals());
+                            int addSoilders = 0;
                             if (citys[i].getBildings().get(j).id == 9) { // 存在徽兵所
                                 // 增加守城主将的魅力 * 1 个普通士兵
-                                citys[i].setSoilders(citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 1);
+                                addSoilders = citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 1;
+                            }else{
+                                // 增加守城主将的魅力 * 0.2 个普通士兵
+                                addSoilders = (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.2);
                             }
+                            addSoilders = SkillFactory.checkSkillForAddSoilders(addSoilders,citys[i]);
+                            citys[i].setSoilders(addSoilders);
                             if (citys[i].getBildings().get(j).id == 7) { // 存在马厩
                                 // 增加守城主将的 (魅力+统帅) * 0.2 个骑兵
                                 citys[i].setCavalrys((int) (citys[i].getCavalrys() == null ? 0 : citys[i].getCavalrys() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCommand()) * 0.1 + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.1));
@@ -165,8 +171,13 @@ public class CityFactory {
                         }
                     }
                 }
+
             }
         }
+
+    }
+
+    private static void checkSkillForAddSoilders(int addSoilders, City city) {
 
     }
 
@@ -220,5 +231,14 @@ public class CityFactory {
 
     public static void setCitys(City[] citys) {
         CityFactory.citys = citys;
+    }
+
+    public static City getCityById(String cityid) {
+        for (City city : citys) {
+            if(cityid.equals(city.getId())){
+                return city;
+            }
+        }
+        return null;
     }
 }

@@ -252,17 +252,17 @@ public class BattleField {
                 SkillFactory.changeBefore(2, 1, AttackVice, null, this);
             }
             if (AttackCounsellor != null && SkillFactory.getSkillByID(AttackCounsellor.getSkill()).getTime() == 2) {
-                SkillFactory.changeBefore(2, 1, AttackVice, null, this);
+                SkillFactory.changeBefore(2, 1, AttackCounsellor, null, this);
             }
             // 防守方技能触发
             if (DefenceChief != null && SkillFactory.getSkillByID(DefenceChief.getSkill()).getTime() == 2) {
                 SkillFactory.changeBefore(2, 2, DefenceChief, null, this);
             }
             if (DefenceVice != null && SkillFactory.getSkillByID(DefenceVice.getSkill()).getTime() == 2) {
-                SkillFactory.changeBefore(2, 2, DefenceChief, null, this);
+                SkillFactory.changeBefore(2, 2, DefenceVice, null, this);
             }
             if (DefenceCounsellor != null && SkillFactory.getSkillByID(DefenceCounsellor.getSkill()).getTime() == 2) {
-                SkillFactory.changeBefore(2, 2, DefenceChief, null, this);
+                SkillFactory.changeBefore(2, 2, DefenceCounsellor, null, this);
             }
 
             // 野战打3个回合，3个回个结束后，兵力不足或者兵力较少的一方失败

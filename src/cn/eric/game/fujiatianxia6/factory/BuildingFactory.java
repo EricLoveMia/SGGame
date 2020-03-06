@@ -183,7 +183,7 @@ public class BuildingFactory {
 		}
 	}
 
-    /** 马厩 剑兵转换成骑兵 */
+    /** 马厩 剑兵转换成弓箭手和骑兵 */
     public static void computeInAndAr() {
         City[] citys = CityFactory.citys;
         for (int i = 1; i <= 22; i++) {
@@ -197,7 +197,6 @@ public class BuildingFactory {
                 }
             }
         }
-
     }
 
 
@@ -239,7 +238,6 @@ public class BuildingFactory {
         }
         // 查看建筑的级别
         int buildingLevel = building.level;
-
         // 转换的数量是 10 + 级别 * 2;  最高5级 最多一回合20个
         int add = 10 + 4 * buildingLevel;
 

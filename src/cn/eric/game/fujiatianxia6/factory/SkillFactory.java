@@ -5,10 +5,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Random;
 
-import cn.eric.game.fujiatianxia6.po.AttackCity;
-import cn.eric.game.fujiatianxia6.po.BattleField;
-import cn.eric.game.fujiatianxia6.po.General;
-import cn.eric.game.fujiatianxia6.po.Skill;
+import cn.eric.game.fujiatianxia6.po.*;
 import cn.eric.game.fujiatianxia6.service.Fight;
 import org.dom4j.DocumentException;
 
@@ -220,6 +217,20 @@ public class SkillFactory {
             } else {
                 lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
                 System.out.println("进攻方互相攻击造成损失" + lostNum);
+                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
+            }
+        }
+        // 鬼谋
+        if ("40".equals(general.getSkill()) && new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()) {
+            System.out.println("武将：" + general.getName() + "触发技能：鬼谋 野战攻城前，有50%几率直接造成敌方军团混乱，整体战斗力下降,伤害值与智力值有关，初始几率为50%，获得专属提升为100%（郭嘉）");
+            int lostNum = 0;
+            if (attOrDef == 1) {
+                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
+                System.out.println("防守方战斗力下降：" + lostNum);
+                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
+            } else {
+                lostNum = (int) (BF.getAttackAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
+                System.out.println("进攻方战斗力下降：" + lostNum);
                 BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
             }
         }
@@ -848,7 +859,9 @@ public class SkillFactory {
      */
     private static void rountAfter(General general) {
         // 刘备仁德
-        if ("1".equals(general.getSkill()) && new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()) {
+        int data = SkillFactory.getSkillByID(general.getSkill()).getData();
+        System.out.println(general.getName() + ":" + data);
+        if ("1".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
             System.out.println("仁德触发，随机获得一个武将");
             List<General> generals = GeneralFactory.allFreeGenerals();
             if (generals == null || generals.size() == 0) {
@@ -1045,12 +1058,15 @@ public class SkillFactory {
      * @date 18:20 2019/7/12
      **/
     public static int CheckCitySkill(int data, List<General> denfenceGenerals, int type) {
-
+        General general = null;
         for (Iterator iterator = denfenceGenerals.iterator(); iterator.hasNext(); ) {
-            General general = (General) iterator.next();
+            general = (General) iterator.next();
             data = citySkillChange(data, general, type);
         }
-
+        if(general != null){
+            General leader = GeneralFactory.getGeneralById(general.getBelongTo());
+            data = citySkillChange(data, leader, type);
+        }
         return data;
     }
 
@@ -1072,7 +1088,7 @@ public class SkillFactory {
     private static int citySkillHorseChange(int data, General general) {
         // 繁殖
         if ("42".equals(general.getSkill())) {
-            System.out.println(general.getSkill() + "技能繁殖触发，骑兵数量增加50%");
+            System.out.println(general.getName() + "技能繁殖触发，骑兵数量增加50%");
             data = (int) (data + data * 0.5);
         }
         return data;
@@ -1081,7 +1097,7 @@ public class SkillFactory {
     private static int citySkillNotHorseChange(int data, General general) {
         // 能吏
         if ("43".equals(general.getSkill())) {
-            System.out.println(general.getSkill() + "技能能吏触发，弓兵、枪兵数量增加50%");
+            System.out.println(general.getName() + "技能能吏触发，弓兵、枪兵数量增加50%");
             data = (int) (data + data * 0.5);
         }
         return data;
@@ -1091,9 +1107,48 @@ public class SkillFactory {
     private static int citySkillMoneyChange(int data, General general) {
         // 富豪
         if ("8".equals(general.getSkill())) {
-            System.out.println(general.getSkill() + "技能富豪触发，增加发展金50%");
+            System.out.println(general.getName() + "技能富豪触发，增加发展金50%");
             data = (int) (data + data * 0.5);
         }
+        // 清廉
+        if ("34".equals(general.getSkill())) {
+            System.out.println(general.getName() + "技能清廉触发，增加发展金20%");
+            data = (int) (data + data * 0.2);
+        }
+        // 屯田
+        if ("48".equals(general.getSkill())) {
+            City city = CityFactory.getCityById(general.getCityid());
+            int count = (int) (city.getSoilders() + (city.getCavalrys() + city.getInfantry() + city.getArchers()) * 1.5);
+            int addMoney = (int) (count * 0.02);
+            System.out.println(general.getName() + "技能屯田触发，增加发展金" + addMoney);
+            data = data + addMoney;
+        }
+        // 统业
+        if ("3".equals(general.getSkill())) {
+            System.out.println(general.getName() + "技能统业触发，增加发展金10%");
+            data = (int) (data + data * 0.1);
+        }
         return data;
+    }
+
+    public static int checkSkillForAddSoilders(int addSoilders, City city) {
+        List<General> denfenceGenerals = city.getDenfenceGenerals();
+
+        for (General denfenceGeneral : denfenceGenerals) {
+            // 名声
+            if ("36".equals(denfenceGeneral.getSkill())) {
+                addSoilders = (int) (addSoilders * 1.1);
+                System.out.println(denfenceGeneral.getName() + "技能名声触发，增加剑士" + addSoilders);
+            }
+        }
+        return addSoilders;
+    }
+
+    public static void checkSkillViaCity(City defence, General player) {
+        // 同业
+        if ("3".equals(player.getSkill())) {
+            System.out.println(player.getName() + "技能统业触发，增加发展金" + 1000);
+            defence.setMoney(defence.getMoney() + 1000);
+        }
     }
 }

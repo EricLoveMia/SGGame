@@ -146,9 +146,8 @@ public class Game {
         map.showMap(playPos);
         //游戏开始
         int step;  //存储骰子数目
-        System.out.println(players[0].getMoney() + " " + players[1].getMoney());
         // TODO 有任何一方的钱少于0
-        while (players[0].getMoney() > 0 && players[1].getMoney() > 0) {
+        while (players[0].getMoney() > 0 && ( players[1].getMoney() > 0 || players[2].getMoney() > 0 || players[3].getMoney() > 0)) {
             //轮流掷骰子
             for (int i = 0; i < players.length; i++) {
                 if(players[i].getStatus().equals("4")){
@@ -179,8 +178,6 @@ public class Game {
 
                 System.out.println("\n\n\n\n");
             }
-
-
             //各城市开始计算收益，包括钱 兵 武器
             //金钱收益  当前城市金钱 * 繁华指数 * 太守的政治
             CityFactory.computeMoney();
@@ -213,7 +210,15 @@ public class Game {
             // 显示当前地图
             map.showMap(playPos);
         }
-
+        if(players[0].getMoney() > 0){
+            System.out.print("****************************************************\n");
+            System.out.print("                      WIN                    \n");
+            System.out.print("****************************************************\n\n");
+        }else{
+            System.out.print("****************************************************\n");
+            System.out.print("                      LOSER                   \n");
+            System.out.print("****************************************************\n\n");
+        }
         //游戏结束
         System.out.println("\n\n\n\n");
         System.out.print("****************************************************\n");
@@ -232,6 +237,7 @@ public class Game {
     public int throwShifter(int no) {
         int step = 0;
         if(!players[no - 1].isReboot()){
+            System.out.println();
             System.out.println("可以输入命令查看相关信息，输入-help获取所有命令，输入0 继续");
             Scanner input = new Scanner(System.in);
             String choose = input.nextLine();
@@ -411,7 +417,9 @@ public class Game {
                 System.out.println(defence.getDenfenceGenerals().toString());
                 if (base == map.map[position]) {
                     System.out.println("======主公好====== 选择0 放弃增减武将和兵力金钱\n");
-                    // TODO  选择武将及放置的兵力
+                    // 查看技能
+                    SkillFactory.checkSkillViaCity(defence,players[no - 1]);
+                    // 选择武将及放置的兵力
                     chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
                     // 升级城市
                     CityFactory.upgradeCity(defence,players[no - 1]);
@@ -563,8 +571,13 @@ public class Game {
         } else {
             System.out.println("研究进行中");
         }
-
-
+        // 招募俘虏武将
+        List<General> capturedGenerals = GeneralFactory.getCapturedGenerals(players[no - 1].getGenerals());
+        int size = capturedGenerals.size();
+        if(size > 0) {
+            System.out.println("俘虏的武将有" + size + "个");
+            GeneralFactory.recruit(capturedGenerals,players[no - 1]);
+        }
         //返回此次掷骰子后玩家的位置坐标
         if (position < 0) {
             return 0;

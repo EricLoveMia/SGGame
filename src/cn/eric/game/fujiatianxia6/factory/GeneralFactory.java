@@ -174,6 +174,25 @@ public class GeneralFactory {
         return generals;
     }
 
+    /**
+     * @param @param  id
+     * @param @return 参数说明
+     * @return List<General>    返回类型
+     * @throws
+     * @Title: getaoundGeneral
+     * @Description: 根据传入的主公所属武将 返回随身的被俘虏的武将
+     */
+    public static List<General> getCapturedGenerals(List<General> list) {
+        List<General> generals = new ArrayList<General>(10);
+        for (Iterator iterator = list.iterator(); iterator.hasNext(); ) {
+            General general = (General) iterator.next();
+            if ("".equals(general.getCityid()) && "4".equals(general.getStatus())) {
+                generals.add(general);
+            }
+        }
+        return generals;
+    }
+
     /***
      *
      * @author Eric
@@ -218,6 +237,11 @@ public class GeneralFactory {
                     return aoundGenerals.get(aoundGenerals.size()-1);
                 case 4:
                     if(aoundGenerals.size() <= 2){
+                        return null;
+                    }
+                    // 如果城市已经很多，武将又不是很多，也不设置 要保证主公身边
+                    List<City> cityByLeader = CityFactory.findCityByLeader(leader);
+                    if(cityByLeader.size() > aoundGenerals.size() - 1){
                         return null;
                     }
                     // 地形  1 平原 2 山地 3 水道
@@ -506,6 +530,79 @@ public class GeneralFactory {
             player.setArchers(player.getArchers() + player.getReputation()/30);
             player.setInfantry(player.getInfantry() + player.getReputation()/30);
             player.setCavalrys(player.getCavalrys() + player.getReputation()/30);
+        }
+    }
+
+    /**
+     * @MethodName: recruit
+     * @Description: 招募被俘虏武将
+     * @Param: [capturedGenerals, player]
+     * @Return: void
+     * @Author: YCKJ2725
+     * @Date: 2020/2/26 16:30
+    **/
+    public static void recruit(List<General> capturedGenerals, General player) {
+        int id = Integer.parseInt(player.getId());
+        System.out.println("被俘虏武将的对您的亲和度如下：");
+        int choose = 1;
+        for (General capturedGeneral : capturedGenerals) {
+            System.out.print(choose + ":亲和度:" + capturedGeneral.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2));
+            System.out.print(capturedGeneral.toString());
+            System.out.println();
+        }
+        System.out.println("请选择您要亲厚的武将，每100块增加1点好感度，好感度越大被感动几率越大，好感度100直接归顺，0放弃");
+        Scanner input = new Scanner(System.in);
+        choose  = input.nextInt();
+        while(choose != 0){
+            if(choose == 0){
+                break;
+            }
+            if(choose > capturedGenerals.size()+1){
+                System.out.println("请重新选择");
+                input = new Scanner(System.in);
+                choose  = input.nextInt();
+                continue;
+            }
+            General general = capturedGenerals.get(choose-1);
+            String relation = general.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2);
+            System.out.println("亲和度:" + relation);
+            System.out.println("请输入亲厚的金钱，100的倍数");
+            int money = input.nextInt();
+            if(money > player.getMoney()){
+                System.out.println("金额不足:" + player.getMoney());
+                continue;
+            }else{
+                player.setMoney(player.getMoney() - money);
+            }
+            int add = money / 100;
+            int newRelation = Integer.parseInt(relation) + add;
+            if(newRelation > 99){
+                newRelation = 99;
+            }
+            if(newRelation >= 99){
+                general.setBelongTo(player.getId());
+                general.setStatus("0");
+                System.out.println("武将" + general.getName() + "拜入帐下");
+            }
+            else{
+                // 有几率被感动
+                int rate = 99 - (newRelation);
+                if(new Random().nextInt(99) < rate){
+                    general.setBelongTo(player.getId());
+                    general.setStatus("0");
+                    System.out.println("武将" + general.getName() + "拜入帐下");
+                    break;
+                }else{
+                    System.out.println("武将心如磐石");
+                }
+            }
+            // 替换新的relation
+            String newRelations = general.getRelations().substring(0, 2 * (id - 1)) + newRelation + general.getRelations().substring(2 * (id - 1) + 2);
+            System.out.println("新的亲和度：" + newRelations);
+            general.setRelations(newRelations);
+            System.out.println("请选择您要亲厚的武将，每100块增加1点好感度，好感度越大被感动几率越大，好感度99直接归顺，0放弃");
+            input = new Scanner(System.in);
+            choose  = input.nextInt();
         }
     }
 }

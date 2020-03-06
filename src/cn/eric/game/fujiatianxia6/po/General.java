@@ -273,7 +273,7 @@ public class General implements Cloneable{
 	}
 	
 	public int computeDefence(){
-		return Integer.parseInt(command);
+		return (int) (Integer.parseInt(attack) * 0.7 + Integer.parseInt(command) * 0.3);
 	}
 	
 	public int computeVitality(){

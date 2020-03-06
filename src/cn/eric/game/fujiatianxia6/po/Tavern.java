@@ -32,10 +32,14 @@ public class Tavern {
 		for (int j = 0; j < i; j++) {
 	 		//从酒馆中获得武将
 	 		List<General> wineGenerals = Tavern.getGenerals(player.getId());
-	 		General general = wineGenerals.get((int) (Math.random() * (wineGenerals.size())));
-	 		player.getGenerals().add(general);
-			general.setBelongTo(player.getId());
-			System.out.println(general.getName()+"拜入"+player.getName()+"账下");			
+	 		if(wineGenerals!= null && wineGenerals.size() > 0) {
+				General general = wineGenerals.get((int) (Math.random() * (wineGenerals.size())));
+				player.getGenerals().add(general);
+				general.setBelongTo(player.getId());
+				System.out.println(general.getName() + "拜入" + player.getName() + "账下");
+			}else{
+				System.out.println("暂无在野武将");
+			}
 		}
 	}
 

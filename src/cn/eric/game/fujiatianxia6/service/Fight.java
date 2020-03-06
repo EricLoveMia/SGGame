@@ -106,7 +106,7 @@ public class Fight {
             }
 
             // 选择兵种
-            System.out.println("请选择兵种 ： 1 普通 2 骑兵 3 枪兵 4 弓兵，当前城市的地形为：" + defence.getTopography() + "1 平原 2 山地 3 水道   适应兵种  平原 骑>枪>弓  山地 枪>弓>骑   水道 弓>枪>骑  战力分别是 200% 160% 120% 普通兵种战力100%");
+            System.out.println("请选择兵种 ： 1 普通 2 骑兵 3 枪兵 4 弓兵，当前城市的地形为：" + defence.getTopography() + "\n 1 平原 骑>枪>弓  2 山地 枪>弓>骑  3 水道 弓>枪>骑  战力分别是 200% 160% 120% 普通兵种战力100%");
             Scanner input = null;
             int type = 0;
             if (general.isReboot()) {
