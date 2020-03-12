@@ -20,10 +20,17 @@ import java.util.List;
  **/
 public class LoadService {
 
-    public static void loadAutoSave(){
+    public static void loadAutoSave(String path){
+        System.out.println("※※※※※※※※※※※※※※※数据读取中※※※※※※※※※※※※※※※\n\n\n");
+        String prePath = "";
+        if(path == null) {
+            prePath = "data/save/AutoSave/";
+        }else{
+            prePath = "data/save/" + path + "/";
+        }
         // 读取武将数据
         // 初始化武将  TODO  cityId的问题
-        GeneralFactory generalFactory = new GeneralFactory("data/save/Generals.xml");
+        GeneralFactory generalFactory = new GeneralFactory(prePath + "Generals.xml");
         // 初始化技能
         SkillFactory.init();
         // 初始化建筑
@@ -31,7 +38,7 @@ public class LoadService {
         // 初始化专属武器库
         WeaponFactory.init();
         // 设定城市
-        String cityString = Util.readFileContentAsBuffer("data/save/city.txt");
+        String cityString = Util.readFileContentAsBuffer(prePath + "city.txt");
         List<City> cityList = JSONObject.parseArray(cityString, City.class);
         City[] citys = new City[cityList.size()];
         cityList.toArray(citys);
@@ -57,16 +64,16 @@ public class LoadService {
         // 设定角色 一定要是从武将库中获取 再赋值
         Game game = new Game();   //创建游戏类
 
-        String goAndStopString = Util.readFileContentAsBuffer("data/save/goAndStop.txt");
+        String goAndStopString = Util.readFileContentAsBuffer(prePath + "goAndStop.txt");
         List<String> goAndStopList = JSONObject.parseArray(goAndStopString, String.class);
         String[] goAndSto = new String[goAndStopList.size()];
         goAndStopList.toArray(goAndSto);
         Game.setGoAndStop(goAndSto);
 
-        String numString = Util.readFileContentAsBuffer("data/save/num.txt");
+        String numString = Util.readFileContentAsBuffer(prePath + "num.txt");
         Game.setNum(Integer.parseInt(numString));
 
-        String playPosString = Util.readFileContentAsBuffer("data/save/playPos.txt");
+        String playPosString = Util.readFileContentAsBuffer(prePath + "playPos.txt");
         String substring = playPosString.substring(2, playPosString.length() - 2);
         String[] playPos = substring.split(",");
         int[] playPosInt = new int[playPos.length];
@@ -75,7 +82,7 @@ public class LoadService {
         }
         Game.setPlayPos(playPosInt);
 
-        String playersString = Util.readFileContentAsBuffer("data/save/players.txt");
+        String playersString = Util.readFileContentAsBuffer(prePath + "players.txt");
         List<General> playersList = JSONObject.parseArray(playersString, General.class);
         General[] players = new General[playersList.size()];
         int i = 0;
@@ -99,7 +106,7 @@ public class LoadService {
         }
         Game.setPlayers(players);
 
-        String mapString = Util.readFileContentAsBuffer("data/save/map.txt");
+        String mapString = Util.readFileContentAsBuffer(prePath + "map.txt");
         Map map = JSONObject.parseObject(mapString, Map.class);
         // JSONObject 转 city
         map.reloadCity();

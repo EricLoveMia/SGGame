@@ -1105,6 +1105,9 @@ public class SkillFactory {
 
     //
     private static int citySkillMoneyChange(int data, General general) {
+        if(general == null){
+            return data;
+        }
         // 富豪
         if ("8".equals(general.getSkill())) {
             System.out.println(general.getName() + "技能富豪触发，增加发展金50%");

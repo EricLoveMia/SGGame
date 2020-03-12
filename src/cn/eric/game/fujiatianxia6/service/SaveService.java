@@ -26,10 +26,16 @@ public class SaveService {
      * 武将数据保存为xml
      * 其他数据保存为json
      */
-    public static void save() throws CloneNotSupportedException {
+    public static void save(String path) throws CloneNotSupportedException {
+        String prePath = "";
+        if(path == null) {
+            prePath = "data/save/AutoSave/";
+        }else{
+            prePath = "data/save/" + path + "/";
+        }
         // 保存武将数据 需要带武器
         List<General> initGenerals = GeneralFactory.getInitGenerals();
-        WriteIntoXml.saveGeneralsToXML(initGenerals);
+        WriteIntoXml.saveGeneralsToXML(initGenerals,prePath);
         // 保存武器数据 不需要保存 通用
         // TODO 需要给武将配置武器
 
@@ -38,14 +44,14 @@ public class SaveService {
         City[] citys = CityFactory.getCitys();
         List<City> cityList = Arrays.asList(citys);
         String cityJsonString = JSON.toJSONString(cityList);
-        Util.writeIntoFile(cityJsonString,"data/save/city.txt");
+        Util.writeIntoFile(cityJsonString,prePath + "city.txt");
         // 保存游戏角色数据
         Integer num = Game.getNum();
-        Util.writeIntoFile(num.toString(),"data/save/num.txt");
+        Util.writeIntoFile(num.toString(),prePath + "num.txt");
         String[] goAndStop = Game.getGoAndStop();
-        Util.writeIntoFile(JSON.toJSONString(Arrays.asList(goAndStop)),"data/save/goAndStop.txt");
+        Util.writeIntoFile(JSON.toJSONString(Arrays.asList(goAndStop)),prePath + "goAndStop.txt");
         int[] playPos = Game.getPlayPos();
-        Util.writeIntoFile(JSON.toJSONString(Arrays.asList(playPos)),"data/save/playPos.txt");
+        Util.writeIntoFile(JSON.toJSONString(Arrays.asList(playPos)),prePath + "playPos.txt");
 
         General[] players = Game.getPlayers();
         List<General> generalsForSave = new ArrayList<>();
@@ -61,11 +67,11 @@ public class SaveService {
         for (General general : generalsForSave) {
             general.setGenerals(null);
         }
-        Util.writeIntoFile(JSON.toJSONString(generalsForSave),"data/save/players.txt");
+        Util.writeIntoFile(JSON.toJSONString(generalsForSave),prePath +  "players.txt");
 
         // 保存地图数据
         Map map = Game.getMap();
-        Util.writeIntoFile(JSON.toJSONString(map),"data/save/map.txt");
+        Util.writeIntoFile(JSON.toJSONString(map),prePath + "map.txt");
     }
 
 

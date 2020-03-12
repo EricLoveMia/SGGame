@@ -241,7 +241,7 @@ public class GeneralFactory {
                     }
                     // 如果城市已经很多，武将又不是很多，也不设置 要保证主公身边
                     List<City> cityByLeader = CityFactory.findCityByLeader(leader);
-                    if(cityByLeader.size() > aoundGenerals.size() - 1){
+                    if(cityByLeader.size() > aoundGenerals.size() && (cityByLeader.size() - aoundGenerals.size()) > aoundGenerals.size()*0.75){
                         return null;
                     }
                     // 地形  1 平原 2 山地 3 水道
@@ -427,6 +427,15 @@ public class GeneralFactory {
             if (general.getId().equals(defence.getId())) {
                 generals.remove(general);
                 break;
+            }
+        }
+        City cityById = CityFactory.getCityById(defence.getCityid());
+        List<General> denfenceGenerals = cityById.getDenfenceGenerals();
+        if(denfenceGenerals != null && denfenceGenerals.size() > 0){
+            for (General denfenceGeneral : denfenceGenerals) {
+                if(denfenceGeneral.getId().equals(defence.getId())){
+                    denfenceGenerals.remove(denfenceGeneral);
+                }
             }
         }
         defence.setBelongTo("");

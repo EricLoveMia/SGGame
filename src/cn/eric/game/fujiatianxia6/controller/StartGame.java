@@ -3,7 +3,11 @@ package cn.eric.game.fujiatianxia6.controller;
 import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.service.Game;
 import cn.eric.game.fujiatianxia6.service.LoadService;
+import cn.eric.game.fujiatianxia6.service.SaveService;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Scanner;
 
 public class StartGame {
@@ -13,6 +17,8 @@ public class StartGame {
 	 * @param args
 	 */
 	public static void main(String[] args) throws InterruptedException {
+		Calendar cal = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 		System.out.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※");
 		System.out.println("//                                                //");
 		System.out.println("//                                                //");
@@ -35,8 +41,25 @@ public class StartGame {
 			// 开始游戏
 			game.start();
 		}else if(choose == 2){
-			System.out.println("※※※※※※※※※※※※※※※数据读取中※※※※※※※※※※※※※※※\n\n\n");
-			LoadService.loadAutoSave();
+			System.out.println("请问需要读取哪个存档");
+			File file = new File("data/save");
+			File[] tempList = file.listFiles();
+			for (int i = 0; i < tempList.length; i++) {
+				long time = tempList[i].lastModified();
+				cal.setTimeInMillis(time);
+				System.out.println( i + ":" + tempList[i].getName() + " 修改时间：" + formatter.format(cal.getTime()));
+			}
+			input = new Scanner(System.in);
+			while (true) {
+				choose = input.nextInt();
+				if (choose > tempList.length || choose < 0) {
+					System.out.println("请重新选择");
+					continue;
+				}
+				break;
+			}
+			LoadService.loadAutoSave(tempList[choose].getName());
+			//LoadService.loadAutoSave(null);
 		}else{
 			System.out.println("※※※※※※※※※※※※※※※再见※※※※※※※※※※※※※※※\n\n\n");
 		}

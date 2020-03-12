@@ -3,10 +3,9 @@ package cn.eric.game.fujiatianxia6.service;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.po.General;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @ClassName CommandLineSerivce
@@ -16,6 +15,9 @@ import java.util.Set;
  * @Version V1.0
  **/
 public class CommandLineSerivce {
+
+    Calendar cal = Calendar.getInstance();
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     // 练习一下单例 匿名内部类
     private CommandLineSerivce(){
@@ -71,11 +73,40 @@ public class CommandLineSerivce {
                 case "-player" :
                     commandShowPlayer(commandArray[1]);
                     break;
+                case "-save" :
+                    commandSave(commandArray);
+                    break;
                 default:
                     break;
             }
         }
 
+    }
+
+    private void commandSave(String[] path){
+        System.out.println("请问需要覆盖哪个存档");
+        File file = new File("data/save");
+        File[] tempList = file.listFiles();
+        for (int i = 0; i < tempList.length; i++) {
+            long time = tempList[i].lastModified();
+            cal.setTimeInMillis(time);
+            System.out.println( i + ":" + tempList[i].getName() + " 修改时间：" + formatter.format(cal.getTime()));
+        }
+        Scanner input = new Scanner(System.in);
+        int choose = 1;
+        while (choose != 0) {
+            choose = input.nextInt();
+            if (choose > tempList.length || choose < 0) {
+                System.out.println("请重新选择");
+                continue;
+            }
+            try {
+                SaveService.save(tempList[choose].getName());
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+            break;
+        }
     }
 
     private void commandShowPlayer(String id) {

@@ -202,7 +202,7 @@ public class Game {
 
             // 自动保存进度
             try {
-                SaveService.save();
+                SaveService.save(null);
             } catch (CloneNotSupportedException e) {
                 e.printStackTrace();
             }
@@ -671,8 +671,8 @@ public class Game {
                 System.out.println("选择骑兵数量：");
                 input = new Scanner(System.in);
                 choise = input.nextInt();
-                if (choise < 0 || (choise > general.getCavalrys())) {
-                    System.out.println("太小或太大");
+                if ((choise < 0 && choise * -1 > city.getCavalrys()) || (choise > general.getCavalrys())) {
+                    System.out.println("数量太大");
                 } else {
                     general.setCavalrys(general.getCavalrys() - choise);
                     city.setCavalrys((city.getCavalrys() == null ? 0 : city.getCavalrys()) + choise);
@@ -685,7 +685,7 @@ public class Game {
                 System.out.println("选择枪兵数量：");
                 input = new Scanner(System.in);
                 choise = input.nextInt();
-                if (choise < 0 || (choise > general.getInfantry())) {
+                if ((choise < 0 && choise * -1 > city.getInfantry()) || (choise > general.getInfantry())) {
                     System.out.println("太小或太大");
                 } else {
                     general.setInfantry(general.getInfantry() - choise);
@@ -699,7 +699,7 @@ public class Game {
                 System.out.println("选择弓箭手数量：");
                 input = new Scanner(System.in);
                 choise = input.nextInt();
-                if (choise < 0 || (choise > general.getArchers())) {
+                if ((choise < 0 && choise * -1 > city.getArchers()) || (choise > general.getArchers())) {
                     System.out.println("太小或太大");
                 } else {
                     general.setArchers(general.getArchers() - choise);
@@ -713,7 +713,7 @@ public class Game {
                 System.out.println("选择剑士的数量：");
                 input = new Scanner(System.in);
                 choise = input.nextInt();
-                if (choise < 0 || (choise > general.getArmy())) {
+                if ((choise < 0 && choise * -1 > city.getSoilders()) || (choise > general.getArmy())) {
                     System.out.println("太小或太大");
                 } else {
                     general.setArmy(general.getArmy() - choise);

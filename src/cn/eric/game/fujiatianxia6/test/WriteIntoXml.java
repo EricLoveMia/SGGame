@@ -104,7 +104,7 @@ public class WriteIntoXml {
         }
     }
 
-    public static void saveGeneralsToXML(List<General> initGenerals) {
+    public static void saveGeneralsToXML(List<General> initGenerals, String prePath) {
         //1
         Document doc = DocumentHelper.createDocument();
         Element root = doc.addElement("generals");
@@ -197,7 +197,7 @@ public class WriteIntoXml {
             //4
             XMLWriter writer = new XMLWriter(OutputFormat.createPrettyPrint());
             FileOutputStream fos
-                    = new FileOutputStream("data/save/Generals.xml");
+                    = new FileOutputStream(prePath + "Generals.xml");
             writer.setOutputStream(fos);
 
             //5
