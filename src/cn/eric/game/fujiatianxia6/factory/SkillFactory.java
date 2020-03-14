@@ -182,6 +182,14 @@ public class SkillFactory {
                 BF.setAttactlevelAddition(-1);
             }
         }
+        if ("28".equals(general.getSkill())) {  // 辅佐
+            System.out.println("武将：" + general.getName() + "触发技能：辅佐 提高上阵武将的技能发动几率");
+            if (attOrDef == 1) {
+                BF.setAttactSkillProbability(10);
+            } else {
+                BF.setDefenceSkillProbability(10);
+            }
+        }
         if ("39".equals(general.getSkill())) {  // 昂扬
             System.out.println("武将：" + general.getName() + "触发技能：昂扬 所有兵种等级升一级");
             if (attOrDef == 1) {
@@ -239,7 +247,7 @@ public class SkillFactory {
 
     // 野战修改 野战进行中
     private static Object BattleField_ChangeMiddle(int attOrDef, General general, Object virgin) {
-        // TODO Auto-generated method stub
+        // TODO  增加辅佐
         BattleField BF = (BattleField) virgin;
         // 奸雄
         if ("2".equals(general.getSkill())) {

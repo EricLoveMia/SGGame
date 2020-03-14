@@ -332,20 +332,17 @@ public class GeneralFactory {
         denfenceGenerals.remove(0);
         //其次军师 统帅加成、智力加成、后期有地形适应性加成
         if (denfenceGenerals.size() > 0) {
-            sortByIntel(denfenceGenerals);
-            bF.setAttackCounsellor(denfenceGenerals.get(0));
-            System.out.println("防守军师：" + denfenceGenerals.get(0).toString());
-            denfenceGenerals.remove(0);
-        }
-        //再次副将 武力加成、后期有兵种和地形适应性加成
-
-        if (denfenceGenerals.size() > 0) {
             sortByCommand(denfenceGenerals);
             bF.setAttackVice(denfenceGenerals.get(0));
             System.out.println("防守副将：" + denfenceGenerals.get(0).toString());
             denfenceGenerals.remove(0);
         }
-
+        if (denfenceGenerals.size() > 0) {
+            sortByIntel(denfenceGenerals);
+            bF.setAttackCounsellor(denfenceGenerals.get(0));
+            System.out.println("防守军师：" + denfenceGenerals.get(0).toString());
+            denfenceGenerals.remove(0);
+        }
         bF.setCity(defence);
     }
 
@@ -355,9 +352,9 @@ public class GeneralFactory {
             @Override
             public int compare(General o1, General o2) {
                 if (Integer.parseInt(o1.getIntelligence()) >= Integer.parseInt(o2.getIntelligence())) {
-                    return 1;
+                    return -1;
                 }
-                else {return -1;}
+                else return 1;
             }
         });
     }
@@ -367,8 +364,8 @@ public class GeneralFactory {
         Collections.sort(denfenceGenerals, new Comparator<General>() {
             @Override
             public int compare(General o1, General o2) {
-                if (Integer.parseInt(o1.getCommand()) >= Integer.parseInt(o2.getCommand())) return 1;
-                else return -1;
+                if (Integer.parseInt(o1.getCommand()) >= Integer.parseInt(o2.getCommand())) return -1;
+                else return 1;
             }
         });
     }
@@ -378,8 +375,8 @@ public class GeneralFactory {
         Collections.sort(denfenceGenerals, new Comparator<General>() {
             @Override
             public int compare(General o1, General o2) {
-                if (Integer.parseInt(o1.getPolitics()) >= Integer.parseInt(o2.getPolitics())) return 1;
-                else return -1;
+                if (Integer.parseInt(o1.getPolitics()) >= Integer.parseInt(o2.getPolitics())) return -1;
+                else return 1;
             }
         });
     }

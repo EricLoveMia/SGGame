@@ -40,6 +40,9 @@ public class BattleField {
     private int attactlevelAddition = 0;
     private int defencelevelAddition = 0;
 
+    private int attactSkillProbability = 0;
+    private int defenceSkillProbability = 0;
+
 
     public General getAttackChief() {
         return AttackChief;
@@ -135,6 +138,22 @@ public class BattleField {
 
     public void setDefLost(int defLost) {
         this.defLost = defLost;
+    }
+
+    public int getAttactSkillProbability() {
+        return attactSkillProbability;
+    }
+
+    public void setAttactSkillProbability(int attactSkillProbability) {
+        this.attactSkillProbability = attactSkillProbability;
+    }
+
+    public int getDefenceSkillProbability() {
+        return defenceSkillProbability;
+    }
+
+    public void setDefenceSkillProbability(int defenceSkillProbability) {
+        this.defenceSkillProbability = defenceSkillProbability;
     }
 
     /**
@@ -244,7 +263,7 @@ public class BattleField {
             System.out.println("防守方主将：" + DefenceChief.getName() + "统帅：" + DefenceChief.getCommand() + "技能：" + SkillFactory.getSkillByID(DefenceChief.getSkill()).getName() + "-->:" + SkillFactory.getSkillByID(DefenceChief.getSkill()).getMemo() + "\n" + "兵种" + (defenceType == 1 ? "剑士" : defenceType == 2 ? "骑兵" : defenceType == 3 ? "枪兵" : "弓兵") + "兵力：" + defenceAmyNum);
 
             // 开战 野战
-            // 野战前技能触发 伏兵等
+            // 野战前技能触发 伏兵 辅佐
             if (AttackChief != null && SkillFactory.getSkillByID(AttackChief.getSkill()).getTime() == 2) {
                 SkillFactory.changeBefore(2, 1, AttackChief, null, this);
             }
@@ -280,31 +299,36 @@ public class BattleField {
                         , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(DefenceCounsellor).orElse(new General()).getAttack()).orElse("0")))))) / 2000));
                 defLost = (int) (attackAmyNum * attackFactor * (3 * (float) ((int) (randomDef * (Math.max(Integer.parseInt(AttackChief.getAttack())
                         , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(AttackCounsellor).orElse(new General()).getAttack()).orElse("0")))))) / 2000));
-
+                System.out.println("初始损失，进攻方" + attLost + ",防守方" + defLost);
                 // 野战中技能触发
                 SkillFactory.changeMiddle(2, 3, null, null, this);
 
+                System.out.println("技能释放完成后损失，进攻方" + attLost + ",防守方" + defLost);
                 // 技能放完后，损失的数量要减去对方统帅 统帅越高，免伤越多
                 if (Integer.parseInt(AttackChief.getCommand()) >= 100) {
-                    attLost = (int) (attLost * 0.5);
+                    attLost = (int) (attLost * 0.65);
+                } else if (Integer.parseInt(AttackChief.getCommand()) >= 95) {
+                    attLost = (int) (attLost * 0.70);
                 } else if (Integer.parseInt(AttackChief.getCommand()) >= 90) {
-                    attLost = (int) (attLost * 0.6);
-                } else if (Integer.parseInt(AttackChief.getCommand()) >= 80) {
                     attLost = (int) (attLost * 0.75);
-                } else if (Integer.parseInt(AttackChief.getCommand()) >= 70) {
-                    attLost = (int) (attLost * 0.95);
+                } else if (Integer.parseInt(AttackChief.getCommand()) >= 85) {
+                    attLost = (int) (attLost * 0.85);
+                } else if (Integer.parseInt(AttackChief.getCommand()) >= 80) {
+                    attLost = (int) (attLost * 0.90);
                 }
 
                 if (Integer.parseInt(DefenceChief.getCommand()) >= 100) {
-                    defLost = (int) (defLost * 0.5);
+                    defLost = (int) (defLost * 0.65);
+                } else if (Integer.parseInt(DefenceChief.getCommand()) >= 95) {
+                    defLost = (int) (defLost * 0.70);
                 } else if (Integer.parseInt(DefenceChief.getCommand()) >= 90) {
-                    defLost = (int) (defLost * 0.6);
-                } else if (Integer.parseInt(DefenceChief.getCommand()) >= 80) {
                     defLost = (int) (defLost * 0.75);
-                } else if (Integer.parseInt(DefenceChief.getCommand()) >= 70) {
-                    defLost = (int) (defLost * 0.95);
+                } else if (Integer.parseInt(DefenceChief.getCommand()) >= 85) {
+                    defLost = (int) (defLost * 0.85);
+                } else if (Integer.parseInt(DefenceChief.getCommand()) >= 80) {
+                    defLost = (int) (defLost * 0.90);
                 }
-
+                System.out.println("根据主帅统帅减免后损失，进攻方" + attLost + ",防守方" + defLost);
                 // 野战每回合结束前触发 例如治疗 金刚 藤甲
                 SkillFactory.changeAfter(2, 3, null, null, this);
 
