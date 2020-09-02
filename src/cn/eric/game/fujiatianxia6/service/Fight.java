@@ -87,21 +87,21 @@ public class Fight {
                     System.out.println("进攻方 主将不能为空，请重新选择");
                 } else {
                     BF.setAttackChief(generalChief);
-                    generalChief.setCityid(defence.getId());// 暂时放在城里进行交战，交战结束后恢复
+                    generalChief.setCityId(defence.getId());// 暂时放在城里进行交战，交战结束后恢复
                 }
             }
 
             System.out.println("请选择副将");
             General generalVice = GeneralFactory.getGeneralByChoose(general, null, 2,null);
             if (generalVice != null) {
-                generalVice.setCityid(defence.getId());
+                generalVice.setCityId(defence.getId());
                 BF.setAttackVice(generalVice);
             }
 
             System.out.println("请选择军师");
             General counsellor = GeneralFactory.getGeneralByChoose(general, null, 2,null);
             if (counsellor != null) {
-                counsellor.setCityid(defence.getId());
+                counsellor.setCityId(defence.getId());
                 BF.setAttackCounsellor(counsellor);
             }
 
@@ -178,12 +178,12 @@ public class Fight {
             e.printStackTrace();
         } finally {
             //恢复战前的所属关系
-            BF.getAttackChief().setCityid("");
+            BF.getAttackChief().setCityId("");
             if (BF.getAttackVice() != null) {
-                BF.getAttackVice().setCityid("");
+                BF.getAttackVice().setCityId("");
             }
             if (BF.getAttackCounsellor() != null) {
-                BF.getAttackCounsellor().setCityid("");
+                BF.getAttackCounsellor().setCityId("");
             }
             //
             defence.getDenfenceGenerals().add(BF.getDefenceChief());
@@ -226,7 +226,7 @@ public class Fight {
                     System.out.println("进攻方 主将不能为空，请重新选择");
                 } else {
                     ac.setAttackChief(attackChief);
-                    attackChief.setCityid(defence.getId());// 暂时放在城里进行交战，交战结束后恢复
+                    attackChief.setCityId(defence.getId());// 暂时放在城里进行交战，交战结束后恢复
                 }
             }
             // 选择副将
@@ -235,7 +235,7 @@ public class Fight {
             if (attackCounsellor != null) {
                 ac.setAttackCounsellor(attackCounsellor);
                 // 暂时放在城里进行交战，交战结束后恢复
-                attackCounsellor.setCityid(defence.getId());
+                attackCounsellor.setCityId(defence.getId());
             }
             // 选择军师
             System.out.println("请选择军师");
@@ -243,7 +243,7 @@ public class Fight {
             if (attackVice != null) {
                 ac.setAttackVice(attackVice);
                 // 暂时放在城里进行交战，交战结束后恢复
-                attackVice.setCityid(defence.getId());
+                attackVice.setCityId(defence.getId());
             }
 
             // 投入兵力
@@ -327,10 +327,10 @@ public class Fight {
             e.printStackTrace();
         } finally {
             //恢复战前的所属关系
-            ac.getAttackChief().setCityid("");
+            ac.getAttackChief().setCityId("");
             try {
-                Optional.of(ac.getAttackCounsellor()).get().setCityid("");
-                Optional.of(ac.getAttackVice()).get().setCityid("");
+                Optional.of(ac.getAttackCounsellor()).get().setCityId("");
+                Optional.of(ac.getAttackVice()).get().setCityId("");
             } catch (Exception e) {
                 //e.printStackTrace();
             }

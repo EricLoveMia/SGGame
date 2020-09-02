@@ -278,7 +278,7 @@ public class Dom4JforXML {
                             g.setRiverfc(e2.getText());
                             break;
                         case "city":
-                            g.setCityid(e2.getText());
+                            g.setCityId(e2.getText());
                             break;
                         default:
                             break;

@@ -186,7 +186,7 @@ public class WriteIntoXml {
 
             //添加status信息
             Element cityEle = empEle.addElement("city");
-            cityEle.addText(Optional.ofNullable(general.getCityid()).orElse(""));
+            cityEle.addText(Optional.ofNullable(general.getCityId()).orElse(""));
             /*
              * 向当前元素中添加指定名字以及对应值的属性
              */

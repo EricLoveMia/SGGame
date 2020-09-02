@@ -203,8 +203,8 @@ public class BuildingFactory {
     /** 剑兵转骑兵 */
 	private static void computeArmyToCavalrys(City city, Building building) {
 
-		Integer belongTo = city.getBelongTo();
-		General general = GeneralFactory.getGeneralById(belongTo.toString());
+//		Integer belongTo = city.getBelongTo();
+//		General general = GeneralFactory.getGeneralById(belongTo.toString());
 		// 查看城市里面有多少剑兵
 		Integer soilders = city.getSoilders();
 		if(soilders == null || soilders <= 0){
@@ -214,8 +214,11 @@ public class BuildingFactory {
 		int buildingLevel = building.level;
 
         // 转换的数量是 10 + 级别 * 4;  最高5级 最多一回合20个
-		int add = 10 + 4 * buildingLevel;
-		add = SkillFactory.CheckCitySkill(add,city.getDenfenceGenerals(),3);
+		List<General> denfenceGenerals = city.getDenfenceGenerals();
+		GeneralFactory.sortByCharm(denfenceGenerals);
+		General general = denfenceGenerals.get(0);
+		int add = (int) (Integer.parseInt(general.getCharm()) * 0.15 + 4 * buildingLevel);
+		add = SkillFactory.CheckCitySkill(add, denfenceGenerals,3);
 
 		// 如果已经超过了本城的数量
 		if (add > city.getSoilders()) {
@@ -229,8 +232,6 @@ public class BuildingFactory {
 
 
 	public static void computeWeapons(City city, Building building) {
-        Integer belongTo = city.getBelongTo();
-        General general = GeneralFactory.getGeneralById(belongTo.toString());
         // 查看城市里面有多少剑兵
         Integer soilders = city.getSoilders();
         if(soilders <= 0){
@@ -239,7 +240,10 @@ public class BuildingFactory {
         // 查看建筑的级别
         int buildingLevel = building.level;
         // 转换的数量是 10 + 级别 * 2;  最高5级 最多一回合20个
-        int add = 10 + 4 * buildingLevel;
+		List<General> denfenceGenerals = city.getDenfenceGenerals();
+		GeneralFactory.sortByCharm(denfenceGenerals);
+		General general = denfenceGenerals.get(0);
+		int add = (int) (Integer.parseInt(general.getCharm()) * 0.15 + 4 * buildingLevel);
 
         add = SkillFactory.CheckCitySkill(add,city.getDenfenceGenerals(),2);
 

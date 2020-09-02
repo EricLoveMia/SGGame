@@ -74,7 +74,7 @@ public class General implements Cloneable{
 	
 	private Integer army;
 	
-	private String Cityid = "";
+	private String cityId = "";
 	
 	private Weapon weapon;
 	
@@ -260,12 +260,12 @@ public class General implements Cloneable{
 		this.army = army;
 	}
 
-	public String getCityid() {
-		return Cityid;
+	public String getCityId() {
+		return cityId;
 	}
 
-	public void setCityid(String cityid) {
-		Cityid = cityid;
+	public void setCityId(String cityId) {
+		this.cityId = cityId;
 	}
 
 	public int computeAttack(){

@@ -138,8 +138,8 @@ public class Game {
         System.out.print("****************************************************\n\n");
 
         //显示对战双方士兵样式
-        System.out.println("^_^" + players[0].getName() + "：　A");
-        System.out.println("^_^" + players[1].getName() + "：  B\n");
+//        System.out.println("^_^" + players[0].getName() + "：　A");
+//        System.out.println("^_^" + players[1].getName() + "：  B\n");
 
         //显示对战地图
         System.out.println("\n图例： " + "☁ 暂停  ◎幸运轮盘  ♚酒馆  ♞募兵  ♙空城  ♔ " + players[0].getName() + "的城池 ♗ " + players[1].getName() + "的城池\n");
@@ -181,7 +181,7 @@ public class Game {
             //各城市开始计算收益，包括钱 兵 武器
             //金钱收益  当前城市金钱 * 繁华指数 * 太守的政治
             CityFactory.computeMoney();
-            //兵增加 暂时不增加，后续增加城市内建筑时，如有徽兵所时会缓慢增加
+            //兵增加 如有徽兵所时会缓慢增加
             CityFactory.computeSoilders();
             //武器增加 暂时不增加 如城市内有兵工厂会缓慢增加
             // 根据建筑检查增加骑兵和枪兵 弓兵
@@ -194,12 +194,14 @@ public class Game {
                 SkillFactory.changeAfter(9, 0, players[i], null, null);
             }
 
-            // 如果玩家的金钱小于0 所属城市归0 所属武将下野
-            GeneralFactory.checkDeadGenerals(players);
-
             // 根据声望 获得金钱和兵力
             GeneralFactory.getMoneyAndArmyByReputation(players);
 
+            // 消耗军费
+            GeneralFactory.militarySpending(players);
+
+            // 如果玩家的金钱小于0 所属城市归0 所属武将下野
+            GeneralFactory.checkDeadGenerals(players);
             // 自动保存进度
             try {
                 SaveService.save(null);
@@ -211,10 +213,12 @@ public class Game {
             map.showMap(playPos);
         }
         if(players[0].getMoney() > 0){
+            System.out.println("\n\n\n\n");
             System.out.print("****************************************************\n");
             System.out.print("                      WIN                    \n");
             System.out.print("****************************************************\n\n");
         }else{
+            System.out.println("\n\n\n\n");
             System.out.print("****************************************************\n");
             System.out.print("                      LOSER                   \n");
             System.out.print("****************************************************\n\n");
@@ -375,19 +379,31 @@ public class Game {
                 break;
             case 4:   //募兵
                 while (true) {
-                    // Scanner inputBuySoilder = new Scanner(System.in);
-                    System.out.println("|-P  " + "请选择您要购买的兵力数量，一个兵一个金币");
+                    // 当前的随行士兵数获得单价
+                    int price = players[no - 1].getArmy() / 10000 + 1;
+                    System.out.println("|-P  " + "请选择您要购买的兵力数量，一个兵" + price + "个金币,最多买10000个士兵");
                     int choiseBuySoilder = 0;
                     if (players[no - 1].isReboot()) {
-                        if(players[no - 1].getArmy() < 1000){
-                            choiseBuySoilder = players[no - 1].getMoney() / 2;
+                        if(players[no - 1].getArmy() < 20000){
+                            choiseBuySoilder =
+                                    players[no - 1].getMoney() / 2 / price > 10000?10000:(choiseBuySoilder =
+                                            players[no - 1].getMoney() / 2 / price);
                         }else {
-                            choiseBuySoilder = players[no - 1].getMoney() / 5;
+                            if(players[no - 1].getMoney() > 30000){
+                                choiseBuySoilder = players[no - 1].getMoney() / 2 / price > 10000?10000:(choiseBuySoilder =
+                                        players[no - 1].getMoney() / 2 / price);
+                            }else{
+                                choiseBuySoilder = players[no - 1].getMoney() / 5 / price > 10000?10000:(choiseBuySoilder =
+                                        players[no - 1].getMoney() / 5 / price);
+                            }
                         }
                     } else {
                         choiseBuySoilder = input.nextInt();
                     }
-                    if ((players[no - 1].getMoney() - choiseBuySoilder < 0)) {
+                    if(choiseBuySoilder > 10000){
+                        continue;
+                    }
+                    if ((players[no - 1].getMoney() - choiseBuySoilder * price < 0)) {
                         System.out.println("您没有这么多钱");
                     } else {
                         if (choiseBuySoilder > 3000) {
@@ -395,8 +411,8 @@ public class Game {
                         } else {
                             System.out.println("您补充了" + choiseBuySoilder + "兵力，想一桶天下 做梦吧");
                         }
-                        players[no - 1].setMoney(players[no - 1].getMoney() - choiseBuySoilder);
-                        players[no - 1].setArmy(players[no - 1].getArmy() + choiseBuySoilder);
+                        players[no - 1].setMoney(players[no - 1].getMoney() - choiseBuySoilder * price);
+                        players[no - 1].setArmy(players[no - 1].getArmy() + choiseBuySoilder * price);
                         break;
                     }
                 }
@@ -632,7 +648,7 @@ public class Game {
         // 设置武将
         General generalByChoose = GeneralFactory.getGeneralByChoose(general, null,4,city);
         if (null != generalByChoose) {
-            generalByChoose.setCityid(city.getId());
+            generalByChoose.setCityId(city.getId());
             List<General> generals = city.getDenfenceGenerals();
             generals.add(generalByChoose);
             city.setDenfenceGenerals(generals);
@@ -682,16 +698,20 @@ public class Game {
             }
 
             while (true) {
-                System.out.println("选择枪兵数量：");
-                input = new Scanner(System.in);
-                choise = input.nextInt();
-                if ((choise < 0 && choise * -1 > city.getInfantry()) || (choise > general.getInfantry())) {
-                    System.out.println("太小或太大");
-                } else {
-                    general.setInfantry(general.getInfantry() - choise);
-                    city.setInfantry((city.getInfantry() == null ? 0 : city.getInfantry()) + choise);
-                    System.out.println("枪兵设置完成");
-                    break;
+                try {
+                    System.out.println("选择枪兵数量：");
+                    input = new Scanner(System.in);
+                    choise = input.nextInt();
+                    if ((choise < 0 && choise * -1 > city.getInfantry()) || (choise > general.getInfantry())) {
+                        System.out.println("太小或太大");
+                    } else {
+                        general.setInfantry(general.getInfantry() - choise);
+                        city.setInfantry((city.getInfantry() == null ? 0 : city.getInfantry()) + choise);
+                        System.out.println("枪兵设置完成");
+                        break;
+                    }
+                } catch (Exception e) {
+                    System.out.println("输入有误");
                 }
             }
 

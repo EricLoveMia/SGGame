@@ -1,15 +1,14 @@
 package cn.eric.game.fujiatianxia6.factory;
 
-import java.util.*;
-import java.util.stream.Collectors;
-
 import cn.eric.game.fujiatianxia6.po.AttackCity;
 import cn.eric.game.fujiatianxia6.po.BattleField;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
+import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
 import org.dom4j.DocumentException;
 
-import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * <p>Title: GeneralFactory<／p>
@@ -143,13 +142,13 @@ public class GeneralFactory {
                     > Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))) {
                 return 1;
             } else if (Integer.parseInt(o2.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))
-                    < Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))){
+                    < Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))) {
                 return -1;
-            } else{
+            } else {
                 return 0;
             }
         });
-        if(a == 1){
+        if (a == 1) {
             a = 2;
         }
         return wineGenerals.subList(0, max);
@@ -165,10 +164,11 @@ public class GeneralFactory {
      */
     public static List<General> getaoundGeneral(List<General> list) {
         List<General> generals = new ArrayList<General>(10);
-        for (Iterator iterator = list.iterator(); iterator.hasNext(); ) {
-            General general = (General) iterator.next();
-            if ("".equals(general.getCityid()) && "0".equals(general.getStatus())) {
-                generals.add(general);
+        for (General general : list) {
+            if ((general.getCityId() == null || "".equals(general.getCityId()))) {
+                if ("0".equals(general.getStatus())) {
+                    generals.add(general);
+                }
             }
         }
         return generals;
@@ -184,9 +184,8 @@ public class GeneralFactory {
      */
     public static List<General> getCapturedGenerals(List<General> list) {
         List<General> generals = new ArrayList<General>(10);
-        for (Iterator iterator = list.iterator(); iterator.hasNext(); ) {
-            General general = (General) iterator.next();
-            if ("".equals(general.getCityid()) && "4".equals(general.getStatus())) {
+        for (General general : list) {
+            if ("".equals(general.getCityId()) && "4".equals(general.getStatus())) {
                 generals.add(general);
             }
         }
@@ -203,7 +202,7 @@ public class GeneralFactory {
      * @throws
      * @return cn.eric.game.fujiatianxia6.po.General
      **/
-    public static General getGeneralByChoose(General leader, List<General> generals,int type,City city) {
+    public static General getGeneralByChoose(General leader, List<General> generals, int type, City city) {
 
         List<General> aoundGenerals;
         if (null == generals) {
@@ -212,7 +211,7 @@ public class GeneralFactory {
             aoundGenerals = generals;
         }
         // 如果已经没有随身武将 或者没有酒馆武将了，就返回null
-        if(aoundGenerals == null || aoundGenerals.size() == 0){
+        if (aoundGenerals.size() == 0) {
             return null;
         }
         int index = 1;
@@ -222,26 +221,29 @@ public class GeneralFactory {
             System.out.println(index + " :姓名：" + g.getName() + "武力：" + g.getAttack());
             temp[index++] = g;
         }
-        if(leader.isReboot()){
-            switch (type){
+        if (leader.isReboot()) {
+            switch (type) {
                 case 0:
                     return temp[1];
                 case 1:
                     GeneralFactory.sortByCommand(aoundGenerals);
-                    return aoundGenerals.get(aoundGenerals.size()-1);
+                    //return aoundGenerals.get(aoundGenerals.size()-1);
+                    return aoundGenerals.get(0);
                 case 2:
                     GeneralFactory.sortByCommand(aoundGenerals);
-                    return aoundGenerals.get(aoundGenerals.size()-1);
+                    //return aoundGenerals.get(aoundGenerals.size()-1);
+                    return aoundGenerals.get(0);
                 case 3:
                     GeneralFactory.sortByAttack(aoundGenerals);
-                    return aoundGenerals.get(aoundGenerals.size()-1);
+                    //return aoundGenerals.get(aoundGenerals.size()-1);
+                    return aoundGenerals.get(0);
                 case 4:
-                    if(aoundGenerals.size() <= 2){
+                    if (aoundGenerals.size() <= 2) {
                         return null;
                     }
                     // 如果城市已经很多，武将又不是很多，也不设置 要保证主公身边
                     List<City> cityByLeader = CityFactory.findCityByLeader(leader);
-                    if(cityByLeader.size() > aoundGenerals.size() && (cityByLeader.size() - aoundGenerals.size()) > aoundGenerals.size()*0.75){
+                    if (cityByLeader.size() > aoundGenerals.size() && (cityByLeader.size() - aoundGenerals.size()) > aoundGenerals.size() * 0.75) {
                         return null;
                     }
                     // 地形  1 平原 2 山地 3 水道
@@ -250,10 +252,10 @@ public class GeneralFactory {
 
                     GeneralFactory.sortByCommand(aoundGenerals);
                     // 主公不能作为守城将领
-                    if(leader.getId().equals(aoundGenerals.get(aoundGenerals.size()-1).getId())){
-                        return aoundGenerals.get(aoundGenerals.size()-2);
+                    if (leader.getId().equals(aoundGenerals.get(aoundGenerals.size() - 1).getId())) {
+                        return aoundGenerals.get(aoundGenerals.size() - 2);
                     }
-                    return aoundGenerals.get(aoundGenerals.size()-1);
+                    return aoundGenerals.get(aoundGenerals.size() - 1);
                 default:
                     return null;
             }
@@ -303,8 +305,14 @@ public class GeneralFactory {
 
             @Override
             public int compare(General g1, General g2) {
-                Integer g1sum = Integer.parseInt(g1.getAttack()) + Integer.parseInt(g1.getIntelligence()) + Integer.parseInt(g1.getVitality());
-                Integer g2sum = Integer.parseInt(g2.getAttack()) + Integer.parseInt(g2.getIntelligence()) + Integer.parseInt(g2.getVitality());
+                //Integer g1sum =
+                //        Integer.parseInt(g1.getAttack()) + Integer.parseInt(g1.getIntelligence()) + Integer
+                //        .parseInt(g1.getVitality());
+                Integer g1sum = Integer.parseInt(g1.getAttack());
+                //Integer g2sum =
+                //        Integer.parseInt(g2.getAttack()) + Integer.parseInt(g2.getIntelligence()) + Integer
+                //        .parseInt(g2.getVitality());
+                Integer g2sum = Integer.parseInt(g2.getAttack());
                 return g1sum.compareTo(g2sum);
             }
 
@@ -353,8 +361,7 @@ public class GeneralFactory {
             public int compare(General o1, General o2) {
                 if (Integer.parseInt(o1.getIntelligence()) >= Integer.parseInt(o2.getIntelligence())) {
                     return -1;
-                }
-                else return 1;
+                } else return 1;
             }
         });
     }
@@ -381,6 +388,17 @@ public class GeneralFactory {
         });
     }
 
+    // 按照魅力排序
+    public static void sortByCharm(List<General> denfenceGenerals) {
+        Collections.sort(denfenceGenerals, (o1, o2) -> {
+            if (Integer.parseInt(o1.getCharm()) >= Integer.parseInt(o2.getCharm())) {
+                return -1;
+            } else {
+                return 1;
+            }
+        });
+    }
+
     public static void chooseDefenceCityGenerals(AttackCity ac, City defence) {
         List<General> denfenceGenerals = defence.getDenfenceGenerals();
         //先选择主将 统帅、武力、智力，按照统帅排序后找到第一个
@@ -389,8 +407,7 @@ public class GeneralFactory {
             public int compare(General o1, General o2) {
                 if (Integer.parseInt(o1.getCommand()) >= Integer.parseInt(o2.getCommand())) {
                     return 1;
-                }
-                else {
+                } else {
                     return -1;
                 }
             }
@@ -398,11 +415,11 @@ public class GeneralFactory {
         ac.setDefenceChief(denfenceGenerals.get(0));
         System.out.println("防守主将：" + denfenceGenerals.get(0).toString());
 
-        if(denfenceGenerals.size() > 1){
+        if (denfenceGenerals.size() > 1) {
             ac.setDefenceCounsellor(denfenceGenerals.get(1));
             System.out.println("防守副将：" + denfenceGenerals.get(1).toString());
         }
-        if(denfenceGenerals.size() > 2){
+        if (denfenceGenerals.size() > 2) {
             ac.setDefenceVice(denfenceGenerals.get(2));
             System.out.println("防守军师：" + denfenceGenerals.get(2).toString());
         }
@@ -426,18 +443,20 @@ public class GeneralFactory {
                 break;
             }
         }
-        City cityById = CityFactory.getCityById(defence.getCityid());
-        List<General> denfenceGenerals = cityById.getDenfenceGenerals();
-        if(denfenceGenerals != null && denfenceGenerals.size() > 0){
-            for (General denfenceGeneral : denfenceGenerals) {
-                if(denfenceGeneral.getId().equals(defence.getId())){
-                    denfenceGenerals.remove(denfenceGeneral);
+        City cityById = CityFactory.getCityById(defence.getCityId());
+        if (cityById != null) {
+            List<General> denfenceGenerals = cityById.getDenfenceGenerals();
+            if (denfenceGenerals != null && denfenceGenerals.size() > 0) {
+                for (General denfenceGeneral : denfenceGenerals) {
+                    if (denfenceGeneral.getId().equals(defence.getId())) {
+                        denfenceGenerals.remove(denfenceGeneral);
+                    }
                 }
             }
         }
         defence.setBelongTo("");
         defence.setStatus("3");
-        defence.setCityid("");
+        defence.setCityId("");
     }
 
     /**
@@ -465,7 +484,7 @@ public class GeneralFactory {
         lordNew.getGenerals().add(lost);
         // 状态是4表示还不能使用
         lost.setStatus("4");
-        lost.setCityid("");
+        lost.setCityId("");
 
         // 如果此时有技能触发
         SkillFactory.changeAfter(4, 1, lordNew, lost, null);
@@ -473,7 +492,7 @@ public class GeneralFactory {
     }
 
     // 所有在野武将
-    public static List<General> allFreeGenerals(){
+    public static List<General> allFreeGenerals() {
         List<General> collect = initGenerals.stream().filter(a -> "0".equals(a.getBelongTo())).collect(Collectors.toList());
 
         return collect;
@@ -481,7 +500,7 @@ public class GeneralFactory {
 
     // 攻防机器人自动选择单挑武将，按照武力高低
     public static General generalByAttactAuto(General attack, List<General> getaoundGeneral) {
-        return getaoundGeneral.stream().sorted(Comparator.comparing(General::getAttack,Comparator.reverseOrder()))
+        return getaoundGeneral.stream().sorted(Comparator.comparing(General::getAttack, Comparator.reverseOrder()))
                 .collect(Collectors.toList()).get(0);
     }
 
@@ -496,32 +515,32 @@ public class GeneralFactory {
     }
 
     private static void checkDead(General player) {
-        if(player.getMoney() <= 0){
-            System.out.println(player.getName()+"已经破产，所有武将下野，所属城市武将下野，士兵减半，城市发展金减半");
+        if (player.getMoney() <= 0) {
+            System.out.println(player.getName() + "已经破产，所有武将下野，所属城市武将下野，士兵减半，城市发展金减半");
             List<General> generals = player.getGenerals();
             List<City> cityList = CityFactory.findCityByLeader(player);
 
             for (City city : cityList) {
                 city.setBelongTo(0);
-                city.setMoney(city.getMoney()/2);
-                city.setSoilders(city.getSoilders()/2);
-                city.setInfantry(city.getInfantry()/2);
-                city.setCavalrys(city.getCavalrys()/2);
-                city.setArchers(city.getArchers()/2);
+                city.setMoney(city.getMoney() / 2);
+                city.setSoilders(city.getSoilders() / 2);
+                city.setInfantry(city.getInfantry() / 2);
+                city.setCavalrys(city.getCavalrys() / 2);
+                city.setArchers(city.getArchers() / 2);
                 city.setDenfenceGenerals(new ArrayList<>(4));
             }
 
             for (General general : generals) {
-                if(general.getId().equals(player.getId())){
+                if (general.getId().equals(player.getId())) {
                     // general.setStatus("4");
-                }else{
+                } else {
                     general.setBelongTo("0");
                     general.setStatus("0");
-                    general.setCityid("");
+                    general.setCityId("");
                 }
             }
 
-            player.setCityid("");
+            player.setCityId("");
             player.setStatus("4");
         }
     }
@@ -532,10 +551,10 @@ public class GeneralFactory {
             // 增加金钱
             player.setMoney(player.getMoney() + player.getReputation());
             // 增加士兵
-            player.setArmy(player.getArmy() + player.getReputation()/10);
-            player.setArchers(player.getArchers() + player.getReputation()/30);
-            player.setInfantry(player.getInfantry() + player.getReputation()/30);
-            player.setCavalrys(player.getCavalrys() + player.getReputation()/30);
+            player.setArmy(player.getArmy() + player.getReputation() / 10);
+            player.setArchers(player.getArchers() + player.getReputation() / 30);
+            player.setInfantry(player.getInfantry() + player.getReputation() / 30);
+            player.setCavalrys(player.getCavalrys() + player.getReputation() / 30);
         }
     }
 
@@ -546,7 +565,7 @@ public class GeneralFactory {
      * @Return: void
      * @Author: YCKJ2725
      * @Date: 2020/2/26 16:30
-    **/
+     **/
     public static void recruit(List<General> capturedGenerals, General player) {
         int id = Integer.parseInt(player.getId());
         System.out.println("被俘虏武将的对您的亲和度如下：");
@@ -558,47 +577,46 @@ public class GeneralFactory {
         }
         System.out.println("请选择您要亲厚的武将，每100块增加1点好感度，好感度越大被感动几率越大，好感度100直接归顺，0放弃");
         Scanner input = new Scanner(System.in);
-        choose  = input.nextInt();
-        while(choose != 0){
-            if(choose == 0){
+        choose = input.nextInt();
+        while (choose != 0) {
+            if (choose == 0) {
                 break;
             }
-            if(choose > capturedGenerals.size()+1){
+            if (choose > capturedGenerals.size() + 1) {
                 System.out.println("请重新选择");
                 input = new Scanner(System.in);
-                choose  = input.nextInt();
+                choose = input.nextInt();
                 continue;
             }
-            General general = capturedGenerals.get(choose-1);
+            General general = capturedGenerals.get(choose - 1);
             String relation = general.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2);
             System.out.println("亲和度:" + relation);
             System.out.println("请输入亲厚的金钱，100的倍数");
             int money = input.nextInt();
-            if(money > player.getMoney()){
+            if (money > player.getMoney()) {
                 System.out.println("金额不足:" + player.getMoney());
                 continue;
-            }else{
+            } else {
                 player.setMoney(player.getMoney() - money);
             }
             int add = money / 100;
             int newRelation = Integer.parseInt(relation) + add;
-            if(newRelation > 99){
+            if (newRelation > 99) {
                 newRelation = 99;
             }
-            if(newRelation >= 99){
+            if (newRelation >= 99) {
                 general.setBelongTo(player.getId());
                 general.setStatus("0");
                 System.out.println("武将" + general.getName() + "拜入帐下");
-            }
-            else{
+            } else {
                 // 有几率被感动
                 int rate = 99 - (newRelation);
-                if(new Random().nextInt(99) < rate){
+                if (new Random().nextInt(99) >= rate) {
                     general.setBelongTo(player.getId());
                     general.setStatus("0");
                     System.out.println("武将" + general.getName() + "拜入帐下");
                     break;
-                }else{
+                } else {
                     System.out.println("武将心如磐石");
                 }
             }
@@ -608,7 +626,19 @@ public class GeneralFactory {
             general.setRelations(newRelations);
             System.out.println("请选择您要亲厚的武将，每100块增加1点好感度，好感度越大被感动几率越大，好感度99直接归顺，0放弃");
             input = new Scanner(System.in);
-            choose  = input.nextInt();
+            choose = input.nextInt();
         }
     }
+
+    //  LYF DL GL YY ZM
+    public static void militarySpending(General[] players) {
+        for (General player : players) {
+            // 一个士兵 0.02金币  骑兵 枪兵 弓兵  0.04 金币  后期高级兵种  0.3金币
+            int cost =
+                    (int) (player.getArmy() * 0.02 + (player.getCavalrys() + player.getInfantry() + player.getArchers()) * 0.04);
+            System.out.println("玩家" + player.getName() + "--->消耗军资:" + cost);
+            player.setMoney(player.getMoney() - cost);
+        }
+    }
+
 }

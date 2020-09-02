@@ -720,7 +720,7 @@ public class SkillFactory {
      * @return Object    返回类型
      * @throws
      * @Title: changeAfter
-     * @Description: TODO(这里用一句话描述这个方法的作用)
+     * @Description:
      */
     public static void changeAfter(int type, int AttOrDef, General generalA, General generalD, Object virgin) {
         if (type == 1) {
@@ -1080,6 +1080,9 @@ public class SkillFactory {
 
     // 单一的城市技能触发
     private static int citySkillChange(int data, General general, int type) {
+        if(general == null){
+            return 0;
+        }
         // 和城市金钱有关
         if (type == 1) {
             return citySkillMoneyChange(data, general);
@@ -1128,7 +1131,7 @@ public class SkillFactory {
         }
         // 屯田
         if ("48".equals(general.getSkill())) {
-            City city = CityFactory.getCityById(general.getCityid());
+            City city = CityFactory.getCityById(general.getCityId());
             int count = (int) (city.getSoilders() + (city.getCavalrys() + city.getInfantry() + city.getArchers()) * 1.5);
             int addMoney = (int) (count * 0.02);
             System.out.println(general.getName() + "技能屯田触发，增加发展金" + addMoney);

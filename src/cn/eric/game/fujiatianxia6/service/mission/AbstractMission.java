@@ -10,16 +10,16 @@ import java.util.Map;
 
 /**
  * @ClassName AbstractMission
- * @Description: TODO
+ * @Description: 任务抽象类
  * @Author YCKJ2725
  * @Date 2020/3/14
  * @Version V1.0
  **/
 public class AbstractMission implements Mission {
 
-    List<Mission> allMissionList = new ArrayList<>(32);
+    public static List<Mission> allMissionList = new ArrayList<>(32);
 
-    Map<String,List<Mission>> generalMissionMaps = new HashMap<>();
+    public static Map<String,List<Mission>> generalMissionMaps = new HashMap<>();
 
     @Override
     public void desc() {

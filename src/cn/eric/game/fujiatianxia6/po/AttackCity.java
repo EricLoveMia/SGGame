@@ -231,7 +231,7 @@ public class AttackCity {
 					GeneralFactory.beCatch(denfenceGeneral,getAttackChief());
 				}else{
 					System.out.println(denfenceGeneral.getName() + "回归阵营");
-					denfenceGeneral.setCityid(null);
+					denfenceGeneral.setCityId(null);
 				}
 			}
 			city.setDenfenceGenerals(new ArrayList<>());
@@ -271,19 +271,21 @@ public class AttackCity {
 		for(Arms arms : Leader.getArmsTotal()){
 			levelMap.put(arms.getName(), arms.getLevel());
 		}
-		
+
+		double perS = 1 * (1 + levelMap.get("剑兵")*0.1);
 		double perC = 1 * (1 + levelMap.get("骑兵")*0.1);
 		double perI = 1 * (1 + levelMap.get("枪兵")*0.1);
 		double perA = 1 * (1 + levelMap.get("弓兵")*0.1);
 		// 获得兵力比例
 		// 先损失剑兵
-		if(soliders > 0){
-			if(soliders >= temp){
-				Leader.setArmy(Leader.getArmy() - temp);
+		int solidersV = (int) (soliders * perS);
+		if(solidersV > 0){
+			if(solidersV >= temp){
+				Leader.setArmy((int) (Leader.getArmy() - temp/perS));
 				temp = 0;
 			}else{
 				Leader.setArmy(Leader.getArmy() - soliders);
-				temp = temp - soliders;
+				temp = temp - solidersV;
 			}
 		}
 		
@@ -304,7 +306,7 @@ public class AttackCity {
 				perA = perA * FightConfig.factorOfArchersInRiver ;
 			}
 			
-			// 获得城内各兵种的加成战斗力
+			// 获得各兵种的加成战斗力
 			int countC = (int) (cavalrys * perC);
 			int countI = (int) (infantry * perI);
 			int countA = (int) (archers * perA);
@@ -323,9 +325,9 @@ public class AttackCity {
 				lostA = temp * countA / (countC + countI + countA);
 			}
 			
-			Leader.setCavalrys(Leader.getCavalrys() - lostC);
-			Leader.setInfantry(Leader.getInfantry() - lostI);
-			Leader.setArchers(Leader.getArchers() - lostA);	
+			Leader.setCavalrys((int) ((Leader.getCavalrys() - lostC/perC)));
+			Leader.setInfantry((int) (Leader.getInfantry() - lostI/perI));
+			Leader.setArchers((int) (Leader.getArchers() - lostA/perA));
 		}
 	}
 
@@ -338,28 +340,31 @@ public class AttackCity {
 	* @throws
 	 */
 	private void resetCitySoilders(int temp) {
+		// 去掉城内建筑加成
 		double perC = 1;
 		double perI = 1;
 		double perA = 1;
-		
+		double perS = 1;
 		General general = GeneralFactory.getGeneralById(city.getBelongTo().toString());
 		// 得到 骑 枪 弓的级别
 		HashMap<String,Integer> levelMap = new HashMap<>();
 		for(Arms arms : general.getArmsTotal()){
 			levelMap.put(arms.getName(), arms.getLevel());
 		}
+		perS = perS * (1 + levelMap.get("剑兵")*0.1);
 		perC = perC * (1 + levelMap.get("骑兵")*0.1);
 		perI = perI * (1 + levelMap.get("枪兵")*0.1);
 		perA = perA * (1 + levelMap.get("弓兵")*0.1);
 		
 		// 获得兵力比例
 		// 先损失剑兵
+
 		if(city.getSoilders() > 0){
-			if(city.getSoilders() >= temp){
-				city.setSoilders(city.getSoilders() - temp);
+			if(city.getSoilders() * perS >= temp){
+				city.setSoilders((int) (city.getSoilders() - temp/perS));
 				return;
 			}else{
-				temp = temp - city.getSoilders();
+				temp = (int) (temp - city.getSoilders() * perS);
 				city.setSoilders(0);
 			}
 		}
@@ -392,9 +397,9 @@ public class AttackCity {
 			lostA = temp * countA / (countC + countI + countA);
 		}
 		
-		city.setCavalrys((city.getCavalrys() <= lostC) ? 0:(city.getCavalrys()-lostC));
-		city.setInfantry((city.getInfantry() <= lostI) ? 0:(city.getInfantry() - lostI));
-		city.setArchers((city.getArchers() <= lostA) ? 0:(city.getArchers() - lostA));
+		city.setCavalrys((city.getCavalrys() <= lostC) ? 0: (int) (city.getCavalrys() - lostC / perC));
+		city.setInfantry((city.getInfantry() <= lostI) ? 0: (int) (city.getInfantry() - lostI / perI));
+		city.setArchers((city.getArchers() <= lostA) ? 0: (int) (city.getArchers() - lostA / perA));
 	}
 
 	public void setLeader(General leader) {

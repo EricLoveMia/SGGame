@@ -112,7 +112,9 @@ public class CommandLineSerivce {
     private void commandShowPlayer(String id) {
 
         General generalById = GeneralFactory.getGeneralById(id);
-        System.out.println(generalById.memoPlayer());
+        if(generalById != null) {
+            System.out.println(generalById.memoPlayer());
+        }
     }
 
     /**

@@ -92,6 +92,7 @@ public class LoadService {
 
             generalById = GeneralFactory.getGeneralById(general.getId());
             generalById.setMoney(general.getMoney());
+            generalById.setCityId(general.getCityId());
             generalById.setInfantry(general.getInfantry());
             generalById.setArmy(general.getArmy());
             generalById.setReboot(general.isReboot());
