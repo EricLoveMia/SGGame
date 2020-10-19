@@ -338,10 +338,17 @@
 		12表示单挑中触发 13表示单挑每回合结束后触发-->
 	</skill>
 	<skill>
-		<id>99</id>
-		<name>普通</name>
-		<memo>普通</memo>
-		<data>30</data>
-		<time>3</time>
-	</skill>		
+        <id>49</id>
+        <name>毒神</name>
+        <memo>野战中，有几率让对方部队互相攻击，伤害与统帅、智力、政治有关</memo>
+        <data>60</data>
+        <time>3</time>
+    </skill>
+    <skill>
+        <id>99</id>
+        <name>普通</name>
+        <memo>普通</memo>
+        <data>30</data>
+        <time>3</time>
+    </skill>
 </skills>

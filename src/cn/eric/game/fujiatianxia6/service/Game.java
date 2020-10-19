@@ -1,11 +1,14 @@
 package cn.eric.game.fujiatianxia6.service;
 
+import cn.eric.game.fujiatianxia6.factory.*;
+import cn.eric.game.fujiatianxia6.po.City;
+import cn.eric.game.fujiatianxia6.po.General;
+import cn.eric.game.fujiatianxia6.po.Map;
+import cn.eric.game.fujiatianxia6.po.Tavern;
+import cn.eric.game.fujiatianxia6.service.event.Event;
+
 import java.util.*;
 import java.util.function.Function;
-
-import cn.eric.game.fujiatianxia6.factory.*;
-import cn.eric.game.fujiatianxia6.po.*;
-import cn.eric.game.fujiatianxia6.po.Map;
 
 public class Game {
 
@@ -175,7 +178,11 @@ public class Game {
                     // 设置下次可掷状态
                     goAndStop[i] = "on";
                 }
-
+                // 触发事件
+                Event event = EventService.roundTrigger(players[i]);
+                if (event != null) {
+                    EventService.beginEvent(players[i], event);
+                }
                 System.out.println("\n\n\n\n");
             }
             //各城市开始计算收益，包括钱 兵 武器

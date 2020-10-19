@@ -1,16 +1,15 @@
 package cn.eric.game.fujiatianxia6.factory;
 
+import cn.eric.game.fujiatianxia6.factory.OneOnOne.FightData;
+import cn.eric.game.fujiatianxia6.po.*;
+import cn.eric.game.fujiatianxia6.service.Fight;
+import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
+import org.dom4j.DocumentException;
+
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Random;
-
-import cn.eric.game.fujiatianxia6.po.*;
-import cn.eric.game.fujiatianxia6.service.Fight;
-import org.dom4j.DocumentException;
-
-import cn.eric.game.fujiatianxia6.factory.OneOnOne.FightData;
-import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
 
 public class SkillFactory {
 
@@ -37,7 +36,7 @@ public class SkillFactory {
 
     //根据ID返回技能
     public static Skill getSkillByID(String id) {
-        if ("".equals(id) && id == null) {
+        if ("".equals(id) || id == null) {
             return null;
         }
         for (Iterator iterator = skills.iterator(); iterator.hasNext(); ) {
@@ -156,9 +155,9 @@ public class SkillFactory {
         if ("5".equals(general.getSkill())) {  // 待伏
             System.out.println("武将：" + general.getName() + "触发技能：待伏，发动伏兵，根据智力增加兵力");
             if (attOrDef == 1) {
-                BF.setAttackAmyNum((int) (BF.getAttackAmyNum() * (1 + (float) ((int) (Integer.parseInt(general.getIntelligence()))) / 2000)));
+                BF.setAttackAmyNum((int) (BF.getAttackAmyNum() * (1 + (float) Integer.parseInt(general.getIntelligence()) / 2000)));
             } else {
-                BF.setDefenceAmyNum((int) (BF.getDefenceAmyNum() * (1 + (float) ((int) (Integer.parseInt(general.getIntelligence()))) / 2000)));
+                BF.setDefenceAmyNum((int) (BF.getDefenceAmyNum() * (1 + (float) Integer.parseInt(general.getIntelligence()) / 2000)));
             }
         }
         if ("12".equals(general.getSkill()) && new Random().nextInt(100) <= SkillFactory.getSkillByID(general.getSkill()).getData()) {  // 深谋
@@ -1151,8 +1150,8 @@ public class SkillFactory {
         for (General denfenceGeneral : denfenceGenerals) {
             // 名声
             if ("36".equals(denfenceGeneral.getSkill())) {
-                addSoilders = (int) (addSoilders * 1.1);
-                System.out.println(denfenceGeneral.getName() + "技能名声触发，增加剑士" + addSoilders);
+                addSoilders = (int) (addSoilders + Integer.parseInt(denfenceGeneral.getCharm()) * 1.5);
+                System.out.println(denfenceGeneral.getName() + "技能名声触发，增加剑士,总数" + addSoilders);
             }
         }
         return addSoilders;

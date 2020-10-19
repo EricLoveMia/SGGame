@@ -1,16 +1,16 @@
 package cn.eric.game.fujiatianxia6.service;
 
-import java.util.Optional;
-import java.util.Random;
-import java.util.Scanner;
-
+import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
+import cn.eric.game.fujiatianxia6.factory.OneOnOne;
+import cn.eric.game.fujiatianxia6.factory.SkillFactory;
 import cn.eric.game.fujiatianxia6.po.AttackCity;
 import cn.eric.game.fujiatianxia6.po.BattleField;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
-import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
-import cn.eric.game.fujiatianxia6.factory.OneOnOne;
-import cn.eric.game.fujiatianxia6.factory.SkillFactory;
+
+import java.util.Optional;
+import java.util.Random;
+import java.util.Scanner;
 
 /**
  * @author 00322027
@@ -62,10 +62,7 @@ public class Fight {
     //单挑判定输赢
     private static boolean fight(General generalByChoose, General generalByDefenceAuto) {
         //1、通过武力、统帅、智力、生命更新 攻 防 气
-        if ((Integer.parseInt(generalByChoose.getAttack()) * 0.5 + Integer.parseInt(generalByChoose.getVitality()) * 0.3 + Integer.parseInt(generalByChoose.getIntelligence()) * 0.2) >= (Integer.parseInt(generalByDefenceAuto.getAttack()) * 0.5 + Integer.parseInt(generalByDefenceAuto.getVitality()) * 0.3 + Integer.parseInt(generalByDefenceAuto.getIntelligence()) * 0.2)) {
-            return true;
-        }
-        return false;
+        return (Integer.parseInt(generalByChoose.getAttack()) * 0.5 + Integer.parseInt(generalByChoose.getVitality()) * 0.3 + Integer.parseInt(generalByChoose.getIntelligence()) * 0.2) >= (Integer.parseInt(generalByDefenceAuto.getAttack()) * 0.5 + Integer.parseInt(generalByDefenceAuto.getVitality()) * 0.3 + Integer.parseInt(generalByDefenceAuto.getIntelligence()) * 0.2);
     }
 
     //野战
@@ -339,7 +336,7 @@ public class Fight {
     }
 
     // 单挑判定输赢
-    private static boolean fight2(General generalByChoose, General generalByDefenceAuto) {
+    public static boolean fight2(General generalByChoose, General generalByDefenceAuto) {
         boolean result = true;
         // 1、通过武力、统帅、智力、生命更新 攻 防 命
         OneOnOne o = new OneOnOne(generalByChoose.computeAttack(), generalByChoose.computeDefence(), generalByChoose.computeVitality(), generalByDefenceAuto.computeAttack(), generalByDefenceAuto.computeDefence(), generalByDefenceAuto.computeVitality());
@@ -359,6 +356,28 @@ public class Fight {
         // 打完之后，进行结算，失败方直接阵亡概率 被俘虏的概率
         PostwarCalculation pc = new PostwarCalculation(generalByChoose, generalByDefenceAuto, result, deadPercent, catchPercent);
         pc.calculation();
+
+        return result;
+    }
+
+    // 单挑判定输赢  不计算阵亡和俘虏
+    public static boolean fightPure(General generalByChoose, General generalByDefenceAuto, int times) {
+        boolean result;
+        // 1、通过武力、统帅、智力、生命更新 攻 防 命
+        OneOnOne o = new OneOnOne(generalByChoose.computeAttack(), generalByChoose.computeDefence(), generalByChoose.computeVitality(), generalByDefenceAuto.computeAttack(), generalByDefenceAuto.computeDefence(), generalByDefenceAuto.computeVitality());
+
+        // 2、如果有技能释放的话 攻击前的技能标为11
+        if (SkillFactory.getSkillByID(generalByChoose.getSkill()).getTime() == 11) {
+            o = (OneOnOne) SkillFactory.changeBefore(1, 1, generalByChoose, null, o);
+        }
+        if (SkillFactory.getSkillByID(generalByDefenceAuto.getSkill()).getTime() == 11) {
+            o = (OneOnOne) SkillFactory.changeBefore(1, 2, generalByDefenceAuto, null, o);
+        }
+        // 2、如果有技能释放的话 攻击前的技能标为12
+        o.setAttackG(generalByChoose);
+        o.setDefenceG(generalByDefenceAuto);
+
+        result = o.fight(times);
 
         return result;
     }

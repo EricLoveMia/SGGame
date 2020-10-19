@@ -1,6 +1,5 @@
 package cn.eric.game.fujiatianxia6.factory;
 
-import cn.eric.game.fujiatianxia6.factory.SkillFactory;
 import cn.eric.game.fujiatianxia6.po.General;
 
 import java.util.Random;
@@ -153,8 +152,166 @@ public class OneOnOne {
 		this.strengthB = 0;
 		
 	}
-	
-	public static class FightData {
+
+    public boolean fight(int times) {
+        int c1 = 0; // A的选择
+        int c2 = 0; // B的选择
+
+        //一方生命值低于0 结束
+        while (vitalityA > 0 && vitalityB > 0 && times > 0) {
+            System.out.println("剩余" + times-- + "个回合");
+            // 进攻方先选
+            if (strengthA >= 100) {
+                while (true) {
+                    if (GeneralFactory.getGeneralById(getAttackG().getBelongTo()).isReboot()) {
+                        c1 = 4;
+                        break;
+                    } else {
+                        System.out.println("请选择 1、进攻 2、防御 3、集气 4、奋力一击");
+                        Scanner input = new Scanner(System.in);
+                        int choise = input.nextInt();
+                        if (choise <= 0 || choise > 4) {
+                            System.out.println("请输入1-4的数字");
+                        } else {
+                            c1 = choise;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                while (true) {
+                    if (GeneralFactory.getGeneralById(getAttackG().getBelongTo()).isReboot()) {
+                        c1 = new Random().nextInt(3) + 1;
+                        break;
+                    } else {
+                        System.out.println("请选择 1、进攻 2、防御 3、集气");
+                        Scanner input = new Scanner(System.in);
+                        int choise = input.nextInt();
+                        if (choise <= 0 || choise > 3) {
+                            System.out.println("请输入1-3的数字");
+                        } else {
+                            c1 = choise;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            // 防守方自动选
+            if (strengthB >= 100) {
+                c2 = 4;
+            } else {
+                c2 = 1;
+            }
+
+            //根据不同的情况 计算战果
+            if (c1 == 1 && c2 == 1) {
+                //双方进攻
+                System.out.println("进攻方 进攻");
+                System.out.println("防守方 进攻");
+
+                //根据技能重新获得损失的血量 以及攻击力和防御力
+                resetFD((int) (attackA - defenceB * 0.5) / 10 * 3, (int) (attackB - defenceA * 0.5) / 10 * 3, 1, 1);
+
+                vitalityB = vitalityB - FD.defenceLostHealth;
+                strengthB = strengthB + 20;
+                vitalityA = vitalityA - FD.attackLostHealth;
+                strengthA = strengthA + 20;
+            } else if (c1 == 2 && c2 == 1) {
+                //攻防
+                System.out.println("进攻方 防守 防守方 进攻");
+                //根据技能重新获得损失的血量
+                resetFD(0, (int) (attackB - defenceA * 0.65) / 10 * 3, 2, 1);
+                vitalityA = vitalityA - FD.attackLostHealth;
+                strengthA = strengthA + 40;
+            } else if (c1 == 3 && c2 == 1) {
+                //气 攻
+                System.out.println("进攻方 集气 防守方 进攻");
+                //根据技能重新获得损失的血量
+                resetFD(0, (int) (attackB - defenceA * 0.5) / 10 * 3, 3, 1);
+
+                vitalityA = vitalityA - FD.attackLostHealth;
+                strengthA = strengthA + 50;
+            } else if (c1 == 1) {
+                //攻 大招
+                System.out.println("进攻方 进攻");
+                System.out.println("防守方 大招");
+
+                //根据技能重新获得损失的血量
+                resetFD((int) (attackA - defenceB * 0.5) / 10 * 3, (int) (attackB - defenceA * 0.5) / 10 * 5, 1, 4);
+
+                vitalityB = vitalityB - FD.defenceLostHealth;
+                //strengthB = strengthB + 20;
+                vitalityA = vitalityA - FD.attackLostHealth;
+                strengthA = strengthA + 30;
+                strengthB = 0;
+            } else if (c1 == 2) {
+                //防 大招
+                System.out.println("进攻方 防守");
+                System.out.println("防守方 大招");
+
+                //根据技能重新获得损失的血量
+                resetFD(0, (int) (attackB - defenceA * 0.65) / 10 * 5, 2, 4);
+
+                vitalityA = vitalityA - FD.attackLostHealth;
+                strengthA = strengthA + 30;
+                strengthB = 0;
+            } else if (c1 == 3) {
+                //防 大招
+                System.out.println("进攻方 集气");
+                System.out.println("防守方 大招");
+                //根据技能重新获得损失的血量
+                resetFD(0, (int) (attackB - defenceA * 0.5) / 10 * 5, 3, 4);
+
+                vitalityA = vitalityA - FD.attackLostHealth;
+                strengthA = strengthA + 70;
+                strengthB = 0;
+            } else if (c1 == 4 && c2 == 4) {
+                //防 大招
+                System.out.println("进攻方 大招");
+                System.out.println("防守方 大招");
+
+                //根据技能重新获得损失的血量
+                resetFD((int) (attackA - defenceB * 0.5) / 10 * 5, (int) (attackB - defenceA * 0.5) / 10 * 5, 3, 4);
+
+                vitalityB = vitalityB - FD.defenceLostHealth;
+                //strengthB = strengthB + 30;
+                vitalityA = vitalityA - FD.attackLostHealth;
+                //strengthA = strengthA + 30;
+
+                strengthA = 0;
+                strengthB = 0;
+            } else if (c1 == 4) {
+                //防 大招
+                System.out.println("进攻方 大招");
+                System.out.println("防守方 进攻");
+
+                //根据技能重新获得损失的血量
+                resetFD((int) (attackA - defenceB * 0.5) / 10 * 5, (int) (attackB - defenceA * 0.5) / 10 * 3, 4, 1);
+
+                vitalityB = vitalityB - FD.defenceLostHealth;
+                strengthB = strengthB + 30;
+                vitalityA = vitalityA - FD.attackLostHealth;
+                //strengthA = strengthA + 20;
+                strengthA = 0;
+            }
+
+            System.out.println(toString());
+            // 是否有回合结束触发的技能
+            if ((SkillFactory.getSkillByID(attackG.getSkill()).getTime() == 13) || (SkillFactory.getSkillByID(defenceG.getSkill()).getTime() == 13)) {
+                SkillFactory.changeAfter(1, 3, attackG, defenceG, this);
+            }
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return vitalityA > 0;
+    }
+
+    public static class FightData {
 		FightData(int attackLostHealth,int defenceLostHealt){
 			this.attackLostHealth = attackLostHealth;
 			this.defenceLostHealth = defenceLostHealth;
@@ -372,12 +529,9 @@ public class OneOnOne {
 				e.printStackTrace();
 			}
 		}
-		
-		if(vitalityA > vitalityB){
-			return true;
-		}
-		return false;
-	}
+
+        return vitalityA > vitalityB;
+    }
 
 	/**
 	 * 

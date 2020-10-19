@@ -450,6 +450,7 @@ public class GeneralFactory {
                 for (General denfenceGeneral : denfenceGenerals) {
                     if (denfenceGeneral.getId().equals(defence.getId())) {
                         denfenceGenerals.remove(denfenceGeneral);
+                        break;
                     }
                 }
             }
