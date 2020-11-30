@@ -23,7 +23,7 @@ public class MoneyReward extends EventReward {
             System.out.println("获得金钱奖励" + this.getDataGive());
             general.setMoney(general.getMoney() + Integer.parseInt(this.getDataGive()));
         } else {
-            System.out.println("获得金钱惩罚" + this.getDataGive());
+            System.out.println("获得金钱惩罚" + this.getDataPunish());
             general.setMoney(general.getMoney() - Integer.parseInt(this.getDataPunish()));
         }
     }

@@ -3,9 +3,7 @@ package cn.eric.game.fujiatianxia6.po;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.factory.SkillFactory;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
 
 /**
  * 
@@ -215,30 +213,31 @@ public class AttackCity {
 			Leader.setArchers(Leader.getArchers() - archers);
 			return false;			
 		}
-		if(deffenceSoliderTotal <= 0){
-			System.out.println("守城人数已全部损失，占领城市");
-			// 进攻方结算
-			resetLeaderArmy();
-			// 防守方结算
-			city.setSoilders(0);
-			city.setArchers(0);
-			city.setCavalrys(0);
-			city.setInfantry(0);
-			// TODO 守城将领被俘虏 概率30%
-			for (General denfenceGeneral : city.getDenfenceGenerals()) {
-				if(new Random().nextInt(100) < 30){
-					System.out.println(denfenceGeneral.getName() + "被俘虏");
-					GeneralFactory.beCatch(denfenceGeneral,getAttackChief());
-				}else{
-					System.out.println(denfenceGeneral.getName() + "回归阵营");
-					denfenceGeneral.setCityId(null);
-				}
-			}
-			city.setDenfenceGenerals(new ArrayList<>());
-			return true;		
-		}
-		return false;
-	}
+         System.out.println("守城人数已全部损失，占领城市");
+         // 进攻方结算
+         resetLeaderArmy();
+         // 防守方结算
+         city.setSoilders(0);
+         city.setArchers(0);
+         city.setCavalrys(0);
+         city.setInfantry(0);
+         // 守城将领被俘虏 概率30%
+         List<General> denfenceGenerals = city.getDenfenceGenerals();
+         Iterator<General> generalIterator = denfenceGenerals.iterator();
+         while (generalIterator.hasNext()) {
+             General denfenceGeneral = generalIterator.next();
+             if (new Random().nextInt(100) < 30) {
+                 System.out.println(denfenceGeneral.getName() + "被俘虏");
+                 GeneralFactory.beCatch(denfenceGeneral, getAttackChief());
+             } else {
+                 System.out.println(denfenceGeneral.getName() + "回归阵营");
+                 denfenceGeneral.setCityId(null);
+             }
+             generalIterator.remove();
+         }
+         city.setDenfenceGenerals(new ArrayList<>());
+         return true;
+     }
 
 	private boolean checkSkillOfAttack() {
 
@@ -253,9 +252,7 @@ public class AttackCity {
 			}
 		}
 		if (getAttackVice() != null){
-			if("29".equals(getAttackVice().getSkill())){
-				return true;
-			}
+            return "29".equals(getAttackVice().getSkill());
 		}
 		return false;
 	}

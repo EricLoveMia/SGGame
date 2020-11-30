@@ -69,20 +69,22 @@ public class CityFactory {
      */
     public static void computeMoney() {
         // 所有已经有主的城市
-        for (int i = 1; i <= 22; i++) {
-            if (citys[i].getBelongTo() != null && citys[i].getBelongTo() > 0) {
-                //如果没有守城的人或者没有资金，跳过
-                if (citys[i].getDenfenceGenerals().size() > 0 && citys[i].getMoney() > 0) {
-                    int politics = 0;
-                    for (Iterator iterator = citys[i].getDenfenceGenerals().iterator(); iterator.hasNext(); ) {
-                        General g = (General) iterator.next();
-                        politics += Integer.parseInt(g.getPolitics());
+        for (int i = 1; i <= citys.length; i++) {
+            if (citys[i] != null) {
+                if (citys[i].getBelongTo() != null && citys[i].getBelongTo() > 0) {
+                    //如果没有守城的人或者没有资金，跳过
+                    if (citys[i].getDenfenceGenerals().size() > 0 && citys[i].getMoney() > 0) {
+                        int politics = 0;
+                        for (Iterator iterator = citys[i].getDenfenceGenerals().iterator(); iterator.hasNext(); ) {
+                            General g = (General) iterator.next();
+                            politics += Integer.parseInt(g.getPolitics());
+                        }
+                        // 政治总和/1000 * 繁荣度 + 原来的钱
+                        // 看看有没有技能触发
+                        int add = politics * citys[i].getProsperity() * citys[i].getType() / 1000;
+                        add = SkillFactory.CheckCitySkill(add, citys[i].getDenfenceGenerals(), 1);
+                        citys[i].setMoney(citys[i].getMoney() + (add));
                     }
-                    // 政治总和/1000 * 繁荣度 + 原来的钱
-                    // 看看有没有技能触发
-                    int add = politics * citys[i].getProsperity() * citys[i].getType() / 1000;
-                    add = SkillFactory.CheckCitySkill(add, citys[i].getDenfenceGenerals(), 1);
-                    citys[i].setMoney(citys[i].getMoney() + (add));
                 }
             }
         }
@@ -98,19 +100,8 @@ public class CityFactory {
     public static void updateCityRandom(General general) {
         // 先找到一个城市，必须是级别小于3的
         List<City> findCitys = findCityByLeader(general);
-//        for (City city : findCitys) {
-//            if (city.getType() == 4) {
-//                findCitys.remove(city);
-//            }
-//        }
-        Iterator<City> iterator = findCitys.iterator();
 
-        while(iterator.hasNext()){
-            City next = iterator.next();
-            if (next.getType() == 4) {
-                iterator.remove();
-            }
-        }
+        findCitys.removeIf(next -> next.getType() == 4);
 
         // 随机升级一个
         if (findCitys.size() > 0) {
@@ -125,9 +116,11 @@ public class CityFactory {
 
     public static List<City> findCityByLeader(General general) {
         List<City> citysByLeader = new ArrayList<>();
-        for (int i = 1; i <= 22; i++) {
-            if (citys[i].getBelongTo() != null && citys[i].getBelongTo() == Integer.parseInt(general.getId())) {
-                citysByLeader.add(citys[i]);
+        for (int i = 1; i <= citys.length; i++) {
+            if (citys[i] != null) {
+                if (citys[i].getBelongTo() != null && citys[i].getBelongTo() == Integer.parseInt(general.getId())) {
+                    citysByLeader.add(citys[i]);
+                }
             }
         }
         return citysByLeader;
@@ -142,24 +135,25 @@ public class CityFactory {
      */
     public static void computeSoilders() {
         // 所有已经有主的城市
-        for (int i = 1; i <= 22; i++) {
-            if (citys[i].getBelongTo() != null && citys[i].getBelongTo() > 0) {
-                //如果没有建筑，跳过
-                if (citys[i].getBildings() != null && citys[i].getBildings().size() > 0) {
-                    for (int j = 0; j < citys[i].getBildings().size(); j++) {
-                        if(citys[i].getDenfenceGenerals().size() > 0) {
-                            GeneralFactory.sortByCommand(citys[i].getDenfenceGenerals());
-                            int addSoilders = 0;
-                            if (citys[i].getBildings().get(j).id == 9) { // 存在徽兵所
-                                // 增加守城主将的魅力 * 2 个普通士兵
-                                addSoilders =
-                                        (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 1.2);
-                            }else{
-                                // 增加守城主将的魅力 * 0.2 个普通士兵
-                                addSoilders = (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.2);
-                            }
-                            addSoilders = SkillFactory.checkSkillForAddSoilders(addSoilders,citys[i]);
-                            citys[i].setSoilders(addSoilders);
+        for (int i = 1; i <= citys.length; i++) {
+            if (citys[i] != null) {
+                if (citys[i].getBelongTo() != null && citys[i].getBelongTo() > 0) {
+                    // 如果没有建筑，跳过
+                    if (citys[i].getBildings() != null && citys[i].getBildings().size() > 0) {
+                        for (int j = 0; j < citys[i].getBildings().size(); j++) {
+                            if (citys[i].getDenfenceGenerals().size() > 0) {
+                                GeneralFactory.sortByCommand(citys[i].getDenfenceGenerals());
+                                int addSoilders = 0;
+                                if (citys[i].getBildings().get(j).id == 9) { // 存在徽兵所
+                                    // 增加守城主将的魅力 * 2 个普通士兵
+                                    addSoilders =
+                                            (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 1.2);
+                                } else {
+                                    // 增加守城主将的魅力 * 0.2 个普通士兵
+                                    addSoilders = (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.2);
+                                }
+                                addSoilders = SkillFactory.checkSkillForAddSoilders(addSoilders, citys[i]);
+                                citys[i].setSoilders(addSoilders);
 //                            if (citys[i].getBildings().get(j).id == 7) { // 存在马厩
 //                                // 增加守城主将的 (魅力+统帅) * 0.2 个骑兵
 //                                citys[i].setCavalrys((int) ((citys[i].getCavalrys() == null ? 0 : citys[i].getCavalrys())
@@ -175,10 +169,10 @@ public class CityFactory {
 //                                        + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCommand()) * 0.1
 //                                        + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.1));
 //                            }
+                            }
                         }
                     }
                 }
-
             }
         }
 
@@ -241,16 +235,31 @@ public class CityFactory {
     }
 
     public static City getCityById(String cityId) {
-        if(cityId == null || "".equals(cityId)){
+        if (cityId == null || "".equals(cityId)) {
             return null;
         }
         for (City city : citys) {
-            if(city != null && city.getId() != null) {
+            if (city != null && city.getId() != null) {
                 if (cityId.equals(city.getId())) {
                     return city;
                 }
             }
         }
         return null;
+    }
+
+    public static void removeGeneral(General defence, City city) {
+        // 所属城市将其去除
+        if (city != null) {
+            List<General> denfenceGenerals = city.getDenfenceGenerals();
+            if (denfenceGenerals != null && denfenceGenerals.size() > 0) {
+                for (General denfenceGeneral : denfenceGenerals) {
+                    if (denfenceGeneral.getId().equals(defence.getId())) {
+                        denfenceGenerals.remove(denfenceGeneral);
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

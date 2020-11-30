@@ -14,7 +14,7 @@ import cn.eric.game.fujiatianxia6.service.event.reward.MoneyReward;
  * @Date 2020/9/18
  * @Version V1.0
  **/
-public class FightEvent extends Event {
+public class FightEventAttack extends Event {
 
     private General generalDead = new General();
 
@@ -23,11 +23,11 @@ public class FightEvent extends Event {
         // 获得单挑事件info
         EventReward reward = new MoneyReward("金钱奖励", "5000", "2000");
         FightEventSingleA fightEventSingleA = new FightEventSingleA(reward);
-        fightEventSingleA.setMemo("单挑上古武将，坚持10回合不死获得5000金，失败惩罚2000金");
+        fightEventSingleA.setMemo("单挑上古武将，10回合造成100点伤害，获得奖励，否则惩罚");
         this.setEventSingle(fightEventSingleA);
-        generalDead.setName("上古魔神");
-        generalDead.setAttack("109");
-        generalDead.setCommand("1000");
+        generalDead.setName("神龟将军");
+        generalDead.setAttack("100");
+        generalDead.setCommand("150");
         generalDead.setIntelligence("100");
         generalDead.setPolitics("100");
         generalDead.setVitality("1000");
@@ -37,12 +37,12 @@ public class FightEvent extends Event {
     @Override
     public void startPlay(General general) {
         // 开始单挑
-        System.out.println("开始单挑,坚持10个回合 获得奖励 挑战成功奖励 " + this.getEventSingle().getReward().getDataGive() + ",挑战失败惩罚" + this.getEventSingle().getReward().getDataPunish());
+        System.out.println("开始单挑,10回合造成100点伤害 获得奖励 挑战成功奖励 " + this.getEventSingle().getReward().getDataGive() + ",挑战失败惩罚" + this.getEventSingle().getReward().getDataPunish());
         System.out.println("请选择出战的武将，0 放弃");
         General generalByChoose;
         // 机器人自动选择
         generalByChoose = GeneralFactory.getGeneralByChoose(general, GeneralFactory.getaoundGeneral(general.getGenerals()), 3, null);
-        boolean pure = Fight.fightPure(generalByChoose, generalDead, 10, FightSingleAttackTypeEnum.ATTACK.getCode());
+        boolean pure = Fight.fightPure(generalByChoose, generalDead, 10, FightSingleAttackTypeEnum.DEFENCE.getCode());
         if (pure) {
             this.setSuccess(Boolean.TRUE);
         } else {
@@ -57,6 +57,6 @@ public class FightEvent extends Event {
 
     @Override
     public void registr() {
-        EventFactory.register("单挑事件", this);
+        EventFactory.register("单挑事件2", this);
     }
 }

@@ -3,7 +3,6 @@ package cn.eric.game.fujiatianxia6.controller;
 import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.service.Game;
 import cn.eric.game.fujiatianxia6.service.LoadService;
-import cn.eric.game.fujiatianxia6.service.SaveService;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -30,7 +29,7 @@ public class StartGame {
 		Scanner input = new Scanner(System.in);
 		int choose = input.nextInt();
 		if(choose == 1) {
-			GeneralFactory generalFactory = new GeneralFactory(); //初始化武将
+			GeneralFactory.init(); //初始化武将
 			SkillFactory.init();// 初始化技能
 			BuildingFactory.initBuildings(); // 初始化建筑
 			WeaponFactory.init(); // 初始化专属武器库

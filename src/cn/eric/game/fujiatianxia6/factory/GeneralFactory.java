@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class GeneralFactory {
 
-    private static List<General> initGenerals = new ArrayList<General>(100);
+    private static List<General> initGenerals = new ArrayList<General>(200);
 
     public static List<General> getInitGenerals() {
         return initGenerals;
@@ -38,6 +38,9 @@ public class GeneralFactory {
      * @Description: 游戏开始时初始化所有武将
      */
     public GeneralFactory() {
+    }
+
+    public static void init() {
         try {
             initGenerals = Dom4JforXML.test2();
         } catch (DocumentException e) {
@@ -266,7 +269,7 @@ public class GeneralFactory {
             int choise = input.nextInt();
             if (choise == 0) {
                 return null;
-            } else if (choise < 0 || (choise > aoundGenerals.size() + 1)) {
+            } else if (choise < 0 || (choise >= aoundGenerals.size() + 1)) {
                 System.out.println("请选择合适的数字");
             } else {
                 try {
@@ -507,12 +510,9 @@ public class GeneralFactory {
 
     // 检查已经死掉的主公
     public static void checkDeadGenerals(General[] players) {
-
         for (int i = 0; i < players.length; i++) {
             checkDead(players[i]);
         }
-
-
     }
 
     private static void checkDead(General player) {
@@ -549,8 +549,11 @@ public class GeneralFactory {
     public static void getMoneyAndArmyByReputation(General[] players) {
 
         for (General player : players) {
+            if ("4".equals(player.getStatus())) {
+                continue;
+            }
             // 增加金钱
-            player.setMoney(player.getMoney() + player.getReputation());
+            player.setMoney(player.getMoney() + player.getReputation() / 3);
             // 增加士兵
             player.setArmy(player.getArmy() + player.getReputation() / 10);
             player.setArchers(player.getArchers() + player.getReputation() / 30);
@@ -634,6 +637,9 @@ public class GeneralFactory {
     //  LYF DL GL YY ZM
     public static void militarySpending(General[] players) {
         for (General player : players) {
+            if ("4".equals(player.getStatus())) {
+                continue;
+            }
             // 一个士兵 0.02金币  骑兵 枪兵 弓兵  0.04 金币  后期高级兵种  0.3金币
             int cost =
                     (int) (player.getArmy() * 0.02 + (player.getCavalrys() + player.getInfantry() + player.getArchers()) * 0.04);
@@ -642,4 +648,24 @@ public class GeneralFactory {
         }
     }
 
+    /**
+     * @MethodName: resetWildGeneral
+     * @Description: 将无主公上阵的武将设定为在野
+     * @Param: [players]
+     * @Return: void
+     * @Author: YCKJ2725
+     * @Date: 2020/11/25 19:59
+     **/
+    public static void resetWildGeneral(General[] players) {
+        List<General> playersList = Arrays.asList(players);
+        for (General initGeneral : initGenerals) {
+            // 不是主公 belongto不为0 且主公未上阵
+            String belongTo = initGeneral.getBelongTo();
+            if (!"1".equals(initGeneral.getKing()) && !"0".equals(belongTo)) {
+                if (!playersList.contains(getGeneralById(belongTo))) {
+                    initGeneral.setBelongTo("0");
+                }
+            }
+        }
+    }
 }

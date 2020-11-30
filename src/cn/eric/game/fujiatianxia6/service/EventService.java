@@ -1,10 +1,10 @@
 package cn.eric.game.fujiatianxia6.service;
 
 import cn.eric.game.fujiatianxia6.po.General;
-import cn.eric.game.fujiatianxia6.service.event.Event;
-import cn.eric.game.fujiatianxia6.service.event.EventFactory;
-import cn.eric.game.fujiatianxia6.service.event.FightEvent;
+import cn.eric.game.fujiatianxia6.service.event.*;
 
+import java.util.Map;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -23,8 +23,21 @@ public class EventService {
         fightEvent.initialize();
         fightEvent.registr();
 
-        // 脑筋急转弯事件
+        FightEventAttack fightEventAttack = new FightEventAttack();
+        fightEventAttack.initialize();
+        fightEventAttack.registr();
+        //
+        FortuneAttackEvent fortuneAttackEvent = new FortuneAttackEvent();
+        fortuneAttackEvent.initialize();
+        fortuneAttackEvent.registr();
 
+        FortuneCommandEvent fortuneCommandEvent = new FortuneCommandEvent();
+        fortuneCommandEvent.initialize();
+        fortuneCommandEvent.registr();
+
+        FortuneIntelligenceEvent fortuneIntelligenceEvent = new FortuneIntelligenceEvent();
+        fortuneIntelligenceEvent.initialize();
+        fortuneIntelligenceEvent.registr();
         //
     }
 
@@ -37,7 +50,18 @@ public class EventService {
      * @Date: 2020/10/13 17:56
      **/
     public static Event roundTrigger(General general) {
-        return EventFactory.getEventMap().get("单挑事件");
+        // 根据主帅的魅力 触发事件
+        Integer charm = Integer.parseInt(general.getCharm());
+        if (new Random().nextInt(100) < charm / 3) {
+            Map<String, Event> eventMap = EventFactory.getEventMap();
+            String[] keys = eventMap.keySet().toArray(new String[0]);
+            Random random = new Random();
+            int index = random.nextInt(keys.length);
+            String key = keys[index];
+            // 随机返回一个
+            return eventMap.get(key);
+        }
+        return null;
     }
 
     /**
@@ -51,7 +75,7 @@ public class EventService {
     public static void beginEvent(General general, Event event) {
         System.out.println("触发事件" + event.getEventSingle().getMemo());
         if (general.isReboot()) {
-            event.trigger(general);
+            // event.trigger(general);
         } else {
             System.out.println("请问是否挑战 1 是 其他 否");
             Scanner input = new Scanner(System.in);

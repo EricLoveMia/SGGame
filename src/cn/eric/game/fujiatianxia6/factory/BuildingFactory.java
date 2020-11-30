@@ -241,22 +241,24 @@ public class BuildingFactory {
         int buildingLevel = building.level;
         // 转换的数量是 10 + 级别 * 2;  最高5级 最多一回合20个
 		List<General> denfenceGenerals = city.getDenfenceGenerals();
-		GeneralFactory.sortByCharm(denfenceGenerals);
-		General general = denfenceGenerals.get(0);
-		int add = (int) (Integer.parseInt(general.getCharm()) * 0.15 + 4 * buildingLevel);
+        if (denfenceGenerals != null && denfenceGenerals.size() > 0) {
+            GeneralFactory.sortByCharm(denfenceGenerals);
+            General general = denfenceGenerals.get(0);
+            int add = (int) (Integer.parseInt(general.getCharm()) * 0.15 + 4 * buildingLevel);
 
-        add = SkillFactory.CheckCitySkill(add,city.getDenfenceGenerals(),2);
+            add = SkillFactory.CheckCitySkill(add, city.getDenfenceGenerals(), 2);
 
-        // 如果已经超过了本城的数量
-        if (add > city.getSoilders()) {
-            add = city.getSoilders();
+            // 如果已经超过了本城的数量
+            if (add > city.getSoilders()) {
+                add = city.getSoilders();
+            }
+            // 增加弓兵和枪兵 减少步兵
+            city.setInfantry(Optional.ofNullable(city.getInfantry()).orElse(0) + add / 2);
+            city.setArchers(Optional.ofNullable(city.getArchers()).orElse(0) + add / 2);
+            city.setSoilders(city.getSoilders() - add);
+            System.out.println("城市" + city.getName() + "增加了枪兵" + add / 2 + "个");
+            System.out.println("城市" + city.getName() + "增加了弓兵" + add / 2 + "个");
         }
-        // 增加弓兵和枪兵 减少步兵
-        city.setInfantry(Optional.ofNullable(city.getInfantry()).orElse(0) + add/2 );
-        city.setArchers(Optional.ofNullable(city.getArchers()).orElse(0) + add/2 );
-        city.setSoilders(city.getSoilders() - add);
-        System.out.println("城市" + city.getName() + "增加了枪兵" + add/2 + "个");
-        System.out.println("城市" + city.getName() + "增加了弓兵" + add/2 + "个");
 	}
 
 	// 升级建筑

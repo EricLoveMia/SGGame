@@ -5,7 +5,7 @@
 		<name>青龙偃月刀</name>
 		<price>20000</price>
 		<data>15</data>
-		<generalId>5</generalId>
+        <generalId>105</generalId>
 		<attack>10</attack>
 		<command>0</command>
 		<intelligence>0</intelligence>
@@ -20,7 +20,7 @@
 		<data>10</data>
 		<generalId>104</generalId>
 		<attack>5</attack>
-		<command>3</command>
+        <command>5</command>
 		<intelligence>0</intelligence>
 		<charm>0</charm>
 		<politics>0</politics>
@@ -32,7 +32,7 @@
 		<price>20000</price>
 		<data>15</data>
 		<generalId>2</generalId>
-		<attack>0</attack>
+        <attack>2</attack>
 		<command>6</command>
 		<intelligence>2</intelligence>
 		<charm>0</charm>
@@ -45,7 +45,7 @@
 		<price>20000</price>
 		<data>40</data>
 		<generalId>23</generalId>
-		<attack>0</attack>
+        <attack>2</attack>
 		<command>4</command>
 		<intelligence>4</intelligence>
 		<charm>0</charm>
@@ -56,9 +56,9 @@
 		<id>5</id>
 		<name>方天画戟</name>
 		<price>20000</price>
-		<data>20</data>
+        <data>80</data>
 		<generalId>10</generalId>
-		<attack>10</attack>
+        <attack>12</attack>
 		<command>0</command>
 		<intelligence>0</intelligence>
 		<charm>0</charm>
@@ -69,11 +69,11 @@
 		<id>6</id>
 		<name>紫燕剑</name>
 		<price>20000</price>
-		<data>10</data>
-		<generalId>8</generalId>
-		<attack>3</attack>
-		<command>5</command>
-		<intelligence>0</intelligence>
+        <data>25</data>
+        <generalId>108</generalId>
+        <attack>2</attack>
+        <command>6</command>
+        <intelligence>2</intelligence>
 		<charm>0</charm>
 		<politics>0</politics>
 		<memo>周瑜专属</memo>
@@ -84,11 +84,89 @@
 		<price>20000</price>
 		<data>1</data>
 		<generalId>1</generalId>
-		<attack>5</attack>
-		<command>5</command>
-		<intelligence>0</intelligence>
-		<charm>0</charm>
-		<politics>0</politics>
-		<memo>刘备专属</memo>
+        <attack>2</attack>
+        <command>2</command>
+        <intelligence>2</intelligence>
+        <charm>2</charm>
+        <politics>2</politics>
+        <memo>刘备专属</memo>
+    </weapon>
+    <weapon>
+        <id>8</id>
+        <name>黄龙钩镰刀</name>
+        <price>18000</price>
+        <data>1</data>
+        <generalId>63</generalId>
+        <attack>6</attack>
+        <command>2</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>张辽专属</memo>
+    </weapon>
+    <weapon>
+        <id>9</id>
+        <name>龙胆亮银枪</name>
+        <price>20000</price>
+        <data>30</data>
+        <generalId>12</generalId>
+        <attack>6</attack>
+        <command>4</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>赵云专属</memo>
+    </weapon>
+    <weapon>
+        <id>10</id>
+        <name>绞鲵</name>
+        <price>16000</price>
+        <data>20</data>
+        <generalId>11</generalId>
+        <attack>8</attack>
+        <command>0</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>华雄专属</memo>
+    </weapon>
+    <weapon>
+        <id>11</id>
+        <name>七星刀</name>
+        <price>15000</price>
+        <data>-3</data>
+        <generalId>4</generalId>
+        <attack>6</attack>
+        <command>0</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>董卓专属</memo>
+    </weapon>
+    <weapon>
+        <id>12</id>
+        <name>双手戟</name>
+        <price>15000</price>
+        <data>20</data>
+        <generalId>17</generalId>
+        <attack>6</attack>
+        <command>2</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>太史慈专属</memo>
+    </weapon>
+    <weapon>
+        <id>13</id>
+        <name>龙纹剑</name>
+        <price>20000</price>
+        <data>25</data>
+        <generalId>29</generalId>
+        <attack>3</attack>
+        <command>7</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>陆逊专属</memo>
 	</weapon>
 </weapons>

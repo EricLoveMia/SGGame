@@ -27,6 +27,11 @@ public abstract class EventReward {
     private String dataPunish;
 
     /**
+     * 奖励 类型
+     */
+    private String type;
+
+    /**
      * 给与奖励
      */
     public abstract void reward(General general, Boolean success);
@@ -54,4 +59,54 @@ public abstract class EventReward {
     public void setDataPunish(String dataPunish) {
         this.dataPunish = dataPunish;
     }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public enum EventRewardTypeEnum {
+
+        /**
+         * 攻击力
+         */
+        ATTACK("attack", "攻击力"),
+        /**
+         * 统帅
+         */
+        COMMAND("command", "统帅"),
+        /**
+         * 智力
+         */
+        INTELLIGENCE("intelligence", "智力"),
+        ;
+        private String code;
+        private String text;
+
+        EventRewardTypeEnum(String code, String text) {
+            this.text = text;
+            this.code = code;
+        }
+
+        public static String getText(String code) {
+            for (EventRewardTypeEnum c : EventRewardTypeEnum.values()) {
+                if (c.getCode().equals(code)) {
+                    return c.text;
+                }
+            }
+            return null;
+        }
+
+        public String getText() {
+            return text;
+        }
+
+        public String getCode() {
+            return code;
+        }
+    }
+
 }

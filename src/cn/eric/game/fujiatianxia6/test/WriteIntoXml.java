@@ -6,7 +6,6 @@ import org.dom4j.DocumentHelper;
 import org.dom4j.Element;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.XMLWriter;
-import org.junit.Test;
 
 import java.io.FileOutputStream;
 import java.util.ArrayList;
@@ -178,7 +177,7 @@ public class WriteIntoXml {
 
             //添加belongTo信息
             Element belongToEle = empEle.addElement("belongTo");
-            belongToEle.addText(general.getBelongTo());
+            belongToEle.addText(Optional.ofNullable(general.getBelongTo()).orElse("0"));
 
             //添加status信息
             Element statusEle = empEle.addElement("status");

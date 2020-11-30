@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.service;
 
+import cn.eric.game.fujiatianxia6.factory.CityFactory;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.factory.OneOnOne;
 import cn.eric.game.fujiatianxia6.factory.SkillFactory;
@@ -361,7 +362,7 @@ public class Fight {
     }
 
     // 单挑判定输赢  不计算阵亡和俘虏
-    public static boolean fightPure(General generalByChoose, General generalByDefenceAuto, int times) {
+    public static boolean fightPure(General generalByChoose, General generalByDefenceAuto, int times, Integer type) {
         boolean result;
         // 1、通过武力、统帅、智力、生命更新 攻 防 命
         OneOnOne o = new OneOnOne(generalByChoose.computeAttack(), generalByChoose.computeDefence(), generalByChoose.computeVitality(), generalByDefenceAuto.computeAttack(), generalByDefenceAuto.computeDefence(), generalByDefenceAuto.computeVitality());
@@ -377,7 +378,7 @@ public class Fight {
         o.setAttackG(generalByChoose);
         o.setDefenceG(generalByDefenceAuto);
 
-        result = o.fight(times);
+        result = o.fight(times, type);
 
         return result;
     }
@@ -420,12 +421,16 @@ public class Fight {
                 if (result) {
                     System.out.println(defence.getName() + "被俘虏");
                     // 俘虏调用方法
+                    City city = CityFactory.getCityById(defence.getCityId());
                     GeneralFactory.beCatch(defence, attack);
+                    // 所属城市去除被俘虏的武将
+                    CityFactory.removeGeneral(defence, city);
                 } else {
                     System.out.println(attack.getName() + "被俘虏");
                     // 俘虏调用方法
                     GeneralFactory.beCatch(attack, defence);
                 }
+
             } else {
                 System.out.println("各自安全回归阵营");
             }

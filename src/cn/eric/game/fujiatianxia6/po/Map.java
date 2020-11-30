@@ -11,24 +11,29 @@ import cn.eric.game.fujiatianxia6.factory.CityFactory;
  * @date 2017年8月3日 上午10:02:14
  */
 public class Map {
-    public int[] map = new int[100];   //地图99格  每个城市占据三格  一共有22个城市66格 特殊占据2个格 34格 起始位置1格 每次通过加钱加将 酒馆4个8格 轮盘4个8格 暂停4个8格 募兵处4个8 35格
+
+    private static int size = 100;
+
+    // 地图  每个城市占据三格  特殊占据2个格 起始位置1格 每次通过加钱加将 酒馆4个8格 轮盘4个8格 暂停4个8格 募兵处4个8 35格
+    public int[] map = new int[size];
+
     // 城市
     public int[] city = {1, 2, 3, 4, 5, 6, 11, 12, 13, 14, 15, 16, 21, 22, 23, 24, 25, 26, 33, 34, 35, 36, 37, 38, 41, 42, 43, 44, 45, 46, 51, 52, 53, 54, 55, 56, 59, 60, 61, 62, 63, 64, 67, 68, 69, 70, 71, 72, 77, 78, 79, 80, 81, 82, 85, 86, 87, 90, 91, 92, 93, 94, 95, 96, 97, 98};
 
-    public Object[] mapObj = new Object[100];
+    public Object[] mapObj = new Object[size];
 
     // 幸运轮盘
-    int[] luckyTurn = {7, 8, 27, 28, 47, 48, 73, 74}; //幸运轮盘
+    int[] luckyTurn = {7, 8, 27, 28, 47, 48, 73, 74};
     // 酒馆
-    int[] wine = {9, 10, 29, 30, 49, 50, 75, 76};   //酒馆
+    int[] wine = {9, 10, 29, 30, 49, 50, 75, 76};
     // 暂停
-    int[] pause = {17, 18, 31, 32, 57, 58, 83, 84};         //暂停
+    int[] pause = {17, 18, 31, 32, 57, 58, 83, 84};
     //
-    int[] soldiers = {19, 20, 39, 40, 65, 66, 88, 89};   //募兵处
-    //
+    int[] soldiers = {19, 20, 39, 40, 65, 66, 88, 89};
+    // 开始点
     int[] begin = {0};
-    //
-    int[] end = {99};
+    // 结束点
+    int[] end = {size - 1};
 
     String[] graphs = {"壹", "贰", "叁", "肆"};
 
@@ -37,7 +42,7 @@ public class Map {
      * 关卡代号为：1：幸运轮盘 2：地雷  3: 暂停 4：时空隧道 0：普通
      */
     public void createMap() {
-        int i = 0;
+        int i;
 
         //在对战地图上设置幸运轮盘
         for (i = 0; i < luckyTurn.length; i++) {
@@ -61,7 +66,7 @@ public class Map {
 
         //
         map[0] = 5;
-        map[99] = 6;
+        map[size - 1] = 6;
     }
 
     /**
@@ -153,8 +158,9 @@ public class Map {
     public void showRLine(int start, int end, int[] playerPos) {
         int h = 1;
         for (int i = start; i <= end; i++) {
-            System.out.print(getGraph(map[100 - h], 100 - h, playerPos));
-            for (int j = 32; j > 0; j--) {  //输出24个空格
+            System.out.print(getGraph(map[size - h], size - h, playerPos));
+            // 输出24个空格
+            for (int j = (int) (1.3 * (size / 4)) + 1; j > 0; j--) {
                 System.out.print("  ");
             }
             System.out.print(getGraph(map[i], i, playerPos));
@@ -181,10 +187,14 @@ public class Map {
      * @param playerPos 所有玩家的位置
      */
     public void showMap(int[] playerPos) {
-        showLine1(0, 24, playerPos);   //显示地图第一行
-        System.out.println();                     //换行
-        showRLine(25, 49, playerPos);  //显示地图竖行
-        showLine2(50, 74, playerPos); //显示地图第二行
+        int line = size / 4;
+        //显示地图第一行
+        showLine1(0, line - 1, playerPos);
+        // 换行
+        showRLine(line, line * 2 - 1, playerPos);
+        // 显示地图竖行
+        // 显示地图第二行
+        showLine2(line * 2, line * 3 - 1, playerPos);
         // showRLine(25,49, playerPos);  //显示地图竖行
     }
 
@@ -207,7 +217,7 @@ public class Map {
     }
 
     public void reloadCity() {
-        // 初始化募兵所
+        // 初始化城市
         int cityIndex = 1;
         int citySize = 3;
         for (int i = 0; i < map.length; i++) {
