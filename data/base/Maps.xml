@@ -2,18 +2,42 @@
 <maps>
     <map>
         <id>1</id>
-        <name>黄巾之战</name>
+        <name>黄巾起义</name>
         <size>40</size>
         <city>1,2,3,4,5,6,11,12,13,14,15,16,21,22,23,24,25,26,33,34,35,36,37,38</city>
         <luckyTurn>7,8,27,28</luckyTurn>
         <wine>9,10,29,30</wine>
         <pause>17,18,31,32</pause>
-        <soldiers>19,20,39,40</soldiers>
+        <soldiers>19,20,39,0</soldiers>
         <cityId>1,2,3,4,5,6,7,8</cityId>
-        <memo>黄巾之战</memo>
+        <memo>黄巾起义</memo>
     </map>
     <map>
-        <id>21</id>
+        <id>2</id>
+        <name>讨伐董卓</name>
+        <size>64</size>
+        <city>1,2,3,4,5,6,11,12,13,14,15,16,21,22,23,24,25,26,33,34,35,36,37,38,41,42,43,44,45,46,51,52,53,54,55,56,59,60,61</city>
+        <luckyTurn>0,7,8,27,28,47,48</luckyTurn>
+        <wine>9,10,29,30,49,50,62</wine>
+        <pause>17,18,31,32,63</pause>
+        <soldiers>19,20,39,40,57,58</soldiers>
+        <cityId>1,2,3,4,5,6,7,8,10,12,13,14,15</cityId>
+        <memo>讨伐董卓</memo>
+    </map>
+    <map>
+        <id>3</id>
+        <name>徐州会战</name>
+        <size>32</size>
+        <city>1,2,3,4,5,6,11,12,13,14,15,16,21,22,23,24,25,26</city>
+        <luckyTurn>7,18,27</luckyTurn>
+        <wine>9,17,28,29</wine>
+        <pause>10</pause>
+        <soldiers>0,8,19,20</soldiers>
+        <cityId>10,11,23,24,25,26</cityId>
+        <memo>徐州会战</memo>
+    </map>
+    <map>
+        <id>4</id>
         <name>全国</name>
         <size>100</size>
         <city>

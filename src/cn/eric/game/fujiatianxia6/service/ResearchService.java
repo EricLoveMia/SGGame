@@ -34,7 +34,7 @@ public class ResearchService {
     public static boolean HasFree(General player) {
         // 先研究
         researchDay(player);
-        return player.getResearch()==null?true:player.getResearch().getTime() == 0;
+        return player.getResearch() == null || player.getResearch().getTime() == 0;
     }
 
     private static void researchDay(General player) {

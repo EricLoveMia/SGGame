@@ -283,13 +283,7 @@ public class GeneralFactory {
     }
 
     private static void sortByAttack(List<General> aoundGenerals) {
-        Collections.sort(aoundGenerals, new Comparator<General>() {
-            @Override
-            public int compare(General o1, General o2) {
-                if (Integer.parseInt(o1.getAttack()) >= Integer.parseInt(o2.getAttack())) return 1;
-                else return -1;
-            }
-        });
+        aoundGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getAttack())));
     }
 
     /**
@@ -344,13 +338,13 @@ public class GeneralFactory {
         //其次军师 统帅加成、智力加成、后期有地形适应性加成
         if (denfenceGenerals.size() > 0) {
             sortByCommand(denfenceGenerals);
-            bF.setAttackVice(denfenceGenerals.get(0));
+            bF.setDefenceCounsellor(denfenceGenerals.get(0));
             System.out.println("防守副将：" + denfenceGenerals.get(0).toString());
             denfenceGenerals.remove(0);
         }
         if (denfenceGenerals.size() > 0) {
             sortByIntel(denfenceGenerals);
-            bF.setAttackCounsellor(denfenceGenerals.get(0));
+            bF.setDefenceVice(denfenceGenerals.get(0));
             System.out.println("防守军师：" + denfenceGenerals.get(0).toString());
             denfenceGenerals.remove(0);
         }
@@ -359,62 +353,28 @@ public class GeneralFactory {
 
     // 按照智力排序
     public static void sortByIntel(List<General> denfenceGenerals) {
-        Collections.sort(denfenceGenerals, new Comparator<General>() {
-            @Override
-            public int compare(General o1, General o2) {
-                if (Integer.parseInt(o1.getIntelligence()) >= Integer.parseInt(o2.getIntelligence())) {
-                    return -1;
-                } else return 1;
-            }
-        });
+        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getIntelligence())));
     }
 
     // 按照统帅排序
     public static void sortByCommand(List<General> denfenceGenerals) {
-        Collections.sort(denfenceGenerals, new Comparator<General>() {
-            @Override
-            public int compare(General o1, General o2) {
-                if (Integer.parseInt(o1.getCommand()) >= Integer.parseInt(o2.getCommand())) return -1;
-                else return 1;
-            }
-        });
+        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getCommand())));
     }
 
     // 按照政治排序
     public static void sortByPolitics(List<General> denfenceGenerals) {
-        Collections.sort(denfenceGenerals, new Comparator<General>() {
-            @Override
-            public int compare(General o1, General o2) {
-                if (Integer.parseInt(o1.getPolitics()) >= Integer.parseInt(o2.getPolitics())) return -1;
-                else return 1;
-            }
-        });
+        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getPolitics())));
     }
 
     // 按照魅力排序
     public static void sortByCharm(List<General> denfenceGenerals) {
-        Collections.sort(denfenceGenerals, (o1, o2) -> {
-            if (Integer.parseInt(o1.getCharm()) >= Integer.parseInt(o2.getCharm())) {
-                return -1;
-            } else {
-                return 1;
-            }
-        });
+        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getCharm())));
     }
 
     public static void chooseDefenceCityGenerals(AttackCity ac, City defence) {
         List<General> denfenceGenerals = defence.getDenfenceGenerals();
         //先选择主将 统帅、武力、智力，按照统帅排序后找到第一个
-        Collections.sort(denfenceGenerals, new Comparator<General>() {
-            @Override
-            public int compare(General o1, General o2) {
-                if (Integer.parseInt(o1.getCommand()) >= Integer.parseInt(o2.getCommand())) {
-                    return 1;
-                } else {
-                    return -1;
-                }
-            }
-        });
+        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getCommand())));
         ac.setDefenceChief(denfenceGenerals.get(0));
         System.out.println("防守主将：" + denfenceGenerals.get(0).toString());
 

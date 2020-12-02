@@ -2,6 +2,7 @@ package cn.eric.game.fujiatianxia6.service;
 
 import cn.eric.game.fujiatianxia6.factory.CityFactory;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
+import cn.eric.game.fujiatianxia6.factory.MapFactory;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
 import cn.eric.game.fujiatianxia6.po.Map;
@@ -45,20 +46,21 @@ public class SaveService {
         List<City> cityList = Arrays.asList(citys);
         String cityJsonString = JSON.toJSONString(cityList);
         Util.writeIntoFile(cityJsonString,prePath + "city.txt");
+        // 保存地图数据
+        Util.writeIntoFile(Integer.toString(Game.mapNum),prePath + "mapNum.txt");
         // 保存游戏角色数据
-        Integer num = Game.getNum();
-        Util.writeIntoFile(num.toString(),prePath + "num.txt");
+        int num = Game.getNum();
+        Util.writeIntoFile(Integer.toString(num),prePath + "num.txt");
         String[] goAndStop = Game.getGoAndStop();
         Util.writeIntoFile(JSON.toJSONString(Arrays.asList(goAndStop)),prePath + "goAndStop.txt");
         int[] playPos = Game.getPlayPos();
-        Util.writeIntoFile(JSON.toJSONString(Arrays.asList(playPos)),prePath + "playPos.txt");
+        Util.writeIntoFile(JSON.toJSONString(Collections.singletonList(playPos)),prePath + "playPos.txt");
 
         General[] players = Game.getPlayers();
         List<General> generalsForSave = new ArrayList<>();
         // 把属下武将设置为空，读取的时候再装配 不然会产生循环问题
-        List<General> generals = Arrays.asList(players);
         General clone;
-        for (General general : generals) {
+        for (General general : players) {
             clone = (General) general.clone();
             generalsForSave.add(clone);
         }

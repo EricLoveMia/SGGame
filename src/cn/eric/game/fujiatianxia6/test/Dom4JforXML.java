@@ -3,19 +3,16 @@ package cn.eric.game.fujiatianxia6.test;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
-import cn.eric.game.fujiatianxia6.po.Weapon;
+import cn.eric.game.fujiatianxia6.po.*;
 import org.dom4j.*;
 import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 import org.junit.Test;
-
-import cn.eric.game.fujiatianxia6.po.City;
-import cn.eric.game.fujiatianxia6.po.General;
-import cn.eric.game.fujiatianxia6.po.Skill;
 
 public class Dom4JforXML {
 
@@ -24,6 +21,8 @@ public class Dom4JforXML {
     private static List<Skill> skills = new ArrayList<>();
 
     private static List<Weapon> weapons = new ArrayList<>();
+
+    private static List<CampaignMap> campaignMaps = new ArrayList<>();
 
     public static List<General> loadGenerals(String filePath) throws DocumentException {
         SAXReader reader = new SAXReader();
@@ -94,6 +93,18 @@ public class Dom4JforXML {
         return skills;
     }
 
+    public static List<CampaignMap> createCampaignMap() throws DocumentException {
+        SAXReader reader = new SAXReader();
+
+        Document document = reader.read(new File("data/base/Maps.xml"));
+
+        Element root = document.getRootElement();
+
+        listNodesMap(root);
+        return campaignMaps;
+    }
+
+
     public static List<Weapon> createWeapons() throws DocumentException {
         SAXReader reader = new SAXReader();
 
@@ -141,6 +152,58 @@ public class Dom4JforXML {
                 }
             }
             skills.add(s);
+        }
+    }
+
+    private static void listNodesMap(Element root) {
+        //使用递归
+        Iterator<Element> iterator = root.elementIterator();
+        while (iterator.hasNext()) {
+            CampaignMap campaignMap = new CampaignMap();
+            Element e = iterator.next();
+            //遍历属性节点
+            Iterator iterator2 = e.elementIterator();
+            while (iterator2.hasNext()) {
+                Element e2 = (Element) iterator2.next();
+                //如果当前节点内容不为空，则输出
+                if (!(e2.getTextTrim().equals(""))) {
+                    switch (e2.getName()) {
+                        case "name":
+                            campaignMap.setName(e2.getText());
+                            break;
+                        case "id":
+                            campaignMap.setId(e2.getText());
+                            break;
+                        case "size":
+                            campaignMap.setSize(Integer.parseInt(e2.getText()));
+                            break;
+                        case "memo":
+                            campaignMap.setMemo(e2.getText());
+                            break;
+                        case "city":
+                            campaignMap.setCity(Arrays.asList(e2.getText().split(",")));
+                            break;
+                        case "luckyTurn":
+                            campaignMap.setLuckyTurn(Arrays.asList(e2.getText().split(",")));
+                            break;
+                        case "wine":
+                            campaignMap.setWine(Arrays.asList(e2.getText().split(",")));
+                            break;
+                        case "pause":
+                            campaignMap.setPause(Arrays.asList(e2.getText().split(",")));
+                            break;
+                        case "soldiers":
+                            campaignMap.setSoldiers(Arrays.asList(e2.getText().split(",")));
+                            break;
+                        case "cityId":
+                            campaignMap.setCityId(Arrays.asList(e2.getText().split(",")));
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+            campaignMaps.add(campaignMap);
         }
     }
 

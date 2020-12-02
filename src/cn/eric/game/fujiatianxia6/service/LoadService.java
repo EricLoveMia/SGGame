@@ -60,7 +60,8 @@ public class LoadService {
         }
 
         CityFactory.setCitys(citys);
-
+        // 初始化地图
+        MapFactory.init();
         // 设定角色 一定要是从武将库中获取 再赋值
         Game game = new Game();   //创建游戏类
 
@@ -72,6 +73,9 @@ public class LoadService {
 
         String numString = Util.readFileContentAsBuffer(prePath + "num.txt");
         Game.setNum(Integer.parseInt(numString));
+
+        String mapNumString = Util.readFileContentAsBuffer(prePath + "mapNum.txt");
+        Game.setMapNum(Integer.parseInt(mapNumString));
 
         String playPosString = Util.readFileContentAsBuffer(prePath + "playPos.txt");
         String substring = playPosString.substring(2, playPosString.length() - 2);
@@ -110,6 +114,7 @@ public class LoadService {
         String mapString = Util.readFileContentAsBuffer(prePath + "map.txt");
         Map map = JSONObject.parseObject(mapString, Map.class);
         // JSONObject 转 city
+
         map.reloadCity();
         Game.setMap(map);
         game.startWithSave();

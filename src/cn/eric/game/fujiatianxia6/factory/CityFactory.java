@@ -33,6 +33,10 @@ public class CityFactory {
         City city20 = new City(20, 1, "长沙", "荆州 197年，孙坚平定区星的叛乱后，便成为本地的太守，后来改由韩玄担任", 100, 1000, 400, 3);
         City city21 = new City(21, 1, "汉中", "益州 道教五斗米道的中心地。215年，曹操自张鲁手中取得，但在219年，又遭刘备夺去", 100, 1000, 500, 1);
         City city22 = new City(22, 2, "成都", "益州 214年，刘备降服刘璋后，即以次为根据地。221年刘备即位，这里便成为蜀汉的首都", 200, 1000, 500, 2);
+        City city23 = new City(23, 2, "彭城", "徐州 ", 200, 1000, 400, 1);
+        City city24 = new City(24, 1, "广陵", "徐州 ", 200, 1000, 300, 2);
+        City city25 = new City(25, 1, "琅邪", "徐州 ", 200, 1000, 300, 3);
+        City city26 = new City(26, 1, "东海", "徐州 ", 200, 1000, 300, 3);
 
         citys[1] = city1;
         citys[2] = city2;
@@ -56,7 +60,14 @@ public class CityFactory {
         citys[20] = city20;
         citys[21] = city21;
         citys[22] = city22;
+        citys[23] = city23;
+        citys[24] = city24;
+        citys[25] = city25;
+        citys[26] = city26;
 
+        for (int i = 27; i < 50; i++) {
+            citys[i] = null;
+        }
         //}
     }
 
@@ -69,7 +80,7 @@ public class CityFactory {
      */
     public static void computeMoney() {
         // 所有已经有主的城市
-        for (int i = 1; i <= citys.length; i++) {
+        for (int i = 1; i < citys.length; i++) {
             if (citys[i] != null) {
                 if (citys[i].getBelongTo() != null && citys[i].getBelongTo() > 0) {
                     //如果没有守城的人或者没有资金，跳过
@@ -116,7 +127,7 @@ public class CityFactory {
 
     public static List<City> findCityByLeader(General general) {
         List<City> citysByLeader = new ArrayList<>();
-        for (int i = 1; i <= citys.length; i++) {
+        for (int i = 1; i < citys.length; i++) {
             if (citys[i] != null) {
                 if (citys[i].getBelongTo() != null && citys[i].getBelongTo() == Integer.parseInt(general.getId())) {
                     citysByLeader.add(citys[i]);
@@ -135,7 +146,7 @@ public class CityFactory {
      */
     public static void computeSoilders() {
         // 所有已经有主的城市
-        for (int i = 1; i <= citys.length; i++) {
+        for (int i = 1; i < citys.length; i++) {
             if (citys[i] != null) {
                 if (citys[i].getBelongTo() != null && citys[i].getBelongTo() > 0) {
                     // 如果没有建筑，跳过

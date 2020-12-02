@@ -15,6 +15,12 @@ public class SkillFactory {
 
     private static List<Skill> skills;
 
+    // 骑兵相关技能
+    public static String[] cavalrysSkills = {"21","22","44","38","37"};
+    public static String[] infantrySkills = {"19","20","38","37"};
+    public static String[] archersSkills = {"17","18","38"};
+    public static String[] allArmsSkills = {"14","16","23","24","25","26","27","30","39","40","49"};
+
     /**
      * @param
      * @return void    返回类型
@@ -77,7 +83,7 @@ public class SkillFactory {
 
         AttackCity attackCity = (AttackCity) virgin;
 
-        if ((attackCity.getAttackChief() != null && "13".equals(attackCity.getAttackChief().getSkill()) && (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getAttackChief().getSkill()).getData())) || (attackCity.getAttackVice() != null && "13".equals(attackCity.getAttackVice().getSkill()) && (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getAttackVice().getSkill()).getData())) || (attackCity.getAttackCounsellor() != null && "13".equals(attackCity.getAttackCounsellor().getSkill()) && (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getAttackCounsellor().getSkill()).getData()))) { //神算 触发几率
+        if (skllZhuGe(attackCity.getAttackChief(), attackCity.getAttackVice(), attackCity.getAttackCounsellor())) { //神算 触发几率
             // 只有进攻方的技能触发
             System.out.println("神算技能触发，防守方无法释放技能");
             if (attackCity.getAttackChief() != null) {
@@ -89,7 +95,7 @@ public class SkillFactory {
             if (attackCity.getAttackVice() != null) {
                 attackCity = AttackCity_Change_Before(1, attackCity.getAttackVice(), attackCity);
             }
-        } else if ((attackCity.getDefenceChief() != null && "13".equals(attackCity.getDefenceChief().getSkill()) && (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getDefenceChief().getSkill()).getData())) || (attackCity.getDefenceVice() != null && "13".equals(attackCity.getDefenceVice().getSkill()) && (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getDefenceVice().getSkill()).getData())) || (attackCity.getDefenceCounsellor() != null && "13".equals(attackCity.getDefenceCounsellor().getSkill()) && (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCity.getDefenceCounsellor().getSkill()).getData()))) { //神算 触发几率
+        } else if (skllZhuGe(attackCity.getDefenceChief(), attackCity.getDefenceVice(), attackCity.getDefenceCounsellor())) { //神算 触发几率
             // 只有进攻方的技能触发
             System.out.println("神算技能触发，进攻方无法释放技能");
             if (attackCity.getDefenceChief() != null) {
@@ -207,6 +213,14 @@ public class SkillFactory {
                 BF.setDefenceSkillProbability(data);
             }
         }
+        if ("35".equals(general.getSkill())) {  // 倾城
+            System.out.println("武将：" + general.getName() + "触发技能：辅佐 提高上阵武将的技能发动几率");
+            if (attOrDef == 1) {
+                BF.setAttactSkillProbability(data);
+            } else {
+                BF.setDefenceSkillProbability(data);
+            }
+        }
         if ("39".equals(general.getSkill())) {  // 昂扬
             System.out.println("武将：" + general.getName() + "触发技能：昂扬 所有兵种等级升" + data + "级");
             if (attOrDef == 1) {
@@ -264,12 +278,14 @@ public class SkillFactory {
 
     // 野战修改 野战进行中
     private static Object BattleField_ChangeMiddle(int attOrDef, General general, Object virgin) {
-        // TODO  增加辅佐
+        // 增加辅佐
         BattleField BF = (BattleField) virgin;
         int data = SkillFactory.getSkillByID(general.getSkill()).getData();
         if (general.getWeapon() != null && general.getWeapon().getData() != null) {
             data += general.getWeapon().getData();
         }
+        int attactSkillProbability = BF.getAttactSkillProbability();
+        int defenceSkillProbability = BF.getDefenceSkillProbability();
         // 奸雄
         if ("2".equals(general.getSkill())) {
             if (new Random().nextInt(100) <= data) {
@@ -304,14 +320,15 @@ public class SkillFactory {
         }
 
         // 火神
-        if ("15".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
-            System.out.println("武将：" + general.getName() + "触发技能：火神 野战或者攻城中，有机率施展火攻术，造成极大伤害，威力值与统帅、武力值有关，初始几率为10%，获得专属提升为20%");
+        if ("15".equals(general.getSkill())) {
             // 增加最大100%的损失
             int addLost = 0;
-            if (attOrDef == 1) {
+            if (attOrDef == 1 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
+                System.out.println("武将：" + general.getName() + "触发技能：火神 野战或者攻城中，有机率施展火攻术，造成极大伤害，威力值与统帅、武力值有关，初始几率为10%，获得专属提升为20%");
                 addLost = (int) (BF.getDefLost() * ((Float.parseFloat(general.getCommand())) / 150 + (Float.parseFloat(general.getAttack())) / 50));
                 BF.setDefLost(BF.getDefLost() + addLost);
-            } else {
+            } else if(new Random().nextInt(100) <= (data + defenceSkillProbability)){
+                System.out.println("武将：" + general.getName() + "触发技能：火神 野战或者攻城中，有机率施展火攻术，造成极大伤害，威力值与统帅、武力值有关，初始几率为10%，获得专属提升为20%");
                 addLost = (int) (BF.getAttLost() * ((Float.parseFloat(general.getCommand())) / 150 + (Float.parseFloat(general.getAttack())) / 50));
                 BF.setAttLost(BF.getAttLost() + addLost);
             }
@@ -386,7 +403,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getAttLost() * 0.1) + "(" + BF.getAttLost() + ")");
                 BF.setAttLost((int) (BF.getAttLost() * 0.9));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 枪兵会心一击");
                     addLost = (int) (BF.getDefLost() * 0.3);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getDefLost() + ")");
@@ -398,7 +415,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getDefLost() * 0.1) + "(" + BF.getDefLost() + ")");
                 BF.setDefLost((int) (BF.getDefLost() * 0.9));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 枪兵会心一击");
                     addLost = (int) (BF.getAttLost() * 0.3);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getAttLost() + ")");
@@ -415,7 +432,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getAttLost() * 0.2) + "(" + BF.getAttLost() + ")");
                 BF.setAttLost((int) (BF.getAttLost() * 0.8));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 枪兵会心一击");
                     addLost = (int) (BF.getDefLost() * 0.5);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getDefLost() + ")");
@@ -427,7 +444,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getDefLost() * 0.2) + "(" + BF.getDefLost() + ")");
                 BF.setDefLost((int) (BF.getDefLost() * 0.8));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 枪兵会心一击");
                     addLost = (int) (BF.getAttLost() * 0.5);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getAttLost() + ")");
@@ -444,7 +461,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getAttLost() * 0.1) + "(" + BF.getAttLost() + ")");
                 BF.setAttLost((int) (BF.getAttLost() * 0.9));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 骑兵会心一击");
                     addLost = (int) (BF.getDefLost() * 0.3);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getDefLost() + ")");
@@ -456,7 +473,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getDefLost() * 0.1) + "(" + BF.getDefLost() + ")");
                 BF.setDefLost((int) (BF.getDefLost() * 0.9));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 骑兵会心一击");
                     addLost = (int) (BF.getAttLost() * 0.3);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getAttLost() + ")");
@@ -474,7 +491,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getAttLost() * 0.2) + "(" + BF.getAttLost() + ")");
                 BF.setAttLost((int) (BF.getAttLost() * 0.8));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 骑兵会心一击");
                     addLost = (int) (BF.getDefLost() * 0.5);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getDefLost() + ")");
@@ -486,7 +503,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getDefLost() * 0.2) + "(" + BF.getDefLost() + ")");
                 BF.setDefLost((int) (BF.getDefLost() * 0.8));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 骑兵会心一击");
                     addLost = (int) (BF.getAttLost() * 0.5);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getAttLost() + ")");
@@ -496,16 +513,17 @@ public class SkillFactory {
         }
 
         // 攻心
-        if ("23".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
-            System.out.println("武将：" + general.getName() + SkillFactory.getSkillByID(general.getSkill()).getMemo());
+        if ("23".equals(general.getSkill())) {
             int lostNum;
-            if (attOrDef == 1) {
+            if (attOrDef == 1 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
+                System.out.println("武将：" + general.getName() + SkillFactory.getSkillByID(general.getSkill()).getMemo());
                 lostNum = (int) (BF.getAttackAmyNum() * ((Float.parseFloat(general.getCommand())) / 50 + (Float.parseFloat(general.getIntelligence())) / 50) / 100);
                 System.out.println("防守方有" + lostNum + "兵力进入进攻方部队");
                 BF.setDefLost(BF.getDefLost() + lostNum);
                 // BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
                 BF.setAttackAmyNum(BF.getAttackAmyNum() + lostNum);
-            } else {
+            } else if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
+                System.out.println("武将：" + general.getName() + SkillFactory.getSkillByID(general.getSkill()).getMemo());
                 lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
                 System.out.println("进攻方有" + lostNum + "兵力进入防守方部队");
                 BF.setAttLost(BF.getAttLost() + lostNum);
@@ -514,15 +532,16 @@ public class SkillFactory {
             }
         }
         // 反间  王允 貂蝉
-        if ("24".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
-            System.out.println("武将-" + general.getName() + "技能触发：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
+        if ("24".equals(general.getSkill())) {
             int lostNum;
-            if (attOrDef == 1) {
+            if (attOrDef == 1 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
+                System.out.println("武将-" + general.getName() + "技能触发：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
                 lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
                 System.out.println("防守方互相攻击造成损失" + lostNum);
                 BF.setDefLost(BF.getDefLost() + lostNum);
                 // BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
-            } else {
+            } else if (new Random().nextInt(100) <= (data + defenceSkillProbability)){
+                System.out.println("武将-" + general.getName() + "技能触发：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
                 lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
                 System.out.println("进攻方互相攻击造成损失" + lostNum);
                 BF.setAttLost(BF.getAttLost() + lostNum);
@@ -539,7 +558,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getAttLost() * 0.2) + "(" + BF.getAttLost() + ")");
                 BF.setAttLost((int) (BF.getAttLost() * 0.8));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 会心一击");
                     addLost = (int) (BF.getDefLost() * 0.5);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getDefLost() + ")");
@@ -551,7 +570,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getDefLost() * 0.2) + "(" + BF.getDefLost() + ")");
                 BF.setDefLost((int) (BF.getDefLost() * 0.8));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 会心一击");
                     addLost = (int) (BF.getAttLost() * 0.5);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getAttLost() + ")");
@@ -569,7 +588,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getAttLost() * 0.2) + "(" + BF.getAttLost() + ")");
                 BF.setAttLost((int) (BF.getAttLost() * 0.8));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 会心一击");
                     addLost = (int) (BF.getDefLost() * 0.5);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getDefLost() + ")");
@@ -581,7 +600,7 @@ public class SkillFactory {
                 System.out.println("减少伤亡" + (int) (BF.getDefLost() * 0.2) + "(" + BF.getDefLost() + ")");
                 BF.setDefLost((int) (BF.getDefLost() * 0.8));
                 // 几率增加损失
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能 会心一击");
                     addLost = (int) (BF.getAttLost() * 0.5);
                     System.out.println("增加伤亡：" + addLost + "(" + BF.getAttLost() + ")");
@@ -595,20 +614,26 @@ public class SkillFactory {
             // 增加最大30%的损失
             int addLost = 0;
             if (attOrDef == 1 && BF.getAttackType() == 3) {
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能：白马，每回合有50%的几率发动骑射，专属后100%几率,伤害和统帅武力有关");
                     addLost = (int) ((int) (BF.getDefLost() * (Float.parseFloat(general.getAttack())) / 2000) * (Float.parseFloat(general.getCommand()) / 30));
                     BF.setDefLost(BF.getDefLost() + addLost);
                     System.out.println("增加伤亡：" + addLost);
                 }
             } else if (attOrDef == 2 && BF.getDefenceType() == 3) {
-                if (new Random().nextInt(100) <= data) {
+                if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能：白马，每回合有50%的几率发动骑射，专属后100%几率,伤害和统帅武力有关");
                     addLost = (int) ((int) (BF.getAttLost() * (Float.parseFloat(general.getAttack())) / 2000) * (Float.parseFloat(general.getCommand()) / 30));
                     BF.setAttLost(BF.getAttLost() + addLost);
                     System.out.println("增加伤亡：" + addLost);
                 }
             }
+        }
+
+        // 地形相关
+        // 水战 45 操舵 46 水将 47 水神  地形  1 平原 2 山地 3 水道
+        if("45".equals(general.getSkill()) && BF.getCity().getTopography() == 3){
+
         }
         return BF;
     }
@@ -660,19 +685,14 @@ public class SkillFactory {
             FightData sigleFight = (FightData) virgin;
             OneOnOne_ChangeMiddle(AttOrDef, generalA, generalD, sigleFight);
         }
-        if (type == 2) { // 如果是野战要注意把6个武将的技能都照顾到
-            // 如果有神算触发，则另一方的技能不能触发
+        if (type == 2) {
+            // 如果是野战要注意把6个武将的技能都照顾到  如果有神算触发，则另一方的技能不能触发
             BattleField BF = (BattleField) virgin;
-            if ((BF.getAttackChief() != null && "13".equals(BF.getAttackChief().getSkill())
-                    && (new Random().nextInt(101) <= SkillFactory.getSkillByID(BF.getAttackChief().getSkill()).getData()))
-                    || (BF.getAttackVice() != null && "13".equals(BF.getAttackVice().getSkill())
-                    && (new Random().nextInt(101) <= SkillFactory.getSkillByID(BF.getAttackVice().getSkill()).getData()))
-                    || (BF.getAttackCounsellor() != null && "13".equals(BF.getAttackCounsellor().getSkill())
-                    && (new Random().nextInt(101) <= SkillFactory.getSkillByID(BF.getAttackCounsellor().getSkill()).getData()))) { //神算 触发几率
+            if (skllZhuGe(BF.getAttackChief(), BF.getAttackVice(), BF.getAttackCounsellor())) { //神算 触发几率
                 // 只有进攻方的技能触发
                 System.out.println("神算技能触发，防守方无法释放技能");
                 battleField_Middle_Attack(BF);
-            } else if ((BF.getDefenceChief() != null && "13".equals(BF.getDefenceChief().getSkill()) && (new Random().nextInt(101) <= SkillFactory.getSkillByID(BF.getDefenceChief().getSkill()).getData())) || (BF.getDefenceVice() != null && "13".equals(BF.getDefenceVice().getSkill()) && (new Random().nextInt(101) <= SkillFactory.getSkillByID(BF.getDefenceVice().getSkill()).getData())) || (BF.getDefenceCounsellor() != null && "13".equals(BF.getDefenceCounsellor().getSkill()) && (new Random().nextInt(101) <= SkillFactory.getSkillByID(BF.getDefenceCounsellor().getSkill()).getData()))) { //神算 触发几率
+            } else if (skllZhuGe(BF.getDefenceChief(), BF.getDefenceVice(), BF.getDefenceCounsellor())) { //神算 触发几率
                 // 只有进攻方的技能触发
                 System.out.println("神算技能触发，进攻方无法释放技能");
                 battleField_Middle_Defence(BF);
@@ -682,6 +702,15 @@ public class SkillFactory {
                 battleField_Middle_Defence(BF);
             }
         }
+    }
+
+    private static boolean skllZhuGe(General attackChief, General attackVice, General attackCounsellor) {
+        return (attackChief != null && "13".equals(attackChief.getSkill())
+                && (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackChief.getSkill()).getData()))
+                || (attackVice != null && "13".equals(attackVice.getSkill())
+                && (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackVice.getSkill()).getData()))
+                || (attackCounsellor != null && "13".equals(attackCounsellor.getSkill())
+                && (new Random().nextInt(101) <= SkillFactory.getSkillByID(attackCounsellor.getSkill()).getData()));
     }
 
     private static void battleField_Middle_Defence(BattleField BF) {
@@ -1137,6 +1166,14 @@ public class SkillFactory {
             System.out.println(general.getName() + "技能繁殖触发，骑兵数量增加50%");
             data = (int) (data + data * 0.5);
         }
+        // 清廉
+        if ("34".equals(general.getSkill())) {
+            Skill skill = SkillFactory.getSkillByID(general.getSkill());
+            if(skill != null) {
+                System.out.println(general.getName() + "技能能吏触发，" + skill.getMemo());
+                data = (int) (data * (double)(100 + skill.getData())/100);
+            }
+        }
         return data;
     }
 
@@ -1145,6 +1182,14 @@ public class SkillFactory {
         if ("43".equals(general.getSkill())) {
             System.out.println(general.getName() + "技能能吏触发，弓兵、枪兵数量增加50%");
             data = (int) (data + data * 0.5);
+        }
+        // 清廉
+        if ("34".equals(general.getSkill())) {
+            Skill skill = SkillFactory.getSkillByID(general.getSkill());
+            if(skill != null) {
+                System.out.println(general.getName() + "技能能吏触发，" + skill.getMemo());
+                data = (int) (data * (double)(100 + skill.getData())/100);
+            }
         }
         return data;
     }

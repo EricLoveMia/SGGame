@@ -176,6 +176,7 @@ public class Fight {
             e.printStackTrace();
         } finally {
             //恢复战前的所属关系
+            assert BF.getAttackChief() != null;
             BF.getAttackChief().setCityId("");
             if (BF.getAttackVice() != null) {
                 BF.getAttackVice().setCityId("");
@@ -408,25 +409,25 @@ public class Fight {
             // 判定是否阵亡
             if (new Random().nextInt(100) < deadPercent) {
                 if (result) {
-                    System.out.println(defence.getName() + "不幸阵亡");
+                    System.err.println(defence.getName() + "不幸阵亡");
                     // 阵亡调用方法
                     GeneralFactory.dead(defence);
                 } else {
-                    System.out.println(attack.getName() + "不幸阵亡");
+                    System.err.println(attack.getName() + "不幸阵亡");
                     // 阵亡调用方法
                     GeneralFactory.dead(attack);
                 }
                 // 判定是否俘虏
             } else if (new Random().nextInt(100) < catchPercent) {
                 if (result) {
-                    System.out.println(defence.getName() + "被俘虏");
+                    System.err.println(defence.getName() + "被俘虏");
                     // 俘虏调用方法
                     City city = CityFactory.getCityById(defence.getCityId());
                     GeneralFactory.beCatch(defence, attack);
                     // 所属城市去除被俘虏的武将
                     CityFactory.removeGeneral(defence, city);
                 } else {
-                    System.out.println(attack.getName() + "被俘虏");
+                    System.err.println(attack.getName() + "被俘虏");
                     // 俘虏调用方法
                     GeneralFactory.beCatch(attack, defence);
                 }

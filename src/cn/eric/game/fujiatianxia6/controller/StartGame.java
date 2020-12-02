@@ -1,6 +1,7 @@
 package cn.eric.game.fujiatianxia6.controller;
 
 import cn.eric.game.fujiatianxia6.factory.*;
+import cn.eric.game.fujiatianxia6.po.Campaign;
 import cn.eric.game.fujiatianxia6.service.Game;
 import cn.eric.game.fujiatianxia6.service.LoadService;
 
@@ -35,10 +36,26 @@ public class StartGame {
 			WeaponFactory.init(); // 初始化专属武器库
 			// 初始化城市
 			CityFactory.init();
-			// 创建游戏类
-			Game game = new Game();
-			// 开始游戏
-			game.start();
+			// 初始化战役地图
+			MapFactory.init();
+			// 选择是个人战役还是自定义战役
+			System.err.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※\n\n\n");
+			System.out.println("请选择 1 一统天下  2 自定义战役  3 不想玩了");
+			choose = input.nextInt();
+			if(choose == 1) {
+				// 先开启刘备战役
+				StartCampaign startCampaign = new StartCampaign();
+				Campaign campaign = new Campaign();
+				startCampaign.init(campaign,GeneralFactory.getGeneral("刘备"));
+				startCampaign.start();
+			} else if(choose == 2){
+				// 创建游戏类
+				Game game = new Game();
+				// 开始游戏
+				game.start();
+			} else {
+				System.out.println("※※※※※※※※※※※※※※※再见※※※※※※※※※※※※※※※\n\n\n");
+			}
 		}else if(choose == 2){
 			System.out.println("请问需要读取哪个存档");
 			File file = new File("data/save");
