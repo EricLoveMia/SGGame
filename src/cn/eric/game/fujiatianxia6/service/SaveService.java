@@ -1,8 +1,8 @@
 package cn.eric.game.fujiatianxia6.service;
 
+import cn.eric.game.fujiatianxia6.CommonContents;
 import cn.eric.game.fujiatianxia6.factory.CityFactory;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
-import cn.eric.game.fujiatianxia6.factory.MapFactory;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
 import cn.eric.game.fujiatianxia6.po.Map;
@@ -70,7 +70,11 @@ public class SaveService {
             general.setGenerals(null);
         }
         Util.writeIntoFile(JSON.toJSONString(generalsForSave),prePath +  "players.txt");
-
+        // 是否是战役
+        if (CommonContents.startCampaign != null) {
+            // 保存战役数据
+            Util.writeIntoFile(JSON.toJSONString(CommonContents.startCampaign), prePath + "startCampaign.txt");
+        }
         // 保存地图数据
         Map map = Game.getMap();
         Util.writeIntoFile(JSON.toJSONString(map),prePath + "map.txt");

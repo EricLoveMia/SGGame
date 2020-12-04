@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.controller;
 
+import cn.eric.game.fujiatianxia6.CommonContents;
 import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.po.Campaign;
 import cn.eric.game.fujiatianxia6.service.Game;
@@ -45,6 +46,7 @@ public class StartGame {
 			if(choose == 1) {
 				// 先开启刘备战役
 				StartCampaign startCampaign = new StartCampaign();
+				CommonContents.startCampaign = startCampaign;
 				Campaign campaign = new Campaign();
 				startCampaign.init(campaign,GeneralFactory.getGeneral("刘备"));
 				startCampaign.start();

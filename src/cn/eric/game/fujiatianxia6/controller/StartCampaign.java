@@ -23,6 +23,8 @@ public class StartCampaign {
 
     private General general;
 
+    private int step = 0;
+
     //
     public void init(Campaign campaign, General general){
         // 载入战役内容
@@ -37,14 +39,32 @@ public class StartCampaign {
     public void start(){
         List<CampaignMap> campaignMaps = campaign.getCampaignMaps();
         if(game == null){
-            CampaignMap campaignMap = campaignMaps.get(0);
+            int index = 0;
+            CampaignMap campaignMap = campaignMaps.get(index++);
             // 确定玩家数和AI
             campaignMap.setDefaultPlayer(Arrays.asList("1","2","3"));
             game = new Game(campaignMap);
+            while (game.startCampaign()) {
+                campaignMap = campaignMaps.get(index++);
+                // 确定玩家数和AI
+                campaignMap.setDefaultPlayer(Arrays.asList("1", "2", "3"));
+                game = new Game(campaignMap);
+            }
+            //游戏结束
+            System.out.println("\n\n\n\n");
+            System.out.print("****************************************************\n");
+            System.out.print("                      Game  Over                    \n");
+            System.out.print("****************************************************\n\n");
+        } else {
             game.startCampaign();
         }
     }
 
+    public void startWithSave() {
+        while (game.startWithSave()) {
+
+        }
+    }
 
     public Campaign getCampaign() {
         return campaign;
@@ -68,5 +88,13 @@ public class StartCampaign {
 
     public void setGeneral(General general) {
         this.general = general;
+    }
+
+    public int getStep() {
+        return step;
+    }
+
+    public void setStep(int step) {
+        this.step = step;
     }
 }

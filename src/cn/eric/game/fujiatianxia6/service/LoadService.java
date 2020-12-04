@@ -1,11 +1,11 @@
 package cn.eric.game.fujiatianxia6.service;
 
+import cn.eric.game.fujiatianxia6.CommonContents;
+import cn.eric.game.fujiatianxia6.controller.StartCampaign;
 import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
 import cn.eric.game.fujiatianxia6.po.Map;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ public class LoadService {
         }
         // 读取武将数据
         // 初始化武将  TODO  cityId的问题
-        GeneralFactory generalFactory = new GeneralFactory(prePath + "Generals.xml");
+        new GeneralFactory(prePath + "Generals.xml");
         // 初始化技能
         SkillFactory.init();
         // 初始化建筑
@@ -114,9 +114,21 @@ public class LoadService {
         String mapString = Util.readFileContentAsBuffer(prePath + "map.txt");
         Map map = JSONObject.parseObject(mapString, Map.class);
         // JSONObject 转 city
-
         map.reloadCity();
         Game.setMap(map);
+
+        // 载入战役信息
+        try {
+            String startCampaignString = Util.readFileContentAsBuffer(prePath + "startCampaign.txt");
+            StartCampaign startCampaign = JSONObject.parseObject(startCampaignString, StartCampaign.class);
+            startCampaign.setGame(game);
+            CommonContents.startCampaign = startCampaign;
+            startCampaign.startWithSave();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         game.startWithSave();
     }
 

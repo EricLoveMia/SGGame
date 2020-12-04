@@ -4,7 +4,7 @@ import cn.eric.game.fujiatianxia6.po.CampaignMap;
 import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
 import org.dom4j.DocumentException;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  **/
 public class MapFactory {
 
-    private static List<CampaignMap> campaignMaps = new ArrayList<>();
+    private static List<CampaignMap> campaignMaps = new LinkedList<>();
 
     public static void init() {
         try {

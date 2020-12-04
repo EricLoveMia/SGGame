@@ -1393,4 +1393,76 @@
         <belongTo>2</belongTo>
         <status>0</status>
     </general>
+    <general id="76">
+        <name>司马昭</name>
+        <king>0</king>
+        <attack>56</attack>
+        <command>79</command>
+        <intelligence>87</intelligence>
+        <charm>84</charm>
+        <politics>88</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>C</landfc>
+        <mountainfc>C</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>99</skill>
+        <relation>0095000000</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="77">
+        <name>张宝</name>
+        <king>0</king>
+        <attack>77</attack>
+        <command>79</command>
+        <intelligence>80</intelligence>
+        <charm>82</charm>
+        <politics>60</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>A</landfc>
+        <mountainfc>C</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>28</skill>
+        <relation>0000000000</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="78">
+        <name>王基</name>
+        <king>0</king>
+        <attack>77</attack>
+        <command>79</command>
+        <intelligence>80</intelligence>
+        <charm>82</charm>
+        <politics>77</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>S</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>19</skill>
+        <relation>0080000000</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="79">
+        <name>李恢</name>
+        <king>0</king>
+        <attack>70</attack>
+        <command>83</command>
+        <intelligence>83</intelligence>
+        <charm>62</charm>
+        <politics>77</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>A</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>40</skill>
+        <relation>6500000000</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
 </generals>

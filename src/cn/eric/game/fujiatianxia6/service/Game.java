@@ -1,8 +1,8 @@
 package cn.eric.game.fujiatianxia6.service;
 
 import cn.eric.game.fujiatianxia6.factory.*;
-import cn.eric.game.fujiatianxia6.po.*;
 import cn.eric.game.fujiatianxia6.po.Map;
+import cn.eric.game.fujiatianxia6.po.*;
 import cn.eric.game.fujiatianxia6.service.event.Event;
 
 import java.util.*;
@@ -13,6 +13,7 @@ public class Game {
     static Map map;  //地图
     static int mapNum;
     static int num;
+
 //    int playerPos1; //对战中玩家1的当前位置
 //    int playerPos2; //对战中玩家2的当前位置
 //    int playerPos3; //对战中玩家3的当前位置
@@ -29,13 +30,13 @@ public class Game {
         initCampaingMap(campaignMap);
     }
 
-    public void startWithSave() {
+    public boolean startWithSave() {
         //map = new Map();
         //map.createMap();  //生成地图
-        play();
+        return play();
     }
 
-    public void startCampaign(){
+    public boolean startCampaign() {
         System.out.println("\n~~~~~~~~~~~~~~~~~~~"+map.getCampaignMap().getMemo()+"~~~~~~~~~~~~~~~~~~~");
         int[] roles = new int[num];
         List<String> defaultPlayer = map.getCampaignMap().getDefaultPlayer();
@@ -47,7 +48,7 @@ public class Game {
         initGeneralResources(roles);
         initGeneralWild();
         map.initCity();
-        play();   //开始对战
+        return play();   //开始对战
     }
     /**
      * 初始化游戏的一局
@@ -120,7 +121,7 @@ public class Game {
     /**
      * 开始游戏
      */
-    public void start() {
+    public boolean start() {
         //初始化
         init();
 
@@ -143,7 +144,7 @@ public class Game {
         initGeneralResources(roles);
         initGeneralWild();
         map.initCity();
-        play();   //开始对战
+        return play();   //开始对战
     }
 
     // 将无主的将领修改为在野 （君主除外）
@@ -201,7 +202,7 @@ public class Game {
     /**
      * 两人对战玩法
      */
-    public void play() {
+    public boolean play() {
         System.out.println("\n\n\n\n");
 
         System.out.print("\n\n****************************************************\n");
@@ -292,23 +293,28 @@ public class Game {
             System.out.print("****************************************************\n");
             System.out.print("                      WIN                    \n");
             System.out.print("****************************************************\n\n");
+            return true;
         }else{
             System.out.println("\n\n\n\n");
             System.out.print("****************************************************\n");
             System.out.print("                      LOSER                   \n");
             System.out.print("****************************************************\n\n");
+            return false;
         }
-        //游戏结束
-        System.out.println("\n\n\n\n");
-        System.out.print("****************************************************\n");
-        System.out.print("                      Game  Over                    \n");
-        System.out.print("****************************************************\n\n");
         //judge();
     }
 
     private boolean hasWin() {
-        return players[0].getMoney() > 0 && ( players[1].getMoney() > 0 || (players[2] !=null &&
-        players[2].getMoney() > 0) || (players[3] !=null && players[3].getMoney() > 0));
+        boolean player = players[0].getMoney() > 0;
+        if (player) {
+            for (int i = 1; i < players.length; i++) {
+                if (players[i].getMoney() > 0) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return true;
     }
 
 
