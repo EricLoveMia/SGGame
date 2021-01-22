@@ -127,14 +127,14 @@ public class Map {
             case 2:   //酒馆
                 graph = "♚";
                 break;
-            case 3:   //暂停
-                graph = "☁";
+            case 3:   //赌场
+                graph = "㊖";
                 break;
             case 4:   //募兵
                 graph = "♞";
                 break;
             case 5:   //开始
-                graph = "&";
+                graph = "※";
                 break;
             case 6:   //结束
                 graph = "★";

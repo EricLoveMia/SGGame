@@ -17,13 +17,18 @@ public class Campaign {
 
     /**
      * 战役地图
-    **/
+     **/
     private List<CampaignMap> campaignMaps = new LinkedList<>();
 
     /**
      * 当前战役地图
      **/
     private CampaignMap currentMap;
+
+    /**
+     * 当前战役地图序号
+     **/
+    private int index;
 
     /**
      * 当前游戏
@@ -57,5 +62,13 @@ public class Campaign {
 
     public void setCurrentGame(Game currentGame) {
         this.currentGame = currentGame;
+    }
+
+    public int getIndex() {
+        return index;
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
     }
 }

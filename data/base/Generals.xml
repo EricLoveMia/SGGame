@@ -1465,4 +1465,22 @@
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
+	<general id="80">
+		<name>崔琰</name>
+		<king>0</king>
+		<attack>40</attack>
+		<command>50</command>
+		<intelligence>83</intelligence>
+		<charm>81</charm>
+		<politics>80</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>C</landfc>
+		<mountainfc>C</mountainfc>
+		<riverfc>C</riverfc>
+		<skill>36</skill>
+		<relation>6400000000</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
 </generals>

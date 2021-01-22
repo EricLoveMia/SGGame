@@ -48,6 +48,7 @@ public class StartGame {
 				StartCampaign startCampaign = new StartCampaign();
 				CommonContents.startCampaign = startCampaign;
 				Campaign campaign = new Campaign();
+                campaign.setIndex(0);
 				startCampaign.init(campaign,GeneralFactory.getGeneral("刘备"));
 				startCampaign.start();
 			} else if(choose == 2){

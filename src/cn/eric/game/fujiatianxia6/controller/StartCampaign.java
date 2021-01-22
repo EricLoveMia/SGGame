@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.controller;
 
+import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.po.Campaign;
 import cn.eric.game.fujiatianxia6.po.CampaignMap;
 import cn.eric.game.fujiatianxia6.po.General;
@@ -40,12 +41,13 @@ public class StartCampaign {
         List<CampaignMap> campaignMaps = campaign.getCampaignMaps();
         if(game == null){
             int index = 0;
-            CampaignMap campaignMap = campaignMaps.get(index++);
+            CampaignMap campaignMap = campaignMaps.get(campaign.getIndex());
+            campaign.setIndex(campaign.getIndex() + 1);
             // 确定玩家数和AI
             campaignMap.setDefaultPlayer(Arrays.asList("1","2","3"));
             game = new Game(campaignMap);
-            while (game.startCampaign()) {
-                campaignMap = campaignMaps.get(index++);
+            while (game.startCampaign() && campaign.getIndex() < campaign.getCampaignMaps().size()) {
+                campaignMap = campaignMaps.get(campaign.getIndex());
                 // 确定玩家数和AI
                 campaignMap.setDefaultPlayer(Arrays.asList("1", "2", "3"));
                 game = new Game(campaignMap);
@@ -61,8 +63,23 @@ public class StartCampaign {
     }
 
     public void startWithSave() {
-        while (game.startWithSave()) {
+        boolean win = game.startWithSave();
+        while (win && campaign.getIndex() < campaign.getCampaignMaps().size()) {
+            GeneralFactory.init(); //初始化武将
+            SkillFactory.init();// 初始化技能
+            BuildingFactory.initBuildings(); // 初始化建筑
+            WeaponFactory.init(); // 初始化专属武器库
+            // 初始化城市
+            CityFactory.init();
+            // 初始化战役地图
+            MapFactory.init();
 
+            campaign.setIndex(campaign.getIndex() + 1);
+            CampaignMap campaignMap = campaign.getCampaignMaps().get(campaign.getIndex());
+            // 确定玩家数和AI
+            campaignMap.setDefaultPlayer(Arrays.asList("1", "2", "3"));
+            game = new Game(campaignMap);
+            win = game.startCampaign();
         }
     }
 

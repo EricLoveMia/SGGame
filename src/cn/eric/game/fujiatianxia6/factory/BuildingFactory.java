@@ -13,6 +13,7 @@ public class BuildingFactory {
 	public static List<Building> buildings = new ArrayList<>();
 	
 	public static void initBuildings(){
+        buildings = new ArrayList<>();
 		buildings.add(new Building(1, "城墙", "防守时增加进攻方损失15%，每升一级增加5%的损失，仅守城适用", 15, 1,5000,5000));
 		buildings.add(new Building(2, "弩炮", "防守时增加进攻方损失8%，每升一级增加2%的损失,守城野战适用", 8, 1,5000,5000));
 		buildings.add(new Building(3, "市场", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2,10000,10000));

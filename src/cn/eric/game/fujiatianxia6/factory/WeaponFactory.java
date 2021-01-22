@@ -24,6 +24,8 @@ public class WeaponFactory {
 
     public static void init(){
         try {
+            weapons = new ArrayList<>();
+            weaponMap = new HashMap<>();
             weapons = Dom4JforXML.createWeapons();
             weaponMap = weapons.stream().collect(Collectors.toMap(Weapon::getGeneralId,a->a,(key1, key2) -> key2));
             // System.out.println(weaponMap.toString());

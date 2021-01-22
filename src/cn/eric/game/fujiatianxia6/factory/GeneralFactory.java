@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
  */
 public class GeneralFactory {
 
-    private static List<General> initGenerals = new ArrayList<General>(200);
+    private static List<General> initGenerals = new ArrayList<General>(256);
 
     public static List<General> getInitGenerals() {
         return initGenerals;
@@ -42,6 +42,7 @@ public class GeneralFactory {
 
     public static void init() {
         try {
+            initGenerals = new ArrayList<>(256);
             initGenerals = Dom4JforXML.test2();
         } catch (DocumentException e) {
             e.printStackTrace();
@@ -283,7 +284,7 @@ public class GeneralFactory {
     }
 
     private static void sortByAttack(List<General> aoundGenerals) {
-        aoundGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getAttack())));
+        aoundGenerals.sort(Comparator.comparingInt((General o) -> Integer.parseInt(o.getAttack())).reversed());
     }
 
     /**
@@ -353,22 +354,22 @@ public class GeneralFactory {
 
     // 按照智力排序
     public static void sortByIntel(List<General> denfenceGenerals) {
-        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getIntelligence())));
+        denfenceGenerals.sort(Comparator.comparingInt((General o) -> Integer.parseInt(o.getIntelligence())).reversed());
     }
 
     // 按照统帅排序
     public static void sortByCommand(List<General> denfenceGenerals) {
-        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getCommand())));
+        denfenceGenerals.sort(Comparator.comparingInt((General o) -> Integer.parseInt(o.getCommand())).reversed());
     }
 
     // 按照政治排序
     public static void sortByPolitics(List<General> denfenceGenerals) {
-        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getPolitics())));
+        denfenceGenerals.sort(Comparator.comparingInt((General o) -> Integer.parseInt(o.getPolitics())).reversed());
     }
 
     // 按照魅力排序
     public static void sortByCharm(List<General> denfenceGenerals) {
-        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getCharm())));
+        denfenceGenerals.sort(Comparator.comparingInt((General o) -> Integer.parseInt(o.getCharm())).reversed());
     }
 
     public static void chooseDefenceCityGenerals(AttackCity ac, City defence) {

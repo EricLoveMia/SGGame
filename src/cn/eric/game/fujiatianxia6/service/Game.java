@@ -214,7 +214,7 @@ public class Game {
 //        System.out.println("^_^" + players[1].getName() + "：  B\n");
 
         //显示对战地图
-        System.out.println("\n 图例： " + "☁ 暂停  ◎幸运轮盘  ♚酒馆  ♞募兵  ♙空城  \n");
+        System.out.println("\n 图例： " + "㊖ 赌场  ◎幸运轮盘  ♚酒馆  ♞募兵  ♙空城  \n");
         map.showMap(playPos);
         //游戏开始
         int step;  //存储骰子数目
@@ -308,13 +308,13 @@ public class Game {
         boolean player = players[0].getMoney() > 0;
         if (player) {
             for (int i = 1; i < players.length; i++) {
-                if (players[i].getMoney() > 0) {
-                    return false;
+                if (!"4".equals(players[i].getStatus())) {
+                    return true;
                 }
             }
-            return true;
+            return false;
         }
-        return true;
+        return false;
     }
 
 
@@ -328,10 +328,10 @@ public class Game {
         int step = 0;
         if(!players[no - 1].isReboot()){
             System.out.println();
-            System.out.println("可以输入命令查看相关信息，输入-help获取所有命令，输入0 继续");
+            System.out.println("可以输入命令查看相关信息，输入-help获取所有命令，输入0 | a | j 继续");
             Scanner input = new Scanner(System.in);
             String choose = input.nextLine();
-            while(!"0".equals(choose)){
+            while (!"0".equals(choose) && !"a".equals(choose) && !"j".equals(choose)) {
                 CommandLineSerivce.getInstance().getCommandLine(choose);
                 choose = input.nextLine();
             }
@@ -459,7 +459,9 @@ public class Game {
                     System.out.println(generalByChoose.getName() + "拜入" + players[no - 1].getName() + "账下");
                 }
                 break;
-            case 3:  //下一次暂停一次
+            case 3:
+                // 下一次暂停一次
+                // 进入赌坊
                 goAndStop[no - 1] = "off";  //设置下次暂停掷骰子
                 System.out.println("~~>_<~~  要停战一局了。");
                 break;
@@ -986,6 +988,7 @@ public class Game {
             }
             players[i].setMoney(40000);
             players[i].setArmy(20000);
+            players[i].setStatus("0");
             switch (players[i].getName()) {
                 case "董卓":
                     players[i].setMoney(50000);
