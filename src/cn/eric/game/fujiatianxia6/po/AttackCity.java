@@ -231,7 +231,7 @@ public class AttackCity {
                  GeneralFactory.beCatch(denfenceGeneral, getAttackChief());
              } else {
                  System.out.println(denfenceGeneral.getName() + "回归阵营");
-                 denfenceGeneral.setCityId(null);
+                 denfenceGeneral.setCityId("");
              }
              generalIterator.remove();
          }

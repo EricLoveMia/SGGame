@@ -340,7 +340,7 @@
 	<skill>
         <id>49</id>
         <name>毒神</name>
-        <memo>野战中，有几率让对方部队互相攻击，伤害与统帅、智力有关</memo>
+		<memo>野战中，有几率让对方部队中毒，伤害与统帅、智力有关</memo>
         <data>60</data>
         <time>3</time>
     </skill>
@@ -349,6 +349,34 @@
 		<name>龙胆</name>
 		<memo>野战中 所有兵种减少伤害20% 有几率释放会心一击，增加50%的伤害 兵力少于敌方时必释放技能</memo>
 		<data>30</data>
+		<time>3</time>
+	</skill>
+	<skill>
+		<id>51</id>
+		<name>射程</name>
+		<memo>野战中 弓兵固定减少伤害15%</memo>
+		<data>15</data>
+		<time>3</time>
+	</skill>
+	<skill>
+		<id>52</id>
+		<name>沈着</name>
+		<memo>野战或攻城中，所有兵种减少伤害5%，每回合有几率收拢残兵重整旗鼓，数量由统帅、智力、魅力决定</memo>
+		<data>50</data>
+		<time>3</time>
+	</skill>
+	<skill>
+		<id>53</id>
+		<name>虎将</name>
+		<memo>野战或攻城中，作为进攻方，所有兵种增加伤害15%，每回合有几率震慑敌方使士兵按百分比溃散，溃散比率由统帅、武力、智力决定</memo>
+		<data>50</data>
+		<time>3</time>
+	</skill>
+	<skill>
+		<id>54</id>
+		<name>披荆</name>
+		<memo>野战或攻城中，全兵种增加伤害15%</memo>
+		<data>50</data>
 		<time>3</time>
 	</skill>
     <skill>

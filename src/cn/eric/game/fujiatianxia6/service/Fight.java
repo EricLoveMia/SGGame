@@ -36,11 +36,12 @@ public class Fight {
      * @Description: 单挑
      */
     public static boolean oneOnOneFight(General attack, City defence) {
-        boolean result = false;
+        boolean result;
         // 如果没有随身武将，则直接返回0 失败
         if (GeneralFactory.getaoundGeneral(attack.getGenerals()).size() <= 0) {
             return false;
-        } else if (defence.getDenfenceGenerals().size() <= 0) {// 查看城市里面有没有武将 没有武将
+            // 查看城市里面有没有武将 没有武将
+        } else if (defence.getDenfenceGenerals().size() <= 0) {
             return true;
         } else {
             System.out.println("进攻方 请选择一个武将来单挑");
@@ -49,6 +50,7 @@ public class Fight {
 
             generalByChoose = GeneralFactory.getGeneralByChoose(attack, GeneralFactory.getaoundGeneral(attack.getGenerals()), 3,null);
 
+            assert generalByChoose != null;
             System.out.println(generalByChoose.toString());
             System.out.println("防守方 自动选择武将来单挑");
             General generalByDefenceAuto = GeneralFactory.generalByDefenceAuto(defence);
@@ -149,7 +151,7 @@ public class Fight {
                 while (true) {
                     input = new Scanner(System.in);
                     type = input.nextInt();
-                    //TODO
+                    // TODO
                     if (type == 1) {
                         System.out.println("您选择了普通步兵");
                         break;
@@ -252,63 +254,74 @@ public class Fight {
                 ac.setInfantry(ac.getLeader().getInfantry());
                 ac.setSoliders(ac.getLeader().getArmy());
             } else {
-                while (ac.getSoliders() <= 0) {
-                    System.out.println("请选择您要放在城中的士兵数量，当前您存有的士兵数是" + general.getArmy() + "骑兵" + general.getCavalrys() + "枪兵" + general.getInfantry() + "弓箭手" + general.getArchers());
-                    System.out.print("当前城市地形是：" + (defence.getTopography() == 1 ? "平原" : defence.getTopography() == 2 ? "山地" : "水道") + "适应兵种  平原 骑>枪>弓  山地 枪>弓>骑   水道 弓>枪>骑  战力分别是 200% 160% 120% 普通兵种战力100%");
-                    System.out.println("当前城中的士兵数是" + defence.getSoilders() + "骑兵" + defence.getCavalrys() + "枪兵" + defence.getInfantry() + "弓箭手" + defence.getArchers());
+                System.out.println("是否全军出击 1 是 0 否");
+                int choise;
+                Scanner input;
+                input = new Scanner(System.in);
+                choise = input.nextInt();
+                if (choise == 1) {
+                    ac.setArchers(ac.getLeader().getArchers());
+                    ac.setCavalrys(ac.getLeader().getCavalrys());
+                    ac.setInfantry(ac.getLeader().getInfantry());
+                    ac.setSoliders(ac.getLeader().getArmy());
+                } else {
+                    while (ac.getSoliders() <= 0) {
+                        System.out.println("请选择您要进攻的的士兵数量，当前您存有的士兵数是" + general.getArmy() + "骑兵" + general.getCavalrys() +
+                                "枪兵" + general.getInfantry() + "弓箭手" + general.getArchers());
+                        System.out.print("当前城市地形是：" + (defence.getTopography() == 1 ? "平原" : defence.getTopography() == 2 ? "山地" : "水道") + "适应兵种  平原 骑>枪>弓  山地 枪>弓>骑   水道 弓>枪>骑  战力分别是 200% 160% 120% 普通兵种战力100%");
+                        System.out.println("当前城中的士兵数是" + defence.getSoilders() + "骑兵" + defence.getCavalrys() + "枪兵" + defence.getInfantry() + "弓箭手" + defence.getArchers());
 
-                    int choise = 0;
-                    Scanner input = null;
-                    // 设置兵力
-                    while (true) {
-                        System.out.println("选择骑兵数量：");
-                        input = new Scanner(System.in);
-                        choise = input.nextInt();
-                        if (choise < 0 || (choise > general.getCavalrys())) {
-                            System.out.println("太小或太大");
-                        } else {
-                            ac.setCavalrys(choise);
-                            System.out.println("骑兵设置完成");
-                            break;
+                        // 设置兵力
+                        while (true) {
+                            System.out.println("选择骑兵数量：");
+                            input = new Scanner(System.in);
+                            choise = input.nextInt();
+                            if (choise < 0 || (choise > general.getCavalrys())) {
+                                System.out.println("太小或太大");
+                            } else {
+                                ac.setCavalrys(choise);
+                                System.out.println("骑兵设置完成");
+                                break;
+                            }
                         }
-                    }
 
-                    while (true) {
-                        System.out.println("选择枪兵数量：");
-                        input = new Scanner(System.in);
-                        choise = input.nextInt();
-                        if (choise < 0 || (choise > general.getInfantry())) {
-                            System.out.println("太小或太大");
-                        } else {
-                            ac.setInfantry(choise);
-                            System.out.println("枪兵设置完成");
-                            break;
+                        while (true) {
+                            System.out.println("选择枪兵数量：");
+                            input = new Scanner(System.in);
+                            choise = input.nextInt();
+                            if (choise < 0 || (choise > general.getInfantry())) {
+                                System.out.println("太小或太大");
+                            } else {
+                                ac.setInfantry(choise);
+                                System.out.println("枪兵设置完成");
+                                break;
+                            }
                         }
-                    }
 
-                    while (true) {
-                        System.out.println("选择弓箭手数量：");
-                        input = new Scanner(System.in);
-                        choise = input.nextInt();
-                        if (choise < 0 || (choise > general.getArchers())) {
-                            System.out.println("太小或太大");
-                        } else {
-                            ac.setArchers(choise);
-                            System.out.println("弓箭手设置完成");
-                            break;
+                        while (true) {
+                            System.out.println("选择弓箭手数量：");
+                            input = new Scanner(System.in);
+                            choise = input.nextInt();
+                            if (choise < 0 || (choise > general.getArchers())) {
+                                System.out.println("太小或太大");
+                            } else {
+                                ac.setArchers(choise);
+                                System.out.println("弓箭手设置完成");
+                                break;
+                            }
                         }
-                    }
 
-                    while (true) {
-                        System.out.println("选择剑士的数量：");
-                        input = new Scanner(System.in);
-                        choise = input.nextInt();
-                        if (choise < 0 || (choise > general.getArmy())) {
-                            System.out.println("太小或太大");
-                        } else {
-                            ac.setSoliders(choise);
-                            System.out.println("剑士设置完成");
-                            break;
+                        while (true) {
+                            System.out.println("选择剑士的数量：");
+                            input = new Scanner(System.in);
+                            choise = input.nextInt();
+                            if (choise < 0 || (choise > general.getArmy())) {
+                                System.out.println("太小或太大");
+                            } else {
+                                ac.setSoliders(choise);
+                                System.out.println("剑士设置完成");
+                                break;
+                            }
                         }
                     }
                 }

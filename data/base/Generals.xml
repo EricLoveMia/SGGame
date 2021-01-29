@@ -956,7 +956,7 @@
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
-		<skill>99</skill>
+		<skill>54</skill>
         <relation>8040000000</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
@@ -1479,8 +1479,153 @@
 		<mountainfc>C</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>36</skill>
-		<relation>6400000000</relation>
+		<relation>0175010101</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
+	<general id="81">
+		<name>程昱</name>
+		<king>0</king>
+		<attack>49</attack>
+		<command>70</command>
+		<intelligence>90</intelligence>
+		<charm>60</charm>
+		<politics>80</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>A</landfc>
+		<mountainfc>C</mountainfc>
+		<riverfc>C</riverfc>
+		<skill>23</skill>
+		<relation>0085000000</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="82">
+		<name>荀攸</name>
+		<king>0</king>
+		<attack>26</attack>
+		<command>73</command>
+		<intelligence>94</intelligence>
+		<charm>76</charm>
+		<politics>60</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>A</landfc>
+		<mountainfc>C</mountainfc>
+		<riverfc>C</riverfc>
+		<skill>43</skill>
+		<relation>0085000000</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="83">
+		<name>庞德</name>
+		<king>0</king>
+		<attack>94</attack>
+		<command>80</command>
+		<intelligence>70</intelligence>
+		<charm>76</charm>
+		<politics>40</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>S</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>C</riverfc>
+		<skill>44</skill>
+		<relation>1035101035</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="84">
+		<name>步骘</name>
+		<king>0</king>
+		<attack>60</attack>
+		<command>72</command>
+		<intelligence>84</intelligence>
+		<charm>70</charm>
+		<politics>86</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>A</riverfc>
+		<skill>44</skill>
+		<relation>1055101010</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="85">
+		<name>王平</name>
+		<king>0</king>
+		<attack>80</attack>
+		<command>82</command>
+		<intelligence>84</intelligence>
+		<charm>80</charm>
+		<politics>81</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>A</landfc>
+		<mountainfc>S</mountainfc>
+		<riverfc>A</riverfc>
+		<skill>52</skill>
+		<relation>7505101010</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="86">
+		<name>孙坚</name>
+		<king>0</king>
+		<attack>90</attack>
+		<command>93</command>
+		<intelligence>74</intelligence>
+		<charm>91</charm>
+		<politics>71</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>A</landfc>
+		<mountainfc>S</mountainfc>
+		<riverfc>A</riverfc>
+		<skill>53</skill>
+		<relation>0000990000</relation>
+		<belongTo>3</belongTo>
+		<status>0</status>
+	</general>
+	<general id="88">
+		<name>羊祜</name>
+		<king>0</king>
+		<attack>92</attack>
+		<command>92</command>
+		<intelligence>69</intelligence>
+		<charm>92</charm>
+		<politics>69</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>S</landfc>
+		<mountainfc>S</mountainfc>
+		<riverfc>S</riverfc>
+		<skill>54</skill>
+		<relation>0060000000</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="89">
+		<name>鄧芝</name>
+		<king>0</king>
+		<attack>51</attack>
+		<command>72</command>
+		<intelligence>81</intelligence>
+		<charm>88</charm>
+		<politics>85</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>B</landfc>
+		<mountainfc>B</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>34</skill>
+		<relation>6401010115</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<!-- -->
 </generals>

@@ -444,6 +444,8 @@ public class GeneralFactory {
                 break;
             }
         }
+        // 保险起见
+        lordOld.setGenerals(generals);
         // 加入到新的队列
         lost.setBelongTo(win.getBelongTo());
         lordNew.getGenerals().add(lost);

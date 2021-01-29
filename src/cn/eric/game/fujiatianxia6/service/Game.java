@@ -702,10 +702,11 @@ public class Game {
     //获得城市 变色
     private void getCity(int position, int base, City city) {
         map.map[position] = base;
+        int size = map.getSize() - 1;
         //相应的两个也要变为 base
         //向前向后找2格
         int backpositon = position - 2 > 0 ? position - 2 : 1;
-        int upposion = position + 2 < 99 ? position + 2 : 99;
+        int upposion = Math.min(position + 2, size);
         for (int i = backpositon; i <= upposion; i++) {
             Object object = map.mapObj[i];
             if (object instanceof City) {
@@ -750,7 +751,7 @@ public class Game {
             city.setDenfenceGenerals(generals);
             System.out.println("武将设置完成" + generalByChoose.getName() + "派驻" + city.getName());
         }else{
-
+            // 如果AI不设置武将
             if(city.getDenfenceGenerals().size() == 0) {
                 System.out.println("未设置武将，不能占领城市，拿走城市内的发展金和剩余兵力");
                 general.setMoney(general.getMoney() + city.getMoney());
@@ -769,9 +770,9 @@ public class Game {
             }
         }
 
-        int choise = 0;
-        Scanner input = null;
-        // TODO roboot
+        int choise;
+        Scanner input;
+        // 如果是AI
         if(general.isReboot()){
             setSoildersAndMoneyByRoboot(city,general);
         }else {
@@ -855,7 +856,7 @@ public class Game {
             }
         }
         city.setBelongTo(Integer.parseInt(general.getId()));
-        city.toString();
+        System.out.println(city.toString());
         return 1;
     }
 
@@ -875,17 +876,37 @@ public class Game {
                     city.setCavalrys(city.getCavalrys() + 1000);
                     general.setCavalrys(general.getCavalrys() - 1000);
                 } else if (general.getCavalrys() > 1000) {
+                    // 如果城市大于2000
                     if (city.getCavalrys() > 2000) {
                         break;
                     }
+                    int add;
+                    // 如果城市大于1000 自身保留1000 其他的放入城中
                     if (city.getCavalrys() > 1000) {
-                        city.setCavalrys(city.getCavalrys() + 500);
-                        general.setCavalrys(general.getCavalrys() - 500);
+                        add = general.getCavalrys() - 1000;
+                        city.setCavalrys(city.getCavalrys() + add);
+                        general.setCavalrys(1000);
                         break;
                     }
-                    int add = 1000 - Optional.ofNullable(city.getCavalrys()).orElse(0);
-                    city.setCavalrys(city.getCavalrys() + add);
+                    add = 1000 - Optional.ofNullable(city.getCavalrys()).orElse(0);
+                    city.setCavalrys(Optional.ofNullable(city.getCavalrys()).orElse(0) + add);
                     general.setCavalrys(general.getCavalrys() - add);
+                } else {
+                    // 如果自己数量不够1000了，看城市当中的情况
+                    if (city.getCavalrys() < 1000) {
+                        break;
+                    }
+                    if (city.getCavalrys() > 2000) {
+                        general.setCavalrys(general.getCavalrys() + 1000);
+                        city.setCavalrys(city.getCavalrys() - 1000);
+                        break;
+                    }
+                    if (city.getCavalrys() > 1000) {
+                        int add = city.getCavalrys() - 1000;
+                        general.setCavalrys(general.getCavalrys() + add);
+                        city.setCavalrys(city.getCavalrys() - add);
+                        break;
+                    }
                 }
                 break;
             case 2:
@@ -908,29 +929,90 @@ public class Game {
                     int add = 1000 - Optional.ofNullable(city.getInfantry()).orElse(0);
                     city.setInfantry(Optional.ofNullable(city.getInfantry()).orElse(0) + add);
                     general.setInfantry(general.getInfantry() - add);
+                } else {
+                    // 如果自己数量不够1000了，看城市当中的情况
+                    if (city.getInfantry() < 1000) {
+                        break;
+                    }
+                    if (city.getInfantry() > 2000) {
+                        general.setInfantry(general.getInfantry() + 1000);
+                        city.setCavalrys(city.getCavalrys() - 1000);
+                        break;
+                    }
+                    if (city.getInfantry() > 1000) {
+                        int add = city.getInfantry() - 1000;
+                        general.setInfantry(general.getInfantry() + add);
+                        city.setInfantry(city.getInfantry() - add);
+                        break;
+                    }
                 }
-
                 break;
             case 3:
                 if(general.getArchers() > 2000){
-                    if(city.getArchers() > 2000){
+                    if (city.getArchers() > 3000) {
                         break;
                     }
                     city.setArchers(city.getArchers() + 1000);
                     general.setArchers(general.getArchers() - 1000);
+                    break;
+                } else if (general.getArchers() > 1000) {
+                    if (city.getArchers() > 2000) {
+                        break;
+                    }
+                    if (city.getArchers() > 1000) {
+                        city.setArchers(city.getArchers() + 500);
+                        general.setArchers(general.getArchers() - 500);
+                        break;
+                    }
+                    int add = 1000 - Optional.ofNullable(city.getArchers()).orElse(0);
+                    city.setArchers(Optional.ofNullable(city.getArchers()).orElse(0) + add);
+                    general.setArchers(general.getArchers() - add);
+                } else {
+                    // 如果自己数量不够1000了，看城市当中的情况
+                    if (city.getArchers() < 1000) {
+                        break;
+                    }
+                    if (city.getArchers() > 2000) {
+                        general.setArchers(general.getArchers() + 1000);
+                        city.setArchers(city.getCavalrys() - 1000);
+                        break;
+                    }
+                    if (city.getArchers() > 1000) {
+                        int add = city.getArchers() - 1000;
+                        general.setArchers(general.getArchers() + add);
+                        city.setArchers(city.getArchers() - add);
+                        break;
+                    }
                 }
                 break;
             default:
                 break;
         }
 
-        // 设置剑兵 放剑兵的 1/5 最多4000
-        int number = Math.min(general.getArmy() / 5, 4000);
-        if(city.getSoilders() >= 4000){
-            number = number / 2;
-        }
+        // 设置剑兵 放剑兵的 1/5 最多4000 可以回收
+        int number;
         if(city.getSoilders() >= 8000){
-            number = number / 4;
+            if (general.getArmy() < 8000) {
+                number = 0 - Math.min(8000 - general.getArmy(), 4000);
+            } else {
+                number = Math.min(general.getArmy() / 5, 4000);
+                number = number / 4;
+            }
+        } else if (city.getSoilders() >= 4000) {
+            if (general.getArmy() < 4000) {
+                number = 0 - Math.min(4000 - general.getArmy(), 2000);
+            } else {
+                number = Math.min(general.getArmy() / 5, 4000);
+                number = number / 2;
+            }
+        } else if (city.getSoilders() >= 2000) {
+            if (general.getArmy() < 2000) {
+                number = general.getArmy();
+            } else {
+                number = 2000;
+            }
+        } else {
+            number = general.getArmy();
         }
         city.setSoilders(city.getSoilders() + number);
         general.setArmy(general.getArmy() - number);
