@@ -41,7 +41,8 @@ public class FightEventAttack extends Event {
         System.out.println("请选择出战的武将，0 放弃");
         General generalByChoose;
         // 机器人自动选择
-        generalByChoose = GeneralFactory.getGeneralByChoose(general, GeneralFactory.getaoundGeneral(general.getGenerals()), 3, null);
+        generalByChoose = GeneralFactory.getGeneralByChoose(general,
+                GeneralFactory.getAoundGeneral(general.getGenerals()), 3, null);
         boolean pure = Fight.fightPure(generalByChoose, generalDead, 10, FightSingleAttackTypeEnum.DEFENCE.getCode());
         if (pure) {
             this.setSuccess(Boolean.TRUE);

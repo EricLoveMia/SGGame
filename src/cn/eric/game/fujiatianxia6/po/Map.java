@@ -122,37 +122,37 @@ public class Map {
         }
         switch (i) {
             case 1:   //幸运轮盘
-                graph = "◎";
+                graph = "运";
                 break;
             case 2:   //酒馆
-                graph = "♚";
+                graph = "酒";
                 break;
             case 3:   //赌场
-                graph = "㊖";
+                graph = "财";
                 break;
             case 4:   //募兵
-                graph = "♞";
+                graph = "兵";
                 break;
             case 5:   //开始
-                graph = "※";
+                graph = "起";
                 break;
             case 6:   //结束
-                graph = "★";
+                graph = "终";
                 break;
             case 11:  //
-                graph = "㊀";
+                graph = "一";
                 break;
             case 21:  //
-                graph = "㊁";
+                graph = "二";
                 break;
             case 31:  //
-                graph = "㊂";
+                graph = "三";
                 break;
             case 41:  //
-                graph = "㊃";
+                graph = "四";
                 break;
             default:
-                graph = "♙";
+                graph = "空";
                 break;
         }
         return graph;

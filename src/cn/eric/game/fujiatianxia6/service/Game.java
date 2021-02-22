@@ -372,7 +372,7 @@ public class Game {
                 if(players[no - 1].isReboot()) {
                     if(players[no - 1].getMoney() > city.getPurchase()
                             && (players[no - 1].getArmy() > 3000)
-                            && GeneralFactory.getaoundGeneral(players[no - 1].getGenerals()).size() > 2) {
+                            && GeneralFactory.getAoundGeneral(players[no - 1].getGenerals()).size() > 2) {
                         choise = 1;
                     }
                 }else {
@@ -1068,14 +1068,14 @@ public class Game {
                 General g = (General) iterator.next();
                 System.out.println("姓名：" + g.getName() + "武力：" + g.getAttack() + "智力：" + g.getIntelligence() + "统帅" + g.getCommand() + "兵种" + g.getArms() + "平原战力" + g.getLandfc() + "山地战力" + g.getMountainfc() + "河流战力" + g.getRiverfc() + "\n" + "技能" + SkillFactory.getSkillByID(g.getSkill()).getName() + ":" + SkillFactory.getSkillByID(g.getSkill()).getMemo());
             }
-            players[i].setMoney(40000);
+            players[i].setMoney(30000);
             players[i].setArmy(20000);
             players[i].setStatus("0");
             switch (players[i].getName()) {
                 case "董卓":
                     players[i].setMoney(50000);
                     players[i].setArmy(25000);
-                    players[i].setReputation(350);
+                    players[i].setReputation(450);
                     players[i].setCavalrys(6000); // 骑兵
                     players[i].setInfantry(2000); // 枪兵
                     players[i].setArchers(2000); // 弓兵
@@ -1093,7 +1093,7 @@ public class Game {
                     players[i].setArchers(1000); // 弓兵
                     break;
                 case "孙权":
-                    players[i].setReputation(300);
+                    players[i].setReputation(200);
                     players[i].setCavalrys(0); // 骑兵
                     players[i].setInfantry(1000); // 枪兵
                     players[i].setArchers(5000); // 弓兵

@@ -149,40 +149,25 @@ public class CityFactory {
         for (int i = 1; i < citys.length; i++) {
             if (citys[i] != null) {
                 if (citys[i].getBelongTo() != null && citys[i].getBelongTo() > 0) {
+                    int addSoilders = 0;
                     // 如果没有建筑，跳过
                     if (citys[i].getBildings() != null && citys[i].getBildings().size() > 0) {
                         for (int j = 0; j < citys[i].getBildings().size(); j++) {
                             if (citys[i].getDenfenceGenerals().size() > 0) {
                                 GeneralFactory.sortByCommand(citys[i].getDenfenceGenerals());
-                                int addSoilders = 0;
                                 if (citys[i].getBildings().get(j).id == 9) { // 存在徽兵所
                                     // 增加守城主将的魅力 * 2 个普通士兵
                                     addSoilders =
                                             (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 1.2);
-                                } else {
-                                    // 增加守城主将的魅力 * 0.2 个普通士兵
-                                    addSoilders = (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.2);
                                 }
-                                addSoilders = SkillFactory.checkSkillForAddSoilders(addSoilders, citys[i]);
-                                citys[i].setSoilders(addSoilders);
-//                            if (citys[i].getBildings().get(j).id == 7) { // 存在马厩
-//                                // 增加守城主将的 (魅力+统帅) * 0.2 个骑兵
-//                                citys[i].setCavalrys((int) ((citys[i].getCavalrys() == null ? 0 : citys[i].getCavalrys())
-//                                        + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCommand()) * 0.2
-//                                        + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.2));
-//                            }
-//                            if (citys[i].getBildings().get(j).id == 8) { // 存在兵器厂
-//                                // 增加守城主将的 (魅力+统帅) * 0.1 个枪兵 (魅力+统帅) * 0.1 个弓兵
-//                                citys[i].setInfantry((int) ((citys[i].getInfantry() == null ? 0 : citys[i].getInfantry())
-//                                        + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCommand()) * 0.1
-//                                        + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.1));
-//                                citys[i].setArchers((int) ((citys[i].getArchers() == null ? 0 : citys[i].getArchers())
-//                                        + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCommand()) * 0.1
-//                                        + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.1));
-//                            }
                             }
                         }
+                    } else {
+                        // 增加守城主将的魅力 * 0.2 个普通士兵
+                        addSoilders = (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.2);
                     }
+                    addSoilders = SkillFactory.checkSkillForAddSoilders(addSoilders, citys[i]);
+                    citys[i].setSoilders(addSoilders);
                 }
             }
         }

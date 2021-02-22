@@ -166,7 +166,7 @@ public class GeneralFactory {
      * @Title: getaoundGeneral
      * @Description: 根据传入的主公所属武将 返回随身的所有武将
      */
-    public static List<General> getaoundGeneral(List<General> list) {
+    public static List<General> getAoundGeneral(List<General> list) {
         List<General> generals = new ArrayList<General>(10);
         for (General general : list) {
             if ((general.getCityId() == null || "".equals(general.getCityId()))) {
@@ -210,7 +210,7 @@ public class GeneralFactory {
 
         List<General> aoundGenerals;
         if (null == generals) {
-            aoundGenerals = GeneralFactory.getaoundGeneral(leader.getGenerals());
+            aoundGenerals = GeneralFactory.getAoundGeneral(leader.getGenerals());
         } else {
             aoundGenerals = generals;
         }
@@ -311,7 +311,7 @@ public class GeneralFactory {
                 //        Integer.parseInt(g2.getAttack()) + Integer.parseInt(g2.getIntelligence()) + Integer
                 //        .parseInt(g2.getVitality());
                 Integer g2sum = Integer.parseInt(g2.getAttack());
-                return g1sum.compareTo(g2sum);
+                return g2sum.compareTo(g1sum);
             }
 
         });
@@ -479,7 +479,7 @@ public class GeneralFactory {
     }
 
     private static void checkDead(General player) {
-        if (player.getMoney() <= 0) {
+        if (player.getMoney() <= 0 && !"4".equals(player.getStatus())) {
             System.out.println(player.getName() + "已经破产，所有武将下野，所属城市武将下野，士兵减半，城市发展金减半");
             List<General> generals = player.getGenerals();
             List<City> cityList = CityFactory.findCityByLeader(player);

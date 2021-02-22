@@ -325,12 +325,12 @@ public class SkillFactory {
             int addLost = 0;
             if (attOrDef == 1 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
                 System.out.println("武将：" + general.getName() + "触发技能：火神 野战或者攻城中，有机率施展火攻术，造成极大伤害，威力值与统帅、武力值有关，初始几率为10%，获得专属提升为20%");
-                addLost = (int) (BF.getDefLost() * ((Float.parseFloat(general.getCommand())) / 150 + (Float.parseFloat(general.getAttack())) / 50));
+                addLost = (int) (BF.getDefLost() * ((Float.parseFloat(general.getCommand())) / 200 + (Float.parseFloat(general.getAttack())) / 200));
                 BF.setDefLost(BF.getDefLost() + addLost);
             }
             if (attOrDef == 2 && new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                 System.out.println("武将：" + general.getName() + "触发技能：火神 野战或者攻城中，有机率施展火攻术，造成极大伤害，威力值与统帅、武力值有关，初始几率为10%，获得专属提升为20%");
-                addLost = (int) (BF.getAttLost() * ((Float.parseFloat(general.getCommand())) / 150 + (Float.parseFloat(general.getAttack())) / 50));
+                addLost = (int) (BF.getAttLost() * ((Float.parseFloat(general.getCommand())) / 200 + (Float.parseFloat(general.getAttack())) / 200));
                 BF.setAttLost(BF.getAttLost() + addLost);
             }
             System.out.println("增加伤亡：" + addLost);
@@ -614,14 +614,14 @@ public class SkillFactory {
         if ("44".equals(general.getSkill())) {
             // 增加最大30%的损失
             int addLost = 0;
-            if (attOrDef == 1 && BF.getAttackType() == 3) {
+            if (attOrDef == 1 && BF.getAttackType() == 2) {
                 if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能：白马，每回合有50%的几率发动骑射，专属后100%几率,伤害和统帅武力有关");
                     addLost = (int) ((int) (BF.getDefLost() * (Float.parseFloat(general.getAttack())) / 2000) * (Float.parseFloat(general.getCommand()) / 30));
                     BF.setDefLost(BF.getDefLost() + addLost);
                     System.out.println("增加伤亡：" + addLost);
                 }
-            } else if (attOrDef == 2 && BF.getDefenceType() == 3) {
+            } else if (attOrDef == 2 && BF.getDefenceType() == 2) {
                 if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能：白马，每回合有50%的几率发动骑射，专属后100%几率,伤害和统帅武力有关");
                     addLost = (int) ((int) (BF.getAttLost() * (Float.parseFloat(general.getAttack())) / 2000) * (Float.parseFloat(general.getCommand()) / 30));
@@ -1054,7 +1054,7 @@ public class SkillFactory {
             int index = new Random().nextInt(generals.size());
 
             for (General initGeneral : GeneralFactory.getInitGenerals()) {
-                if (initGeneral.getId() == generals.get(index).getId()) {
+                if (initGeneral.getId().equals(generals.get(index).getId())) {
                     System.out.println("武将" + initGeneral.getName() + "加入" + general.getName() + "的阵营");
                     general.getGenerals().add(initGeneral);
                     initGeneral.setBelongTo(general.getId());
@@ -1343,7 +1343,7 @@ public class SkillFactory {
         for (General denfenceGeneral : denfenceGenerals) {
             // 名声
             if ("36".equals(denfenceGeneral.getSkill())) {
-                addSoilders = (int) (addSoilders + Integer.parseInt(denfenceGeneral.getCharm()) * 1.1);
+                addSoilders = (int) (addSoilders + Integer.parseInt(denfenceGeneral.getCharm()) * 0.2);
                 System.out.println(denfenceGeneral.getName() + "技能名声触发，增加剑士,总数" + addSoilders);
             }
         }

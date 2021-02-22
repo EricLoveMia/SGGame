@@ -44,7 +44,14 @@ public class SaveService {
         // 保存城市数据
         City[] citys = CityFactory.getCitys();
         List<City> cityList = Arrays.asList(citys);
-        String cityJsonString = JSON.toJSONString(cityList);
+        // 创建一个新的去掉守将信息
+        List<City> cityListSave = new ArrayList<>(cityList);
+        cityListSave.forEach(e -> {
+            if (e != null) {
+                e.setDenfenceGenerals(new ArrayList<>());
+            }
+        });
+        String cityJsonString = JSON.toJSONString(cityListSave);
         Util.writeIntoFile(cityJsonString,prePath + "city.txt");
         // 保存地图数据
         Util.writeIntoFile(Integer.toString(Game.mapNum),prePath + "mapNum.txt");

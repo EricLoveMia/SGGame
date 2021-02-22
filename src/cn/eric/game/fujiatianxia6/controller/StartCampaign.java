@@ -50,6 +50,7 @@ public class StartCampaign {
                 campaignMap = campaignMaps.get(campaign.getIndex());
                 // 确定玩家数和AI
                 campaignMap.setDefaultPlayer(Arrays.asList("1", "2", "3"));
+                GeneralFactory.init(); // 每次重新初始化武将
                 game = new Game(campaignMap);
             }
             //游戏结束

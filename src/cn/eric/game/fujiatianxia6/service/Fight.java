@@ -38,7 +38,7 @@ public class Fight {
     public static boolean oneOnOneFight(General attack, City defence) {
         boolean result;
         // 如果没有随身武将，则直接返回0 失败
-        if (GeneralFactory.getaoundGeneral(attack.getGenerals()).size() <= 0) {
+        if (GeneralFactory.getAoundGeneral(attack.getGenerals()).size() <= 0) {
             return false;
             // 查看城市里面有没有武将 没有武将
         } else if (defence.getDenfenceGenerals().size() <= 0) {
@@ -48,7 +48,8 @@ public class Fight {
             General generalByChoose;
             // 机器人自动选择
 
-            generalByChoose = GeneralFactory.getGeneralByChoose(attack, GeneralFactory.getaoundGeneral(attack.getGenerals()), 3,null);
+            generalByChoose = GeneralFactory.getGeneralByChoose(attack,
+                    GeneralFactory.getAoundGeneral(attack.getGenerals()), 3, null);
 
             assert generalByChoose != null;
             System.out.println(generalByChoose.toString());
