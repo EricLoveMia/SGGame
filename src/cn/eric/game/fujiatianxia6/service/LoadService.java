@@ -43,14 +43,17 @@ public class LoadService {
         City[] citys = new City[cityList.size()];
         cityList.toArray(citys);
         // 给城池配置武将（不能直接从文本中读取，这样就变成了两个对象，两个相同的武将了,必须要从武将工厂里面获取）
+        List<General> denfenceGeneralsNew;
         for (City city : citys) {
             if(city != null) {
-                List<General> denfenceGeneralsNew = new ArrayList<>();
-                List<General> denfenceGenerals = city.getDenfenceGenerals();
-                if (denfenceGenerals != null && denfenceGenerals.size() > 0) {
-                    for (General denfenceGeneral : denfenceGenerals) {
-                        // 根据ID 获取
-                        denfenceGeneralsNew.add(GeneralFactory.getGeneralById(denfenceGeneral.getId()));
+                denfenceGeneralsNew = new ArrayList<>();
+                List<General> allGenerals = GeneralFactory.getInitGenerals();
+                if (allGenerals != null && allGenerals.size() > 0) {
+                    for (General general : allGenerals) {
+                        if (general.getCityId() != null && city.getId().equals(general.getCityId())) {
+                            // 根据ID 获取
+                            denfenceGeneralsNew.add(general);
+                        }
                     }
                 }
                 if (denfenceGeneralsNew.size() > 0) {

@@ -52,7 +52,7 @@ public class EventService {
     public static Event roundTrigger(General general) {
         // 根据主帅的魅力 触发事件
         Integer charm = Integer.parseInt(general.getCharm());
-        if (new Random().nextInt(100) < charm / 3) {
+        if (new Random().nextInt(100) < charm / 5) {
             Map<String, Event> eventMap = EventFactory.getEventMap();
             String[] keys = eventMap.keySet().toArray(new String[0]);
             Random random = new Random();

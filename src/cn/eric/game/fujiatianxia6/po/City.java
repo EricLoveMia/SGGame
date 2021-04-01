@@ -31,16 +31,20 @@ public class City implements Serializable {
 	private int soilders;  // 步兵数量
 	
 	private int belongTo; //
-	
-	private int topography; // 地形  1 平原 2 山地 3 水道   适应兵种  平原 骑>枪>弓  山地 枪>弓>骑   水道 弓>枪>骑  战力分别是 200% 160% 120% 普通兵种战力100%
+
+    /**
+     * 地形  1 平原 2 山地 3 水道   适应兵种  平原 骑>枪>弓  山地 枪>弓>骑   水道 弓>枪>骑  战力分别是 200% 160% 120% 普通兵种战力100%
+     */
+    private int topography;
 	
 	private int blank = 9;  // 空地数
 	private List<Building> bildings = new ArrayList<>();  // 
 	private int horses;
 	private int spears;
 	private int bows;
-	
-	private int special; // 特殊城市  1 
+
+    // 特殊城市  1
+    private int special;
 	public City(){
 
 	}

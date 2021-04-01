@@ -250,6 +250,10 @@ public class GeneralFactory {
                     if (cityByLeader.size() > aoundGenerals.size() && (cityByLeader.size() - aoundGenerals.size()) > aoundGenerals.size() * 0.75) {
                         return null;
                     }
+                    // 如果士兵数量少于4000 返回null
+                    if (leader.getArmy() < 4000) {
+                        return null;
+                    }
                     // 地形  1 平原 2 山地 3 水道
                     Integer topography = city.getTopography();
                     // TODO 根据技能值 加权取将军

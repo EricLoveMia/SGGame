@@ -1,7 +1,13 @@
 package cn.eric.game.fujiatianxia6.po;
 
-// 城市建筑物类 最大的城市最多可以造16个建筑，8个防御型 4个一次性 4个周期
-public class Building implements Cloneable{
+import java.io.Serializable;
+
+/**
+ * 城市建筑物类 最大的城市最多可以造16个建筑，8个防御型 4个一次性 4个周期
+ *
+ * @author YCKJ2725
+ */
+public class Building implements Cloneable, Serializable {
 	
 	public int id;
 	public String name;

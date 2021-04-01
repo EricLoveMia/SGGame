@@ -1,12 +1,13 @@
 package cn.eric.game.fujiatianxia6.po;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import cn.eric.game.fujiatianxia6.factory.CityFactory;
 import com.alibaba.fastjson.JSONObject;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 /**
  * 
 * <p>Title: General<／p>
@@ -16,7 +17,7 @@ import com.thoughtworks.xstream.annotations.XStreamAsAttribute;
 * @date 2017年8月3日 下午3:43:23
  */
 @XStreamAlias("general")
-public class General implements Cloneable{
+public class General implements Cloneable, Serializable {
 	@XStreamAsAttribute
 	private String id; 
 	

@@ -752,7 +752,7 @@ public class Game {
             System.out.println("武将设置完成" + generalByChoose.getName() + "派驻" + city.getName());
         }else{
             // 如果AI不设置武将
-            if(city.getDenfenceGenerals().size() == 0) {
+            if (city.getDenfenceGenerals() == null || city.getDenfenceGenerals().size() == 0) {
                 System.out.println("未设置武将，不能占领城市，拿走城市内的发展金和剩余兵力");
                 general.setMoney(general.getMoney() + city.getMoney());
                 general.setArmy(general.getArmy() + city.getSoilders());
@@ -1012,7 +1012,7 @@ public class Game {
                 number = 2000;
             }
         } else {
-            number = general.getArmy();
+            number = Math.min(general.getArmy(), 4000);
         }
         city.setSoilders(city.getSoilders() + number);
         general.setArmy(general.getArmy() - number);

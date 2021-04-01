@@ -7,6 +7,7 @@ import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
 import cn.eric.game.fujiatianxia6.po.Map;
 import cn.eric.game.fujiatianxia6.test.WriteIntoXml;
+import cn.eric.game.fujiatianxia6.util.CopyUtils;
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
@@ -44,8 +45,8 @@ public class SaveService {
         // 保存城市数据
         City[] citys = CityFactory.getCitys();
         List<City> cityList = Arrays.asList(citys);
-        // 创建一个新的去掉守将信息
-        List<City> cityListSave = new ArrayList<>(cityList);
+        // 创建一个新的list 深度克隆 去掉守将信息
+        List<City> cityListSave = CopyUtils.deepCopyList(cityList);
         cityListSave.forEach(e -> {
             if (e != null) {
                 e.setDenfenceGenerals(new ArrayList<>());

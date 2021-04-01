@@ -164,7 +164,9 @@ public class CityFactory {
                         }
                     } else {
                         // 增加守城主将的魅力 * 0.2 个普通士兵
-                        addSoilders = (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.2);
+                        if (citys[i].getDenfenceGenerals() != null && citys[i].getDenfenceGenerals().size() > 0) {
+                            addSoilders = (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.2);
+                        }
                     }
                     addSoilders = SkillFactory.checkSkillForAddSoilders(addSoilders, citys[i]);
                     citys[i].setSoilders(addSoilders);
