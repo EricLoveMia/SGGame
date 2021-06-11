@@ -287,6 +287,12 @@ public class Game {
 
             // 显示当前地图
             map.showMap(playPos);
+            System.out.println();
+            // 显示玩家信息
+            for (int i = 0; i < players.length; i++) {
+                System.out.println("玩家" + Map.graphs[i] + ":" + players[i].toString());
+                System.out.println();
+            }
         }
         if(players[0].getMoney() > 0){
             System.out.println("\n\n\n\n");
@@ -327,6 +333,7 @@ public class Game {
     public int throwShifter(int no) {
         int step = 0;
         if(!players[no - 1].isReboot()){
+            System.out.println();
             System.out.println();
             System.err.println("可以输入命令查看相关信息，输入-help获取所有命令，输入0 | a | j 继续");
             Scanner input = new Scanner(System.in);

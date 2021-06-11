@@ -86,7 +86,7 @@ public class SaveService {
         Util.writeIntoFile(JSON.toJSONString(map),prePath + "map.txt");
 
         // 修改文件夹的最后修改时间
-        File folder = new File(prePath.substring(0, prePath.length() - 2));
+        File folder = new File(prePath.substring(0, prePath.length() - 1));
         long timeMillis = System.currentTimeMillis();
         boolean modified = folder.setLastModified(timeMillis);
         if (modified) {

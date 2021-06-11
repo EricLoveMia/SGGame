@@ -72,7 +72,7 @@ public class Map {
 //    // 结束点
 //    int[] end = {size - 1};
 
-    private String[] graphs = {"壹", "贰", "叁", "肆"};
+    public static String[] graphs = {"壹", "贰", "叁", "肆"};
 
     /**
      * 生成地图:
@@ -346,6 +346,6 @@ public class Map {
     }
 
     public void setGraphs(String[] graphs) {
-        this.graphs = graphs;
+        Map.graphs = graphs;
     }
 }
