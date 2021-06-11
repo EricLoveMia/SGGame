@@ -19,6 +19,8 @@ public class CommandLineSerivce {
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
+    private Queue<String> commandQueue = new LinkedList<>();
+
     // 练习一下单例 匿名内部类
     private CommandLineSerivce(){
     }
@@ -62,7 +64,7 @@ public class CommandLineSerivce {
 
     public void getCommandLine(String command){
         String[] commandArray = command.split(" ");
-        if(commandArray == null || commandArray.length == 0){
+        if (commandArray.length == 0) {
             System.out.println("命令输入错误");
         }else{
             String commandMain = commandArray[0];
@@ -73,14 +75,54 @@ public class CommandLineSerivce {
                 case "-player" :
                     commandShowPlayer(commandArray[1]);
                     break;
+                case "-generals":
+                    commandShowPlayerGenerals(commandArray[1]);
+                    break;
                 case "-save" :
                     commandSave(commandArray);
+                    break;
+                case "-saves all":
+                    commandSavesAll(commandArray);
+                    break;
+                case "-giveMoney":
+                    commandGiveMoney(commandArray[1]);
+                    break;
+                case "-giveSoldier":
+                    commandGiveSoldier(commandArray[1]);
                     break;
                 default:
                     break;
             }
         }
 
+    }
+
+    private void commandGiveSoldier(String num) {
+        System.out.println("做梦呢");
+    }
+
+    private void commandGiveMoney(String money) {
+        System.out.println("做梦呢");
+    }
+
+    private void commandShowPlayerGenerals(String id) {
+        General general = GeneralFactory.getGeneralById(id);
+        if (general == null) {
+            System.err.println("不存在此玩家");
+            return;
+        }
+        List<General> generals = general.getGenerals();
+        GeneralFactory.showGeneralInfo(generals);
+    }
+
+    private void commandSavesAll(String[] commandArray) {
+        File file = new File("data/save");
+        File[] tempList = file.listFiles();
+        for (int i = 0; i < tempList.length; i++) {
+            long time = tempList[i].lastModified();
+            cal.setTimeInMillis(time);
+            System.out.println(i + ":" + tempList[i].getName() + " 修改时间：" + formatter.format(cal.getTime()));
+        }
     }
 
     private void commandSave(String[] path){
@@ -94,7 +136,7 @@ public class CommandLineSerivce {
         }
         Scanner input = new Scanner(System.in);
         int choose = 1;
-        while (choose != 0) {
+        while (true) {
             choose = input.nextInt();
             if (choose > tempList.length || choose < 0) {
                 System.out.println("请重新选择");

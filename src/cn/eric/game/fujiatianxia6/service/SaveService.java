@@ -10,10 +10,8 @@ import cn.eric.game.fujiatianxia6.test.WriteIntoXml;
 import cn.eric.game.fujiatianxia6.util.CopyUtils;
 import com.alibaba.fastjson.JSON;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.io.File;
+import java.util.*;
 
 /**
  * @ClassName SaveService
@@ -86,8 +84,16 @@ public class SaveService {
         // 保存地图数据
         Map map = Game.getMap();
         Util.writeIntoFile(JSON.toJSONString(map),prePath + "map.txt");
+
+        // 修改文件夹的最后修改时间
+        File folder = new File(prePath.substring(0, prePath.length() - 2));
+        long timeMillis = System.currentTimeMillis();
+        boolean modified = folder.setLastModified(timeMillis);
+        if (modified) {
+            System.out.println("更新时间 " + new Date(timeMillis));
+        } else {
+            System.out.println("更新文件失败 ");
+        }
     }
-
-
 
 }

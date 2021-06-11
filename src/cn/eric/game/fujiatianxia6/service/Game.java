@@ -328,7 +328,7 @@ public class Game {
         int step = 0;
         if(!players[no - 1].isReboot()){
             System.out.println();
-            System.out.println("可以输入命令查看相关信息，输入-help获取所有命令，输入0 | a | j 继续");
+            System.err.println("可以输入命令查看相关信息，输入-help获取所有命令，输入0 | a | j 继续");
             Scanner input = new Scanner(System.in);
             String choose = input.nextLine();
             while (!"0".equals(choose) && !"a".equals(choose) && !"j".equals(choose)) {

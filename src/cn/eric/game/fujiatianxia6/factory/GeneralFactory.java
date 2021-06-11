@@ -635,4 +635,10 @@ public class GeneralFactory {
             }
         }
     }
+
+    public static void showGeneralInfo(List<General> generals) {
+        for (General general : generals) {
+            System.out.println(general.toString());
+        }
+    }
 }
