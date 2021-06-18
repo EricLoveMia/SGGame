@@ -257,13 +257,12 @@ public class GeneralFactory {
                     // 地形  1 平原 2 山地 3 水道
                     Integer topography = city.getTopography();
                     // TODO 根据技能值 加权取将军
-
                     GeneralFactory.sortByCommand(aoundGenerals);
                     // 主公不能作为守城将领
-                    if (leader.getId().equals(aoundGenerals.get(aoundGenerals.size() - 1).getId())) {
-                        return aoundGenerals.get(aoundGenerals.size() - 2);
+                    if (leader.getId().equals(aoundGenerals.get(0).getId())) {
+                        return aoundGenerals.get(1);
                     }
-                    return aoundGenerals.get(aoundGenerals.size() - 1);
+                    return aoundGenerals.get(0);
                 default:
                     return null;
             }

@@ -37,7 +37,8 @@ public class FightEventAttack extends Event {
     @Override
     public void startPlay(General general) {
         // 开始单挑
-        System.out.println("开始单挑,10回合造成100点伤害 获得奖励 挑战成功奖励 " + this.getEventSingle().getReward().getDataGive() + ",挑战失败惩罚" + this.getEventSingle().getReward().getDataPunish());
+        System.out.println("开始单挑,10回合造成100点伤害 获得奖励 挑战成功奖励 " + this.getEventSingle().getReward().getDataGive() + "," +
+                "挑战失败惩罚" + this.getEventSingle().getReward().getDataPunish());
         System.out.println("请选择出战的武将，0 放弃");
         General generalByChoose;
         // 机器人自动选择

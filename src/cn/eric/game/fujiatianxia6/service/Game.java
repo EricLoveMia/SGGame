@@ -642,10 +642,16 @@ public class Game {
                                 break;
                             case 3:
                                 System.out.println("攻城开始");
+                                Integer defenceId = defence.getBelongTo();
+                                General generalDefence = GeneralFactory.getGeneralById(defenceId + "");
                                 boolean attackCityResult = Fight.attackCity(players[no - 1], defence);
                                 if (attackCityResult) {
                                     System.out.println("您胜利了，不需要交过路费 声望提升 200 ");
                                     players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) + 200);
+                                    if (generalDefence != null) {
+                                        System.out.println("防守失败 声望下降 200 ");
+                                        generalDefence.setReputation(Optional.ofNullable(generalDefence.getReputation()).orElse(0) - 200);
+                                    }
                                     System.out.println("占领城市，请选择守城武将和兵力");
 
                                     // 选择武将及放置的兵力

@@ -1,18 +1,21 @@
 package cn.eric.game.fujiatianxia6.test;
 
+import cn.eric.game.fujiatianxia6.po.CampaignMap;
+import cn.eric.game.fujiatianxia6.po.General;
+import cn.eric.game.fujiatianxia6.po.Skill;
+import cn.eric.game.fujiatianxia6.po.Weapon;
+import org.dom4j.Attribute;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Element;
+import org.dom4j.io.SAXReader;
+import org.junit.Test;
+
 import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-
-import cn.eric.game.fujiatianxia6.po.*;
-import org.dom4j.*;
-import org.dom4j.io.OutputFormat;
-import org.dom4j.io.SAXReader;
-import org.dom4j.io.XMLWriter;
-import org.junit.Test;
 
 public class Dom4JforXML {
 
@@ -71,6 +74,7 @@ public class Dom4JforXML {
 
     //@Test
     public static List<General> test2() throws DocumentException {
+        listGeneral = new ArrayList<General>();
         SAXReader reader = new SAXReader();
 
         Document document = reader.read(new File("data/base/Generals.xml"));
