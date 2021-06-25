@@ -73,8 +73,8 @@ public class Game {
         int mapSize = MapFactory.showAllCampaignMap();
         input = new Scanner(System.in);
         mapNum = input.nextInt();
-        while(mapNum < 0 || mapNum > mapSize){
-            System.out.println("请输入0- " + (mapSize-1) + " 的数字");
+        while (mapNum < 1 || mapNum > mapSize) {
+            System.out.println("请输入1- " + (mapSize) + " 的数字");
             mapNum = input.nextInt();
         }
         CampaignMap campaignMap = MapFactory.chooseMap(mapNum + "");
@@ -127,7 +127,7 @@ public class Game {
 
         System.out.println("\n~~~~~~~~~~~~~~~~~~~多  人  对  战~~~~~~~~~~~~~~~~~~~");
         System.out.println("\n请选择角色: 1. 刘备 容易收服武将，诸葛亮bug  \n " + "2. 曹操 野战单挑都厉害 " +
-                " \n 3. 孙权 水战无敌，周瑜bug  \n 4. 董卓 三国第一武将在手，单挑无敌，群雄归附初始兵钱加倍 \n  5. 袁绍 四世三公 文臣武将诸多");
+                " \n 3. 孙权 水战无敌，周瑜陆逊野战bug  \n 4. 董卓 三国第一武将在手，单挑无敌，群雄归附初始兵钱加倍 \n  5. 袁绍 四世三公 文臣武将诸多");
         Scanner input = new Scanner(System.in);
         int[] roles = new int[num];
         int role = 0;
@@ -227,13 +227,15 @@ public class Game {
                     continue;
                 }
                 if ("on".equals(goAndStop[i])) {
-                    //玩家1掷骰子
-                    step = throwShifter(i+1);   //掷骰子
-                    System.out.println("\n-----------------");  //显示结果信息
+                    // 玩家1掷骰子 掷骰子
+                    step = throwShifter(i + 1);
+                    // 显示结果信息
+                    System.out.println("\n-----------------");
                     System.out.println("骰子数： " + step);
                     if (playPos[i] + step < 0) {
                         playPos[i] = 0;
-                    } else if (playPos[i] + step > (map.getSize() - 1)) { //如果大于99格，则表示已经走完一圈，要重新计算
+                        // 如果大于地图的长度，则表示已经走完一圈，要重新计算
+                    } else if (playPos[i] + step > (map.getSize() - 1)) {
                         playPos[i] = playPos[i] + step - map.getSize();
                     } else {
                         playPos[i] = playPos[i] + step;
@@ -254,18 +256,18 @@ public class Game {
                 }
                 System.out.println("\n\n\n\n");
             }
-            //各城市开始计算收益，包括钱 兵 武器
-            //金钱收益  当前城市金钱 * 繁华指数 * 太守的政治
+            // 各城市开始计算收益，包括钱 兵 武器
+            // 金钱收益  当前城市金钱 * 繁华指数 * 太守的政治
             CityFactory.computeMoney();
-            //兵增加 如有徽兵所时会缓慢增加
+            // 兵增加 如有徽兵所时会缓慢增加
             CityFactory.computeSoilders();
-            //武器增加 暂时不增加 如城市内有兵工厂会缓慢增加
+            // 武器增加 暂时不增加 如城市内有兵工厂会缓慢增加
             // 根据建筑检查增加骑兵和枪兵 弓兵
             BuildingFactory.computeHorse();
             BuildingFactory.computeInAndAr();
             // 研究队列 都减1 如果到0 就从研究队列中去除
             ResearchService.researchAll();
-            //查看每回合结束后触发技能的武将是否触发 例如制衡
+            // 查看每回合结束后触发技能的武将是否触发 例如制衡
             for (int i = 0; i < players.length; i++) {
                 SkillFactory.changeAfter(9, 0, players[i], null, null);
             }
@@ -467,10 +469,12 @@ public class Game {
                 }
                 break;
             case 3:
-                // 下一次暂停一次
                 // 进入赌坊
+                System.out.println("进入赌坊，大爷今朝有酒今朝醉，来玩两把吧");
+
+                // 下一次暂停一次
                 goAndStop[no - 1] = "off";  //设置下次暂停掷骰子
-                System.out.println("~~>_<~~  要停战一局了。");
+                System.out.println("~~>_<~~  进入赌坊 停战一局。");
                 break;
             case 4:   //募兵
                 while (true) {

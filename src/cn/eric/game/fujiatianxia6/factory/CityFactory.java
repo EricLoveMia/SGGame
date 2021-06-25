@@ -37,6 +37,15 @@ public class CityFactory {
         City city24 = new City(24, 1, "广陵", "徐州 汉代，今扬州称广陵、江都", 200, 1000, 300, 2);
         City city25 = new City(25, 1, "琅邪", "徐州 徐州属地", 200, 1000, 300, 3);
         City city26 = new City(26, 1, "东海", "徐州 徐州属地", 200, 1000, 300, 3);
+        City city27 = new City(27, 1, "赤壁", "荆州 赤壁", 200, 1000, 300, 3);
+        City city28 = new City(28, 1, "荆州", "荆州 赤壁之战后，曹操、刘备、孙权三家分荆州：曹操占据南阳、南郡二郡，刘备占据长江以南的零陵、桂阳 、武陵、长沙四郡，孙权则占据江夏郡", 200, 1000, 300, 3);
+        City city29 = new City(29, 1, "南郡", "荆州 东汉末年和三国时期治所在公安。唐代南郡更名为江陵郡，后来又改为江陵府。", 200, 1000, 300, 1);
+        City city30 = new City(30, 1, "江夏", "荆州 魏、吴各置江夏郡，魏江夏郡初治石阳县（今武汉市黄陂区西南），后迁上昶城（今湖北省云梦西南）", 200, 1000, 300, 3);
+        City city31 = new City(31, 1, "武陵", "荆州 三国时的武陵郡，治所仍在临沅(今常德市武陵区和鼎城区的大部)，初属蜀，后属吴", 200, 1000, 300, 2);
+        City city32 = new City(32, 1, "零陵", "荆州 汉献帝建安三年(198)，荆州牧刘表攻占零陵，零陵境域属刘表势力范围", 200, 1000, 300, 2);
+        City city33 = new City(33, 1, "桂阳", "荆州 郡治在今天的郴州市区，领十一个县，其范围基本包括今天的郴州各个区县，甚至还有广东的北部的一部分，如阳山、含洭、曲江、浈阳、桂阳等县",
+                200, 1000, 300, 1);
+        City city34 = new City(34, 1, "南乡", "荆州 南乡", 200, 1000, 300, 1);
 
         citys[1] = city1;
         citys[2] = city2;
@@ -64,8 +73,16 @@ public class CityFactory {
         citys[24] = city24;
         citys[25] = city25;
         citys[26] = city26;
+        citys[27] = city27;
+        citys[28] = city28;
+        citys[29] = city29;
+        citys[30] = city30;
+        citys[31] = city31;
+        citys[32] = city32;
+        citys[33] = city33;
+        citys[34] = city34;
 
-        for (int i = 27; i < 50; i++) {
+        for (int i = 35; i < 50; i++) {
             citys[i] = null;
         }
         //}
@@ -167,6 +184,9 @@ public class CityFactory {
                         if (citys[i].getDenfenceGenerals() != null && citys[i].getDenfenceGenerals().size() > 0) {
                             addSoilders = (int) (citys[i].getSoilders() + Integer.parseInt(citys[i].getDenfenceGenerals().get(0).getCharm()) * 0.2);
                         }
+                    }
+                    if (addSoilders == 0) {
+                        addSoilders = citys[i].getSoilders();
                     }
                     addSoilders = SkillFactory.checkSkillForAddSoilders(addSoilders, citys[i]);
                     citys[i].setSoilders(addSoilders);

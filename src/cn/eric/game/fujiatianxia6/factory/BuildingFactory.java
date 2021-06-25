@@ -228,7 +228,7 @@ public class BuildingFactory {
 		// 增加骑兵 减少步兵
 		city.setCavalrys(Optional.ofNullable(city.getCavalrys()).orElse(0) + add );
         city.setSoilders(city.getSoilders() - add);
-        System.out.println("城市" + city.getName() + "增加了骑兵" + add + "个");
+		System.out.println("城市" + city.getName() + " 减少了剑兵" + add + "个，增加了骑兵" + add + "个");
 	}
 
 
