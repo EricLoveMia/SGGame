@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.test;
 
+import cn.eric.game.fujiatianxia6.factory.CampaignFactory;
 import cn.eric.game.fujiatianxia6.po.CampaignMap;
 import cn.eric.game.fujiatianxia6.po.General;
 import cn.eric.game.fujiatianxia6.po.Skill;
@@ -37,6 +38,7 @@ public class Dom4JforXML {
         listNodes2(root);
         return listGeneral;
     }
+
 
     @Test
     public void test() throws DocumentException {
@@ -118,6 +120,55 @@ public class Dom4JforXML {
 
         listNodesWeapon(root);
         return weapons;
+    }
+
+
+    public static List<CampaignFactory.CampaignList> createCampaign() throws DocumentException {
+        List<CampaignFactory.CampaignList> list = new ArrayList<>();
+        SAXReader reader = new SAXReader();
+
+        Document document = reader.read(new File("data/base/Campaign.xml"));
+
+        Element root = document.getRootElement();
+
+        return listNodesCampaign(root);
+    }
+
+    private static List<CampaignFactory.CampaignList> listNodesCampaign(Element node) {
+        List<CampaignFactory.CampaignList> list = new ArrayList<>();
+        //使用递归
+        Iterator<Element> iterator = node.elementIterator();
+        while (iterator.hasNext()) {
+            CampaignFactory.CampaignList s = new CampaignFactory.CampaignList();
+            Element e = iterator.next();
+            //遍历属性节点
+            Iterator iterator2 = e.elementIterator();
+            while (iterator2.hasNext()) {
+                Element e2 = (Element) iterator2.next();
+                //如果当前节点内容不为空，则输出
+                if (!(e2.getTextTrim().equals(""))) {
+                    switch (e2.getName()) {
+                        case "lordId":
+                            s.setLordId(e2.getText());
+                            break;
+                        case "maps":
+                            s.setMaps(e2.getText());
+                            break;
+                        case "enemies":
+                            s.setEnemies(e2.getText());
+                            break;
+                        case "memo":
+                            s.setMemo(e2.getText());
+                            break;
+                        default:
+                            break;
+                    }
+
+                }
+            }
+            list.add(s);
+        }
+        return list;
     }
 
     @SuppressWarnings("unchecked")

@@ -44,7 +44,7 @@ public class StartCampaign {
             CampaignMap campaignMap = campaignMaps.get(campaign.getIndex());
             campaign.setIndex(campaign.getIndex() + 1);
             // 确定玩家数和AI
-            campaignMap.setDefaultPlayer(Arrays.asList("1","2","3"));
+            // campaignMap.setDefaultPlayer(Arrays.asList("1","2","3"));
             game = new Game(campaignMap);
             while (game.startCampaign() && campaign.getIndex() < campaign.getCampaignMaps().size()) {
                 campaignMap = campaignMaps.get(campaign.getIndex());

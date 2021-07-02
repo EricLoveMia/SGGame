@@ -3,7 +3,6 @@ package cn.eric.game.fujiatianxia6.po;
 import cn.eric.game.fujiatianxia6.factory.MapFactory;
 import cn.eric.game.fujiatianxia6.service.Game;
 
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -18,7 +17,7 @@ public class Campaign {
     /**
      * 战役地图
      **/
-    private List<CampaignMap> campaignMaps = new LinkedList<>();
+    private List<CampaignMap> campaignMaps;
 
     /**
      * 当前战役地图

@@ -1,6 +1,7 @@
 package cn.eric.game.fujiatianxia6.util;
 
 import java.io.*;
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -50,5 +51,32 @@ public class CopyUtils {
             e.printStackTrace();
         }
         return dest;
+    }
+
+    /**
+     * @MethodName: copy
+     * @Description: 拷贝属性
+     * @Param: [orignal, clasz]
+     * @Return: T
+     * @Author: YCKJ2725
+     * @Date: 2021/7/2 16:48
+     **/
+    public static <T> T copyProperties(Object original, Class<T> clazz) throws IllegalAccessException, InstantiationException {
+        Field[] declaredFieldsSource = original.getClass().getDeclaredFields();
+
+        Field[] declaredFieldsTarget = clazz.getDeclaredFields();
+
+        T newInstance = clazz.newInstance();
+        for (Field field : declaredFieldsSource) {
+            field.setAccessible(true);
+            for (Field fieldT : declaredFieldsTarget) {
+                if (field.getName().equals(fieldT.getName())) {
+                    fieldT.setAccessible(true);
+                    fieldT.set(newInstance, field.get(original));
+                }
+            }
+        }
+
+        return newInstance;
     }
 }

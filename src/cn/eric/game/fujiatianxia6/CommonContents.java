@@ -4,8 +4,8 @@ import cn.eric.game.fujiatianxia6.controller.StartCampaign;
 
 /**
  * @ClassName CommonContents
- * @Description: TODO
- * @Author YCKJ2725
+ * @Description: 共享变量
+ * @Author eric
  * @Date 2020/12/3
  * @Version V1.0
  **/

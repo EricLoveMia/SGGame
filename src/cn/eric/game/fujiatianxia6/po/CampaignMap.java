@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.po;
 
+import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import java.util.List;
  * @Date 2020/11/30
  * @Version V1.0
  **/
-public class CampaignMap {
+public class CampaignMap implements Serializable {
 
     private String id;
 
@@ -132,6 +133,7 @@ public class CampaignMap {
                 ", 名称='" + name + '\'' +
                 ", 地块数量=" + size +
                 ", 说明='" + memo + '\'' +
-                '}';
+                ", 对战主公='" + defaultPlayer.toString() + "\'" +
+                "}";
     }
 }

@@ -39,17 +39,30 @@ public class StartGame {
 			CityFactory.init();
 			// 初始化战役地图
 			MapFactory.init();
+			// 初始化战役内容
+			CampaignFactory.init();
 			// 选择是个人战役还是自定义战役
 			System.err.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※\n\n\n");
 			System.out.println("请选择 1 一统天下  2 自定义战役  3 不想玩了");
 			choose = input.nextInt();
 			if(choose == 1) {
+				System.out.println("请选择人物");
+				System.out.println("\n请选择角色: 1. 刘备 容易收服武将，诸葛亮bug  \n " + "2. 曹操 野战单挑都厉害 " +
+						" \n 3. 孙权 水战无敌，周瑜陆逊野战bug  \n 4. 董卓 三国第一武将在手，单挑无敌，群雄归附初始兵钱加倍 \n  5. 袁绍 四世三公 文臣武将诸多");
+				int lord = input.nextInt();
+				while (lord < 1 || lord > 5) {
+					System.out.println("请重新选择");
+					lord = input.nextInt();
+				}
+				// 根据id 选择开启的战役
+				CampaignFactory.CampaignFoundation campaignByGeneralId = CampaignFactory.getCampaignByGeneralId(lord + "");
 				// 先开启刘备战役
 				StartCampaign startCampaign = new StartCampaign();
 				CommonContents.startCampaign = startCampaign;
 				Campaign campaign = new Campaign();
+				campaign.setCampaignMaps(campaignByGeneralId.getCampaignMaps());
                 campaign.setIndex(0);
-				startCampaign.init(campaign,GeneralFactory.getGeneral("刘备"));
+				startCampaign.init(campaign, GeneralFactory.getGeneralById(lord + ""));
 				startCampaign.start();
 			} else if(choose == 2){
 				// 创建游戏类
