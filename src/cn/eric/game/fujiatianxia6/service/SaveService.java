@@ -33,13 +33,17 @@ public class SaveService {
         }else{
             prePath = "data/save/" + path + "/";
         }
+        File file = new File(prePath.substring(0, prePath.length() - 1));
+        if (!file.exists()) {
+            if (!file.mkdir()) {
+                System.out.println("生成存档文件夹失败");
+                return;
+            }
+        }
         // 保存武将数据 需要带武器
         List<General> initGenerals = GeneralFactory.getInitGenerals();
         WriteIntoXml.saveGeneralsToXML(initGenerals,prePath);
-        // 保存武器数据 不需要保存 通用
         // TODO 需要给武将配置武器
-
-        // 保存技能数据 不需要保存 通用
         // 保存城市数据
         City[] citys = CityFactory.getCitys();
         List<City> cityList = Arrays.asList(citys);
@@ -86,7 +90,7 @@ public class SaveService {
         Util.writeIntoFile(JSON.toJSONString(map),prePath + "map.txt");
 
         // 修改文件夹的最后修改时间
-        File folder = new File(prePath.substring(0, prePath.length() - 1));
+        File folder = file;
         long timeMillis = System.currentTimeMillis();
         boolean modified = folder.setLastModified(timeMillis);
         if (modified) {

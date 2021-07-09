@@ -126,28 +126,64 @@ public class CommandLineSerivce {
     }
 
     private void commandSave(String[] path){
-        System.out.println("请问需要覆盖哪个存档");
         File file = new File("data/save");
         File[] tempList = file.listFiles();
-        for (int i = 0; i < tempList.length; i++) {
-            long time = tempList[i].lastModified();
-            cal.setTimeInMillis(time);
-            System.out.println( i + ":" + tempList[i].getName() + " 修改时间：" + formatter.format(cal.getTime()));
+        if (tempList == null) {
+            System.out.println("暂时没有存档，新增存档");
+            newSave();
+            return;
         }
+        // 存在历史存档
+        System.out.println("覆盖存档 1 ; 新增存档 2");
         Scanner input = new Scanner(System.in);
-        int choose = 1;
+        int choose;
         while (true) {
             choose = input.nextInt();
-            if (choose > tempList.length || choose < 0) {
+            if (choose > 2 || choose < 0) {
                 System.out.println("请重新选择");
                 continue;
             }
-            try {
-                SaveService.save(tempList[choose].getName());
-            } catch (CloneNotSupportedException e) {
-                e.printStackTrace();
-            }
             break;
+        }
+        if (choose == 1) {
+            System.out.println("覆盖哪个存档 ");
+            for (int i = 0; i < tempList.length; i++) {
+                long time = tempList[i].lastModified();
+                cal.setTimeInMillis(time);
+                System.out.println(i + ":" + tempList[i].getName() + " 修改时间：" + formatter.format(cal.getTime()));
+            }
+            input = new Scanner(System.in);
+            while (true) {
+                choose = input.nextInt();
+                if (choose > tempList.length || choose < 0) {
+                    System.out.println("请重新选择");
+                    continue;
+                }
+                try {
+                    SaveService.save(tempList[choose].getName());
+                } catch (CloneNotSupportedException e) {
+                    e.printStackTrace();
+                }
+                break;
+            }
+        } else if (choose == 2) {
+            newSave();
+        }
+    }
+
+    private void newSave() {
+        Scanner input;
+        System.out.println("输入存档名称 ");
+        input = new Scanner(System.in);
+        String name = input.nextLine();
+        while (name == null || "".equals(name)) {
+            System.out.println("输入存档名称 ");
+            name = input.nextLine();
+        }
+        try {
+            SaveService.save(name);
+        } catch (CloneNotSupportedException e) {
+            e.printStackTrace();
         }
     }
 
