@@ -172,7 +172,7 @@
 		<id>25</id>
 		<name>金刚</name>
         <memo>野战中，如果伤害超过限定值，则只承受限定值伤害，限定值与统帅、武力相关，基础限定值200</memo>
-        <data>200</data>
+		<data>150</data>
 		<time>4</time>
 	</skill>
 	<skill>
@@ -386,6 +386,13 @@
         <data>5</data>
         <time>1</time>
     </skill>
+	<skill>
+		<id>56</id>
+		<name>不屈</name>
+		<memo>野战中，如果己方人数少于敌方人数一定数量（统帅、智力、魅力决定），有概率（30%）直接无视攻击</memo>
+		<data>400</data>
+		<time>4</time>
+	</skill>
     <skill>
         <id>99</id>
         <name>普通</name>
