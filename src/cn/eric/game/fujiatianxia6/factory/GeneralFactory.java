@@ -222,7 +222,7 @@ public class GeneralFactory {
         General[] temp = new General[aoundGenerals.size() + 1];
         for (Iterator iterator = aoundGenerals.iterator(); iterator.hasNext(); ) {
             General g = (General) iterator.next();
-            System.out.println(index + " :姓名：" + g.getName() + "武力：" + g.getAttack());
+            System.out.println(g.toString());
             temp[index++] = g;
         }
         if (leader.isReboot()) {

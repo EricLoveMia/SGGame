@@ -471,10 +471,10 @@ public class Game {
             case 3:
                 // 进入赌坊
                 System.out.println("进入赌坊，大爷今朝有酒今朝醉，来玩两把吧");
-
+                CasinoService.guess(players[no - 1]);
                 // 下一次暂停一次
-                goAndStop[no - 1] = "off";  //设置下次暂停掷骰子
-                System.out.println("~~>_<~~  进入赌坊 停战一局。");
+//                goAndStop[no - 1] = "off";  //设置下次暂停掷骰子
+//                System.out.println("~~>_<~~  进入赌坊 停战一局。");
                 break;
             case 4:   //募兵
                 while (true) {

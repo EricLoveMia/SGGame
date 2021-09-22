@@ -729,7 +729,7 @@ public class SkillFactory {
                 }
             }
         }
-
+        // 披荆
         if ("54".equals(general.getSkill())) {
             Skill skill = SkillFactory.getSkillByID(general.getSkill());
 

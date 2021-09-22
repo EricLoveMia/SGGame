@@ -1,12 +1,12 @@
 package cn.eric.game.fujiatianxia6.po;
 
-import java.util.HashMap;
-import java.util.Optional;
-
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.factory.SkillFactory;
 import cn.eric.game.fujiatianxia6.service.ArmsService;
 import cn.eric.game.fujiatianxia6.service.Util;
+
+import java.util.HashMap;
+import java.util.Optional;
 
 public class BattleField {
 
@@ -165,11 +165,7 @@ public class BattleField {
      */
     public boolean fight() {
         if (AttackChief != null && DefenceChief != null) {
-            if (Integer.parseInt(AttackChief.getCommand()) >= Integer.parseInt(DefenceChief.getCommand())) {
-                return true;
-            } else {
-                return false;
-            }
+            return Integer.parseInt(AttackChief.getCommand()) >= Integer.parseInt(DefenceChief.getCommand());
         }
         return false;
     }
@@ -292,7 +288,7 @@ public class BattleField {
             int defLostCount = 0;
             while (attackAmyNum > 0 && defenceAmyNum > 0) {
 
-                //取十次里面的最大随机数
+                // 取十次里面的平均
                 float randomAtt = Util.getMaxFloatNum(10);
                 float randomDef = Util.getMaxFloatNum(10);
                 attLost = (int) (defenceAmyNum * defenceFactor * (3 * (float) ((int) (randomAtt * (Math.max(Integer.parseInt(DefenceChief.getAttack())
@@ -374,11 +370,7 @@ public class BattleField {
 
 
             // 如果攻击方剩余的兵力多，则获胜
-            if (attackAmyNum >= defenceAmyNum) {
-                return true;
-            } else {
-                return false;
-            }
+            return attackAmyNum >= defenceAmyNum;
         }
         return false;
     }

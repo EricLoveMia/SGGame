@@ -359,14 +359,14 @@ public class General implements Cloneable, Serializable {
                 + intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", vitality=" + vitality + ", landfc="
                 + landfc + ", mountainfc=" + mountainfc + ", riverfc=" + riverfc
                 + ";\n 技能 ：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getName()
-                + "：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getMemo() + "]";
+				+ "：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getMemo() + "]\n";
 	}
 
 	public String memoPlayer() {
 		return "General [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="
 				+ intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", 生命 =" + vitality + ", 金钱 ="
 				+ money + ", 剑兵 =" + army + ", 骑兵 =" + cavalrys + ", 枪兵 =" + infantry + ", 弓兵 =" + archers
-				+ ", 兵种等级 =" + JSONObject.toJSONString(armsTotal) + ", 城市数量 =" + CityFactory.findCityByLeader(this).size() + "]";
+				+ ", 兵种等级 =" + JSONObject.toJSONString(armsTotal) + ", 城市数量 =" + CityFactory.findCityByLeader(this).size() + "]\n";
 	}
 
 	public boolean isReboot() {
