@@ -1,6 +1,6 @@
 package cn.eric.game.guessdigit;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 public class GuessDigit {
 

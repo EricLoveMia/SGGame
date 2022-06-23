@@ -1,12 +1,9 @@
 package cn.eric.game.f1;
 
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Rectangle;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-
-import javax.swing.JFrame;
 
 public class G1P3 extends JFrame {
 	
@@ -39,11 +36,11 @@ public class G1P3 extends JFrame {
 	Rectangle right = new Rectangle((WIDTH / 9) * 8,0,WIDTH / 9,HEIGHT); 
 	Rectangle top = new Rectangle(0, 0,WIDTH, HEIGHT / 9);
 	Rectangle bottom = new Rectangle(0, (HEIGHT / 9) * 8,(WIDTH / 9)*9,HEIGHT / 9); 
-	Rectangle center = new Rectangle((int) ((WIDTH / 9) * 2.5),(int)((HEIGHT/ 9) * 2.5), (int) ((WIDTH/ 9) * 5),(HEIGHT/ 9) * 4); 
+	Rectangle center = new Rectangle((int) ((WIDTH / 9) * 2.5),(int)((HEIGHT/ 9) * 2.5), (WIDTH/ 9) * 5,(HEIGHT/ 9) * 4);
     //绘制跑道上的障碍物
-	Rectangle obstacle = new Rectangle(WIDTH / 2,(int) ((HEIGHT / 9) * 7),WIDTH / 10,HEIGHT / 9); 
-	Rectangle obstacle2 = new Rectangle(WIDTH / 3,(int) ((HEIGHT / 9) * 5),WIDTH / 10,HEIGHT / 4);
-	Rectangle obstacle3 = new Rectangle(2 * (WIDTH / 3),(int) ((HEIGHT / 9) * 5),WIDTH / 10, HEIGHT / 4);
+	Rectangle obstacle = new Rectangle(WIDTH / 2, (HEIGHT / 9) * 7,WIDTH / 10,HEIGHT / 9);
+	Rectangle obstacle2 = new Rectangle(WIDTH / 3, (HEIGHT / 9) * 5,WIDTH / 10,HEIGHT / 4);
+	Rectangle obstacle3 = new Rectangle(2 * (WIDTH / 3), (HEIGHT / 9) * 5,WIDTH / 10, HEIGHT / 4);
 	Rectangle obstacle4 = new Rectangle( WIDTH / 3,HEIGHT / 9, WIDTH / 30, HEIGHT / 9);
 	Rectangle obstacle5 = new Rectangle(WIDTH / 2, (int) ((HEIGHT / 9) *1.5), WIDTH / 30, HEIGHT / 4);
 	// 下面的矩形用于绘制内外跑道的终点线

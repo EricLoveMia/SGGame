@@ -1,7 +1,5 @@
 package cn.eric.game.fujiatianxia6.po;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
 /**
  * @author Eric
  * @version 1.0

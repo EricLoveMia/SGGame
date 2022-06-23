@@ -210,11 +210,11 @@ public class WriteIntoXml {
 
 
     private static class Emp{
-        private Integer id;
-        private String name;
-        private int age;
-        private String gender;
-        private int salary;
+        private final Integer id;
+        private final String name;
+        private final int age;
+        private final String gender;
+        private final int salary;
 
         public Emp(Integer id, String name, int age, String gender, int salary) {
             this.id = id;

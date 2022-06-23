@@ -133,7 +133,7 @@ public class CampaignMap implements Serializable {
                 ", 名称='" + name + '\'' +
                 ", 地块数量=" + size +
                 ", 说明='" + memo + '\'' +
-                ", 对战主公='" + defaultPlayer.toString() + "\'" +
+                ", 对战主公='" + defaultPlayer.toString() + "'" +
                 "}";
     }
 }

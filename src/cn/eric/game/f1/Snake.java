@@ -19,9 +19,9 @@ import java.util.concurrent.LinkedBlockingDeque;
 
 class View extends JPanel {
     private static final long serialVersionUID = 01111111111L;
-    private int width;
-    private int height;
-    private int cellSize;
+    private final int width;
+    private final int height;
+    private final int cellSize;
     public int[][] grid;
 
     View(int width, int height, int cellSize, int[][] grid) {
@@ -105,7 +105,7 @@ public class Snake {
 
 
         frame.addKeyListener(new KeyAdapter() {
-            Hashtable<Integer, Direction> keyCode_to_Direction = new Hashtable<Integer, Direction>() {{
+            final Hashtable<Integer, Direction> keyCode_to_Direction = new Hashtable<Integer, Direction>() {{
                 put(KeyEvent.VK_W, Direction.UP);
                 put(KeyEvent.VK_A, Direction.LEFT);
                 put(KeyEvent.VK_S, Direction.DOWN);

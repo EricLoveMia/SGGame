@@ -24,8 +24,8 @@ public class GameMap {
 	
 	private int tileWidth = 32;
 	private int tileHeight = 32;
-	private int cols;
-	private Image image;
+	private final int cols;
+	private final Image image;
 	
 	public GameMap(int tileWidth,int tileHeight, Image map){
 		this.tileWidth = tileWidth;

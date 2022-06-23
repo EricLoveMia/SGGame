@@ -22,11 +22,11 @@ public class Dom4JforXML {
 
     private static List<General> listGeneral = new ArrayList<General>();
 
-    private static List<Skill> skills = new ArrayList<>();
+    private static final List<Skill> skills = new ArrayList<>();
 
-    private static List<Weapon> weapons = new ArrayList<>();
+    private static final List<Weapon> weapons = new ArrayList<>();
 
-    private static List<CampaignMap> campaignMaps = new ArrayList<>();
+    private static final List<CampaignMap> campaignMaps = new ArrayList<>();
 
     public static List<General> loadGenerals(String filePath) throws DocumentException {
         SAXReader reader = new SAXReader();

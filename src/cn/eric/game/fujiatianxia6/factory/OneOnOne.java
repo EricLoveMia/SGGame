@@ -336,9 +336,9 @@ public class OneOnOne {
             resetFD((int) (attackA - defenceB * 0.5) / 10 * 3, (int) (attackB - defenceA * 0.5) / 10 * 3, 1, 1);
 
             vitalityB = vitalityB - FD.defenceLostHealth;
-            strengthB = strengthB + 20;
+            strengthB = strengthB + Integer.parseInt(defenceG.getIntelligence())/10;
             vitalityA = vitalityA - FD.attackLostHealth;
-            strengthA = strengthA + 20;
+            strengthA = strengthA + Integer.parseInt(attackG.getIntelligence())/10;
         } else if (c1 == 1 && c2 == 2) {
             //攻防
             System.out.println("进攻方 进攻 防守方 防守");
@@ -346,14 +346,15 @@ public class OneOnOne {
             //根据技能重新获得损失的血量
             resetFD((int) (attackA - defenceB * 0.65) / 10 * 3, 0, 1, 2);
             vitalityB = vitalityB - FD.defenceLostHealth;
-            strengthB = strengthB + 30;
+            // 智力越高 回气越快
+            strengthB = strengthB + 10 + Integer.parseInt(defenceG.getIntelligence()) * 2/10;
         } else if (c1 == 2 && c2 == 1) {
             //攻防
             System.out.println("进攻方 防守 防守方 进攻");
             //根据技能重新获得损失的血量
             resetFD(0, (int) (attackB - defenceA * 0.65) / 10 * 3, 2, 1);
             vitalityA = vitalityA - FD.attackLostHealth;
-            strengthA = strengthA + 40;
+            strengthA = strengthA + 10 + Integer.parseInt(attackG.getIntelligence()) * 2/10;
         } else if (c1 == 2 && c2 == 2) {
             System.out.println("进攻方 防守 防守方 防守");
         } else if (c1 == 1 && c2 == 3) {
@@ -362,7 +363,7 @@ public class OneOnOne {
             //根据技能重新获得损失的血量
             resetFD((int) (attackA - defenceB * 0.5) / 10 * 3, 0, 1, 3);
             vitalityB = vitalityB - FD.defenceLostHealth;
-            strengthB = strengthB + 50;
+            strengthB = strengthB + 20 + Integer.parseInt(defenceG.getIntelligence()) * 3/10;
         } else if (c1 == 3 && c2 == 1) {
             //气 攻
             System.out.println("进攻方 集气 防守方 进攻");
@@ -370,99 +371,94 @@ public class OneOnOne {
             resetFD(0, (int) (attackB - defenceA * 0.5) / 10 * 3, 3, 1);
 
             vitalityA = vitalityA - FD.attackLostHealth;
-            strengthA = strengthA + 50;
+            strengthA = strengthA + 20 + Integer.parseInt(attackG.getIntelligence()) * 3/10;
         } else if (c1 == 2 && c2 == 3) {
             //防 气
             System.out.println("进攻方 防守 防守方 集气");
-            strengthB = strengthB + 50;
+            strengthB = strengthB + 20 + Integer.parseInt(defenceG.getIntelligence()) * 3/10;
         } else if (c1 == 3 && c2 == 2) {
             //防 气
             System.out.println("进攻方 集气 防守方 防守");
-            strengthA = strengthA + 50;
+            strengthA = strengthA + 20 + Integer.parseInt(attackG.getIntelligence()) * 3/10;
         } else if (c1 == 1 && c2 == 4) {
             //攻 大招
             System.out.println("进攻方 进攻");
             System.out.println("防守方 大招");
-
             //根据技能重新获得损失的血量
-            resetFD((int) (attackA - defenceB * 0.5) / 10 * 3, (int) (attackB - defenceA * 0.5) / 10 * 5, 1, 4);
-
+            resetFD((int) (attackA - defenceB * 0.5) / 10 * 3, (int) (attackB * 1.4 - defenceA * 0.5) / 10 * 5, 1, 4);
             vitalityB = vitalityB - FD.defenceLostHealth;
-            //strengthB = strengthB + 20;
             vitalityA = vitalityA - FD.attackLostHealth;
-            strengthA = strengthA + 30;
-            strengthB = 0;
+            strengthA = strengthA + Integer.parseInt(attackG.getIntelligence()) * 2/10;
+            strengthB = strengthB - 100;
         } else if (c1 == 2 && c2 == 4) {
             //防 大招
             System.out.println("进攻方 防守");
             System.out.println("防守方 大招");
 
             //根据技能重新获得损失的血量
-            resetFD(0, (int) (attackB - defenceA * 0.65) / 10 * 5, 2, 4);
-
+            resetFD(0, (int) (attackB * 1.4 - defenceA * 0.65) / 10 * 5, 2, 4);
             vitalityA = vitalityA - FD.attackLostHealth;
-            strengthA = strengthA + 30;
-            strengthB = 0;
+            strengthA = strengthA + 20 + Integer.parseInt(attackG.getIntelligence()) * 3/10;
+            strengthB = strengthB - 100;
         } else if (c1 == 3 && c2 == 4) {
             //防 大招
             System.out.println("进攻方 集气");
             System.out.println("防守方 大招");
             //根据技能重新获得损失的血量
-            resetFD(0, (int) (attackB - defenceA * 0.5) / 10 * 5, 3, 4);
+            resetFD(0, (int) (attackB * 1.4 - defenceA * 0.5) / 10 * 5, 3, 4);
 
             vitalityA = vitalityA - FD.attackLostHealth;
-            strengthA = strengthA + 70;
-            strengthB = 0;
+            strengthA = strengthA + 20 + Integer.parseInt(attackG.getIntelligence()) * 3/10;
+            strengthB = strengthB - 100;
         } else if (c1 == 4 && c2 == 4) {
             //防 大招
             System.out.println("进攻方 大招");
             System.out.println("防守方 大招");
 
             //根据技能重新获得损失的血量
-            resetFD((int) (attackA - defenceB * 0.5) / 10 * 5, (int) (attackB - defenceA * 0.5) / 10 * 5, 3, 4);
+            resetFD((int) (attackA * 1.4 - defenceB * 0.5) / 10 * 5, (int) (attackB * 1.4 - defenceA * 0.5) / 10 * 5,
+					3, 4);
 
             vitalityB = vitalityB - FD.defenceLostHealth;
-            //strengthB = strengthB + 30;
             vitalityA = vitalityA - FD.attackLostHealth;
-            //strengthA = strengthA + 30;
 
-            strengthA = 0;
-            strengthB = 0;
+            strengthA = strengthA - 100;
+            strengthB = strengthB - 100;
         } else if (c1 == 4 && c2 == 1) {
             //防 大招
             System.out.println("进攻方 大招");
             System.out.println("防守方 进攻");
 
             //根据技能重新获得损失的血量
-            resetFD((int) (attackA - defenceB * 0.5) / 10 * 5, (int) (attackB - defenceA * 0.5) / 10 * 3, 4, 1);
+            resetFD((int) (attackA * 1.4 - defenceB * 0.5) / 10 * 5, (int) (attackB - defenceA * 0.5) / 10 * 3, 4, 1);
 
             vitalityB = vitalityB - FD.defenceLostHealth;
-            strengthB = strengthB + 30;
+            strengthB = strengthB + Integer.parseInt(defenceG.getIntelligence()) * 2/10;
             vitalityA = vitalityA - FD.attackLostHealth;
             //strengthA = strengthA + 20;
-            strengthA = 0;
+            strengthA = strengthA - 100;
         } else if (c1 == 4 && c2 == 2) {
             //防 大招
             System.out.println("进攻方 大招");
             System.out.println("防守方 防御");
 
             //根据技能重新获得损失的血量
-            resetFD((int) (attackA - defenceB * 0.65) / 10 * 5, 0, 4, 2);
+            resetFD((int) (attackA * 1.4 - defenceB * 0.65) / 10 * 5, 0, 4, 2);
 
             vitalityB = vitalityB - FD.defenceLostHealth;
-            strengthB = strengthB + 30;
-            strengthA = 0;
+            strengthB = strengthB + 20 + Integer.parseInt(defenceG.getIntelligence()) * 2/10;
+            strengthA = strengthA - 100;
         } else if (c1 == 4 && c2 == 3) {
             //防 大招
             System.out.println("进攻方 大招");
             System.out.println("防守方 集气");
 
             //根据技能重新获得损失的血量
-            resetFD((int) (attackA - defenceB * 0.5) / 10 * 5, 0, 4, 3);
+            resetFD((int) (attackA * 1.4 - defenceB * 0.5) / 10 * 5, 0, 4, 3);
 
             vitalityB = vitalityB - FD.defenceLostHealth;
-            strengthB = strengthB + 70;
-            strengthA = 0;
+            strengthB = strengthB + 20 + Integer.parseInt(defenceG.getIntelligence()) * 3/10;
+            strengthA = strengthA - 100;
 		}
 	}
 

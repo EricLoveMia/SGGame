@@ -16,7 +16,7 @@ import cn.eric.game.fujiatianxia6.service.event.reward.MoneyReward;
  **/
 public class FightEvent extends Event {
 
-    private General generalDead = new General();
+    private final General generalDead = new General();
 
     @Override
     public void initialize() {

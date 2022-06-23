@@ -1,10 +1,5 @@
 package cn.eric.game.fujiatianxia6.test;
 
-import java.io.File;
-
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.DomDriver;
-
 public class XStreamTest {
 	
 	public void test(){		

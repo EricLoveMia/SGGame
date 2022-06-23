@@ -12,7 +12,7 @@ import java.util.Map;
  **/
 public class EventFactory {
 
-    private static Map<String, Event> eventMap = new HashMap<>();
+    private static final Map<String, Event> eventMap = new HashMap<>();
 
     // 注册到工厂中
     public static void register(String name, Event event) {

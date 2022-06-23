@@ -222,7 +222,7 @@ public class GeneralFactory {
         General[] temp = new General[aoundGenerals.size() + 1];
         for (Iterator iterator = aoundGenerals.iterator(); iterator.hasNext(); ) {
             General g = (General) iterator.next();
-            System.out.println(g.toString());
+            System.out.println(index + ":" + g.toString());
             temp[index++] = g;
         }
         if (leader.isReboot()) {
@@ -270,17 +270,21 @@ public class GeneralFactory {
         while (true) {
             Scanner input = new Scanner(System.in);
             System.out.println("请选择武将");
-            int choise = input.nextInt();
-            if (choise == 0) {
-                return null;
-            } else if (choise < 0 || (choise >= aoundGenerals.size() + 1)) {
-                System.out.println("请选择合适的数字");
-            } else {
-                try {
-                    return temp[choise];
-                } catch (Exception e) {
-                    e.printStackTrace();
+            try {
+                int choise = input.nextInt();
+                if (choise == 0) {
+                    return null;
+                } else if (choise < 0 || (choise >= aoundGenerals.size() + 1)) {
+                    System.out.println("请选择合适的数字");
+                } else {
+                    try {
+                        return temp[choise];
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
+            } catch (InputMismatchException exception) {
+                System.out.println("请选择合适的数字");
             }
         }
 

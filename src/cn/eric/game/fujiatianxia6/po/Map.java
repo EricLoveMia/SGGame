@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.po;
 
+import cn.eric.game.fujiatianxia6.enums.ConsoleColors;
 import cn.eric.game.fujiatianxia6.factory.CityFactory;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public class Map {
 //    // 结束点
 //    int[] end = {size - 1};
 
-    public static String[] graphs = {"壹", "贰", "叁", "肆"};
+    public static String[] graphs = {ConsoleColors.RED + "壹", ConsoleColors.BLUE +"贰", ConsoleColors.GREEN +"叁", ConsoleColors.CYAN +"肆"};
 
     /**
      * 生成地图:
@@ -122,37 +123,37 @@ public class Map {
         }
         switch (i) {
             case 1:   //幸运轮盘
-                graph = "运";
+                graph = ConsoleColors.YELLOW + "运" + ConsoleColors.RESET + "";
                 break;
             case 2:   //酒馆
-                graph = "酒";
+                graph = ConsoleColors.YELLOW +"酒"+ ConsoleColors.RESET + "";
                 break;
             case 3:   //赌场
-                graph = "财";
+                graph = ConsoleColors.YELLOW +"财"+ ConsoleColors.RESET + "";
                 break;
             case 4:   //募兵
-                graph = "兵";
+                graph = ConsoleColors.YELLOW + "兵"+ ConsoleColors.RESET + "";
                 break;
             case 5:   //开始
-                graph = "起";
+                graph = ConsoleColors.RESET + "起"+ ConsoleColors.RESET + "";
                 break;
             case 6:   //结束
-                graph = "终";
+                graph = ConsoleColors.RESET + "终"+ ConsoleColors.RESET + "";
                 break;
             case 11:  //
-                graph = "一";
+                graph = ConsoleColors.RED +"一"+ ConsoleColors.RESET + "";
                 break;
             case 21:  //
-                graph = "二";
+                graph = ConsoleColors.BLUE +"二"+ ConsoleColors.RESET + "";
                 break;
             case 31:  //
-                graph = "三";
+                graph = ConsoleColors.GREEN +"三"+ ConsoleColors.RESET + "";
                 break;
             case 41:  //
-                graph = "四";
+                graph = ConsoleColors.CYAN +"四"+ ConsoleColors.RESET + "";
                 break;
             default:
-                graph = "空";
+                graph = ConsoleColors.RESET +"空"+ ConsoleColors.RESET + "";
                 break;
         }
         return graph;

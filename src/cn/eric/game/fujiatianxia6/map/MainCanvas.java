@@ -1,23 +1,23 @@
 package cn.eric.game.fujiatianxia6.map;
 
-import javafx.application.Platform;  
-import javafx.scene.canvas.Canvas;  
-import javafx.scene.canvas.GraphicsContext;  
+import javafx.application.Platform;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;  
   
 public class MainCanvas extends Canvas {  
       
     // 游戏地图  
-    private GameMap gameMap;  
-    private GraphicsContext gContext;  
-    private Image map;  
-    private int tileWidth = 32;  
-    private int tileHeight = 32;  
+    private final GameMap gameMap;
+    private final GraphicsContext gContext;
+    private final Image map;
+    private final int tileWidth = 32;
+    private final int tileHeight = 32;
   
-    private boolean isRunning = true;  
-    private long sleep = 100;  
+    private final boolean isRunning = true;
+    private final long sleep = 100;
     // 主线程  
-    private Thread thread = new Thread(new Runnable() {  
+    private final Thread thread = new Thread(new Runnable() {
   
         @Override  
         public void run() {  

@@ -1,6 +1,5 @@
 package cn.eric.game.fujiatianxia6.service;
 
-import java.nio.channels.InterruptedByTimeoutException;
 import java.util.function.Function;
 
 /**

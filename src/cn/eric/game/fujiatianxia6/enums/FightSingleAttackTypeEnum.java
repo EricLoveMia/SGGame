@@ -20,8 +20,8 @@ public enum FightSingleAttackTypeEnum {
      */
     DEFAULT(9, "默认"),
     ;
-    private Integer code;
-    private String text;
+    private final Integer code;
+    private final String text;
 
     FightSingleAttackTypeEnum(Integer code, String text) {
         this.text = text;

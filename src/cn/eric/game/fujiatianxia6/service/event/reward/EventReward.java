@@ -83,8 +83,8 @@ public abstract class EventReward {
          */
         INTELLIGENCE("intelligence", "智力"),
         ;
-        private String code;
-        private String text;
+        private final String code;
+        private final String text;
 
         EventRewardTypeEnum(String code, String text) {
             this.text = text;

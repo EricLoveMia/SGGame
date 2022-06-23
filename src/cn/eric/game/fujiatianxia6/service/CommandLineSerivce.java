@@ -19,7 +19,7 @@ public class CommandLineSerivce {
     Calendar cal = Calendar.getInstance();
     SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    private Queue<String> commandQueue = new LinkedList<>();
+    private final Queue<String> commandQueue = new LinkedList<>();
 
     // 练习一下单例 匿名内部类
     private CommandLineSerivce(){
