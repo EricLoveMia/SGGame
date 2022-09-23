@@ -1,6 +1,7 @@
-package cn.eric.game.fujiatianxia6.controller;
+package cn.eric.game;
 
 import cn.eric.game.fujiatianxia6.CommonContents;
+import cn.eric.game.fujiatianxia6.controller.StartCampaign;
 import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.po.Campaign;
 import cn.eric.game.fujiatianxia6.service.Game;
