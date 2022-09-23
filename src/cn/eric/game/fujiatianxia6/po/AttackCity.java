@@ -176,25 +176,25 @@ public class AttackCity {
 				return false;
 			}
 			// 一回合，守城方损失 进攻方兵力*(0.2*统帅)*(0.1*武力)的  (int) (5000 * ((0.2 * 99/100) + (0.1 * 99/100)))
-			defenceLost = (int) (attackSoliderTotal * ((0.06 * Integer.parseInt(AttackChief.getCommand())/100) + (0.04 * Integer.parseInt(AttackChief.getCommand())/100)));
-			if(deffenceSoliderTotal < defenceLost){
+			defenceLost = (int) (attackSoliderTotal * ((0.06 * Integer.parseInt(AttackChief.getCommand()) / 100) + (0.04 * Integer.parseInt(AttackChief.getCommand()) / 100)));
+			if (deffenceSoliderTotal < defenceLost) {
 				defenceLost = deffenceSoliderTotal;
-			}			
+			}
 
 			// 攻城方损失守城方损失兵力的1.3倍*(守城方统帅-攻城方统帅) * 守方建筑加成
-			attackLost = (int) (defenceBulidingAdd * defenceLost * 1.3 * (1 + (float)(Integer.parseInt(DefenceChief.getCommand()) - Integer.parseInt(AttackChief.getCommand()))/100));
-			if(attackSoliderTotal <= attackLost){
+			attackLost = (int) (defenceBulidingAdd * defenceLost * 1.3 * (1 + (float) (Integer.parseInt(DefenceChief.getCommand()) - Integer.parseInt(AttackChief.getCommand())) / 100));
+			if (attackSoliderTotal <= attackLost) {
 				attackLost = attackSoliderTotal;
 			}
-			//
-			SkillFactory.changeMiddle(3,3,null,null,this);
-			SkillFactory.changeAfter(3,3,null,null,this);
+			// 技能释放
+			SkillFactory.changeMiddle(3, 3, null, null, this);
+			SkillFactory.changeAfter(3, 3, null, null, this);
 
 			// 城市内开始结算剩余兵力
 			resetCitySoilders(defenceLost);
 			deffenceSoliderTotal = deffenceSoliderTotal - defenceLost;
-			attackSoliderTotal  = attackSoliderTotal - attackLost;
-			System.out.println("第" + count + "波进攻结束，防守方总兵力 "+deffenceSoliderTotal+",剩余剑兵：" + city.getSoilders() + "骑兵：" + city.getCavalrys() + "枪兵：" + city.getInfantry() + "弓箭手：" + city.getArchers());
+			attackSoliderTotal = attackSoliderTotal - attackLost;
+			System.out.println("第" + count + "波进攻结束，防守方总兵力 " + deffenceSoliderTotal + ",剩余剑兵：" + city.getSoilders() + "骑兵：" + city.getCavalrys() + "枪兵：" + city.getInfantry() + "弓箭手：" + city.getArchers());
 			// 进攻方开始结算剩余兵力
 			System.out.println("第" + count + "波进攻结束，进攻方剩余总兵力" + attackSoliderTotal);
 			try {

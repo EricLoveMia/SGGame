@@ -165,7 +165,7 @@ public class Map {
      * @param start      输出的起始点在地图上的位置
      * @param end        输出的结束点在地图上的位置
      */
-    public void showLine1(int start, int end,int[] playerPos) {
+    public void showLine1(int start, int end, int[] playerPos) {
         System.out.print(" ");
         for (int i = start; i <= end; i++) {
             System.out.print(getGraph(map[i], i, playerPos));
@@ -174,10 +174,46 @@ public class Map {
     }
 
     /**
+     * 输出地图的奇数行（第1、3行）
+     *
+     * @param start 输出的起始点在地图上的位置
+     * @param end   输出的结束点在地图上的位置
+     */
+    public void showLine1New(int start, int end, int[] playerPos) {
+        StringBuilder builder = new StringBuilder();
+        for (int i = start; i <= end; i++) {
+            //System.out.print(getGraph(map[i], i, playerPos));
+            //System.out.print(" ");
+            if (i == start) {
+                builder.append("≔≕≔≕≔≕");
+            } else {
+                builder.append("≔≕≔≕");
+            }
+        }
+        builder.append(System.lineSeparator());
+        for (int i = start; i <= end; i++) {
+            if (i == start) {
+                builder.append("|");
+            } else {
+                builder.append(" ").append(getGraph(map[i], i, playerPos)).append(" ").append("|");
+            }
+        }
+        builder.append(System.lineSeparator());
+        for (int i = start; i <= end; i++) {
+            if (i == start) {
+                builder.append("≔≕≔≕≔≕");
+            } else {
+                builder.append("≔≕≔≕");
+            }
+        }
+        System.out.println(builder.toString());
+    }
+
+    /**
      * 输出地图的偶数行（第2行）
      *
-     * @param start      输出的起始点在地图上的位置
-     * @param end        输出的结束点在地图上的位置
+     * @param start 输出的起始点在地图上的位置
+     * @param end   输出的结束点在地图上的位置
      */
     public void showLine2(int start, int end, int[] playerPos) {
         System.out.print(" ");
@@ -214,10 +250,46 @@ public class Map {
     }
 
     /**
+     * 输出地图的竖列
+     *
+     * @param start     输出的起始点在地图上的位置 25-49  还有 75-99
+     * @param end       输出的结束点在地图上的位置
+     * @param playerPos 玩家的当前位置
+     */
+    public void showRLineNew(int start, int end, int[] playerPos) {
+        int add = 0;
+        if (size / 2 > 40) {
+            add = 1;
+        }
+        int h = 1;
+        for (int i = start; i <= end; i++) {
+            StringBuilder builder = new StringBuilder();
+
+            builder.append("|");
+            builder.append(" ").append(getGraph(map[size - h], size - h, playerPos)).append(" ").append("|");
+            // 输出24个空格
+            for (int j = (int) (1.66 * (size / 4) + add); j > 0; j--) {
+                builder.append("  ");
+            }
+            builder.append("|").append(" ").append(getGraph(map[i], i, playerPos)).append(" ").append("|");
+            builder.append(System.lineSeparator());
+            builder.append("≔≕≔≕≔");
+            // 输出24个空格
+            for (int j = (int) (1.66 * (size / 4) + add); j > 0; j--) {
+                builder.append("  ");
+            }
+            builder.append(" ").append("≔≕≕≔≔");
+
+            h = h + 1;
+            System.out.println(builder.toString());
+        }
+    }
+
+    /**
      * 输出地图的左竖列
      *
-     * @param start      输出的起始点在地图上的位置
-     * @param end        输出的结束点在地图上的位置
+     * @param start 输出的起始点在地图上的位置
+     * @param end   输出的结束点在地图上的位置
      */
     public void showLLine(int start, int end, int[] playerPos) {
         for (int i = start; i < end; i++) {
@@ -234,8 +306,10 @@ public class Map {
         int line = size / 4;
         //显示地图第一行
         showLine1(0, line - 1, playerPos);
+        // showLine1New(0, line - 1, playerPos);
         // 换行
         showRLine(line, line * 2 - 1, playerPos);
+        // showRLineNew(line, line * 2 - 1, playerPos);
         // 显示地图竖行
         // 显示地图第二行
         showLine2(line * 2, line * 3 - 1, playerPos);

@@ -46,6 +46,9 @@ public class CityFactory {
         City city33 = new City(33, 1, "桂阳", "荆州 郡治在今天的郴州市区，领十一个县，其范围基本包括今天的郴州各个区县，甚至还有广东的北部的一部分，如阳山、含洭、曲江、浈阳、桂阳等县",
                 200, 1000, 300, 1);
         City city34 = new City(34, 1, "南乡", "荆州 南乡", 200, 1000, 300, 1);
+        City city35 = new City(35, 1, "济南国", "青州 济南国辖境约当今山东省省会济南市及章丘、济阳、邹平等市县", 100, 1000, 350, 3);
+        City city36 = new City(36, 1, "清河郡", "冀州 清河崔氏在春秋时乃齐国公卿之一，秦末一支崔氏移居清河郡东武城县（今河北故城县），东汉以后成为山东望族，其中崔琰曾投曹操门下，后多出名臣。", 100, 1000, 300, 3);
+
 
         citys[1] = city1;
         citys[2] = city2;
@@ -81,6 +84,8 @@ public class CityFactory {
         citys[32] = city32;
         citys[33] = city33;
         citys[34] = city34;
+        citys[35] = city35;
+        citys[36] = city36;
 
         for (int i = 35; i < 50; i++) {
             citys[i] = null;

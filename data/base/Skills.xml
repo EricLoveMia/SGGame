@@ -281,12 +281,13 @@
 		<time>2</time>  <!-- 1表示行走回合结束时触发  2表示野战、攻城前触发  3表示野战攻城中每回合开始前触发 4表示野战攻城中每回合结束后触发 5表示野战攻城后触发 11表示单挑前触发 12表示单挑中触发 13表示单挑每回合结束后触发-->
 	</skill>
 	<skill>
-		<id>41</id>
-		<name>血路</name>
-		<memo>所在城市武将，或者所在队伍武将不会在野战、攻城中被俘虏</memo>
-		<data>100</data>
-		<time>2</time>  <!-- 1表示行走回合结束时触发  2表示野战、攻城前触发  3表示野战攻城中每回合开始前触发 4表示野战攻城中每回合结束后触发 5表示野战攻城后触发 11表示单挑前触发 12表示单挑中触发 13表示单挑每回合结束后触发-->
-	</skill>
+        <id>41</id>
+        <name>血路</name>
+        <memo>所在城市武将，或者所在队伍武将不会在野战、攻城中被俘虏</memo>
+        <data>100</data>
+        <time>5
+        </time>  <!-- 1表示行走回合结束时触发  2表示野战、攻城前触发  3表示野战攻城中每回合开始前触发 4表示野战攻城中每回合结束后触发 5表示野战攻城后触发 11表示单挑前触发 12表示单挑中触发 13表示单挑每回合结束后触发-->
+    </skill>
 	<skill>
 		<id>42</id>
 		<name>繁殖</name>
@@ -365,19 +366,19 @@
 		<data>50</data>
 		<time>3</time>
 	</skill>
-	<skill>
-		<id>53</id>
-		<name>虎将</name>
+    <skill>
+        <id>53</id>
+        <name>虎将</name>
         <memo>野战或攻城中，作为进攻方，所有兵种增加伤害10%，每回合有几率震慑敌方使士兵按百分比溃散，溃散比率由统帅、武力、智力决定</memo>
-		<data>50</data>
-		<time>3</time>
-	</skill>
-	<skill>
-		<id>54</id>
-		<name>披荆</name>
-		<memo>野战或攻城中，全兵种增加伤害15%</memo>
-		<data>50</data>
-		<time>3</time>
+        <data>10</data>
+        <time>3</time>
+    </skill>
+    <skill>
+        <id>54</id>
+        <name>披荆</name>
+        <memo>野战或攻城中，全兵种增加伤害15%</memo>
+        <data>15</data>
+        <time>3</time>
     </skill>
     <skill>
         <id>55</id>
@@ -386,13 +387,132 @@
         <data>5</data>
         <time>1</time>
     </skill>
-	<skill>
-		<id>56</id>
-		<name>不屈</name>
-		<memo>野战中，如果己方人数少于敌方人数一定数量（统帅、智力、魅力决定），有概率（30%）直接无视攻击</memo>
-		<data>400</data>
-		<time>4</time>
-	</skill>
+    <skill>
+        <id>56</id>
+        <name>不屈</name>
+        <memo>野战中，如果己方人数少于敌方人数，伤害减免，减免的值与统帅、武力和智利有关</memo>
+        <data>10</data>
+        <time>4</time>
+    </skill>
+    <skill>
+        <id>57</id>
+        <name>工将</name>
+        <memo>所在城市的建筑建造与升级费用减少10%，可叠加</memo>
+        <data>10</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>58</id>
+        <name>工神</name>
+        <memo>所在城市的建筑建造与升级费用减少30%，可叠加</memo>
+        <data>30</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>59</id>
+        <name>武器大师</name>
+        <memo>从兵器铺购买武器的费用降低30%</memo>
+        <data>30</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>60</id>
+        <name>荆棘</name>
+        <memo>全兵种在野战中，每回合依据敌方给自身造成的伤害反弹一定比例的伤害，与统帅、武力、智力决定</memo>
+        <data>10</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>61</id>
+        <name>连击</name>
+        <memo>野战时，有机率增加一回合进攻，机率与统帅、智力、魅力相关</memo>
+        <data>20</data>
+        <time>4</time>
+    </skill>
+    <skill>
+        <id>62</id>
+        <name>管理</name>
+        <memo>所在城市的城池收入每回合增加，所有城池兵增长速度提升，提升效率与政治、智力、魅力相关</memo>
+        <data>5</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>63</id>
+        <name>经商</name>
+        <memo>所在城市的市场效果翻倍</memo>
+        <data>100</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>64</id>
+        <name>筑城</name>
+        <memo>所在城市的防御建筑效果翻倍</memo>
+        <data>100</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>65</id>
+        <name>无畏</name>
+        <memo>野战时，计算攻击力永远按照100的倍数向上取整（如901按照1000人满员计算攻击力）</memo>
+        <data>100</data>
+        <time>3</time>
+    </skill>
+    <skill>
+        <id>66</id>
+        <name>抓捕</name>
+        <memo>单挑或攻城胜利后，提升抓铺敌方武将的概率</memo>
+        <data>100</data>
+        <time>3</time>
+    </skill>
+    <skill>
+        <id>67</id>
+        <name>攻城</name>
+        <memo>攻城时，随机摧毁一个防守型建筑（如没有防守型建筑，对守军一次性造成500点伤害）</memo>
+        <data>500</data>
+        <time>3</time>
+    </skill>
+    <skill>
+        <id>68</id>
+        <name>隐蔽</name>
+        <memo>在山地城市野战时，每回合有30%的机率隐藏自身免于敌方的伤害</memo>
+        <data>30</data>
+        <time>3</time>
+    </skill>
+    <skill>
+        <id>69</id>
+        <name>还射</name>
+        <memo>指挥弓兵对战弓兵时，受到攻击有50%的机率回击，额外造成一定伤害，与统帅、武力、智力值相关</memo>
+        <data>50</data>
+        <time>3</time>
+    </skill>
+    <skill>
+        <id>70</id>
+        <name>勤政</name>
+        <memo>所在城市发展金增长速度加快，骑枪弓兵种的转化速度加快</memo>
+        <data>10</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>71</id>
+        <name>清流</name>
+        <memo>主公技(刘表)：所属武将的政治、智力、魅力值各增加3点</memo>
+        <data>10</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>72</id>
+        <name>赌圣</name>
+        <memo>主公技(袁术)：在赌场的运气爆棚，别人十赌九输，您十赌九赢</memo>
+        <data>50</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>73</id>
+        <name>穷兵</name>
+        <memo>主公技()：兵营内招募剑兵的数量与单价不受自身部队规模的影响，但每回合的养兵支出增加50%</memo>
+        <data>50</data>
+        <time>1</time>
+    </skill>
     <skill>
         <id>99</id>
         <name>普通</name>
