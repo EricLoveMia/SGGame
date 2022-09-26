@@ -73,7 +73,8 @@ public class Map {
 //    // 结束点
 //    int[] end = {size - 1};
 
-    public static String[] graphs = {ConsoleColors.RED + "壹", ConsoleColors.BLUE +"贰", ConsoleColors.GREEN +"叁", ConsoleColors.CYAN +"肆"};
+    public static String[] graphs = {ConsoleColors.RED + "壹" + ConsoleColors.RESET, ConsoleColors.BLUE + "贰" + ConsoleColors.RESET,
+            ConsoleColors.GREEN + "叁" + ConsoleColors.RESET, ConsoleColors.CYAN + "肆" + ConsoleColors.RESET};
 
     /**
      * 生成地图:
