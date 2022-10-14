@@ -1,6 +1,7 @@
 package cn.eric.game.fujiatianxia6.factory;
 
 import cn.eric.game.fujiatianxia6.po.City;
+import cn.eric.game.fujiatianxia6.po.CityStore;
 import cn.eric.game.fujiatianxia6.po.General;
 import cn.eric.game.fujiatianxia6.service.Util;
 import com.alibaba.fastjson.JSON;
@@ -221,6 +222,17 @@ public class CityFactory {
 
     public static void main(String[] args) {
         System.out.println(JSON.toJSON(citys));
+    }
+
+    public static void resetGoods() {
+        citys.forEach(
+                e -> {
+                    CityStore cityStore = e.getCityStore();
+                    cityStore.setSeniorRest(cityStore.getSeniorTotal());
+                    cityStore.setSpecialtyRest(cityStore.getSpecialtyTotal());
+                    cityStore.setCommonRest(cityStore.getCommonTotal());
+                }
+        );
     }
 
     public static class CityTemplate {

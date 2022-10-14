@@ -155,9 +155,14 @@ public class BuildingFactory {
 	
 	// 根据新建的
 	private static void resetCityByNewBilding(City city, int choise) {
-		if(choise == 3 || choise == 4){
-			city.setProsperity((int)(city.getProsperity() * 1.5));
-		}		
+		// 增加繁荣度
+		if (choise == 3 || choise == 4) {
+			city.setProsperity(city.getProsperity() + 200);
+		}
+		// 如果是特产坊
+		if (choise == 10) {
+			city.getCityStore().setSpecialtyRest(city.getCityStore().getSpecialtyTotal());
+		}
 	}
 
 	// 根据ID返回建筑
@@ -304,29 +309,36 @@ public class BuildingFactory {
 					}
 				}
 			}
-		}else{
+		} else {
 			Scanner input = new Scanner(System.in);
 			choise = input.nextInt();
 		}
-		if(choise == 0){
+		if (choise == 0) {
 			return;
 		}
-		if(collect.get(choise) == null){
+		Building building = collect.get(choise);
+		if (building == null) {
 			System.out.println("对不起，没有对应的建筑");
 			return;
 		}
-		if(collect.get(choise).upgradeLevel > player.getMoney()){
+		if (building.upgradeLevel > player.getMoney()) {
 			System.out.println("对不起，您没有足够的金钱");
 			return;
 		}
-		if(collect.get(choise).level >= defence.getType()){
+		if (building.level >= defence.getType()) {
 			System.out.println("对不起，建筑等级无法超过城市的等级");
 			return;
 		}
 		// 升级
-		collect.get(choise).level = collect.get(choise).level + 1;
-		player.setMoney(player.getMoney() - collect.get(choise).upgradeLevel);
+		building.level = building.level + 1;
+		player.setMoney(player.getMoney() - building.upgradeLevel);
+		System.out.println(building.name + "升级成功，目前等级" + building.level);
+		checkEffect(building, defence);
+	}
 
-		System.out.println(collect.get(choise).name + "升级成功，目前等级" + collect.get(choise).level);
+	private static void checkEffect(Building building, City city) {
+		if (building.id == 10 && building.level == 2) {
+			city.getCityStore().setSeniorRest(city.getCityStore().getSeniorTotal());
+		}
 	}
 }

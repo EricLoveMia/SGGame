@@ -15,6 +15,8 @@ public class Game {
     static int mapNum;
     static int num;
 
+    static int stepCount;
+
 //    int playerPos1; //对战中玩家1的当前位置
 //    int playerPos2; //对战中玩家2的当前位置
 //    int playerPos3; //对战中玩家3的当前位置
@@ -225,6 +227,7 @@ public class Game {
         int step;  //存储骰子数目
         // TODO 有任何一方的钱少于0
         while (hasWin()) {
+            stepCount++;
             //轮流掷骰子
             for (int i = 0; i < players.length; i++) {
                 if ("4".equals(players[i].getStatus())) {
@@ -303,6 +306,10 @@ public class Game {
             // 显示玩家信息
             for (int i = 0; i < players.length; i++) {
                 System.out.println("玩家" + Map.graphs[i] + ":" + players[i].playerInfo());
+            }
+            // 每隔15天恢复一次商品的数量
+            if (stepCount % 15 == 0) {
+                CityFactory.resetGoods();
             }
         }
         if (players[0].getMoney() > 0) {
@@ -570,7 +577,6 @@ public class Game {
                     if (defence.getBelongTo() == 0) {
                         System.out.println("该城市没有归属主公，直接占领");
                         if (players[no - 1].isReboot()) {
-
                             // 选择武将及放置的兵力
                             int i = chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
                             if (i == 1) {
@@ -761,45 +767,71 @@ public class Game {
             int commonGoodsId = cityStore.getCommonGoodsId();
             Goods goods = GoodsFactory.getById(commonGoodsId);
             if (cityStore.getCommonRest() > 0) {
-                System.out.println("请输入您需要购买普通商品的数量，当前持有💰" + player.getMoney());
-                try {
-                    if (player.isReboot()) {
-                        int max = (int) ((player.getMoney() * 0.5) / goods.getPrice());
-                        // 电脑普通商品最多买5个
-                        int num = Math.min(max, 5);
-                        player.setMoney(player.getMoney() - num * goods.getPrice());
-                        for (int i = 0; i < num; i++) {
-                            player.getTransportTeam().getGoodsList().add((Goods) goods.clone());
-                        }
-                    } else {
-                        Scanner input = new Scanner(System.in);
-                        int num = input.nextInt();
-                        while (num != 0) {
-                            if (num > cityStore.getCommonRest()) {
-                                System.out.println("数量过大，请重新输入，0表示放弃");
-                                num = input.nextInt();
-                            } else {
-                                int total = goods.getPrice() * num;
-                                if (total > player.getMoney()) {
-                                    System.out.println("金额不足，需要需要 " + total + "，当前持有💰" + player.getMoney());
-                                    System.out.println("请重新输入数量，0表示放弃");
-                                    num = input.nextInt();
-                                } else {
-                                    player.setMoney(player.getMoney() - total);
-                                    for (int i = 0; i < num; i++) {
-                                        player.getTransportTeam().getGoodsList().add((Goods) goods.clone());
-                                    }
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                } catch (Exception exception) {
-                    exception.printStackTrace();
+                buy(player, goods, 5, cityStore.getCommonRest());
+            }
+
+            // 如果有特产坊，才能购买特产 且是自己的城市
+            if (defence.getBelongTo() != Integer.parseInt(player.getId())) {
+                return;
+            }
+
+            if (defence.checkSpecialBuilding()) {
+                if (cityStore.getSpecialtyGoodsId() > 0) {
+                    Goods specialty = GoodsFactory.getById(cityStore.getSpecialtyGoodsId());
+                    buy(player, specialty, 1, cityStore.getSpecialtyRest());
                 }
             }
-            // TODO 特产
+
+            // 如果有特产坊，才能购买特产
+            if (defence.checkSeniorBuilding()) {
+                if (cityStore.getSeniorGoodsId() > 0) {
+                    Goods senior = GoodsFactory.getById(cityStore.getSeniorGoodsId());
+                    buy(player, senior, 1, cityStore.getSeniorRest());
+                }
+            }
         }
+    }
+
+    private void buy(General player, Goods goods, int rebootNum, int goodsRestNum) {
+
+        System.out.println("请输入您需要购买普通商品的数量，当前持有💰" + player.getMoney());
+        try {
+            if (player.isReboot()) {
+                int max = (int) ((player.getMoney() * 0.5) / goods.getPrice());
+                // 电脑普通商品最多买5个
+                int num = Math.min(max, rebootNum);
+                num = Math.min(num, goodsRestNum);
+                player.setMoney(player.getMoney() - num * goods.getPrice());
+                for (int i = 0; i < num; i++) {
+                    player.getTransportTeam().getGoodsList().add((Goods) goods.clone());
+                }
+            } else {
+                Scanner input = new Scanner(System.in);
+                int num = input.nextInt();
+                while (num != 0) {
+                    if (num > goodsRestNum) {
+                        System.out.println("数量过大，请重新输入，0表示放弃");
+                        num = input.nextInt();
+                    } else {
+                        int total = goods.getPrice() * num;
+                        if (total > player.getMoney()) {
+                            System.out.println("金额不足，需要需要 " + total + "，当前持有💰" + player.getMoney());
+                            System.out.println("请重新输入数量，0表示放弃");
+                            num = input.nextInt();
+                        } else {
+                            player.setMoney(player.getMoney() - total);
+                            for (int i = 0; i < num; i++) {
+                                player.getTransportTeam().getGoodsList().add((Goods) goods.clone());
+                            }
+                            break;
+                        }
+                    }
+                }
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
     }
 
     private void sale(City defence, General player) {

@@ -42,7 +42,7 @@ public class City implements Serializable {
 	private int topography;
 
 	private int blank = 10;  // 空地数
-	private List<Building> bildings = new ArrayList<>();  // 
+	private List<Building> bildings = new ArrayList<>();  //
 	private int horses;
 	private int spears;
 	private int bows;
@@ -291,5 +291,23 @@ public class City implements Serializable {
 
 	public void setCityStore(CityStore cityStore) {
 		this.cityStore = cityStore;
+	}
+
+	public boolean checkSpecialBuilding() {
+		for (Building building : getBildings()) {
+			if (building.id == 10) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean checkSeniorBuilding() {
+		for (Building building : getBildings()) {
+			if (building.id == 10 && building.level > 1) {
+				return true;
+			}
+		}
+		return false;
 	}
 }
