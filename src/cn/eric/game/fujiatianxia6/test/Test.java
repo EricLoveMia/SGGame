@@ -14,13 +14,19 @@ public class Test {
 //		Map map = new Map();  // ♖ ♗ ♔ ♕
 //		map.createMap();
 //		map.showMap(0,0);
-		System.out.println((int) (1000 * ((Float.parseFloat("89"))/50
-				+ (Float.parseFloat("90"))/50) / 100));
+		System.out.println((int) (1000 * ((Float.parseFloat("89")) / 50
+				+ (Float.parseFloat("90")) / 50) / 100));
 
 		System.out.println("1" + new Random().nextInt());
 
-		int i = new Random().nextInt(0);
+		int i = new Random().nextInt(20);
 		System.out.println(i);
+
+		int attLost = (int) (1000 * 1 * (3 * (float) ((int) (0.85 * (Math.max(90
+				, 85)))) / 2000));
+
+		System.out.println(attLost);
+
 //		System.out.println((int)(5000 - 2000 * (0.1 + (float)((int)(Math.random() * 99))/1000)));
 //		System.out.println((int)(5000 - 2000 * (0.1 + (float)((int)(Math.random() * 99))/1000 )));
 //		System.out.println((int) (5000 * ((0.2 * 99/100) + (0.1 * 99/100))));

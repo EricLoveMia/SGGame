@@ -112,6 +112,10 @@ public class CommandLineSerivce {
             return;
         }
         List<General> generals = general.getGenerals();
+        if (generals == null) {
+            System.err.println(general.getName() + "没有武将");
+            return;
+        }
         GeneralFactory.showGeneralInfo(generals);
     }
 

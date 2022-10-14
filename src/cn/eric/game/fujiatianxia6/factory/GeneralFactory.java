@@ -550,12 +550,49 @@ public class GeneralFactory {
             System.out.println();
         }
         System.out.println("请选择您要亲厚的武将，每100块增加1点好感度，好感度越大被感动几率越大，好感度100直接归顺，0放弃");
+        if (player.isReboot()) {
+            choose = 1;
+            General general = capturedGenerals.get(choose - 1);
+            String relation = general.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2);
+            System.out.println("亲和度:" + relation + ",赠与1000金");
+
+            int money = 1000;
+            if (money > player.getMoney()) {
+                System.out.println("金额不足:" + player.getMoney());
+            } else {
+                player.setMoney(player.getMoney() - money);
+                int add = money / 100;
+                int newRelation = Integer.parseInt(relation) + add;
+                if (newRelation > 99) {
+                    newRelation = 99;
+                }
+                if (newRelation >= 99) {
+                    general.setBelongTo(player.getId());
+                    general.setStatus("0");
+                    System.out.println("武将" + general.getName() + "拜入帐下");
+                } else {
+                    // 有几率被感动
+                    int rate = 99 - (newRelation);
+                    if (new Random().nextInt(99) >= rate) {
+                        general.setBelongTo(player.getId());
+                        general.setStatus("0");
+                        System.out.println("武将" + general.getName() + "拜入帐下");
+                    } else {
+                        System.out.println("武将心如磐石");
+                    }
+                }
+                // 替换新的relation
+                String newRelations = general.getRelations().substring(0, 2 * (id - 1)) + newRelation + general.getRelations().substring(2 * (id - 1) + 2);
+                System.out.println("新的亲和度：" + newRelations);
+                general.setRelations(newRelations);
+            }
+            return;
+        }
+
+        // 不是机器人
         Scanner input = new Scanner(System.in);
         choose = input.nextInt();
         while (choose != 0) {
-            if (choose == 0) {
-                break;
-            }
             if (choose > capturedGenerals.size() + 1) {
                 System.out.println("请重新选择");
                 input = new Scanner(System.in);

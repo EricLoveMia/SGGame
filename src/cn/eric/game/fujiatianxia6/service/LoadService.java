@@ -10,6 +10,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @ClassName LoadService
@@ -40,14 +41,42 @@ public class LoadService {
         // 设定城市
         String cityString = Util.readFileContentAsBuffer(prePath + "city.txt");
         List<City> cityList = JSONObject.parseArray(cityString, City.class);
-        City[] citys = new City[cityList.size()];
-        cityList.toArray(citys);
+//        City[] citys = new City[cityList.size()];
+//        cityList.toArray(citys);
+        // 设定主公
+        String playersString = Util.readFileContentAsBuffer(prePath + "players.txt");
+        List<General> playersList = JSONObject.parseArray(playersString, General.class);
+
+        List<String> deadPlayerIds = playersList.stream()
+                .filter(e -> e.getStatus().equals("4")).map(General::getId).collect(Collectors.toList());
+        // 武将调整
+        List<General> allGenerals = GeneralFactory.getInitGenerals();
+        if (allGenerals != null && allGenerals.size() > 0) {
+            for (General general : allGenerals) {
+                if (deadPlayerIds.contains(general.getBelongTo())) {
+                    if (!general.getId().equals(general.getBelongTo())) {
+                        general.setBelongTo("0");
+                        general.setStatus("0");
+                        general.setCityId("");
+                    }
+                }
+            }
+        }
         // 给城池配置武将（不能直接从文本中读取，这样就变成了两个对象，两个相同的武将了,必须要从武将工厂里面获取）
         List<General> denfenceGeneralsNew;
-        for (City city : citys) {
-            if(city != null) {
+        for (City city : cityList) {
+            if (city != null) {
+                if (city.getBelongTo() == 0) {
+                    continue;
+                }
                 denfenceGeneralsNew = new ArrayList<>();
-                List<General> allGenerals = GeneralFactory.getInitGenerals();
+                // 已经亡国
+                if (deadPlayerIds.contains(city.getBelongTo() + "")) {
+                    city.setBelongTo(0);
+                    city.setDenfenceGenerals(new ArrayList<>(4));
+                    continue;
+                }
+                // 如果没有亡国
                 if (allGenerals != null && allGenerals.size() > 0) {
                     for (General general : allGenerals) {
                         if (general.getCityId() != null && city.getId().equals(general.getCityId())) {
@@ -62,7 +91,7 @@ public class LoadService {
             }
         }
 
-        CityFactory.setCitys(citys);
+        CityFactory.setCitys(cityList);
         // 初始化地图
         MapFactory.init();
         // 设定角色 一定要是从武将库中获取 再赋值
@@ -89,8 +118,7 @@ public class LoadService {
         }
         Game.setPlayPos(playPosInt);
 
-        String playersString = Util.readFileContentAsBuffer(prePath + "players.txt");
-        List<General> playersList = JSONObject.parseArray(playersString, General.class);
+
         General[] players = new General[playersList.size()];
         int i = 0;
         // 给对应的players 赋值\\

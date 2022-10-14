@@ -315,6 +315,10 @@ public class Map {
         // 显示地图第二行
         showLine2(line * 2, line * 3 - 1, playerPos);
         // showRLine(25,49, playerPos);  //显示地图竖行
+        System.out.println();
+        if (campaignMap != null) {
+            System.out.println("战役:" + campaignMap.getName());
+        }
     }
 
     public void initCity() {
@@ -327,7 +331,7 @@ public class Map {
         for (int i = 0; i < map.length; i++) {
             //如果是城市
             if (map[i] == 0) {
-                mapObj[i] = CityFactory.citys[Integer.parseInt(cityIds.get(index))];
+                mapObj[i] = CityFactory.getCityById(cityIds.get(index));
                 if (--citySize == 0) {  //表示需要一个新的城市
                     index++;
                     citySize = 3;
@@ -344,7 +348,7 @@ public class Map {
         for (int i = 0; i < map.length; i++) {
             //如果是城市
             if (map[i] == 0 || map[i] == 11 || map[i] == 21 || map[i] == 31 || map[i] == 41) {
-                mapObj[i] = CityFactory.citys[Integer.parseInt(cityIds.get(cityIndex))];
+                mapObj[i] = CityFactory.getCityById(cityIds.get(cityIndex));
                 if (--citySize == 0) {  //表示需要一个新的城市
                     cityIndex++;
                     citySize = 3;

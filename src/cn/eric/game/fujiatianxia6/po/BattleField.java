@@ -281,7 +281,6 @@ public class BattleField {
             }
 
             // 野战打3个回合，3个回个结束后，兵力不足或者兵力较少的一方失败
-
             // 进攻方损失 消耗兵力的0%-20% 根据守将的统帅决定
             int count = 0;
             int attLostCount = 0;
@@ -291,10 +290,14 @@ public class BattleField {
                 // 取十次里面的平均
                 float randomAtt = Util.getMaxFloatNum(10);
                 float randomDef = Util.getMaxFloatNum(10);
-                attLost = (int) (defenceAmyNum * defenceFactor * (3 * (float) ((int) (randomAtt * (Math.max(Integer.parseInt(DefenceChief.getAttack())
-                        , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(DefenceCounsellor).orElse(new General()).getAttack()).orElse("0")))))) / 2000));
-                defLost = (int) (attackAmyNum * attackFactor * (3 * (float) ((int) (randomDef * (Math.max(Integer.parseInt(AttackChief.getAttack())
-                        , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(AttackCounsellor).orElse(new General()).getAttack()).orElse("0")))))) / 2000));
+                attLost = (int) (defenceAmyNum * defenceFactor * ((1.5 * (randomAtt * (Math.max(Integer.parseInt(DefenceChief.getAttack())
+                        , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(DefenceCounsellor).orElse(new General()).getAttack()).orElse("0")))))) +
+                        (1.5 * (randomAtt * (Math.max(Integer.parseInt(DefenceChief.getCommand())
+                                , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(DefenceCounsellor).orElse(new General()).getCommand()).orElse("0"))))))) / 2000);
+                defLost = (int) (attackAmyNum * attackFactor * ((1.5 * (randomDef * (Math.max(Integer.parseInt(AttackChief.getAttack())
+                        , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(AttackCounsellor).orElse(new General()).getAttack()).orElse("0")))))) +
+                        (1.5 * (randomDef * (Math.max(Integer.parseInt(AttackChief.getCommand())
+                                , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(AttackCounsellor).orElse(new General()).getCommand()).orElse("0"))))))) / 2000);
                 System.out.println("初始损失，进攻方" + attLost + ",防守方" + defLost);
                 // 野战中技能触发
                 SkillFactory.changeMiddle(2, 3, null, null, this);

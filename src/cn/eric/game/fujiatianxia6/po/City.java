@@ -1,5 +1,8 @@
 package cn.eric.game.fujiatianxia6.po;
 
+import cn.eric.game.fujiatianxia6.factory.CityFactory;
+import cn.eric.game.fujiatianxia6.factory.GoodsFactory;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,52 +10,59 @@ import java.util.List;
 /**
  * 
 * <p>Title: City<／p>
-* <p>Description: 城池<／p>
-* <p>Company: want-want<／p> 
-* @author 00322027
-* @date 2017年8月3日 下午3:34:37
+ * <p>Description: 城池<／p>
+ * <p>Company: want-want<／p>
+ * @author 00322027
+ * @date 2017年8月3日 下午3:34:37
  */
 public class City implements Serializable {
 	private String id;
 	private int type;   // 类型  1 小城  2 中城  3 大城  4 特大城 5 巨型城
 	private String name;   // 城市的名字 徐州 
 	private String memo;   // 介绍
-	
+	private String state; // 州
+
 	private int purchase; // 购买费用
 	private int upgradeLevel; // 升级费用
 	private int money; //资金
 	private int prosperity; //繁荣度
-	
+
 	private List<General> denfenceGenerals = new ArrayList<General>();  // 防守的武将
-	
+
 	private int cavalrys; // 骑兵数量
 	private int infantry; // 枪兵数量
 	private int archers;  // 弓箭手数量
 	private int soilders;  // 步兵数量
-	
+
 	private int belongTo; //
 
-    /**
-     * 地形  1 平原 2 山地 3 水道   适应兵种  平原 骑>枪>弓  山地 枪>弓>骑   水道 弓>枪>骑  战力分别是 200% 160% 120% 普通兵种战力100%
-     */
-    private int topography;
-	
-	private int blank = 9;  // 空地数
+	/**
+	 * 地形  1 平原 2 山地 3 水道   适应兵种  平原 骑>枪>弓  山地 枪>弓>骑   水道 弓>枪>骑  战力分别是 200% 160% 120% 普通兵种战力100%
+	 */
+	private int topography;
+
+	private int blank = 10;  // 空地数
 	private List<Building> bildings = new ArrayList<>();  // 
 	private int horses;
 	private int spears;
 	private int bows;
 
-    // 特殊城市  1
-    private int special;
-	public City(){
+	// 特殊城市  1 一种特产 2 两种特产 0 没有特产
+	private int special;
+
+	private CityStore cityStore;
+
+	public City() {
 
 	}
-	public City(Integer id, int type, String name, String memo, Integer purchase, Integer upgradeLevel,int prosperity,Integer topography) {
-		this.id = id.toString();
+
+	public City(String id, int type, String name, String state, String memo, Integer purchase, Integer upgradeLevel,
+				int prosperity, Integer topography, String goodsName, String specialName, String specialTwoName) {
+		this.id = id;
 		this.type = type;
 		this.name = name;
 		this.memo = memo;
+		this.state = state;
 		this.purchase = purchase;
 		this.upgradeLevel = upgradeLevel;
 		this.prosperity = prosperity;
@@ -62,13 +72,31 @@ public class City implements Serializable {
 		this.archers = 0;
 		this.soilders = 0;
 		this.blank = type * 2;
+		// 初始化城市的可卖货物
+		this.cityStore = new CityStore(GoodsFactory.getByName(goodsName),
+				GoodsFactory.getByName(specialName), GoodsFactory.getByName(specialTwoName));
+		if (GoodsFactory.getByName(specialTwoName) != null) {
+			this.special = 2;
+		} else if (GoodsFactory.getByName(specialName) != null) {
+			this.special = 1;
+		}
 	}
+
+	public City(CityFactory.CityTemplate template) {
+		this(template.getId(), template.getType(), template.getName(), template.getState(),
+				template.getMemo(), template.getPurchase(), template.getUpgradeLevel(),
+				template.getProsperity(), template.getTopography(), template.getGoodsId(), template.getSpecialId(),
+				template.getSpecialTwoId());
+	}
+
 	public String getId() {
 		return id;
 	}
+
 	public void setId(String id) {
 		this.id = id;
 	}
+
 	public int getType() {
 		return type;
 	}
@@ -247,5 +275,21 @@ public class City implements Serializable {
 
 	public void setSpecial(int special) {
 		this.special = special;
+	}
+
+	public String getState() {
+		return state;
+	}
+
+	public void setState(String state) {
+		this.state = state;
+	}
+
+	public CityStore getCityStore() {
+		return cityStore;
+	}
+
+	public void setCityStore(CityStore cityStore) {
+		this.cityStore = cityStore;
 	}
 }

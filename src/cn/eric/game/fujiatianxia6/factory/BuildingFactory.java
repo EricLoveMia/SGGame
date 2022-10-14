@@ -13,42 +13,59 @@ public class BuildingFactory {
 	public static List<Building> buildings = new ArrayList<>();
 	
 	public static void initBuildings(){
-        buildings = new ArrayList<>();
-		buildings.add(new Building(1, "城墙", "防守时增加进攻方损失15%，每升一级增加5%的损失，仅守城适用", 15, 1,5000,5000));
-		buildings.add(new Building(2, "弩炮", "防守时增加进攻方损失8%，每升一级增加2%的损失,守城野战适用", 8, 1,5000,5000));
-		buildings.add(new Building(3, "市场", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2,10000,10000));
-		buildings.add(new Building(4, "道路", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2,10000,10000));
-        buildings.add(new Building(5, "武器阁", "购买武将专属的地方，每升一级降低购买价格10%", 50, 4, 10000, 10000));
-        buildings.add(new Building(6, "屯兵所", "暂无作用", 50, 4, 10000, 10000));
-        buildings.add(new Building(7, "马厩", "每回合结束驯养马匹，将城市内的剑兵转换成骑兵，升级增加转换率", 50, 3, 10000, 10000));
-        buildings.add(new Building(8, "兵器厂", "每回合结束生产枪和弓，并将城市内的剑兵转换成弓兵和枪兵，升级增加转换率", 25, 3, 10000, 10000));
-        buildings.add(new Building(9, "徽兵所", "每回合结束招募剑兵，升级增加招募的数量", 25, 3, 10000, 10000));
+		buildings = new ArrayList<>();
+		buildings.add(new Building(1, "城墙", "防守时增加进攻方损失15%，每升一级增加5%的损失，仅守城适用", 15, 1, 5000, 5000));
+		buildings.add(new Building(2, "弩炮", "防守时增加进攻方损失8%，每升一级增加2%的损失,守城野战适用", 8, 1, 5000, 5000));
+		buildings.add(new Building(3, "市场", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
+		buildings.add(new Building(4, "道路", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
+		buildings.add(new Building(5, "武器阁", "购买武将专属的地方，每升一级降低购买价格10%", 50, 4, 10000, 10000));
+		buildings.add(new Building(6, "屯兵所", "减少城内守军的钱粮消耗", 50, 4, 10000, 10000));
+		buildings.add(new Building(7, "马厩", "每回合结束驯养马匹，将城市内的剑兵转换成骑兵，升级增加转换率", 50, 3, 10000, 10000));
+		buildings.add(new Building(8, "兵器厂", "每回合结束生产枪和弓，并将城市内的剑兵转换成弓兵和枪兵，升级增加转换率", 25, 3, 10000, 10000));
+		buildings.add(new Building(9, "徽兵所", "每回合结束招募剑兵，升级增加招募的数量", 25, 3, 10000, 10000));
+		buildings.add(new Building(10, "特产店", "购买特产的地方", 25, 3, 5000, 5000));
 	}
 	
 	/**
 	 * 
 	* @Title: showBuildings
 	* @Description: 显示可选建筑的名称
-	* @param
-	* @return void    返回类型
-	* @throws
+	 * @param
+	 * @return void    返回类型
+	 * @throws
 	 */
-	public static void showBuildings(){
+	public static void showBuildings() {
 		System.out.println("建筑为");
 		for (Building building : buildings) {
 			System.out.println(building.toString());
 		}
 	}
-	
+
+	public static void showBuildingsWithCity(City city) {
+		System.out.println("建筑为");
+		for (Building building : buildings) {
+			// 特产坊
+			if (city.getSpecial() == 0 && building.id == 10) {
+				continue;
+			}
+			System.out.print(building.toString());
+			if ((countBuildsInCity(city, building.id) > 0)) {
+				System.out.print(" 不可选");
+			} else {
+				System.out.print(" 可选");
+			}
+			System.out.println();
+		}
+	}
+
 	/**
-	 * 
-	* @Title: showBuildings
-	* @Description: 展示目前城市已有的建筑名称
-	* @param @param city    设定文件
-	* @return void    返回类型
-	* @throws
+	 * @param @param city    设定文件
+	 * @return void    返回类型
+	 * @throws
+	 * @Title: showBuildings
+	 * @Description: 展示目前城市已有的建筑名称
 	 */
-	public static void showBuildings(City city){
+	public static void showBuildings(City city) {
 		System.out.println("城市内已有建筑为");
 		if( city!=null && city.getBildings().size()>0){
 			for (Building building : city.getBildings()) {
@@ -59,37 +76,37 @@ public class BuildingFactory {
 	
 	public static void buildInCity(City city, General general) throws CloneNotSupportedException {
 		// 升级已有的建筑
-		if(city.getBildings().size() > 0) {
-			System.out.println("是否要升级建筑");
-			for (Building building : city.getBildings()) {
-				System.out.println(building.toString());
-			}
-			System.out.println("选择要升级的建筑");
-			// TODO
-		}
+//		if(city.getBildings().size() > 0) {
+//			System.out.println("是否要升级建筑");
+//			for (Building building : city.getBildings()) {
+//				System.out.println(building.toString());
+//			}
+//			System.out.println("选择要升级的建筑");
+//			// TODO
+//		}
 
 		System.out.println("是否要建设新的建筑");
 		// 首先看还有没有空地
-		if(city.getBlank() <= 0){
+		if (city.getBlank() <= 0) {
 			System.out.println("没有空地了，无法建设");
-		}else{
-			while(true){
+		} else {
+			while (true) {
 				System.out.println("请选择您想要建设的建筑,0表示不建设");
-				showBuildings();
+				showBuildingsWithCity(city);
 				// 检查是否是机器人
 				int choise = 1;
 				// TODO
-				if(general.isReboot()){
+				if (general.isReboot()) {
 					// 如果都被建满了
-					if(city.getBildings().size() >= 9){
+					if (city.getBildings().size() >= 9) {
 						break;
 					}
 					choise = new Random().nextInt(8) + 1;
-					while((choise == 1 && (countBuildsInCity(city,1) >= 1)) || (choise == 2 && (countBuildsInCity(city,2) >= 1))
-							|| (choise == 3 && (countBuildsInCity(city,3) >= 1)) || (choise == 4 && (countBuildsInCity(city,4) >= 1))
-							|| (choise == 5 && (countBuildsInCity(city,5) >= 1)) || (choise == 6 && (countBuildsInCity(city,6) >= 1))
-							|| (choise == 7 && (countBuildsInCity(city,7) >= 1)) || (choise == 8 && (countBuildsInCity(city,8) >= 1))
-							|| (choise == 9 && (countBuildsInCity(city,9) >= 1))) {
+					while ((choise == 1 && (countBuildsInCity(city, 1) >= 1)) || (choise == 2 && (countBuildsInCity(city, 2) >= 1))
+							|| (choise == 3 && (countBuildsInCity(city, 3) >= 1)) || (choise == 4 && (countBuildsInCity(city, 4) >= 1))
+							|| (choise == 5 && (countBuildsInCity(city, 5) >= 1)) || (choise == 6 && (countBuildsInCity(city, 6) >= 1))
+							|| (choise == 7 && (countBuildsInCity(city, 7) >= 1)) || (choise == 8 && (countBuildsInCity(city, 8) >= 1))
+							|| (choise == 9 && (countBuildsInCity(city, 9) >= 1)) || (choise == 10 && (countBuildsInCity(city, 10) >= 1))) {
 						choise = new Random().nextInt(8) + 1;
 					}
 				}else {
@@ -102,20 +119,20 @@ public class BuildingFactory {
 					break;
 				}else if(choise<0 || choise>12){
 					System.out.println("数字错误，请重新选择");
-				}else if((choise == 1 && (countBuildsInCity(city,1) < 1)) || (choise == 2 && (countBuildsInCity(city,2) < 1))
-						|| (choise == 3 && (countBuildsInCity(city,3) < 1)) || (choise == 4 && (countBuildsInCity(city,4) < 1))
-						|| (choise == 5 && (countBuildsInCity(city,5) < 1)) || (choise == 6 && (countBuildsInCity(city,6) < 1))
-						|| (choise == 7 && (countBuildsInCity(city,7) < 1)) || (choise == 8 && (countBuildsInCity(city,8) < 1))
-						|| (choise == 9 && (countBuildsInCity(city,9) < 1))){
+				} else if ((choise == 1 && (countBuildsInCity(city, 1) < 1)) || (choise == 2 && (countBuildsInCity(city, 2) < 1))
+						|| (choise == 3 && (countBuildsInCity(city, 3) < 1)) || (choise == 4 && (countBuildsInCity(city, 4) < 1))
+						|| (choise == 5 && (countBuildsInCity(city, 5) < 1)) || (choise == 6 && (countBuildsInCity(city, 6) < 1))
+						|| (choise == 7 && (countBuildsInCity(city, 7) < 1)) || (choise == 8 && (countBuildsInCity(city, 8) < 1))
+						|| (choise == 9 && (countBuildsInCity(city, 9) < 1)) || (choise == 10 && (countBuildsInCity(city, 10) < 1))) {
 
 					Building clone = (Building) getBuildById(choise).clone();
-					if(general.getMoney() < clone.purchase){
+					if (general.getMoney() < clone.purchase) {
 						System.out.println("对不起您的钱不够");
-						if(general.isReboot()){
+						if (general.isReboot()) {
 							break;
 						}
-					}else{
-						try{
+					} else {
+						try {
 							city.getBildings().add(clone);
 							general.setMoney(general.getMoney() - clone.purchase);
 							resetCityByNewBilding(city,choise);
@@ -170,33 +187,33 @@ public class BuildingFactory {
 
 	/** 马厩 剑兵转换成骑兵 */
 	public static void computeHorse() {
-		City[] citys = CityFactory.citys;
-		for (int i = 1; i <= 22; i++) {
+		List<City> citys = CityFactory.citys;
+		for (City city : citys) {
 			// 看看城市里面的建筑
-			List<Building> bildings = citys[i].getBildings();
-			if(bildings != null) {
-                for (Building building : bildings) {
-                    if (building.id == 7) {
-                        computeArmyToCavalrys(citys[i], building);
-                    }
-                }
-            }
+			List<Building> bildings = city.getBildings();
+			if (bildings != null) {
+				for (Building building : bildings) {
+					if (building.id == 7) {
+						computeArmyToCavalrys(city, building);
+					}
+				}
+			}
 		}
 	}
 
     /** 马厩 剑兵转换成弓箭手和骑兵 */
     public static void computeInAndAr() {
-        City[] citys = CityFactory.citys;
-        for (int i = 1; i <= 22; i++) {
-            // 看看城市里面的建筑
-            List<Building> bildings = citys[i].getBildings();
-            if(bildings != null) {
-                for (Building building : bildings) {
-                    if (building.id == 8) {
-                        computeWeapons(citys[i], building);
-                    }
-                }
-            }
+		List<City> citys = CityFactory.citys;
+		for (City city : citys) {
+			// 看看城市里面的建筑
+			List<Building> bildings = city.getBildings();
+			if (bildings != null) {
+				for (Building building : bildings) {
+					if (building.id == 8) {
+						computeWeapons(city, building);
+					}
+				}
+			}
         }
     }
 

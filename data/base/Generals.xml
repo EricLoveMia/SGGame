@@ -311,19 +311,19 @@
 	</general>
 	
 	<general id="16">
-		<name>甘宁</name>
-		<king>0</king>
-		<attack>95</attack>
-		<command>90</command>
-		<intelligence>80</intelligence>
-		<charm>90</charm>
-		<politics>70</politics>
-		<vitality>95</vitality>
-		<arms>3</arms>
-		<landfc>S</landfc>
-		<mountainfc>A</mountainfc>
-		<riverfc>B</riverfc>
-		<skill>16</skill>
+        <name>甘宁</name>
+        <king>0</king>
+        <attack>93</attack>
+        <command>89</command>
+        <intelligence>80</intelligence>
+        <charm>90</charm>
+        <politics>70</politics>
+        <vitality>95</vitality>
+        <arms>3</arms>
+        <landfc>S</landfc>
+        <mountainfc>A</mountainfc>
+        <riverfc>B</riverfc>
+        <skill>16</skill>
         <relation>0505850500</relation>
 		<belongTo>3</belongTo>
 		<status>0</status>
@@ -457,38 +457,38 @@
 		<belongTo>2</belongTo>
 		<status>0</status>
 	</general>
-	<general id="24">
-		<name>黄盖</name>
-		<king>0</king>
-		<attack>85</attack>
-		<command>87</command>
-		<intelligence>85</intelligence>
-		<charm>70</charm>
-		<politics>75</politics>
-		<vitality>90</vitality>
-		<arms>1</arms>
-		<landfc>A</landfc>
-		<mountainfc>A</mountainfc>
-		<riverfc>C</riverfc>
-		<skill>33</skill>
+    <general id="24">
+        <name>黄盖</name>
+        <king>0</king>
+        <attack>85</attack>
+        <command>83</command>
+        <intelligence>78</intelligence>
+        <charm>70</charm>
+        <politics>75</politics>
+        <vitality>90</vitality>
+        <arms>1</arms>
+        <landfc>A</landfc>
+        <mountainfc>A</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>33</skill>
         <relation>0000990000</relation>
-		<belongTo>3</belongTo>
+        <belongTo>3</belongTo>
 		<status>0</status>
 	</general>
-	<general id="25">
-		<name>蒋钦</name>
-		<king>0</king>
-		<attack>85</attack>
-		<command>80</command>
-		<intelligence>76</intelligence>
-		<charm>60</charm>
-		<politics>60</politics>
-		<vitality>80</vitality>
-		<arms>3</arms>
-		<landfc>A</landfc>
-		<mountainfc>A</mountainfc>
-		<riverfc>C</riverfc>
-		<skill>17</skill>
+    <general id="25">
+        <name>蒋钦</name>
+        <king>0</king>
+        <attack>82</attack>
+        <command>80</command>
+        <intelligence>76</intelligence>
+        <charm>60</charm>
+        <politics>60</politics>
+        <vitality>80</vitality>
+        <arms>3</arms>
+        <landfc>A</landfc>
+        <mountainfc>A</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>17</skill>
         <relation>0000990000</relation>
 		<belongTo>3</belongTo>
 		<status>0</status>

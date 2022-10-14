@@ -1,0 +1,502 @@
+[
+  {
+    "id": 1,
+    "name": "金矿石",
+    "qualityGuaranteePeriod": 95,
+    "price": 6000,
+    "maxProfit": 6000,
+    "quality": 2,
+    "place": "南中、并州",
+    "description": "最具价值的矿石，通常拿来制作高级饰品。"
+  },
+  {
+    "id": 2,
+    "name": "银矿石",
+    "qualityGuaranteePeriod": 85,
+    "price": 3000,
+    "maxProfit": 3600,
+    "quality": 2,
+    "place": "汉中、关中",
+    "description": "价值次于金的矿石，许多高级器物以银制成。"
+  },
+  {
+    "id": 3,
+    "name": "铜矿石",
+    "qualityGuaranteePeriod": 90,
+    "price": 700,
+    "maxProfit": 350,
+    "quality": 1,
+    "place": "司隶、并州",
+    "description": "三国时铸钱的主要原料，坚固耐用。"
+  },
+  {
+    "id": 4,
+    "name": "铁矿石",
+    "qualityGuaranteePeriod": 70,
+    "price": 630,
+    "maxProfit": 495,
+    "quality": 1,
+    "place": "辽西、冀州",
+    "description": "虽利于大量制造，但却容易氧化耗损。"
+  },
+  {
+    "id": 5,
+    "name": "蜀锦",
+    "qualityGuaranteePeriod": 45,
+    "price": 8000,
+    "maxProfit": 16000,
+    "quality": 2,
+    "place": "西川",
+    "description": "蜀地最高级的丝织品，多为进贡及赏赐之用。"
+  },
+  {
+    "id": 6,
+    "name": "丝织品",
+    "qualityGuaranteePeriod": 50,
+    "price": 4500,
+    "maxProfit": 8550,
+    "quality": 2,
+    "place": "司隶、青州",
+    "description": "用蚕丝织成的绸缎，是高级的布料。"
+  },
+  {
+    "id": 7,
+    "name": "葛布",
+    "qualityGuaranteePeriod": 60,
+    "price": 560,
+    "maxProfit": 520,
+    "quality": 1,
+    "place": "荆北、淮南",
+    "description": "用葛茎织成的布，是三国时代最普遍的布料。"
+  },
+  {
+    "id": 8,
+    "name": "豆腐",
+    "qualityGuaranteePeriod": 10,
+    "price": 133,
+    "maxProfit": 218,
+    "quality": 1,
+    "place": "辽西、关中",
+    "description": "黄豆制的营养品，为中国最负盛名的食物。"
+  },
+  {
+    "id": 9,
+    "name": "酒",
+    "qualityGuaranteePeriod": 65,
+    "price": 504,
+    "maxProfit": 432,
+    "quality": 1,
+    "place": "司隶、外凉",
+    "description": "谷物或果实发酵后制成的饮料，令人微醺"
+  },
+  {
+    "id": 10,
+    "name": "蜂蜜",
+    "qualityGuaranteePeriod": 25,
+    "price": 1250,
+    "maxProfit": 3000,
+    "quality": 2,
+    "place": "扬州、淮南",
+    "description": "蜜蜂所采集之花蜜，也是袁术生前嗜尝之物。"
+  },
+  {
+    "id": 11,
+    "name": "糖葫芦",
+    "qualityGuaranteePeriod": 5,
+    "price": 245,
+    "maxProfit": 420,
+    "quality": 1,
+    "place": "关中、冀州",
+    "description": "用麦芽糖淋在果子上，是孩童最爱的零食。"
+  },
+  {
+    "id": 12,
+    "name": "一合酥",
+    "qualityGuaranteePeriod": 45,
+    "price": 1650,
+    "maxProfit": 3300,
+    "quality": 2,
+    "place": "豫州",
+    "description": "原为塞北贡品，经曹操命名后成为知名食品。"
+  },
+  {
+    "id": 13,
+    "name": "鱼",
+    "qualityGuaranteePeriod": 5,
+    "price": 168,
+    "maxProfit": 288,
+    "quality": 1,
+    "place": "辽东、青州",
+    "description": "产于河海湖泊之物，营养价值高但不易保存。"
+  },
+  {
+    "id": 14,
+    "name": "包子",
+    "qualityGuaranteePeriod": 5,
+    "price": 154,
+    "maxProfit": 264,
+    "quality": 1,
+    "place": "辽东、司隶",
+    "description": "用发酵面皮包着鲜肉蒸食，营养又好吃。"
+  },
+  {
+    "id": 15,
+    "name": "梅子",
+    "qualityGuaranteePeriod": 20,
+    "price": 84,
+    "maxProfit": 126,
+    "quality": 1,
+    "place": "渭南、荆北",
+    "description": "味酸之果，曹操以此诱使士兵分泌唾液止渴。"
+  },
+  {
+    "id": 16,
+    "name": "梨子",
+    "qualityGuaranteePeriod": 10,
+    "price": 399,
+    "maxProfit": 655,
+    "quality": 1,
+    "place": "青州、内凉",
+    "description": "梨树的果实，孔融幼时因让梨而闻名天下。"
+  },
+  {
+    "id": 17,
+    "name": "柑橘",
+    "qualityGuaranteePeriod": 15,
+    "price": 266,
+    "maxProfit": 418,
+    "quality": 1,
+    "place": "徐州、淮南",
+    "description": "柑树的果实，主要产于南方。"
+  },
+  {
+    "id": 18,
+    "name": "香蕉",
+    "qualityGuaranteePeriod": 10,
+    "price": 476,
+    "maxProfit": 782,
+    "quality": 1,
+    "place": "夷州",
+    "description": "香蕉树的果实，香甜美味，是台湾特产水果。"
+  },
+  {
+    "id": 19,
+    "name": "漆",
+    "qualityGuaranteePeriod": 70,
+    "price": 1100,
+    "maxProfit": 1650,
+    "quality": 2,
+    "place": "衮州、交南",
+    "description": "取漆树汁液之涂料，具有防锈及防蛀功效。"
+  },
+  {
+    "id": 20,
+    "name": "染料",
+    "qualityGuaranteePeriod": 80,
+    "price": 475,
+    "maxProfit": 617,
+    "quality": 2,
+    "place": "扬州、荆南",
+    "description": "取植物汁液之涂料，可用以染色。"
+  },
+  {
+    "id": 21,
+    "name": "灯油",
+    "qualityGuaranteePeriod": 65,
+    "price": 525,
+    "maxProfit": 450,
+    "quality": 1,
+    "place": "交北、南中",
+    "description": "取植物种子榨油，作为燃灯之用。"
+  },
+  {
+    "id": 22,
+    "name": "胭脂",
+    "qualityGuaranteePeriod": 35,
+    "price": 1200,
+    "maxProfit": 2640,
+    "quality": 2,
+    "place": "辽东、外凉",
+    "description": "妇女化妆用品。"
+  },
+  {
+    "id": 23,
+    "name": "绣花针",
+    "qualityGuaranteePeriod": 85,
+    "price": 105,
+    "maxProfit": 60,
+    "quality": 1,
+    "place": "渭南、豫州",
+    "description": "妇女缝衣用具。"
+  },
+  {
+    "id": 24,
+    "name": "肚兜",
+    "qualityGuaranteePeriod": 55,
+    "price": 2100,
+    "maxProfit": 3780,
+    "quality": 2,
+    "place": "内凉、司隶",
+    "description": "妇女贴身衣着。诸葛亮曾以此逼司马懿出战。"
+  },
+  {
+    "id": 25,
+    "name": "铜镜",
+    "qualityGuaranteePeriod": 75,
+    "price": 1800,
+    "maxProfit": 2520,
+    "quality": 2,
+    "place": "司隶、扬州",
+    "description": "古人正衣冠之用具。"
+  },
+  {
+    "id": 26,
+    "name": "草席",
+    "qualityGuaranteePeriod": 70,
+    "price": 588,
+    "maxProfit": 462,
+    "quality": 1,
+    "place": "辽西、荆北",
+    "description": "寝具。刘备贫贱之时曾以编织此物维生。"
+  },
+  {
+    "id": 27,
+    "name": "葫芦",
+    "qualityGuaranteePeriod": 65,
+    "price": 287,
+    "maxProfit": 246,
+    "quality": 1,
+    "place": "荆南、西川",
+    "description": "将葫芦匏空晒干后制成的容器。"
+  },
+  {
+    "id": 28,
+    "name": "羽扇",
+    "qualityGuaranteePeriod": 40,
+    "price": 1470,
+    "maxProfit": 1785,
+    "quality": 1,
+    "place": "荆南、西川",
+    "description": "扇凉驱蚊的用具。诸葛亮之随身物。"
+  },
+  {
+    "id": 29,
+    "name": "盐",
+    "qualityGuaranteePeriod": 85,
+    "price": 196,
+    "maxProfit": 112,
+    "quality": 1,
+    "place": "西川、徐州",
+    "description": "味咸之调味品，煮海水或池水制成。"
+  },
+  {
+    "id": 30,
+    "name": "肉桂",
+    "qualityGuaranteePeriod": 75,
+    "price": 750,
+    "maxProfit": 1050,
+    "quality": 2,
+    "place": "荆南、辽东",
+    "description": "味甘辛之调味品，为肉桂树之皮。"
+  },
+  {
+    "id": 31,
+    "name": "辣椒",
+    "qualityGuaranteePeriod": 35,
+    "price": 840,
+    "maxProfit": 1080,
+    "quality": 1,
+    "place": "南中、交北",
+    "description": "味辣之调味品，为植物之果实。"
+  },
+  {
+    "id": 32,
+    "name": "珍珠",
+    "qualityGuaranteePeriod": 90,
+    "price": 10000,
+    "maxProfit": 11000,
+    "quality": 2,
+    "place": "交南",
+    "description": "大蚌分泌物所生成之圆珠，为贵重的饰物。"
+  },
+  {
+    "id": 33,
+    "name": "玉",
+    "qualityGuaranteePeriod": 95,
+    "price": 9000,
+    "maxProfit": 9000,
+    "quality": 2,
+    "place": "夷州、外凉",
+    "description": "石中最美且坚硬者，为君子之饰物。"
+  },
+  {
+    "id": 34,
+    "name": "琥珀",
+    "qualityGuaranteePeriod": 90,
+    "price": 12000,
+    "maxProfit": 13200,
+    "quality": 2,
+    "place": "南中、并州",
+    "description": "又称蜜蜡，松脂天然碳化后的黄褐色珍品。"
+  },
+  {
+    "id": 35,
+    "name": "玳瑁",
+    "qualityGuaranteePeriod": 85,
+    "price": 5000,
+    "maxProfit": 6000,
+    "quality": 2,
+    "place": "交北",
+    "description": "一种海龟之壳，成黄褐色，珍贵的装饰品。"
+  },
+  {
+    "id": 36,
+    "name": "珊瑚",
+    "qualityGuaranteePeriod": 80,
+    "price": 4250,
+    "maxProfit": 5525,
+    "quality": 2,
+    "place": "夷州、交北",
+    "description": "海域中的腔肠动物，枝状骨骼可为装饰物。"
+  },
+  {
+    "id": 37,
+    "name": "人参",
+    "qualityGuaranteePeriod": 65,
+    "price": 7500,
+    "maxProfit": 12000,
+    "quality": 2,
+    "place": "辽东",
+    "description": "植物之根，状似小儿，可延年益寿起死回生。"
+  },
+  {
+    "id": 38,
+    "name": "灵芝",
+    "qualityGuaranteePeriod": 80,
+    "price": 2250,
+    "maxProfit": 2925,
+    "quality": 2,
+    "place": "南中、渭南",
+    "description": "紫芝的异名，菌类的一种，据说是不死之药。"
+  },
+  {
+    "id": 39,
+    "name": "符水",
+    "qualityGuaranteePeriod": 35,
+    "price": 385,
+    "maxProfit": 495,
+    "quality": 1,
+    "place": "辽中、关中",
+    "description": "张角用来治病之物，当时之人深信其功效。"
+  },
+  {
+    "id": 40,
+    "name": "梓木",
+    "qualityGuaranteePeriod": 95,
+    "price": 770,
+    "maxProfit": 330,
+    "quality": 1,
+    "place": "辽中、扬州",
+    "description": "屋旁常植之木，材质坚固耐用，可作为建材。"
+  },
+  {
+    "id": 41,
+    "name": "檀香",
+    "qualityGuaranteePeriod": 75,
+    "price": 2750,
+    "maxProfit": 3850,
+    "quality": 2,
+    "place": "荆北、荆南",
+    "description": "具有浓郁香味的木材，可制家具或作为熏香。"
+  },
+  {
+    "id": 42,
+    "name": "竹",
+    "qualityGuaranteePeriod": 65,
+    "price": 420,
+    "maxProfit": 360,
+    "quality": 1,
+    "place": "交南、扬州",
+    "description": "南方常见植物，谕为君子，用途相当广泛。"
+  },
+  {
+    "id": 43,
+    "name": "陀螺",
+    "qualityGuaranteePeriod": 90,
+    "price": 224,
+    "maxProfit": 112,
+    "quality": 1,
+    "place": "衮州、荆南",
+    "description": "木头制的小童玩，以绳子拉动在地上旋转。"
+  },
+  {
+    "id": 44,
+    "name": "泥人",
+    "qualityGuaranteePeriod": 45,
+    "price": 336,
+    "maxProfit": 384,
+    "quality": 1,
+    "place": "辽东、内凉",
+    "description": "用泥土捏制的人偶。"
+  },
+  {
+    "id": 45,
+    "name": "木马",
+    "qualityGuaranteePeriod": 65,
+    "price": 770,
+    "maxProfit": 660,
+    "quality": 1,
+    "place": "外凉、汉中",
+    "description": "改良木牛流马后制成的童玩，可供孩童骑乘。"
+  },
+  {
+    "id": 46,
+    "name": "陶瓷",
+    "qualityGuaranteePeriod": 75,
+    "price": 2450,
+    "maxProfit": 1750,
+    "quality": 1,
+    "place": "渭南、交北",
+    "description": "名匠所制成之陶瓷具有极高的艺术价值。"
+  },
+  {
+    "id": 47,
+    "name": "八阵图",
+    "qualityGuaranteePeriod": 55,
+    "price": 2500,
+    "maxProfit": 4500,
+    "quality": 2,
+    "place": "渭南、内凉",
+    "description": "原为诸葛亮行军布阵之法，尔后成为艺术品。"
+  },
+  {
+    "id": 48,
+    "name": "书册",
+    "qualityGuaranteePeriod": 60,
+    "price": 1960,
+    "maxProfit": 1820,
+    "quality": 1,
+    "place": "扬州、交南",
+    "description": "用以著书，不仅具有知识性，亦有收藏价值。"
+  },
+  {
+    "id": 49,
+    "name": "鼎",
+    "qualityGuaranteePeriod": 95,
+    "price": 3250,
+    "maxProfit": 3250,
+    "quality": 2,
+    "place": "青州、关中",
+    "description": "象征身分地位的礼器。"
+  },
+  {
+    "id": 50,
+    "name": "铜雀",
+    "qualityGuaranteePeriod": 85,
+    "price": 3600,
+    "maxProfit": 4320,
+    "quality": 2,
+    "place": "冀州",
+    "description": "曹操平定袁绍后，自冀州发掘出土之宝物"
+  }
+]

@@ -45,8 +45,7 @@ public class SaveService {
         WriteIntoXml.saveGeneralsToXML(initGenerals,prePath);
         // TODO 需要给武将配置武器
         // 保存城市数据
-        City[] citys = CityFactory.getCitys();
-        List<City> cityList = Arrays.asList(citys);
+        List<City> cityList = CityFactory.getCitys();
         // 创建一个新的list 深度克隆 去掉守将信息
         List<City> cityListSave = CopyUtils.deepCopyList(cityList);
         cityListSave.forEach(e -> {

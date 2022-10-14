@@ -85,7 +85,7 @@ public class General implements Cloneable, Serializable {
 	private Integer cavalrys; // 骑兵数量
 	private Integer infantry; // 枪兵数量
 	private Integer archers;  // 弓箭手数量
-	
+
 	private List<Arms> armsTotal = new ArrayList<>(); //兵种的等级及属性
 
 	private Rsearch research; // 剩余研究时间
@@ -94,8 +94,11 @@ public class General implements Cloneable, Serializable {
 
 	private Integer reputation; // 声望
 
-	public General(){
-		
+	// 运输队
+	private TransportTeam transportTeam;
+
+	public General() {
+
 	}
 
 	@Override
@@ -355,18 +358,26 @@ public class General implements Cloneable, Serializable {
 
 	@Override
 	public String toString() {
-		return "General [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="
-                + intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", vitality=" + vitality + ", landfc="
-                + landfc + ", mountainfc=" + mountainfc + ", riverfc=" + riverfc
-                + ";\n 技能 ：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getName()
-				+ "：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getMemo() + "]\n";
+		return "将领 [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="
+				+ intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", 生命=" + vitality + ", 陆战="
+				+ landfc + ", 山战=" + mountainfc + ", 水战=" + riverfc
+				+ ";\n 技能 ：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getName()
+				+ "：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getMemo() + "]";
 	}
 
 	public String memoPlayer() {
-		return "General [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="
+		return "将领 [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="
 				+ intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", 生命 =" + vitality + ", 金钱 ="
 				+ money + ", 剑兵 =" + army + ", 骑兵 =" + cavalrys + ", 枪兵 =" + infantry + ", 弓兵 =" + archers
-				+ ", 兵种等级 =" + JSONObject.toJSONString(armsTotal) + ", 城市数量 =" + CityFactory.findCityByLeader(this).size() + "]\n";
+				+ ", 兵种等级 =" + JSONObject.toJSONString(armsTotal) + ", 城市数量 =" + CityFactory.findCityByLeader(this).size() + "]";
+	}
+
+	public String playerInfo() {
+		return "将领 [姓名 =" + name + ", 状态 = " + (status.equals("4") ? "亡国" : "正常") + ", 金钱 =" + money
+				+ ", 剑兵 =" + army + ", 骑兵 =" + cavalrys + ", 枪兵 =" + infantry
+				+ ", 弓兵 =" + archers + ", 兵种等级 =" + JSONObject.toJSONString(armsTotal)
+				+ ", 武将数量 =" + generals.size()
+				+ ", 城市数量 =" + CityFactory.findCityByLeader(this).size() + "]";
 	}
 
 	public boolean isReboot() {
@@ -383,5 +394,13 @@ public class General implements Cloneable, Serializable {
 
 	public void setReputation(Integer reputation) {
 		this.reputation = reputation;
+	}
+
+	public TransportTeam getTransportTeam() {
+		return transportTeam;
+	}
+
+	public void setTransportTeam(TransportTeam transportTeam) {
+		this.transportTeam = transportTeam;
 	}
 }
