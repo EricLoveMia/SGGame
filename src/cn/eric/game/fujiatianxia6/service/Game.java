@@ -794,7 +794,7 @@ public class Game {
 
     private void buy(General player, Goods goods, int rebootNum, int goodsRestNum) {
 
-        System.out.println("请输入您需要购买普通商品的数量，当前持有💰" + player.getMoney());
+        System.out.println("请输入您需要购买商品[" + goods.getName() + "]的数量，当前持有💰" + player.getMoney());
         try {
             if (player.isReboot()) {
                 int max = (int) ((player.getMoney() * 0.5) / goods.getPrice());

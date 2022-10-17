@@ -38,7 +38,7 @@ public class FightConfig {
 	public void SingleFight(General general,City city){
 		//攻击方请派出武将
 		System.out.println("攻方派出武将");
-		General generalByChoose = GeneralFactory.getGeneralByChoose(general,null,3,null);
+		General generalByChoose = GeneralFactory.getGeneralByChoose(general, null, 3, city);
 		System.out.println("守方派出武将");
 		General generalByDefenceAuto = GeneralFactory.generalByDefenceAuto(city);
 	}

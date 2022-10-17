@@ -83,7 +83,7 @@ public class Fight {
             // 1、进攻方挑选将领 主将 副将 军师 野战上阵士兵数1000 如果随身人数不足，则取最大值
             while (BF.getAttackChief() == null) {
                 System.out.println("请选择主将");
-                General generalChief = GeneralFactory.getGeneralByChoose(general, null, 2,null);
+                General generalChief = GeneralFactory.getGeneralByChoose(general, null, 2, defence);
                 if (generalChief == null) {
                     System.out.println("进攻方 主将不能为空，请重新选择");
                 } else {
@@ -93,14 +93,14 @@ public class Fight {
             }
 
             System.out.println("请选择副将");
-            General generalVice = GeneralFactory.getGeneralByChoose(general, null, 2,null);
+            General generalVice = GeneralFactory.getGeneralByChoose(general, null, 2, defence);
             if (generalVice != null) {
                 generalVice.setCityId(defence.getId());
                 BF.setAttackVice(generalVice);
             }
 
             System.out.println("请选择军师");
-            General counsellor = GeneralFactory.getGeneralByChoose(general, null, 2,null);
+            General counsellor = GeneralFactory.getGeneralByChoose(general, null, 2, defence);
             if (counsellor != null) {
                 counsellor.setCityId(defence.getId());
                 BF.setAttackCounsellor(counsellor);

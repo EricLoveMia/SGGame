@@ -6,20 +6,22 @@ import cn.eric.game.fujiatianxia6.service.Fight;
 import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
 import org.dom4j.DocumentException;
 
-import java.util.Iterator;
-import java.util.List;
-import java.util.Objects;
-import java.util.Random;
+import java.util.*;
 
 public class SkillFactory {
 
     private static List<Skill> skills;
 
+    // 神技
+    public static List<String> superSkills = Arrays.asList("15", "36", "38", "50", "52", "54");
     // 骑兵相关技能
-    public static String[] cavalrysSkills = {"21", "22", "44", "38", "37"};
-    public static String[] infantrySkills = {"19", "20", "38", "37"};
-    public static String[] archersSkills = {"17", "18", "38"};
-    public static String[] allArmsSkills = {"14", "16", "23", "24", "25", "26", "27", "30", "39", "40", "49"};
+    public static List<String> cavalrysSkills = Arrays.asList("21", "22", "44", "37");
+    // 枪兵相关技能
+    public static List<String> infantrySkills = Arrays.asList("19", "20", "37");
+    // 弓兵相关技能
+    public static List<String> archersSkills = Arrays.asList("18", "17", "51");
+    // 通用相关技能
+    public static List<String> allArmsSkills = Arrays.asList("5", "6", "8", "12", "14", "16", "23", "24", "25", "26", "27", "30", "34", "39", "40", "42", "43", "49");
 
     /**
      * @param

@@ -235,8 +235,8 @@ public class GeneralFactory {
                     return aoundGenerals.get(0);
                 case 2:
                     GeneralFactory.sortByCommand(aoundGenerals);
-                    //return aoundGenerals.get(aoundGenerals.size()-1);
-                    return aoundGenerals.get(0);
+                    // 根据技能加权
+                    return findBySkill(aoundGenerals, city, "0");
                 case 3:
                     GeneralFactory.sortByAttack(aoundGenerals);
                     //return aoundGenerals.get(aoundGenerals.size()-1);
@@ -254,15 +254,9 @@ public class GeneralFactory {
                     if (leader.getArmy() < 4000) {
                         return null;
                     }
-                    // 地形  1 平原 2 山地 3 水道
-                    Integer topography = city.getTopography();
-                    // TODO 根据技能值 加权取将军
+                    // 根据技能值 加权取将军
                     GeneralFactory.sortByCommand(aoundGenerals);
-                    // 主公不能作为守城将领
-                    if (leader.getId().equals(aoundGenerals.get(0).getId())) {
-                        return aoundGenerals.get(1);
-                    }
-                    return aoundGenerals.get(0);
+                    return findBySkill(aoundGenerals, city, leader.getId());
                 default:
                     return null;
             }
@@ -287,6 +281,56 @@ public class GeneralFactory {
                 System.out.println("请选择合适的数字");
             }
         }
+
+    }
+
+    private static General findBySkill(List<General> aoundGenerals, City city, String leaderId) {
+        List<String> superSkills = SkillFactory.superSkills;
+        Optional<General> optional = aoundGenerals.stream()
+                .filter(e -> !e.getId().equals(leaderId))
+                .filter(e -> superSkills.contains(e.getSkill())).findFirst();
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        // 平原
+        if (city.getTopography() == 1) {
+            List<String> skills = SkillFactory.cavalrysSkills;
+            optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))
+                    .filter(e -> skills.contains(e.getSkill())).findFirst();
+            if (optional.isPresent()) {
+                return optional.get();
+            }
+        }
+        // 平原
+        if (city.getTopography() == 2) {
+            List<String> skills = SkillFactory.infantrySkills;
+            optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))
+                    .filter(e -> skills.contains(e.getSkill())).findFirst();
+            if (optional.isPresent()) {
+                return optional.get();
+            }
+        }
+        // 平原
+        if (city.getTopography() == 3) {
+            List<String> skills = SkillFactory.archersSkills;
+            optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))
+                    .filter(e -> skills.contains(e.getSkill())).findFirst();
+            if (optional.isPresent()) {
+                return optional.get();
+            }
+        }
+        // 通用型
+        List<String> skills = SkillFactory.allArmsSkills;
+        optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))
+                .filter(e -> skills.contains(e.getSkill())).findFirst();
+        if (optional.isPresent()) {
+            return optional.get();
+        }
+        // 主公不能作为守城将领
+        if (leaderId.equals(aoundGenerals.get(0).getId())) {
+            return aoundGenerals.get(1);
+        }
+        return aoundGenerals.get(0);
 
     }
 
