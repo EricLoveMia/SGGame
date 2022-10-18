@@ -138,6 +138,7 @@ public class LoadService {
             generalById.setWeapon(general.getWeapon());
             generalById.setReputation(general.getReputation());
             generalById.setGenerals(GeneralFactory.setBeginGenerals(generalById.getId()));
+            generalById.setTransportTeam(general.getTransportTeam());
             players[i++] = generalById;
         }
         Game.setPlayers(players);

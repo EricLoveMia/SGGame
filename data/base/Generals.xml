@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- 刘备｜曹操｜孙权｜董卓｜袁绍｜袁术｜刘表｜刘璋 -->
 <generals name="all">
 	<general id="1">
 		<name>刘备</name>
@@ -1735,5 +1736,60 @@
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
-	<!-- -->
+
+    <general id="96">
+        <name>袁术</name>
+        <king>1</king>
+        <attack>70</attack>
+        <command>80</command>
+        <intelligence>73</intelligence>
+        <charm>70</charm>
+        <politics>62</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>A</landfc>
+        <mountainfc>S</mountainfc>
+        <riverfc>B</riverfc>
+        <skill>99</skill>
+        <relation>0000000000</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="107">
+        <name>刘表</name>
+        <king>1</king>
+        <attack>70</attack>
+        <command>80</command>
+        <intelligence>73</intelligence>
+        <charm>70</charm>
+        <politics>62</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>A</landfc>
+        <mountainfc>S</mountainfc>
+        <riverfc>B</riverfc>
+        <skill>99</skill>
+        <relation>0000000000</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <!--	<general id="117">-->
+    <!--		<name>刘璋</name>-->
+    <!--		<king>1</king>-->
+    <!--		<attack>70</attack>-->
+    <!--		<command>80</command>-->
+    <!--		<intelligence>73</intelligence>-->
+    <!--		<charm>70</charm>-->
+    <!--		<politics>62</politics>-->
+    <!--		<vitality>100</vitality>-->
+    <!--		<arms>2</arms>-->
+    <!--		<landfc>A</landfc>-->
+    <!--		<mountainfc>S</mountainfc>-->
+    <!--		<riverfc>B</riverfc>-->
+    <!--		<skill>99</skill>-->
+    <!--		<relation>0000000000</relation>-->
+    <!--		<belongTo>0</belongTo>-->
+    <!--		<status>0</status>-->
+    <!--	</general>-->
+    <!-- -->
 </generals>

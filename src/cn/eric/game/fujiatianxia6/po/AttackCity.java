@@ -123,7 +123,7 @@ public class AttackCity {
 		if(city.getBildings().size() > 0){
 			for (Building bilding : city.getBildings()) {
 				if(bilding.id == 1 || bilding.id == 2){
-					defenceBulidingAdd = defenceBulidingAdd + 0.1 + 0.02 * bilding.level;
+					defenceBulidingAdd = defenceBulidingAdd + 0.1 + 0.1 * bilding.level;
 				}
 			}
 		}
@@ -163,7 +163,7 @@ public class AttackCity {
 			if(count == 1 && checkSkillOfAttack()) {
 				System.out.println("第" + count + "波进攻，进攻方推进到城墙，未损失兵力，剩余总兵力" + attackSoliderTotal);
 			}else {
-				attackSoliderTotal = (int) (attackSoliderTotal - defenceBulidingAdd * deffenceSoliderTotal * (0.1 + (float) ((int) (Math.random() * (Integer.parseInt(DefenceChief.getCommand())))) / 1000));
+				attackSoliderTotal = (int) (attackSoliderTotal - defenceBulidingAdd * deffenceSoliderTotal * (0.2 + (float) ((int) (Math.random() * (Integer.parseInt(DefenceChief.getCommand())))) / 1000));
 				System.out.println("第" + count + "波进攻，进攻方推进到城墙，剩余总兵力" + attackSoliderTotal);
 			}
 			if(attackSoliderTotal<=0){
@@ -181,8 +181,8 @@ public class AttackCity {
 				defenceLost = deffenceSoliderTotal;
 			}
 
-			// 攻城方损失守城方损失兵力的1.3倍*(守城方统帅-攻城方统帅) * 守方建筑加成
-			attackLost = (int) (defenceBulidingAdd * defenceLost * 1.3 * (1 + (float) (Integer.parseInt(DefenceChief.getCommand()) - Integer.parseInt(AttackChief.getCommand())) / 100));
+			// 攻城方损失守城方损失兵力的1.75倍*(守城方统帅-攻城方统帅) * 守方建筑加成
+			attackLost = (int) (defenceBulidingAdd * defenceLost * 1.75 * (1 + (float) (Integer.parseInt(DefenceChief.getCommand()) - Integer.parseInt(AttackChief.getCommand())) / 100));
 			if (attackSoliderTotal <= attackLost) {
 				attackLost = attackSoliderTotal;
 			}
@@ -198,7 +198,7 @@ public class AttackCity {
 			// 进攻方开始结算剩余兵力
 			System.out.println("第" + count + "波进攻结束，进攻方剩余总兵力" + attackSoliderTotal);
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(1000);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

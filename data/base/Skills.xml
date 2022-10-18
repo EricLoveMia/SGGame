@@ -169,12 +169,12 @@
 		<time>3</time>
 	</skill>
 	<skill>
-		<id>25</id>
-		<name>金刚</name>
-        <memo>野战中，如果伤害超过限定值，则只承受限定值伤害，限定值与统帅、武力相关，基础限定值200</memo>
-		<data>150</data>
-		<time>4</time>
-	</skill>
+        <id>25</id>
+        <name>金刚</name>
+        <memo>野战中，如果伤害超过限定值，则只承受限定值伤害，限定值与统帅、武力相关，基础限定值300</memo>
+        <data>300</data>
+        <time>4</time>
+    </skill>
 	<skill>
 		<id>26</id>
 		<name>医疗</name>

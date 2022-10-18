@@ -97,6 +97,9 @@ public class General implements Cloneable, Serializable {
 	// 运输队
 	private TransportTeam transportTeam;
 
+	// 包裹
+	private BagWrapper bag;
+
 	public General() {
 
 	}
@@ -402,5 +405,13 @@ public class General implements Cloneable, Serializable {
 
 	public void setTransportTeam(TransportTeam transportTeam) {
 		this.transportTeam = transportTeam;
+	}
+
+	public BagWrapper getBag() {
+		return bag;
+	}
+
+	public void setBag(BagWrapper bag) {
+		this.bag = bag;
 	}
 }

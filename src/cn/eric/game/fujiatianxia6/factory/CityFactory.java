@@ -16,7 +16,12 @@ public class CityFactory {
 
     public static Map<String, City> cityMap;
 
-    static {
+//    static {
+//        init();
+//    }
+
+
+    public static void init() {
         citys = new ArrayList<>();
         // 读取模版
         String cityJson = Util.readFileContentAsBuffer("data/base/" + "city.json");
@@ -27,10 +32,6 @@ public class CityFactory {
         }
         // 转map
         cityMap = citys.stream().collect(Collectors.toMap(City::getId, e -> e));
-    }
-
-
-    public static void init() {
         System.out.println("初始化城池完成");
     }
 

@@ -1,10 +1,7 @@
 package cn.eric.game.fujiatianxia6.test;
 
 import cn.eric.game.fujiatianxia6.factory.CampaignFactory;
-import cn.eric.game.fujiatianxia6.po.CampaignMap;
-import cn.eric.game.fujiatianxia6.po.General;
-import cn.eric.game.fujiatianxia6.po.Skill;
-import cn.eric.game.fujiatianxia6.po.Weapon;
+import cn.eric.game.fujiatianxia6.po.*;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -404,6 +401,7 @@ public class Dom4JforXML {
 
                 }
             }
+            g.setBag(new BagWrapper());
             listGeneral.add(g);
         }
     }

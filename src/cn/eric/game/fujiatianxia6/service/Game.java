@@ -262,9 +262,8 @@ public class Game {
                 if (event != null) {
                     EventService.beginEvent(players[i], event);
                 }
-                System.out.println("\n\n\n\n");
                 try {
-                    Thread.sleep(1500);
+                    Thread.sleep(2000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -359,8 +358,6 @@ public class Game {
     public int throwShifter(int no) {
         int step = 0;
         if (!players[no - 1].isReboot()) {
-            System.out.println();
-            System.out.println();
             System.err.println("可以输入命令查看相关信息，输入-help获取所有命令，输入0 | a | j 继续");
             Scanner input = new Scanner(System.in);
             String choose = input.nextLine();
@@ -561,6 +558,8 @@ public class Game {
                     SkillFactory.checkSkillViaCity(defence, players[no - 1]);
                     // 选择武将及放置的兵力
                     chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
+                    // 购买商品
+                    buyGoods(defence, players[no - 1]);
                     // 升级城市
                     CityFactory.upgradeCity(defence, players[no - 1]);
                     // 升级建筑
@@ -570,9 +569,6 @@ public class Game {
                     } catch (CloneNotSupportedException e) {
                         e.printStackTrace();
                     }
-                    // TODO 购买商品
-                    buyGoods(defence, players[no - 1]);
-
                 } else {
                     if (defence.getBelongTo() == 0) {
                         System.out.println("该城市没有归属主公，直接占领");
@@ -609,9 +605,9 @@ public class Game {
                             if (attCount > defencCount * 5) {
                                 choiseBuySoilder = 3;
                                 // 如果多于城内的兵力4倍 3倍 概率攻城
-                            } else if (attCount > defencCount * 4 && new Random().nextInt(100) <= 80) {
+                            } else if (attCount > defencCount * 4 && new Random().nextInt(100) <= 60) {
                                 choiseBuySoilder = 3;
-                            } else if (attCount > defencCount * 3 && new Random().nextInt(100) <= 40) {
+                            } else if (attCount > defencCount * 3 && new Random().nextInt(100) <= 10) {
                                 choiseBuySoilder = 3;
                             } else {
                                 // 如果人数少于防守方，只选择单挑, 二十几率交钱
@@ -767,7 +763,8 @@ public class Game {
             int commonGoodsId = cityStore.getCommonGoodsId();
             Goods goods = GoodsFactory.getById(commonGoodsId);
             if (cityStore.getCommonRest() > 0) {
-                buy(player, goods, 5, cityStore.getCommonRest());
+                int buy = buy(player, goods, 5, cityStore.getCommonRest());
+                cityStore.setCommonRest(cityStore.getCommonRest() - buy);
             }
 
             // 如果有特产坊，才能购买特产 且是自己的城市
@@ -778,7 +775,8 @@ public class Game {
             if (defence.checkSpecialBuilding()) {
                 if (cityStore.getSpecialtyGoodsId() > 0) {
                     Goods specialty = GoodsFactory.getById(cityStore.getSpecialtyGoodsId());
-                    buy(player, specialty, 1, cityStore.getSpecialtyRest());
+                    int buy = buy(player, specialty, 1, cityStore.getSpecialtyRest());
+                    cityStore.setSpecialtyRest(cityStore.getSeniorRest() - buy);
                 }
             }
 
@@ -786,28 +784,30 @@ public class Game {
             if (defence.checkSeniorBuilding()) {
                 if (cityStore.getSeniorGoodsId() > 0) {
                     Goods senior = GoodsFactory.getById(cityStore.getSeniorGoodsId());
-                    buy(player, senior, 1, cityStore.getSeniorRest());
+                    int buy = buy(player, senior, 1, cityStore.getSeniorRest());
+                    cityStore.setSeniorRest(cityStore.getSeniorRest() - buy);
                 }
             }
         }
     }
 
-    private void buy(General player, Goods goods, int rebootNum, int goodsRestNum) {
-
+    private int buy(General player, Goods goods, int rebootNum, int goodsRestNum) {
+        int num = 0;
         System.out.println("请输入您需要购买商品[" + goods.getName() + "]的数量，当前持有💰" + player.getMoney());
         try {
             if (player.isReboot()) {
                 int max = (int) ((player.getMoney() * 0.5) / goods.getPrice());
                 // 电脑普通商品最多买5个
-                int num = Math.min(max, rebootNum);
+                num = Math.min(max, rebootNum);
                 num = Math.min(num, goodsRestNum);
                 player.setMoney(player.getMoney() - num * goods.getPrice());
+
                 for (int i = 0; i < num; i++) {
                     player.getTransportTeam().getGoodsList().add((Goods) goods.clone());
                 }
             } else {
                 Scanner input = new Scanner(System.in);
-                int num = input.nextInt();
+                num = input.nextInt();
                 while (num != 0) {
                     if (num > goodsRestNum) {
                         System.out.println("数量过大，请重新输入，0表示放弃");
@@ -831,7 +831,7 @@ public class Game {
         } catch (Exception exception) {
             exception.printStackTrace();
         }
-
+        return num;
     }
 
     private void sale(City defence, General player) {
