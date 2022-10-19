@@ -350,23 +350,28 @@ public class General implements Cloneable, Serializable {
 		return id.hashCode();
 	}
 
-	@Override
-	public boolean equals(Object obj) {
+    @Override
+    public boolean equals(Object obj) {
         if (obj instanceof General) {
-        	General general = (General) obj;
+            General general = (General) obj;
             return (id.equals(general.id));
         }
         return super.equals(obj);
-	}
+    }
 
-	@Override
-	public String toString() {
-		return "将领 [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="
-				+ intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", 生命=" + vitality + ", 陆战="
-				+ landfc + ", 山战=" + mountainfc + ", 水战=" + riverfc
-				+ ";\n 技能 ：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getName()
-				+ "：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getMemo() + "]";
-	}
+    public String simpleInfo() {
+        return "将领 [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="
+                + intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", 生命=" + vitality + ";";
+    }
+
+    @Override
+    public String toString() {
+        return "将领 [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="
+                + intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", 生命=" + vitality + ", 陆战="
+                + landfc + ", 山战=" + mountainfc + ", 水战=" + riverfc
+                + ";\n 技能 ：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getName()
+                + "：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getMemo() + "]";
+    }
 
 	public String memoPlayer() {
 		return "将领 [姓名 =" + name + ", 攻击 =" + attack + ", 统帅 =" + command + ", 智力 ="

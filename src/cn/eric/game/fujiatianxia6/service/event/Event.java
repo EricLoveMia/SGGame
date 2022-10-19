@@ -24,7 +24,7 @@ public abstract class Event {
 
     public abstract void endPlay(General general);
 
-    public abstract void registr();
+    public abstract void registr(int weight);
 
     // 模板
     public final void trigger(General general) {

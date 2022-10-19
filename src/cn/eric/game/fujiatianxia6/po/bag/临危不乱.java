@@ -16,8 +16,14 @@ public class 临危不乱 extends SilkBag {
     }
 
     @Override
-    public void run(General origin, General targetGeneral, City targetCity) {
+    protected General chooseTargetGeneral(General origin) {
+        return null;
+    }
+
+    @Override
+    public boolean run(General origin, General targetGeneral, City targetCity) {
         // 在遇到负面事件的时候免除效果
 
+        return false;
     }
 }

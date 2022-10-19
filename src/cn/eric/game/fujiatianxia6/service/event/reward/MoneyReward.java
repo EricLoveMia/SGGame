@@ -12,9 +12,7 @@ import cn.eric.game.fujiatianxia6.po.General;
 public class MoneyReward extends EventReward {
 
     public MoneyReward(String name, String dataGive, String dataPunish) {
-        super.setName(name);
-        super.setDataGive(dataGive);
-        super.setDataPunish(dataPunish);
+        super(name, dataGive, dataPunish, null);
     }
 
     @Override

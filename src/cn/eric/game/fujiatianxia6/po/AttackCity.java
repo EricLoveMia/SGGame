@@ -24,18 +24,19 @@ public class AttackCity {
 	private Integer cavalrys = 0; // 骑兵数量
 	private Integer infantry = 0; // 枪兵数量
 	private Integer archers = 0;  // 弓箭手数量
-	
+
 	private Integer attackSoliderTotal;
 	private Integer deffenceSoliderTotal;
-	
+
 	private General DefenceChief = null;
 	private General DefenceVice = null;
 	private General DefenceCounsellor = null;
 
+	private Double attackWeaponAdd = 1.0;
 	private Double defenceBulidingAdd = 1.0;
-	
+
 	private City city;
-	
+
 	private Integer attackSoliderTotalCopy = 0;
 	private int attactlevelAddition = 0;
 	private int defencelevelAddition = 0;
@@ -60,8 +61,6 @@ public class AttackCity {
 		int cavalrysLevel = levelMap.get("骑兵") + attactlevelAddition;
 		int infantrysLevel = levelMap.get("枪兵") + attactlevelAddition;
 		int archersLevel = levelMap.get("弓兵") + attactlevelAddition;
-
-
 
 		// 根据城市的属性 计算总战力
 		if(city.getTopography() == 1){
@@ -135,27 +134,32 @@ public class AttackCity {
 		this.deffenceSoliderTotal = deffenceSoliderTotal;
 	}
 
-	/** 第一版 只有soliders
-	 *  第二版 加入骑 枪 弓  损失计算 第一步 计算当前城内的各兵种比例 并得到损失比例 剑兵的损失比例放大，其他兵种的损失比例缩小；
-	 *  第二步 计算当前城内的兵种加成后的兵力值（根据城市的属性）每次都要重新计算加成兵力值
-	 *  第三步 损失的数量，按照损失比例进行计算
-	*/
-	 public boolean attack(){
+	/**
+	 * 第一版 只有soliders
+	 * 第二版 加入骑 枪 弓  损失计算 第一步 计算当前城内的各兵种比例 并得到损失比例 剑兵的损失比例放大，其他兵种的损失比例缩小；
+	 * 第二步 计算当前城内的兵种加成后的兵力值（根据城市的属性）每次都要重新计算加成兵力值
+	 * 第三步 损失的数量，按照损失比例进行计算
+	 *
+	 * @param siegeWeapon
+	 */
+	public boolean attack(SiegeWeapon siegeWeapon) {
 		int count = 0;
 		// 攻城至一方的兵力完全消耗完为止
 		// 攻城前技能触发
-		SkillFactory.changeBefore(3,3,null,null,this);
+		SkillFactory.changeBefore(3, 3, null, null, this);
 
+		// 攻城器械加成
+		attackWeaponAdd = attackWeaponAdd + siegeWeapon.getPower() / 50000;
 		// 获得加成值
 		attackSoliderTotal = getAttackSoliderTotal();
 		deffenceSoliderTotal = getDeffenceSoliderTotal();
 		this.attackSoliderTotalCopy = this.attackSoliderTotal;
 		System.out.println("进攻方加成总兵力" + attackSoliderTotal + "防守方加成总兵力" + deffenceSoliderTotal);
 		// 
-		while(attackSoliderTotal > 0 && deffenceSoliderTotal > 0){
+		while (attackSoliderTotal > 0 && deffenceSoliderTotal > 0) {
 			count++;
 			// 当守城人数大于攻城人数时，攻城失败
-			if(attackSoliderTotal <= deffenceSoliderTotal){
+			if (attackSoliderTotal <= deffenceSoliderTotal) {
 				System.out.println("攻城人数已小于守城人数");
 				return false;
 			}
@@ -166,7 +170,7 @@ public class AttackCity {
 				attackSoliderTotal = (int) (attackSoliderTotal - defenceBulidingAdd * deffenceSoliderTotal * (0.2 + (float) ((int) (Math.random() * (Integer.parseInt(DefenceChief.getCommand())))) / 1000));
 				System.out.println("第" + count + "波进攻，进攻方推进到城墙，剩余总兵力" + attackSoliderTotal);
 			}
-			if(attackSoliderTotal<=0){
+			if (attackSoliderTotal <= 0) {
 				System.out.println("攻城人数已全部损失，撤军");
 				// 进攻方结算
 				Leader.setArmy(Leader.getArmy() - soliders);
@@ -176,7 +180,7 @@ public class AttackCity {
 				return false;
 			}
 			// 一回合，守城方损失 进攻方兵力*(0.2*统帅)*(0.1*武力)的  (int) (5000 * ((0.2 * 99/100) + (0.1 * 99/100)))
-			defenceLost = (int) (attackSoliderTotal * ((0.06 * Integer.parseInt(AttackChief.getCommand()) / 100) + (0.04 * Integer.parseInt(AttackChief.getCommand()) / 100)));
+			defenceLost = (int) (attackWeaponAdd * attackSoliderTotal * ((0.06 * Integer.parseInt(AttackChief.getCommand()) / 100) + (0.04 * Integer.parseInt(AttackChief.getCommand()) / 100)));
 			if (deffenceSoliderTotal < defenceLost) {
 				defenceLost = deffenceSoliderTotal;
 			}
@@ -538,5 +542,13 @@ public class AttackCity {
 
 	public void setAttackLost(int attackLost) {
 		this.attackLost = attackLost;
+	}
+
+	public Double getAttackWeaponAdd() {
+		return attackWeaponAdd;
+	}
+
+	public void setAttackWeaponAdd(Double attackWeaponAdd) {
+		this.attackWeaponAdd = attackWeaponAdd;
 	}
 }

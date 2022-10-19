@@ -280,10 +280,25 @@ public class OneOnOne {
 				}
 			}else{
 				while(true){
-					if(GeneralFactory.getGeneralById(getAttackG().getBelongTo()).isReboot()){
-						c1 = new Random().nextInt(3) + 1;
+					if (GeneralFactory.getGeneralById(attackG.getBelongTo()).isReboot()) {
+						boolean choose = false;
+						// 如果攻击力大 大概率攻击 如果攻击力小 大概率防守或集气
+						if (Integer.parseInt(attackG.getAttack()) >= Integer.parseInt(defenceG.getAttack())) {
+							if (new Random().nextInt(100) < 50) {
+								c1 = 1;
+								choose = true;
+							}
+						} else {
+							if (new Random().nextInt(100) < 50) {
+								c1 = 2;
+								choose = true;
+							}
+						}
+						if (!choose) {
+							c1 = new Random().nextInt(3) + 1;
+						}
 						break;
-					}else {
+					} else {
 						System.out.println("请选择 1、进攻 2、防御 3、集气");
 						Scanner input = new Scanner(System.in);
 						int choise = input.nextInt();

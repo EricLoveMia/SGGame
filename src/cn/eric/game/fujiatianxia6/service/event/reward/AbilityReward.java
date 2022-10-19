@@ -15,10 +15,7 @@ import java.util.Scanner;
 public class AbilityReward extends EventReward {
 
     public AbilityReward(String name, String dataGive, String dataPunish, String type) {
-        super.setName(name);
-        super.setDataGive(dataGive);
-        super.setDataPunish(dataPunish);
-        super.setType(type);
+        super(name, dataGive, dataPunish, type);
     }
 
     @Override

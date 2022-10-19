@@ -17,7 +17,7 @@ public class FortuneAttackEvent extends Event {
     public void initialize() {
         // 获得单挑事件info
         EventReward reward = new AbilityReward("攻击力奖励", "1", "0", EventReward.EventRewardTypeEnum.ATTACK.getCode());
-        FightEventSingleA eventSingleA = new FightEventSingleA(reward);
+        EventSingleWrapper eventSingleA = new EventSingleWrapper(reward);
         eventSingleA.setName("武神事件");
         eventSingleA.setData("1");
         eventSingleA.setMemo("遇到武神，可以给指定一名武将增加武力");
@@ -35,7 +35,7 @@ public class FortuneAttackEvent extends Event {
     }
 
     @Override
-    public void registr() {
-        EventFactory.register("武神事件", this);
+    public void registr(int weight) {
+        EventFactory.register(weight, this);
     }
 }

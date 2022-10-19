@@ -16,12 +16,18 @@ public class 生财有道 extends SilkBag {
     }
 
     @Override
-    public void run(General origin, General targetGeneral, City targetCity) {
-        // 城市直接增加发展金
-        int add = 1000 + (Integer.parseInt(getTargetGeneral().getPolitics()) + Integer.parseInt(getTargetGeneral().getIntelligence())) * 2;
-        System.out.println("城市" + getTargetCity().getName() + "增加发展金" + add + "金");
-        getTargetCity().setMoney(getTargetCity().getMoney() + add);
+    protected General chooseTargetGeneral(General origin) {
+        return null;
+    }
 
+    @Override
+    public boolean run(General origin, General targetGeneral, City targetCity) {
+        // 城市直接增加发展金
+        int add = 1000 + (Integer.parseInt(targetGeneral.getPolitics()) + Integer.parseInt(targetGeneral.getIntelligence())) * 2;
+        System.out.println("城市" + targetCity.getName() + "增加发展金" + add + "金");
+        targetCity.setMoney(targetCity.getMoney() + add);
+
+        return true;
     }
 
 }

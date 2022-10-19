@@ -22,9 +22,9 @@ public class FightEventAttack extends Event {
     public void initialize() {
         // 获得单挑事件info
         EventReward reward = new MoneyReward("金钱奖励", "5000", "2000");
-        FightEventSingleA fightEventSingleA = new FightEventSingleA(reward);
-        fightEventSingleA.setMemo("单挑上古武将，10回合造成100点伤害，获得奖励，否则惩罚");
-        this.setEventSingle(fightEventSingleA);
+        EventSingleWrapper eventSingleWrapper = new EventSingleWrapper(reward);
+        eventSingleWrapper.setMemo("单挑上古武将，10回合造成100点伤害，获得奖励，否则惩罚");
+        this.setEventSingle(eventSingleWrapper);
         generalDead.setName("神龟将军");
         generalDead.setAttack("100");
         generalDead.setCommand("150");
@@ -58,7 +58,7 @@ public class FightEventAttack extends Event {
     }
 
     @Override
-    public void registr() {
-        EventFactory.register("单挑事件2", this);
+    public void registr(int weight) {
+        EventFactory.register(weight, this);
     }
 }

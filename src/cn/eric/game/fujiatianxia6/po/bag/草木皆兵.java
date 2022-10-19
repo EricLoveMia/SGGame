@@ -16,13 +16,19 @@ public class 草木皆兵 extends SilkBag {
     }
 
     @Override
-    public void run(General origin, General targetGeneral, City targetCity) {
+    protected General chooseTargetGeneral(General origin) {
+        return null;
+    }
+
+    @Override
+    public boolean run(General origin, General targetGeneral, City targetCity) {
         // 城市的剑兵增加
         Integer soilders = targetCity.getSoilders();
         int add = 1000 + Integer.parseInt(targetGeneral.getCommand()) + Integer.parseInt(targetGeneral.getIntelligence())
                 + Integer.parseInt(targetGeneral.getPolitics()) + Integer.parseInt(targetGeneral.getCharm());
         System.out.println("城市" + targetCity.getName() + "增加剑兵" + add);
         targetCity.setSoilders(soilders + add);
+        return true;
     }
 
 }

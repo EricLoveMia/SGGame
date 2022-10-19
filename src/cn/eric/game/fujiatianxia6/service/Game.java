@@ -3,11 +3,13 @@ package cn.eric.game.fujiatianxia6.service;
 import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.po.Map;
 import cn.eric.game.fujiatianxia6.po.*;
+import cn.eric.game.fujiatianxia6.po.bag.SilkBag;
 import cn.eric.game.fujiatianxia6.po.store.Goods;
 import cn.eric.game.fujiatianxia6.service.event.Event;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class Game {
 
@@ -31,6 +33,16 @@ public class Game {
 
     public Game(CampaignMap campaignMap) {
         initCampaingMap(campaignMap);
+        initCity(campaignMap);
+    }
+
+    private void initCity(CampaignMap campaignMap) {
+        for (City city : CityFactory.citys) {
+            if (campaignMap.getCityId().contains(city.getId())) {
+                continue;
+            }
+            city.reset();
+        }
     }
 
     public boolean startWithSave() {
@@ -225,7 +237,7 @@ public class Game {
         showPlayerState();
         //游戏开始
         int step;  //存储骰子数目
-        // TODO 有任何一方的钱少于0
+        // 有任何一方的钱少于0
         while (hasWin()) {
             stepCount++;
             //轮流掷骰子
@@ -358,11 +370,17 @@ public class Game {
     public int throwShifter(int no) {
         int step = 0;
         if (!players[no - 1].isReboot()) {
-            System.err.println("可以输入命令查看相关信息，输入-help获取所有命令，输入0 | a | j 继续");
+            System.err.println("可以输入命令查看相关信息，输入-help获取所有命令，输入1 掷骰子 2 使用锦囊");
             Scanner input = new Scanner(System.in);
             String choose = input.nextLine();
-            while (!"0".equals(choose) && !"a".equals(choose) && !"j".equals(choose)) {
-                CommandLineSerivce.getInstance().getCommandLine(choose);
+            while (!"1".equals(choose)) {
+                // 使用锦囊
+                if ("2".equals(choose)) {
+                    useSilkBags(players[no - 1]);
+                } else {
+                    CommandLineSerivce.getInstance().getCommandLine(choose);
+                }
+                System.err.println("可以输入命令查看相关信息，输入-help获取所有命令，输入1 掷骰子 2 使用锦囊");
                 choose = input.nextLine();
             }
         }
@@ -374,6 +392,24 @@ public class Game {
         String answer = input.next();
         step = (int) (Math.random() * 10) % 6 + 1;   //产生一个1~6的数字,即掷的骰子数目
         return step;
+    }
+
+    private void useSilkBags(General player) {
+        List<SilkBag> silkBags = player.getBag().getSilkBags();
+        if (silkBags == null) {
+            player.getBag().setSilkBags(new ArrayList<>());
+        }
+        if (silkBags == null || silkBags.size() == 0) {
+            System.out.println("您没有锦囊");
+            return;
+        }
+        System.out.println("您拥有的锦囊如下");
+        for (int i = 0; i < silkBags.size(); i++) {
+            System.out.println((i + 1) + ": " + silkBags.get(i).getName());
+        }
+        Scanner input = new Scanner(System.in);
+        int choise = input.nextInt();
+        silkBags.get(choise - 1).execute(player);
     }
 
     /**
@@ -552,6 +588,7 @@ public class Game {
                 City defence = (City) map.mapObj[position];
                 System.out.println(defence.toString());
                 System.out.println(defence.getDenfenceGenerals().toString());
+                System.out.println(defence.getBildings().toString());
                 if (base == map.map[position]) {
                     System.out.println("======主公好====== 选择0 放弃增减武将和兵力金钱\n");
                     // 查看技能
@@ -649,7 +686,7 @@ public class Game {
                                         players[no - 1].setArchers(players[no - 1].getArchers() + 100);
                                     }
                                     players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) + 40);
-                                    // TODO 购买商品
+                                    // 购买商品
                                     buyGoods(defence, players[no - 1]);
                                 } else {
                                     System.out.println("您失败了 声望下降20，要交双倍过路费:" + passMoney * 2);
@@ -663,7 +700,7 @@ public class Game {
                                 if (result) {
                                     System.out.println("您胜利了，不需要交过路费 声望提升15");
                                     players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) + 15);
-                                    // TODO 购买商品
+                                    // 购买商品
                                     buyGoods(defence, players[no - 1]);
                                 } else {
                                     System.out.println("您失败了 声望下降5，要交双倍过路费:" + passMoney * 2);
@@ -673,9 +710,11 @@ public class Game {
                                 break;
                             case 3:
                                 System.out.println("攻城开始");
+                                SiegeWeapon siegeWeapon = buySiegeWeapon(players[no - 1]);
+
                                 Integer defenceId = defence.getBelongTo();
                                 General generalDefence = GeneralFactory.getGeneralById(defenceId + "");
-                                boolean attackCityResult = Fight.attackCity(players[no - 1], defence);
+                                boolean attackCityResult = Fight.attackCity(players[no - 1], defence, siegeWeapon);
                                 if (attackCityResult) {
                                     System.out.println("您胜利了，不需要交过路费 声望提升 200 ");
                                     players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) + 200);
@@ -744,6 +783,34 @@ public class Game {
         } else {
             return position;
         }
+    }
+
+    private SiegeWeapon buySiegeWeapon(General player) {
+        System.out.println("是否需要购买攻城器械，当前持有金额" + player.getMoney());
+        List<SiegeWeapon> weapons = SiegeWeaponFactory.getAll();
+        for (int i = 0; i < weapons.size(); i++) {
+            System.out.println((i + 1) + ":" + weapons.get(i).toString());
+        }
+        if (player.isReboot()) {
+            // 根据持有的金额购买攻城器械
+            int mon = player.getMoney() / 2;
+            List<SiegeWeapon> list = weapons.stream().filter(e -> e.getPrice() < mon).collect(Collectors.toList());
+            Collections.shuffle(list);
+            SiegeWeapon weapon = list.get(0);
+            player.setMoney(player.getMoney() - weapon.getPrice());
+            System.out.println("购买武器" + weapon.toString() + "成功");
+            return weapon;
+        }
+        Scanner input = new Scanner(System.in);
+        int num = input.nextInt();
+        if (weapons.get(num - 1).getPrice() > player.getMoney()) {
+            System.out.println("您金额不足");
+        } else {
+            player.setMoney(player.getMoney() - weapons.get(num - 1).getPrice());
+            System.out.println("购买武器" + weapons.get(num - 1).toString() + "成功");
+            return weapons.get(num - 1);
+        }
+        return null;
     }
 
     private void buyGoods(City defence, General player) {
@@ -1025,31 +1092,39 @@ public class Game {
             }
 
             while (true) {
-                System.out.println("选择剑士的数量：");
-                input = new Scanner(System.in);
-                choise = input.nextInt();
-                if ((choise < 0 && choise * -1 > city.getSoilders()) || (choise > general.getArmy())) {
-                    System.out.println("太小或太大");
-                } else {
-                    general.setArmy(general.getArmy() - choise);
-                    city.setSoilders((city.getSoilders() == null ? 0 : city.getSoilders()) + choise);
-                    System.out.println("剑士设置完成");
-                    break;
+                try {
+                    System.out.println("选择剑士的数量：");
+                    input = new Scanner(System.in);
+                    choise = input.nextInt();
+                    if ((choise < 0 && choise * -1 > city.getSoilders()) || (choise > general.getArmy())) {
+                        System.out.println("太小或太大");
+                    } else {
+                        general.setArmy(general.getArmy() - choise);
+                        city.setSoilders((city.getSoilders() == null ? 0 : city.getSoilders()) + choise);
+                        System.out.println("剑士设置完成");
+                        break;
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
             }
             // 投入资金
             while (true) {
-                input = new Scanner(System.in);
-                System.out.println("请选择您要放在城中的金钱数量，当前您手中的金钱为：" + general.getMoney());
-                System.out.println("当前城中的金钱数量:" + city.getMoney());
-                choise = input.nextInt();
-                if ((choise < 0 && (choise * -1) > city.getMoney()) || (choise > general.getMoney())) {
-                    System.out.println("太小或太大");
-                } else {
-                    general.setMoney(general.getMoney() - choise);
-                    city.setMoney(city.getMoney() + choise);
-                    System.out.println("金钱设置完成");
-                    break;
+                try {
+                    input = new Scanner(System.in);
+                    System.out.println("请选择您要放在城中的金钱数量，当前您手中的金钱为：" + general.getMoney());
+                    System.out.println("当前城中的金钱数量:" + city.getMoney());
+                    choise = input.nextInt();
+                    if ((choise < 0 && (choise * -1) > city.getMoney()) || (choise > general.getMoney())) {
+                        System.out.println("太小或太大");
+                    } else {
+                        general.setMoney(general.getMoney() - choise);
+                        city.setMoney(city.getMoney() + choise);
+                        System.out.println("金钱设置完成");
+                        break;
+                    }
+                } catch (Exception exception) {
+                    exception.printStackTrace();
                 }
             }
         }
@@ -1272,13 +1347,15 @@ public class Game {
             switch (players[i].getName()) {
                 case "董卓":
                     players[i].setMoney(50000);
-                    players[i].setArmy(25000);
+                    players[i].setArmy(30000);
                     players[i].setReputation(450);
                     players[i].setCavalrys(6000); // 骑兵
                     players[i].setInfantry(2000); // 枪兵
                     players[i].setArchers(2000); // 弓兵
                     break;
                 case "刘备":
+                    players[i].setMoney(25000);
+                    players[i].setArmy(15000);
                     players[i].setReputation(200);
                     players[i].setCavalrys(1000); // 骑兵
                     players[i].setInfantry(3000); // 枪兵
@@ -1368,5 +1445,9 @@ public class Game {
 
     public static void setMapNum(int mapNum) {
         Game.mapNum = mapNum;
+    }
+
+    public static void setStepCount(int stepCount) {
+        Game.stepCount = stepCount;
     }
 }

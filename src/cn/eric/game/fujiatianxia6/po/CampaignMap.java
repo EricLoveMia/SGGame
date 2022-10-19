@@ -31,10 +31,14 @@ public class CampaignMap implements Serializable {
 
     private List<String> cityId;
 
+    private VictoryCondition victoryCondition;
+
+    private List<NPCCity> npcCityList;
+
     /**
      * 默认主公 第一个就是玩家主公
      **/
-    private List<String> defaultPlayer = Arrays.asList("1","2","3");
+    private List<String> defaultPlayer = Arrays.asList("1", "2", "3");
 
     private String memo;
 

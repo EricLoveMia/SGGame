@@ -1,7 +1,6 @@
 package cn.eric.game.fujiatianxia6.service.event;
 
-import java.util.HashMap;
-import java.util.Map;
+import cn.eric.game.fujiatianxia6.util.WeightRandom;
 
 /**
  * @ClassName EventFactory
@@ -12,14 +11,17 @@ import java.util.Map;
  **/
 public class EventFactory {
 
-    private static final Map<String, Event> eventMap = new HashMap<>();
+    private static WeightRandom<Event> eventMap;
 
     // 注册到工厂中
-    public static void register(String name, Event event) {
-        eventMap.put(name, event);
+    public static void register(Integer weight, Event event) {
+        if (eventMap == null) {
+            eventMap = WeightRandom.create();
+        }
+        eventMap.add(event, weight);
     }
 
-    public static Map<String, Event> getEventMap() {
+    public static WeightRandom<Event> getEventMap() {
         return eventMap;
     }
 }

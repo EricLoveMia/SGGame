@@ -17,17 +17,23 @@ public class 瞒天过海 extends SilkBag {
     }
 
     @Override
-    public void run(General origin, General targetGeneral, City targetCity) {
+    protected General chooseTargetGeneral(General origin) {
+        return null;
+    }
+
+    @Override
+    public boolean run(General origin, General targetGeneral, City targetCity) {
         // 其他人暂停，自己继续
         String[] goAndStop = Game.getGoAndStop();
         General[] players = Game.getPlayers();
         for (int i = 0; i < players.length; i++) {
-            if (players[i].getId().equals(getTargetGeneral().getId())) {
+            if (players[i].getId().equals(origin.getId())) {
                 goAndStop[i] = "on";
             } else {
                 goAndStop[i] = "off";
             }
         }
+        return true;
     }
 
 }

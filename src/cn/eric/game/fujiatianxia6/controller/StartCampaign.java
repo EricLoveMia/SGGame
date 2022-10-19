@@ -65,22 +65,26 @@ public class StartCampaign {
 
     public void startWithSave() {
         boolean win = game.startWithSave();
-        while (win && campaign.getIndex() < campaign.getCampaignMaps().size()) {
-            GeneralFactory.init(); //初始化武将
-            SkillFactory.init();// 初始化技能
-            BuildingFactory.initBuildings(); // 初始化建筑
-            WeaponFactory.init(); // 初始化专属武器库
-            // 初始化城市
-            CityFactory.init();
-            // 初始化战役地图
-            MapFactory.init();
+        try {
+            while (win && campaign.getIndex() < campaign.getCampaignMaps().size()) {
+                GeneralFactory.init(); //初始化武将
+                SkillFactory.init();// 初始化技能
+                BuildingFactory.initBuildings(); // 初始化建筑
+                WeaponFactory.init(); // 初始化专属武器库
+                // 初始化城市
+                CityFactory.init();
+                // 初始化战役地图
+                MapFactory.init();
 
-            campaign.setIndex(campaign.getIndex() + 1);
-            CampaignMap campaignMap = campaign.getCampaignMaps().get(campaign.getIndex());
-            // 确定玩家数和AI
-            campaignMap.setDefaultPlayer(Arrays.asList("1", "2", "3"));
-            game = new Game(campaignMap);
-            win = game.startCampaign();
+                campaign.setIndex(campaign.getIndex() + 1);
+                CampaignMap campaignMap = campaign.getCampaignMaps().get(campaign.getIndex());
+                // 确定玩家数和AI
+                campaignMap.setDefaultPlayer(Arrays.asList("1", "2", "3"));
+                game = new Game(campaignMap);
+                win = game.startCampaign();
+            }
+        } catch (Exception exception) {
+            exception.printStackTrace();
         }
     }
 

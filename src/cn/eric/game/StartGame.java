@@ -15,20 +15,21 @@ import java.util.Scanner;
 public class StartGame {
 
 	/**
-	 * 启动游戏
-	 * @param args
-	 */
-	public static void main(String[] args) throws InterruptedException {
-		Calendar cal = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		System.out.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※");
-		System.out.println("//                                                //");
-		System.out.println("//                                                //");
-		System.out.println("//                富甲天下6                         //");
-		System.out.println("//                                                //");
-		System.out.println("//                                                //");
-		System.out.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※\n\n\n");
-		System.out.println("请选择 1 重新开始（覆盖进度）  2 读取进度  3 不想玩了");
+     * 启动游戏
+     *
+     * @param args
+     */
+    public static void main(String[] args) throws InterruptedException, CloneNotSupportedException {
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※");
+        System.out.println("//                                                //");
+        System.out.println("//                                                //");
+        System.out.println("//                富甲天下6                         //");
+        System.out.println("//                                                //");
+        System.out.println("//                                                //");
+        System.out.println("※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※※\n\n\n");
+        System.out.println("请选择 1 重新开始（覆盖进度）  2 读取进度  3 不想玩了");
 		Scanner input = new Scanner(System.in);
 		int choose = input.nextInt();
 		if(choose == 1) {

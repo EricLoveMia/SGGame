@@ -56,14 +56,17 @@ public class SaveService {
         String cityJsonString = JSON.toJSONString(cityListSave);
         Util.writeIntoFile(cityJsonString,prePath + "city.txt");
         // 保存地图数据
-        Util.writeIntoFile(Integer.toString(Game.mapNum),prePath + "mapNum.txt");
+        Util.writeIntoFile(Integer.toString(Game.mapNum), prePath + "mapNum.txt");
         // 保存游戏角色数据
         int num = Game.getNum();
-        Util.writeIntoFile(Integer.toString(num),prePath + "num.txt");
+        Util.writeIntoFile(Integer.toString(num), prePath + "num.txt");
         String[] goAndStop = Game.getGoAndStop();
-        Util.writeIntoFile(JSON.toJSONString(Arrays.asList(goAndStop)),prePath + "goAndStop.txt");
+        Util.writeIntoFile(JSON.toJSONString(Arrays.asList(goAndStop)), prePath + "goAndStop.txt");
         int[] playPos = Game.getPlayPos();
-        Util.writeIntoFile(JSON.toJSONString(Collections.singletonList(playPos)),prePath + "playPos.txt");
+        Util.writeIntoFile(JSON.toJSONString(Collections.singletonList(playPos)), prePath + "playPos.txt");
+
+        int stepCount = Game.stepCount;
+        Util.writeIntoFile(Integer.toString(stepCount), prePath + "stepCount.txt");
 
         General[] players = Game.getPlayers();
         List<General> generalsForSave = new ArrayList<>();
@@ -73,7 +76,7 @@ public class SaveService {
             clone = (General) general.clone();
             generalsForSave.add(clone);
         }
-       // Collections.copy(generalsForSave, generals);   // 浅复制
+        // Collections.copy(generalsForSave, generals);   // 浅复制
         //generalsForSave = new ArrayList<>(generals);
         for (General general : generalsForSave) {
             general.setGenerals(null);

@@ -16,11 +16,16 @@ public class 财源广进 extends SilkBag {
     }
 
     @Override
-    public void run(General origin, General targetGeneral, City targetCity) {
-        // 城市直接增加繁荣度
-        int add = (Integer.parseInt(getTargetGeneral().getPolitics()) + Integer.parseInt(getTargetGeneral().getIntelligence())) / 5;
-        System.out.println("城市" + getTargetCity().getName() + "增加繁荣度" + add + "点");
-        getTargetCity().setProsperity(getTargetCity().getProsperity() + add);
+    protected General chooseTargetGeneral(General origin) {
+        return null;
+    }
 
+    @Override
+    public boolean run(General origin, General targetGeneral, City targetCity) {
+        // 城市直接增加繁荣度
+        int add = (Integer.parseInt(targetGeneral.getPolitics()) + Integer.parseInt(targetGeneral.getIntelligence())) / 5;
+        System.out.println("城市" + targetCity.getName() + "增加繁荣度" + add + "点");
+        targetCity.setProsperity(targetCity.getProsperity() + add);
+        return true;
     }
 }

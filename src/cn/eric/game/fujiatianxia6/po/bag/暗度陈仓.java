@@ -16,9 +16,15 @@ public class 暗度陈仓 extends SilkBag {
     }
 
     @Override
-    public void run(General origin, General targetGeneral, City targetCity) {
+    protected General chooseTargetGeneral(General origin) {
+        return null;
+    }
+
+    @Override
+    public boolean run(General origin, General targetGeneral, City targetCity) {
         // 直接走到指定的位置
 
+        return true;
     }
 
 }

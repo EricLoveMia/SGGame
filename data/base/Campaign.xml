@@ -2,31 +2,31 @@
 <campaings>
     <campaing>
         <lordId>1</lordId>
-        <maps>1,2,3,4,5,6</maps>
+        <maps>1,2,3,4,5,6,7,99</maps>
         <enemies>1,2,3,4;1,2,3,4;1,2,3,4;1,2,3,4;1,2,3,4;1,2,3,4</enemies>
         <memo>刘备一统天下</memo>
     </campaing>
     <campaing>
         <lordId>2</lordId>
-        <maps>1,2,3,4,5,6</maps>
+        <maps>1,2,3,4,5,99</maps>
         <enemies>2,1,3,4;2,1,3,4;2,1,3,4;2,1,3,4;2,1,3,4;2,1,3,4</enemies>
         <memo>曹操一统天下</memo>
     </campaing>
     <campaing>
         <lordId>3</lordId>
-        <maps>1,2,3,4,5,6</maps>
+        <maps>1,2,3,4,5,99</maps>
         <enemies>3,1,2,4;3,1,2,4;3,1,2,4;3,1,2,4;3,1,2,4;3,1,2,4</enemies>
         <memo>孙权一统天下</memo>
     </campaing>
     <campaing>
         <lordId>4</lordId>
-        <maps>1,2,3,4,5,6</maps>
+        <maps>1,2,3,4,5,99</maps>
         <enemies>4,1,2,3;4,1,2,3;4,1,2,3;4,1,2,3;4,1,2,3;4,1,2,3</enemies>
         <memo>董卓一统天下</memo>
     </campaing>
     <campaing>
         <lordId>5</lordId>
-        <maps>1,2,3,4,5,6</maps>
+        <maps>1,2,3,4,5,99</maps>
         <enemies>5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3</enemies>
         <memo>袁绍一统天下</memo>
     </campaing>

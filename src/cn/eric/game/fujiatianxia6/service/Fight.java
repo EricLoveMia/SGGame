@@ -4,10 +4,7 @@ import cn.eric.game.fujiatianxia6.factory.CityFactory;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.factory.OneOnOne;
 import cn.eric.game.fujiatianxia6.factory.SkillFactory;
-import cn.eric.game.fujiatianxia6.po.AttackCity;
-import cn.eric.game.fujiatianxia6.po.BattleField;
-import cn.eric.game.fujiatianxia6.po.City;
-import cn.eric.game.fujiatianxia6.po.General;
+import cn.eric.game.fujiatianxia6.po.*;
 
 import java.util.Optional;
 import java.util.Random;
@@ -200,15 +197,16 @@ public class Fight {
     }
 
     /**
-     * @param @param  general
-     * @param @param  defence
-     * @param @return 设定文件
+     * @param @param      general
+     * @param @param      defence
+     * @param @return     设定文件
+     * @param siegeWeapon
      * @return boolean    返回类型
      * @throws
      * @Title: attackCity
      * @Description: 攻城方法
      */
-    public static boolean attackCity(General general, City defence) {
+    public static boolean attackCity(General general, City defence, SiegeWeapon siegeWeapon) {
         //如果守城无将领，则直接认输
         if (defence.getDenfenceGenerals().size() == 0) {
             return true;
@@ -334,7 +332,7 @@ public class Fight {
 
             ac.setCity(defence);
             //开始攻城
-            result = ac.attack();
+            result = ac.attack(siegeWeapon);
 
         } catch (Exception e) {
             e.printStackTrace();

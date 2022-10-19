@@ -310,4 +310,14 @@ public class City implements Serializable {
 		}
 		return false;
 	}
+
+	public void reset() {
+		this.soilders = 0;
+		this.belongTo = 0;
+		this.money = 0;
+		this.cavalrys = 0;
+		this.setBildings(new ArrayList<>());
+		this.infantry = 0;
+		this.archers = 0;
+	}
 }

@@ -26,6 +26,15 @@ public class SiegeWeapon {
 
     private int power;
 
+    @Override
+    public String toString() {
+        return "SiegeWeapon{" +
+                " 名字='" + name + '\'' +
+                ", 价格=" + price +
+                ", 威力=" + power +
+                '}';
+    }
+
     public SiegeWeapon(int id, String name, int price, int power) {
         this.id = id;
         this.name = name;

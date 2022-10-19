@@ -16,9 +16,15 @@ public class 人去楼空 extends SilkBag {
     }
 
     @Override
-    public void run(General origin, General targetGeneral, City targetCity) {
+    protected General chooseTargetGeneral(General origin) {
+        return null;
+    }
+
+    @Override
+    public boolean run(General origin, General targetGeneral, City targetCity) {
         // 减少城市的人口
 
+        return false;
     }
 
 }

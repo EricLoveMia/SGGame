@@ -31,6 +31,13 @@ public abstract class EventReward {
      */
     private String type;
 
+    public EventReward(String name, String dataGive, String dataPunish, String type) {
+        this.name = name;
+        this.dataGive = dataGive;
+        this.dataPunish = dataPunish;
+        this.type = type;
+    }
+
     /**
      * 给与奖励
      */

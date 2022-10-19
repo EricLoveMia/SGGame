@@ -17,10 +17,16 @@ public class 虚张声势 extends SilkBag {
     }
 
     @Override
-    public void run(General origin, General targetGeneral, City targetCity) {
+    protected General chooseTargetGeneral(General origin) {
+        return null;
+    }
+
+    @Override
+    public boolean run(General origin, General targetGeneral, City targetCity) {
         // 增加声望
         General general = GeneralFactory.getGeneralById(targetGeneral.getBelongTo());
         System.out.println(general.getName() + "增加声望100点");
         general.setReputation(general.getReputation() + 100);
+        return true;
     }
 }

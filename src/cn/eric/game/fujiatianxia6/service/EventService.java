@@ -2,8 +2,8 @@ package cn.eric.game.fujiatianxia6.service;
 
 import cn.eric.game.fujiatianxia6.po.General;
 import cn.eric.game.fujiatianxia6.service.event.*;
+import cn.eric.game.fujiatianxia6.util.WeightRandom;
 
-import java.util.Map;
 import java.util.Random;
 import java.util.Scanner;
 
@@ -21,24 +21,28 @@ public class EventService {
         // 单挑事件
         FightEvent fightEvent = new FightEvent();
         fightEvent.initialize();
-        fightEvent.registr();
+        fightEvent.registr(10);
 
         FightEventAttack fightEventAttack = new FightEventAttack();
         fightEventAttack.initialize();
-        fightEventAttack.registr();
+        fightEventAttack.registr(10);
         //
         FortuneAttackEvent fortuneAttackEvent = new FortuneAttackEvent();
         fortuneAttackEvent.initialize();
-        fortuneAttackEvent.registr();
+        fortuneAttackEvent.registr(10);
 
         FortuneCommandEvent fortuneCommandEvent = new FortuneCommandEvent();
         fortuneCommandEvent.initialize();
-        fortuneCommandEvent.registr();
+        fortuneCommandEvent.registr(10);
 
         FortuneIntelligenceEvent fortuneIntelligenceEvent = new FortuneIntelligenceEvent();
         fortuneIntelligenceEvent.initialize();
-        fortuneIntelligenceEvent.registr();
-        //
+        fortuneIntelligenceEvent.registr(10);
+
+        // 计谋事件
+        SilkBagEvent silkBagEvent = new SilkBagEvent();
+        silkBagEvent.initialize();
+        silkBagEvent.registr(50);
     }
 
     /**
@@ -52,14 +56,9 @@ public class EventService {
     public static Event roundTrigger(General general) {
         // 根据主帅的魅力 触发事件
         Integer charm = Integer.parseInt(general.getCharm());
-        if (new Random().nextInt(100) < charm / 5) {
-            Map<String, Event> eventMap = EventFactory.getEventMap();
-            String[] keys = eventMap.keySet().toArray(new String[0]);
-            Random random = new Random();
-            int index = random.nextInt(keys.length);
-            String key = keys[index];
-            // 随机返回一个
-            return eventMap.get(key);
+        if (new Random().nextInt(100) < (30 + charm / 5)) {
+            WeightRandom<Event> eventMap = EventFactory.getEventMap();
+            return eventMap.next();
         }
         return null;
     }
@@ -75,12 +74,18 @@ public class EventService {
     public static void beginEvent(General general, Event event) {
         System.out.println("触发事件" + event.getEventSingle().getMemo());
         if (general.isReboot()) {
-            // event.trigger(general);
+            if (event instanceof SilkBagEvent) {
+                event.trigger(general);
+            }
         } else {
-            System.out.println("请问是否挑战 1 是 其他 否");
-            Scanner input = new Scanner(System.in);
-            int choise = input.nextInt();
-            if (choise == 1) {
+            if (event instanceof FightEventAttack || event instanceof FightEvent) {
+                System.out.println("请问是否挑战 1 是 其他 否");
+                Scanner input = new Scanner(System.in);
+                int choise = input.nextInt();
+                if (choise == 1) {
+                    event.trigger(general);
+                }
+            } else {
                 event.trigger(general);
             }
         }

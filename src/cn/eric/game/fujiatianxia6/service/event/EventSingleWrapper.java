@@ -5,14 +5,14 @@ import cn.eric.game.fujiatianxia6.service.event.reward.EventReward;
 
 /**
  * @ClassName FightEventSingleA
- * @Description: 单挑上古武将，坚持10回合不死获得5000金，失败惩罚2000金
- * @Author YCKJ2725
+ * @Description: 单一事件
+ * @Author eric
  * @Date 2020/9/18
  * @Version V1.0
  **/
-public class FightEventSingleA extends EventSingle {
+public class EventSingleWrapper extends EventSingle {
 
-    public FightEventSingleA(EventReward reward) {
+    public EventSingleWrapper(EventReward reward) {
         super.setReward(reward);
     }
 

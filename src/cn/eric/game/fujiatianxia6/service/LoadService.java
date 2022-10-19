@@ -6,6 +6,9 @@ import cn.eric.game.fujiatianxia6.factory.*;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
 import cn.eric.game.fujiatianxia6.po.Map;
+import cn.eric.game.fujiatianxia6.po.bag.SilkBag;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 
 import java.util.ArrayList;
@@ -21,12 +24,12 @@ import java.util.stream.Collectors;
  **/
 public class LoadService {
 
-    public static void loadAutoSave(String path){
+    public static void loadAutoSave(String path) throws CloneNotSupportedException {
         System.out.println("※※※※※※※※※※※※※※※数据读取中※※※※※※※※※※※※※※※\n\n\n");
         String prePath = "";
-        if(path == null) {
+        if (path == null) {
             prePath = "data/save/AutoSave/";
-        }else{
+        } else {
             prePath = "data/save/" + path + "/";
         }
         // 读取武将数据
@@ -45,7 +48,26 @@ public class LoadService {
 //        cityList.toArray(citys);
         // 设定主公
         String playersString = Util.readFileContentAsBuffer(prePath + "players.txt");
-        List<General> playersList = JSONObject.parseArray(playersString, General.class);
+        // List<General> playersList = JSONObject.parseArray(playersString, General.class);
+        List<General> playersList = new ArrayList<>();
+        JSONArray jsonArray = JSONArray.parseArray(playersString);
+        for (Object object : jsonArray) {
+            JSONObject jsonObject = (JSONObject) object;
+            General general = JSON.parseObject(jsonObject.toJSONString(), General.class);
+            JSONObject bag = jsonObject.getJSONObject("bag");
+            if (bag != null) {
+                JSONArray silkBags = bag.getJSONArray("silkBags");
+                List<SilkBag> bags = new ArrayList<>();
+                for (Object silkBag : silkBags) {
+                    JSONObject b = (JSONObject) silkBag;
+                    bags.add(SilkBagFactory.getByName(b.getString("name")));
+                }
+                general.getBag().setSilkBags(bags);
+            }
+            playersList.add(general);
+        }
+
+        // playersList = JSONArray.parseArray(playersString, General.class);
 
         List<String> deadPlayerIds = playersList.stream()
                 .filter(e -> e.getStatus().equals("4")).map(General::getId).collect(Collectors.toList());
@@ -109,6 +131,9 @@ public class LoadService {
         String mapNumString = Util.readFileContentAsBuffer(prePath + "mapNum.txt");
         Game.setMapNum(Integer.parseInt(mapNumString));
 
+        String stepCount = Util.readFileContentAsBuffer(prePath + "stepCount.txt");
+        Game.setStepCount(Integer.parseInt(stepCount));
+
         String playPosString = Util.readFileContentAsBuffer(prePath + "playPos.txt");
         String substring = playPosString.substring(2, playPosString.length() - 2);
         String[] playPos = substring.split(",");
@@ -139,6 +164,7 @@ public class LoadService {
             generalById.setReputation(general.getReputation());
             generalById.setGenerals(GeneralFactory.setBeginGenerals(generalById.getId()));
             generalById.setTransportTeam(general.getTransportTeam());
+            generalById.setBag(general.getBag());
             players[i++] = generalById;
         }
         Game.setPlayers(players);
@@ -156,6 +182,7 @@ public class LoadService {
             startCampaign.setGame(game);
             CommonContents.startCampaign = startCampaign;
             startCampaign.startWithSave();
+            return;
         } catch (Exception e) {
             e.printStackTrace();
         }

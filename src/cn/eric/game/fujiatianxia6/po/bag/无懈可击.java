@@ -16,9 +16,15 @@ public class 无懈可击 extends SilkBag {
     }
 
     @Override
-    public void run(General origin, General targetGeneral, City targetCity) {
+    protected General chooseTargetGeneral(General origin) {
+        return null;
+    }
+
+    @Override
+    public boolean run(General origin, General targetGeneral, City targetCity) {
         // 自对自身的锦囊无效
 
+        return true;
     }
 
 }
