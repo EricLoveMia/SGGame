@@ -386,12 +386,21 @@ public class Game {
         }
         System.out.print("\n\n" + players[no - 1].getName() + ", 请您按任意字母键后回车启动掷骰子： ");
         if (players[no - 1].isReboot()) {
+            tryToUseSilkBag(players[no - 1]);
             return (int) (Math.random() * 10) % 6 + 1;
         }
         Scanner input = new Scanner(System.in);
         String answer = input.next();
         step = (int) (Math.random() * 10) % 6 + 1;   //产生一个1~6的数字,即掷的骰子数目
         return step;
+    }
+
+    private void tryToUseSilkBag(General player) {
+        List<SilkBag> silkBags = player.getBag().getSilkBags();
+        if (silkBags != null && silkBags.size() > 0) {
+            SilkBag silkBag = silkBags.get(0);
+            silkBag.execute(player);
+        }
     }
 
     private void useSilkBags(General player) {

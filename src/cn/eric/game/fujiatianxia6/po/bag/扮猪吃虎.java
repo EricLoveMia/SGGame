@@ -5,21 +5,19 @@ import cn.eric.game.fujiatianxia6.po.General;
 
 /**
  * @version 1.0.0
- * @description:
+ * @description: 扮猪吃虎
  * @author: eric
- * @date: 2022-10-17 11:45
+ * @date: 2022-10-17 11:40
  **/
-public class 六畜兴旺 extends SilkBag {
+public class 扮猪吃虎 extends SilkBag {
 
-    public 六畜兴旺(int id, String name, int type, int aim) {
+    public 扮猪吃虎(int id, String name, int type, int aim) {
         super(id, name, type, aim);
     }
 
     @Override
     public boolean run(General origin, General targetGeneral, City targetCity) {
-        // 直接走到指定的位置
-
+        // 放弃攻城
         return true;
     }
-
 }

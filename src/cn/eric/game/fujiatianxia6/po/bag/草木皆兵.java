@@ -11,13 +11,8 @@ import cn.eric.game.fujiatianxia6.po.General;
  **/
 public class 草木皆兵 extends SilkBag {
 
-    public 草木皆兵(int id, String name, int type) {
-        super(id, name, type);
-    }
-
-    @Override
-    protected General chooseTargetGeneral(General origin) {
-        return null;
+    public 草木皆兵(int id, String name, int type, int aim) {
+        super(id, name, type, aim);
     }
 
     @Override

@@ -11,13 +11,8 @@ import cn.eric.game.fujiatianxia6.po.General;
  **/
 public class 暗度陈仓 extends SilkBag {
 
-    public 暗度陈仓(int id, String name, int type) {
-        super(id, name, type);
-    }
-
-    @Override
-    protected General chooseTargetGeneral(General origin) {
-        return null;
+    public 暗度陈仓(int id, String name, int type, int aim) {
+        super(id, name, type, aim);
     }
 
     @Override

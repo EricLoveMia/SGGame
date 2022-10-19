@@ -11,14 +11,10 @@ import cn.eric.game.fujiatianxia6.po.General;
  **/
 public class 临危不乱 extends SilkBag {
 
-    public 临危不乱(int id, String name, int type) {
-        super(id, name, type);
+    public 临危不乱(int id, String name, int type, int aim) {
+        super(id, name, type, aim);
     }
 
-    @Override
-    protected General chooseTargetGeneral(General origin) {
-        return null;
-    }
 
     @Override
     public boolean run(General origin, General targetGeneral, City targetCity) {

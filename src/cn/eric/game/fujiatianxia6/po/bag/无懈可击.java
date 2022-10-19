@@ -11,13 +11,8 @@ import cn.eric.game.fujiatianxia6.po.General;
  **/
 public class 无懈可击 extends SilkBag {
 
-    public 无懈可击(int id, String name, int type) {
-        super(id, name, type);
-    }
-
-    @Override
-    protected General chooseTargetGeneral(General origin) {
-        return null;
+    public 无懈可击(int id, String name, int type, int aim) {
+        super(id, name, type, aim);
     }
 
     @Override

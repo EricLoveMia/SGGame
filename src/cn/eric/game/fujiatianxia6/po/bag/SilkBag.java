@@ -4,6 +4,7 @@ import cn.eric.game.fujiatianxia6.factory.CityFactory;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
+import cn.eric.game.fujiatianxia6.po.store.Goods;
 import cn.eric.game.fujiatianxia6.service.Game;
 
 import java.util.*;
@@ -22,17 +23,30 @@ public abstract class SilkBag implements Bag, Cloneable {
     // 说明
     private String memo;
 
+    // 主动技能还是被动技能
+    private boolean active;
+
     // 1 对自己释放的 2 对其他主公释放的 3 对自己的城市释放的 4 对非自己的城市释放的
     private int type;
+
+    // 1 敌方主公之一 2 有锦囊的敌方主公 3 有特产的敌方主公
+    private int aim;
 
     public SilkBag() {
         System.out.println(123);
     }
 
-    public SilkBag(int id, String name, int type) {
+//    public SilkBag(int id, String name, int type) {
+//        this.id = id;
+//        this.name = name;
+//        this.type = type;
+//    }
+
+    public SilkBag(int id, String name, int type, int aim) {
         this.id = id;
         this.name = name;
         this.type = type;
+        this.aim = aim;
     }
 
     public int getId() {
@@ -143,8 +157,13 @@ public abstract class SilkBag implements Bag, Cloneable {
             System.out.println("没有可施展的城池");
             return null;
         }
-        for (int i = 1; i < index; i++) {
-            System.out.println(i + "：" + cityMap.get(i).toString());
+        if (!origin.isReboot()) {
+            for (int i = 1; i < index; i++) {
+                System.out.println(i + "：" + cityMap.get(i).toString());
+            }
+        }
+        if (origin.isReboot()) {
+            return cityMap.get(new Random().nextInt(index - 1));
         }
         Scanner input = new Scanner(System.in);
         int choise = input.nextInt();
@@ -164,6 +183,10 @@ public abstract class SilkBag implements Bag, Cloneable {
         if (cityList.size() == 0) {
             System.out.println("您还没有占领任何地盘");
         } else {
+            if (origin.isReboot()) {
+                Collections.shuffle(cityList);
+                return cityList.get(0);
+            }
             for (int i = 0; i < cityList.size(); i++) {
                 System.out.println((i + 1) + cityList.get(i).toString());
             }
@@ -181,7 +204,123 @@ public abstract class SilkBag implements Bag, Cloneable {
         return null;
     }
 
-    protected abstract General chooseTargetGeneral(General origin);
+    protected General chooseTargetGeneral(General origin) {
+        System.out.println("请选择您要" + name + "的主公");
+        if (aim == 1) {
+            return chooseTargetGeneralSingle(origin);
+        } else if (aim == 2) {
+            return chooseTargetGeneralWithSilkBag(origin);
+        } else if (aim == 3) {
+            return chooseTargetGeneralWithGoods(origin);
+        }
+        return null;
+    }
+
+    protected General chooseTargetGeneralSingle(General origin) {
+        General[] players = Game.getPlayers();
+        Map<Integer, General> playerMap = new HashMap<>();
+        Integer index = 1;
+        for (General player : players) {
+            if (player.getStatus().equals("4")) {
+                continue;
+            }
+            if (player.getId().equals(origin.getId())) {
+                continue;
+            }
+            playerMap.put(index++, player);
+        }
+        if (playerMap.size() == 0) {
+            System.out.println("没有其他主公");
+            return null;
+        }
+        for (int i = 1; i < index; i++) {
+            System.out.println(i + "：" + playerMap.get(i).toString());
+        }
+
+        Scanner input = new Scanner(System.in);
+        int choise = input.nextInt();
+        while (choise != 0) {
+            if (choise > index || choise < 0) {
+                System.out.println("请谨慎选择 0 表示放弃");
+            } else {
+                return playerMap.get(choise);
+            }
+            choise = input.nextInt();
+        }
+        return null;
+    }
+
+    protected General chooseTargetGeneralWithGoods(General origin) {
+        General[] players = Game.getPlayers();
+        Map<Integer, General> playerMap = new HashMap<>();
+        Integer index = 1;
+        for (General player : players) {
+            if (player.getStatus().equals("4")) {
+                continue;
+            }
+            if (player.getId().equals(origin.getId())) {
+                continue;
+            }
+            List<Goods> goods = player.getTransportTeam().getGoodsList();
+            if (goods == null || goods.size() == 0) {
+                continue;
+            }
+            playerMap.put(index++, player);
+        }
+        if (playerMap.size() == 0) {
+            System.out.println("没有其他主公拥有特产品");
+            return null;
+        }
+        for (int i = 1; i < index; i++) {
+            System.out.println(i + "：" + playerMap.get(i).getName() + ",特产数" + playerMap.get(i).getTransportTeam().getGoodsList().size());
+        }
+
+        Scanner input = new Scanner(System.in);
+        int choise = input.nextInt();
+        while (choise != 0) {
+            if (choise > index || choise < 0) {
+                System.out.println("请谨慎选择 0 表示放弃");
+            } else {
+                return playerMap.get(choise);
+            }
+            choise = input.nextInt();
+        }
+        return null;
+    }
+
+    protected General chooseTargetGeneralWithSilkBag(General origin) {
+        General[] players = Game.getPlayers();
+        Map<Integer, General> playerMap = new HashMap<>();
+        Integer index = 1;
+        for (General player : players) {
+            if (player.getStatus().equals("4")) {
+                continue;
+            }
+            List<SilkBag> silkBags = player.getBag().getSilkBags();
+            if (silkBags == null || silkBags.size() == 0) {
+                continue;
+            }
+            playerMap.put(index++, player);
+        }
+        if (playerMap.size() == 0) {
+            System.out.println("没有其他主公拥有锦囊");
+            return null;
+        }
+        for (int i = 1; i < index; i++) {
+            System.out.println(i + "：" + playerMap.get(i).getName() + ",锦囊数" + playerMap.get(i).getBag().getSilkBags().size());
+        }
+        Scanner input = new Scanner(System.in);
+        int choise = input.nextInt();
+        while (choise != 0) {
+            if (choise > index || choise < 0) {
+                System.out.println("请谨慎选择 0 表示放弃");
+            } else {
+                return playerMap.get(choise);
+            }
+            choise = input.nextInt();
+        }
+        return null;
+    }
 
     protected abstract boolean run(General origin, General targetGeneral, City targetCity);
 

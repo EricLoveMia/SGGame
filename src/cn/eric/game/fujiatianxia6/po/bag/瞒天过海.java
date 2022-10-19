@@ -12,13 +12,8 @@ import cn.eric.game.fujiatianxia6.service.Game;
  **/
 public class 瞒天过海 extends SilkBag {
 
-    public 瞒天过海(int id, String name, int type) {
-        super(id, name, type);
-    }
-
-    @Override
-    protected General chooseTargetGeneral(General origin) {
-        return null;
+    public 瞒天过海(int id, String name, int type, int aim) {
+        super(id, name, type, aim);
     }
 
     @Override
