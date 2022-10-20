@@ -20,15 +20,15 @@ public class SilkBagFactory {
 
     static {
         silkBagList = new ArrayList<>();
-        silkBagList.add(new 瞒天过海(1, "瞒天过海", 1));
-        silkBagList.add(new 财源广进(6, "财源广进", 3));
-        silkBagList.add(new 无懈可击(9, "无懈可击", 2));
-        silkBagList.add(new 草木皆兵(11, "草木皆兵", 3));
-        silkBagList.add(new 虚张声势(12, "虚张声势", 1));
-        silkBagList.add(new 过河拆桥(15, "过河拆桥", 4, 2));
-        silkBagList.add(new 生财有道(16, "生财有道", 3));
-        silkBagList.add(new 顺手牵羊(17, "顺手牵羊", 2, 2));
-        silkBagList.add(new 五鬼搬运(18, "五鬼搬运", 2, 3));
+        silkBagList.add(new 瞒天过海(1, "瞒天过海", "瞒天过海", true, 1, 0));
+        silkBagList.add(new 财源广进(6, "财源广进", "财源广进", true, 1, 0));
+        silkBagList.add(new 无懈可击(9, "无懈可击", "无懈可击", false, 1, 0));
+        silkBagList.add(new 草木皆兵(11, "草木皆兵", "草木皆兵", true, 3, 0));
+        silkBagList.add(new 虚张声势(12, "虚张声势", "虚张声势", true, 1, 0));
+        silkBagList.add(new 过河拆桥(15, "过河拆桥", "虚张声势", true, 4, 2));
+        silkBagList.add(new 生财有道(16, "生财有道", "生财有道", true, 3, 0));
+        silkBagList.add(new 顺手牵羊(17, "顺手牵羊", "顺手牵羊", true, 2, 2));
+        silkBagList.add(new 五鬼搬运(18, "五鬼搬运", "五鬼搬运", true, 2, 3));
         // silkBagList.add(new 临危不乱(18, "临危不乱", 2));
 
         silkBagMap = silkBagList.stream().collect(Collectors.toMap(SilkBag::getName, e -> e));

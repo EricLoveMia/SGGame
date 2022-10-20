@@ -15,8 +15,8 @@ import java.util.List;
  **/
 public class 五鬼搬运 extends SilkBag {
 
-    public 五鬼搬运(int id, String name, int type, int aim) {
-        super(id, name, type, aim);
+    public 五鬼搬运(int id, String name, String memo, boolean active, int type, int aim) {
+        super(id, name, memo, active, type, aim);
     }
 
     @Override

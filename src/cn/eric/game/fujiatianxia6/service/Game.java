@@ -398,8 +398,11 @@ public class Game {
     private void tryToUseSilkBag(General player) {
         List<SilkBag> silkBags = player.getBag().getSilkBags();
         if (silkBags != null && silkBags.size() > 0) {
-            SilkBag silkBag = silkBags.get(0);
-            silkBag.execute(player);
+            List<SilkBag> activeBags = silkBags.stream().filter(SilkBag::isActive).collect(Collectors.toList());
+            if (activeBags.size() > 0) {
+                SilkBag silkBag = silkBags.get(0);
+                silkBag.execute(player);
+            }
         }
     }
 

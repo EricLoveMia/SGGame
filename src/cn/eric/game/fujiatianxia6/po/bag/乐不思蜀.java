@@ -11,8 +11,8 @@ import cn.eric.game.fujiatianxia6.po.General;
  **/
 public class 乐不思蜀 extends SilkBag {
 
-    public 乐不思蜀(int id, String name, int type, int aim) {
-        super(id, name, type, aim);
+    public 乐不思蜀(int id, String name, String memo, boolean active, int type, int aim) {
+        super(id, name, memo, active, type, aim);
     }
 
     @Override

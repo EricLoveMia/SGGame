@@ -11,8 +11,8 @@ import cn.eric.game.fujiatianxia6.po.General;
  **/
 public class 扮猪吃虎 extends SilkBag {
 
-    public 扮猪吃虎(int id, String name, int type, int aim) {
-        super(id, name, type, aim);
+    public 扮猪吃虎(int id, String name, String memo, boolean active, int type, int aim) {
+        super(id, name, memo, active, type, aim);
     }
 
     @Override

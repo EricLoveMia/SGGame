@@ -36,15 +36,11 @@ public abstract class SilkBag implements Bag, Cloneable {
         System.out.println(123);
     }
 
-//    public SilkBag(int id, String name, int type) {
-//        this.id = id;
-//        this.name = name;
-//        this.type = type;
-//    }
-
-    public SilkBag(int id, String name, int type, int aim) {
+    public SilkBag(int id, String name, String memo, boolean active, int type, int aim) {
         this.id = id;
         this.name = name;
+        this.memo = memo;
+        this.active = active;
         this.type = type;
         this.aim = aim;
     }
@@ -124,7 +120,7 @@ public abstract class SilkBag implements Bag, Cloneable {
             targetGeneral = chooseExecute(origin);
         }
 
-
+        System.out.println("释放锦囊" + name);
         boolean result = run(origin, targetGeneral, targetCity);
         if (result) {
             origin.getBag().getSilkBags().remove(this);
@@ -136,6 +132,10 @@ public abstract class SilkBag implements Bag, Cloneable {
         List<General> generals = GeneralFactory.getAoundGeneral(origin.getGenerals());
         for (int i = 0; i < generals.size(); i++) {
             System.out.println((i + 1) + ":" + generals.get(i).simpleInfo());
+        }
+        if (origin.isReboot()) {
+            GeneralFactory.sortByIntel(generals);
+            return generals.get(0);
         }
         Scanner input = new Scanner(System.in);
         int choose = input.nextInt();
@@ -233,6 +233,9 @@ public abstract class SilkBag implements Bag, Cloneable {
             System.out.println("没有其他主公");
             return null;
         }
+        if (origin.isReboot()) {
+            return playerMap.get(new Random().nextInt(index - 1));
+        }
         for (int i = 1; i < index; i++) {
             System.out.println(i + "：" + playerMap.get(i).toString());
         }
@@ -271,6 +274,9 @@ public abstract class SilkBag implements Bag, Cloneable {
             System.out.println("没有其他主公拥有特产品");
             return null;
         }
+        if (origin.isReboot()) {
+            return playerMap.get(new Random().nextInt(index - 1));
+        }
         for (int i = 1; i < index; i++) {
             System.out.println(i + "：" + playerMap.get(i).getName() + ",特产数" + playerMap.get(i).getTransportTeam().getGoodsList().size());
         }
@@ -296,6 +302,9 @@ public abstract class SilkBag implements Bag, Cloneable {
             if (player.getStatus().equals("4")) {
                 continue;
             }
+            if (player.getId().equals(origin.getId())) {
+                continue;
+            }
             List<SilkBag> silkBags = player.getBag().getSilkBags();
             if (silkBags == null || silkBags.size() == 0) {
                 continue;
@@ -305,6 +314,9 @@ public abstract class SilkBag implements Bag, Cloneable {
         if (playerMap.size() == 0) {
             System.out.println("没有其他主公拥有锦囊");
             return null;
+        }
+        if (origin.isReboot()) {
+            return playerMap.get(new Random().nextInt(index - 1));
         }
         for (int i = 1; i < index; i++) {
             System.out.println(i + "：" + playerMap.get(i).getName() + ",锦囊数" + playerMap.get(i).getBag().getSilkBags().size());
@@ -356,5 +368,21 @@ public abstract class SilkBag implements Bag, Cloneable {
 
     public void setMemo(String memo) {
         this.memo = memo;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public int getAim() {
+        return aim;
+    }
+
+    public void setAim(int aim) {
+        this.aim = aim;
     }
 }
