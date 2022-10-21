@@ -21,7 +21,7 @@ public class SilkBagFactory {
     static {
         silkBagList = new ArrayList<>();
         silkBagList.add(new 瞒天过海(1, "瞒天过海", "瞒天过海", true, 1, 0));
-        silkBagList.add(new 财源广进(6, "财源广进", "财源广进", true, 1, 0));
+        silkBagList.add(new 财源广进(6, "财源广进", "财源广进", true, 3, 0));
         silkBagList.add(new 无懈可击(9, "无懈可击", "无懈可击", false, 1, 0));
         silkBagList.add(new 草木皆兵(11, "草木皆兵", "草木皆兵", true, 3, 0));
         silkBagList.add(new 虚张声势(12, "虚张声势", "虚张声势", true, 1, 0));

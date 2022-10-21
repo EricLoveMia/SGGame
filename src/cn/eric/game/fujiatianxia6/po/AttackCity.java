@@ -41,9 +41,12 @@ public class AttackCity {
 	private int attactlevelAddition = 0;
 	private int defencelevelAddition = 0;
 
+	private int attackSkillProbability = 0;
+	private int defenceSkillProbability = 0;
+
 	private int defenceLost = 0;
 	private int attackLost = 0;
-	
+
 	public General getLeader() {
 		return Leader;
 	}
@@ -550,5 +553,21 @@ public class AttackCity {
 
 	public void setAttackWeaponAdd(Double attackWeaponAdd) {
 		this.attackWeaponAdd = attackWeaponAdd;
+	}
+
+	public int getAttackSkillProbability() {
+		return attackSkillProbability;
+	}
+
+	public void setAttackSkillProbability(int attackSkillProbability) {
+		this.attackSkillProbability = attackSkillProbability;
+	}
+
+	public int getDefenceSkillProbability() {
+		return defenceSkillProbability;
+	}
+
+	public void setDefenceSkillProbability(int defenceSkillProbability) {
+		this.defenceSkillProbability = defenceSkillProbability;
 	}
 }

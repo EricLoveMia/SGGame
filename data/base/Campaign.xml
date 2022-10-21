@@ -30,4 +30,16 @@
         <enemies>5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3</enemies>
         <memo>袁绍一统天下</memo>
     </campaing>
+    <campaing>
+        <lordId>96</lordId>
+        <maps>1,2,3,4,5,99</maps>
+        <enemies>96,1,2,3;96,1,2,3;96,1,2,3;96,1,2,3;96,1,2,3;96,1,2,3</enemies>
+        <memo>袁术一统天下</memo>
+    </campaing>
+    <campaing>
+        <lordId>107</lordId>
+        <maps>1,2,3,4,5,99</maps>
+        <enemies>107,1,2,3;107,1,2,3;107,1,2,3;107,1,2,3;107,1,2,3;107,1,2,3</enemies>
+        <memo>刘表一统天下</memo>
+    </campaing>
 </campaings>

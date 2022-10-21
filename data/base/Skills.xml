@@ -367,12 +367,12 @@
 		<time>3</time>
 	</skill>
     <skill>
-        <id>53</id>
-        <name>虎将</name>
-        <memo>野战或攻城中，作为进攻方，所有兵种增加伤害10%，每回合有几率震慑敌方使士兵按百分比溃散，溃散比率由统帅、武力、智力决定</memo>
-        <data>10</data>
-        <time>3</time>
-    </skill>
+		<id>53</id>
+		<name>虎将</name>
+		<memo>野战或攻城中，作为进攻方，所有兵种增加伤害20%，每回合有几率震慑敌方使士兵按百分比溃散，溃散比率由统帅、武力、智力决定</memo>
+		<data>20</data>
+		<time>3</time>
+	</skill>
     <skill>
         <id>54</id>
         <name>披荆</name>
@@ -419,7 +419,7 @@
         <id>60</id>
         <name>荆棘</name>
         <memo>全兵种在野战中，每回合依据敌方给自身造成的伤害反弹一定比例的伤害，与统帅、武力、智力决定</memo>
-        <data>10</data>
+		<data>5</data>
         <time>1</time>
     </skill>
     <skill>
@@ -429,13 +429,13 @@
         <data>20</data>
         <time>4</time>
     </skill>
-    <skill>
-        <id>62</id>
-        <name>管理</name>
-        <memo>所在城市的城池收入每回合增加，所有城池兵增长速度提升，提升效率与政治、智力、魅力相关</memo>
-        <data>5</data>
-        <time>1</time>
-    </skill>
+	<skill>
+		<id>62</id>
+		<name>管理</name>
+		<memo>所在城市的城池收入每回合增加，所在城池兵增长速度提升，提升效率与政治、智力、魅力相关</memo>
+		<data>10</data>
+		<time>1</time>
+	</skill>
     <skill>
         <id>63</id>
         <name>经商</name>
@@ -464,13 +464,13 @@
         <data>100</data>
         <time>3</time>
     </skill>
-    <skill>
-        <id>67</id>
-        <name>攻城</name>
-        <memo>攻城时，随机摧毁一个防守型建筑（如没有防守型建筑，对守军一次性造成500点伤害）</memo>
-        <data>500</data>
-        <time>3</time>
-    </skill>
+	<skill>
+		<id>67</id>
+		<name>攻城</name>
+		<memo>攻城时，增加攻击军队的战斗力，增幅与统帅、武力、魅力相关</memo>
+		<data>5</data>
+		<time>2</time>
+	</skill>
     <skill>
         <id>68</id>
         <name>隐蔽</name>
@@ -492,32 +492,39 @@
         <data>10</data>
         <time>1</time>
     </skill>
-    <skill>
-        <id>71</id>
-        <name>清流</name>
-        <memo>主公技(刘表)：所属武将的政治、智力、魅力值各增加3点</memo>
-        <data>10</data>
-        <time>1</time>
-    </skill>
+	<skill>
+		<id>71</id>
+		<name>清流</name>
+		<memo>主公技(刘表)：所属城市的发展金增长速度加快15%</memo>
+		<data>15</data>
+		<time>1</time>
+	</skill>
     <skill>
         <id>72</id>
         <name>赌圣</name>
         <memo>主公技(袁术)：在赌场的运气爆棚，别人十赌九输，您十赌九赢</memo>
-        <data>50</data>
-        <time>1</time>
-    </skill>
-    <skill>
-        <id>73</id>
-        <name>穷兵</name>
-        <memo>主公技()：兵营内招募剑兵的数量与单价不受自身部队规模的影响，但每回合的养兵支出增加50%</memo>
-        <data>50</data>
-        <time>1</time>
-    </skill>
-    <skill>
-        <id>99</id>
-        <name>普通</name>
-        <memo>普通</memo>
-        <data>30</data>
-        <time>3</time>
-    </skill>
+		<data>50</data>
+		<time>1</time>
+	</skill>
+	<skill>
+		<id>73</id>
+		<name>穷兵</name>
+		<memo>主公技()：兵营内招募剑兵的数量与单价不受自身部队规模的影响，但每回合的养兵支出增加50%</memo>
+		<data>50</data>
+		<time>1</time>
+	</skill>
+	<skill>
+		<id>74</id>
+		<name>毒言</name>
+		<memo>野战中，有几率让对方部队中毒，伤害与统帅、智力有关</memo>
+		<data>30</data>
+		<time>3</time>
+	</skill>
+	<skill>
+		<id>99</id>
+		<name>普通</name>
+		<memo>普通</memo>
+		<data>30</data>
+		<time>3</time>
+	</skill>
 </skills>

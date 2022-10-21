@@ -50,20 +50,27 @@ public class StartGame {
 			if(choose == 1) {
 				System.out.println("请选择人物");
 				System.out.println("\n请选择角色: 1. 刘备 容易收服武将，诸葛亮bug  \n " + "2. 曹操 野战单挑都厉害 " +
-						" \n 3. 孙权 水战无敌，周瑜陆逊野战bug  \n 4. 董卓 三国第一武将在手，单挑无敌，群雄归附初始兵钱加倍 \n  5. 袁绍 四世三公 文臣武将诸多");
+						" \n 3. 孙权 水战无敌，周瑜陆逊野战bug  \n 4. 董卓 三国第一武将在手，单挑无敌，群雄归附初始兵钱加倍 \n  " +
+						"5. 袁绍 四世三公 文臣武将诸多 \n 6. 袁术 赌神 \n 7.刘表 ");
 				int lord = input.nextInt();
-				while (lord < 1 || lord > 5) {
+				while (lord < 1 || lord > 7) {
 					System.out.println("请重新选择");
 					lord = input.nextInt();
 				}
+				if (lord == 6) {
+					lord = 96;
+				}
+				if (lord == 7) {
+					lord = 107;
+				}
 				// 根据id 选择开启的战役
 				CampaignFactory.CampaignFoundation campaignByGeneralId = CampaignFactory.getCampaignByGeneralId(lord + "");
-				// 先开启刘备战役
+				// 开启刘备战役
 				StartCampaign startCampaign = new StartCampaign();
 				CommonContents.startCampaign = startCampaign;
 				Campaign campaign = new Campaign();
 				campaign.setCampaignMaps(campaignByGeneralId.getCampaignMaps());
-                campaign.setIndex(0);
+				campaign.setIndex(0);
 				startCampaign.init(campaign, GeneralFactory.getGeneralById(lord + ""));
 				startCampaign.start();
 			} else if(choose == 2){

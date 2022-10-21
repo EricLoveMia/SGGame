@@ -1278,14 +1278,14 @@ public class Game {
         int number;
         if (city.getSoilders() >= 8000) {
             if (general.getArmy() < 8000) {
-                number = 0 - Math.min(8000 - general.getArmy(), 4000);
+                number = -Math.min(8000 - general.getArmy(), 4000);
             } else {
                 number = Math.min(general.getArmy() / 5, 4000);
                 number = number / 4;
             }
         } else if (city.getSoilders() >= 4000) {
             if (general.getArmy() < 4000) {
-                number = 0 - Math.min(4000 - general.getArmy(), 2000);
+                number = -Math.min(4000 - general.getArmy(), 2000);
             } else {
                 number = Math.min(general.getArmy() / 5, 4000);
                 number = number / 2;
@@ -1305,10 +1305,14 @@ public class Game {
 
         // 设置资金 尝试用函数
         Function<Integer, Integer> setCityMoney = a -> {
-            if (a > 5000) {
+            if (a > 20000) {
+                return 5000;
+            } else if (a > 10000) {
                 return 2000;
-            } else if (a > 3000) {
-                return 1000;
+            } else if ((a < 10000) && stepCount > 50) {
+                return -1;
+            } else if ((a < 10000) && stepCount < 50) {
+                return a * 10 / 100;
             } else {
                 return -1;
             }
