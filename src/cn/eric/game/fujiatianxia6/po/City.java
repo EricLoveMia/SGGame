@@ -1,11 +1,13 @@
 package cn.eric.game.fujiatianxia6.po;
 
 import cn.eric.game.fujiatianxia6.factory.CityFactory;
+import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.factory.GoodsFactory;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * 
@@ -215,10 +217,10 @@ public class City implements Serializable {
 	}
 	@Override
 	public String toString() {
-		return "City [类型=" + type + ", 名称=" + name + ", 介绍=" + memo + ", 购买费用=" + purchase + ", 升级费用="
-				+ upgradeLevel + ", 当前金钱=" + money + ", 繁荣度=" + prosperity + ", 骑兵=" + cavalrys
-				+ ", 枪兵=" + infantry + ", 弓箭手=" + archers + ", 剑兵=" + soilders + ", belongTo="
-				+ belongTo + ", topography=" + topography + "]";
+        return "City [类型=" + type + ", 名称=" + name + ", 介绍=" + memo + ", 购买费用=" + purchase + ", 升级费用="
+                + upgradeLevel + ", 当前金钱=" + money + ", 繁荣度=" + prosperity + ", 骑=" + cavalrys
+                + ", 枪=" + infantry + ", 弓=" + archers + ", 剑=" + soilders + ", 属于="
+                + Optional.ofNullable(GeneralFactory.getGeneralById(belongTo + "")).orElse(new General("空白")).getName() + ", 地形 =" + topography + "]";
 	}
 
 	public void setPurchase(int purchase) {

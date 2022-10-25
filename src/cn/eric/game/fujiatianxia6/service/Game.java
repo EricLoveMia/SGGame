@@ -808,13 +808,20 @@ public class Game {
             int mon = player.getMoney() / 2;
             List<SiegeWeapon> list = weapons.stream().filter(e -> e.getPrice() < mon).collect(Collectors.toList());
             Collections.shuffle(list);
-            SiegeWeapon weapon = list.get(0);
-            player.setMoney(player.getMoney() - weapon.getPrice());
-            System.out.println("购买武器" + weapon.toString() + "成功");
-            return weapon;
+            if (list.size() > 0) {
+                SiegeWeapon weapon = list.get(0);
+                player.setMoney(player.getMoney() - weapon.getPrice());
+                System.out.println("购买武器" + weapon.toString() + "成功");
+                return weapon;
+            } else {
+                return null;
+            }
         }
         Scanner input = new Scanner(System.in);
         int num = input.nextInt();
+        if (num == 0) {
+            return null;
+        }
         if (weapons.get(num - 1).getPrice() > player.getMoney()) {
             System.out.println("您金额不足");
         } else {

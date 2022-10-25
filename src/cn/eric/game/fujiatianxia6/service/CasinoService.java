@@ -74,14 +74,42 @@ public class CasinoService {
                 singleOrDouble = input.nextInt();
             }
         }
-
+        // 赌博特技
+        if ("72".equals(general.getSkill())) {
+            if (new Random().nextInt(100) < 90) {
+                // 大 单
+                if (bigOrSmall == 1 && singleOrDouble == 1) {
+                    dice[0] = 6;
+                    dice[1] = 6;
+                    dice[2] = 1;
+                }
+                // 大双
+                else if (bigOrSmall == 1) {
+                    dice[0] = 6;
+                    dice[1] = 6;
+                    dice[2] = 1;
+                }
+                // 小单
+                else if (singleOrDouble == 1) {
+                    dice[0] = 1;
+                    dice[1] = 3;
+                    dice[2] = 1;
+                }
+                // 小双
+                else {
+                    dice[0] = 2;
+                    dice[1] = 2;
+                    dice[2] = 2;
+                }
+            }
+        }
 
         int sum = dice[0] + dice[1] + dice[2];
         System.out.println("三个数字分别是" + dice[0] + " " + dice[1] + " " + dice[2] + " ,合计:" + sum);
         boolean booleanBigOrSmall = sum > 10;
         boolean booleanOddOrEven = sum % 2 == 0;
         System.out.println("大小 " + (booleanBigOrSmall ? "大" : "小") + ",单双 " + (booleanOddOrEven ? "双" : "单"));
-        System.out.println("下注 " + (singleOrDouble == 1 ? "大" : "小") + ",单双 " + (singleOrDouble == 2 ? "双" : "单"));
+        System.out.println("下注 " + (bigOrSmall == 1 ? "大" : "小") + ",单双 " + (singleOrDouble == 2 ? "双" : "单"));
         int win;
         // 先看大小  bigOrSmall == 1 大
         if ((booleanBigOrSmall && bigOrSmall == 1) || (!booleanBigOrSmall && bigOrSmall == 2)) {

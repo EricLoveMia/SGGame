@@ -152,7 +152,9 @@ public class AttackCity {
 		SkillFactory.changeBefore(3, 3, null, null, this);
 
 		// 攻城器械加成
-		attackWeaponAdd = attackWeaponAdd + siegeWeapon.getPower() / 50000;
+		if (siegeWeapon != null) {
+			attackWeaponAdd = attackWeaponAdd + siegeWeapon.getPower() / 50000;
+		}
 		// 获得加成值
 		attackSoliderTotal = getAttackSoliderTotal();
 		deffenceSoliderTotal = getDeffenceSoliderTotal();

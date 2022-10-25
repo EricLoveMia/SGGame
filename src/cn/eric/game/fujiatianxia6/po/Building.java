@@ -43,9 +43,9 @@ public class Building implements Cloneable, Serializable {
 	
 	@Override
 	public String toString() {
-		return "Building [id=" + id + ", name=" + name + ", memo=" + memo + ", data=" + data + ", purchase=" + purchase
-				+ ", upgradeLevel=" + upgradeLevel + ", type=" + (type==1?"防御型":type==2?"一次性":"周期") + "]";
-	}
+        return "建筑 [id=" + id + ", 名称=" + name + ", 说明=" + memo + ", 购买费用=" + purchase
+                + ", 升级费用=" + upgradeLevel + ", 类型=" + (type == 1 ? "防御型" : type == 2 ? "一次性" : "周期") + "]";
+    }
 
 	@Override
 	public Object clone() throws CloneNotSupportedException {

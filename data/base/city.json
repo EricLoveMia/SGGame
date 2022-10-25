@@ -133,7 +133,7 @@
     "upgradeLevel": 1000,
     "prosperity": 300,
     "topography": 1,
-    "goodsId": "盐",
+    "goodsId": "铜矿石",
     "memo": "徐州 徐州对西方的最前线基地。在徐州争夺战中，吕布和刘备在此地大动干戈，曹操也加入了战局"
   },
   {
@@ -289,7 +289,7 @@
     "upgradeLevel": 1000,
     "prosperity": 400,
     "topography": 1,
-    "goodsId": "盐",
+    "goodsId": "鼎",
     "specialId": "铜镜",
     "memo": "徐州 西汉设彭城郡，东汉设彭城国、建都彭城, 三国时，曹操迁徐州刺史部于彭城，彭城始称徐州。"
   },

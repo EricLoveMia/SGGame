@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.service;
 
+import cn.eric.game.fujiatianxia6.factory.CityFactory;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.po.General;
 
@@ -40,6 +41,7 @@ public class CommandLineSerivce {
         CommandLineMap.put("-help", "显示所有命令");
         CommandLineMap.put("-saves all", "显示所有存档");
         CommandLineMap.put("-save {{name}}", "覆盖name档案");
+        CommandLineMap.put("-players", "显示所有玩家");
         CommandLineMap.put("-player {{id}}", "显示id玩家的详细信息");
         CommandLineMap.put("-generals {{id}}", "显示id玩家的所属武将信息");
         CommandLineMap.put("-general {{id}}", "显示id武将信息");
@@ -68,17 +70,23 @@ public class CommandLineSerivce {
             System.out.println("命令输入错误");
         }else{
             String commandMain = commandArray[0];
-            switch (commandMain){
-                case "-help" :
+            switch (commandMain) {
+                case "-help":
                     commandAll();
                     break;
-                case "-player" :
+                case "-players":
+                    commandShowPlayers();
+                    break;
+                case "-player":
+                    if (commandArray.length < 2) {
+                        System.out.println("命令输入错误");
+                    }
                     commandShowPlayer(commandArray[1]);
                     break;
                 case "-generals":
                     commandShowPlayerGenerals(commandArray[1]);
                     break;
-                case "-save" :
+                case "-save":
                     commandSave(commandArray);
                     break;
                 case "-saves all":
@@ -90,11 +98,28 @@ public class CommandLineSerivce {
                 case "-giveSoldier":
                     commandGiveSoldier(commandArray[1]);
                     break;
+                case "-citys all":
+                    commandCitysAll(commandArray[1]);
+                    break;
                 default:
                     break;
             }
         }
 
+    }
+
+    private void commandShowPlayers() {
+        General[] players = Game.getPlayers();
+        for (General player : players) {
+            System.out.println(player.simpleInfo());
+        }
+    }
+
+    private void commandCitysAll(String command) {
+        List<String> cityId = Game.map.getCampaignMap().getCityId();
+        for (String city : cityId) {
+            System.out.println(CityFactory.getCityById(city).toString());
+        }
     }
 
     private void commandGiveSoldier(String num) {

@@ -230,36 +230,36 @@ public class SkillFactory {
                 BF.setDefencelevelAddition(data);
             }
         }
-        // 攻心
-        if ("23".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
-            System.out.println("武将：" + general.getName() + skill.getMemo());
-            int lostNum;
-            if (attOrDef == 1) {
-                lostNum = (int) (BF.getAttackAmyNum() * ((Float.parseFloat(general.getCommand())) / 50 + (Float.parseFloat(general.getIntelligence())) / 50) / 100);
-                System.out.println("防守方有" + lostNum + "兵力进入进攻方部队");
-                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
-                BF.setAttackAmyNum(BF.getAttackAmyNum() + lostNum);
-            } else {
-                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
-                System.out.println("进攻方有" + lostNum + "兵力进入防守方部队");
-                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
-                BF.setDefenceAmyNum(BF.getDefenceAmyNum() + lostNum);
-            }
-        }
-        // 反间  王允 貂蝉
-        if ("24".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
-            System.out.println("武将-" + general.getName() + "技能触发：" + skill.getMemo());
-            int lostNum;
-            if (attOrDef == 1) {
-                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
-                System.out.println("防守方互相攻击造成损失" + lostNum);
-                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
-            } else {
-                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
-                System.out.println("进攻方互相攻击造成损失" + lostNum);
-                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
-            }
-        }
+//        // 攻心
+//        if ("23".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
+//            System.out.println("武将：" + general.getName() + skill.getMemo());
+//            int lostNum;
+//            if (attOrDef == 1) {
+//                lostNum = (int) (BF.getAttackAmyNum() * ((Float.parseFloat(general.getCommand())) / 50 + (Float.parseFloat(general.getIntelligence())) / 50) / 100);
+//                System.out.println("防守方有" + lostNum + "兵力进入进攻方部队");
+//                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
+//                BF.setAttackAmyNum(BF.getAttackAmyNum() + lostNum);
+//            } else {
+//                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
+//                System.out.println("进攻方有" + lostNum + "兵力进入防守方部队");
+//                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
+//                BF.setDefenceAmyNum(BF.getDefenceAmyNum() + lostNum);
+//            }
+//        }
+//        // 反间  王允 貂蝉
+//        if ("24".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
+//            System.out.println("武将-" + general.getName() + "技能触发：" + skill.getMemo());
+//            int lostNum;
+//            if (attOrDef == 1) {
+//                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
+//                System.out.println("防守方互相攻击造成损失" + lostNum);
+//                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
+//            } else {
+//                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
+//                System.out.println("进攻方互相攻击造成损失" + lostNum);
+//                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
+//            }
+//        }
         // 鬼谋
         if ("40".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
             System.out.println("武将：" + general.getName() + "触发技能：鬼谋 野战攻城前，有50%几率直接造成敌方军团混乱，整体战斗力下降,伤害值与智力值有关，初始几率为50%，获得专属提升为100%（郭嘉）");
@@ -542,7 +542,7 @@ public class SkillFactory {
                 System.out.println("防守方互相攻击造成损失" + lostNum);
                 BF.setDefLost(BF.getDefLost() + lostNum);
                 // BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
-            } else if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
+            } else if (attOrDef == 2 && new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                 System.out.println("武将-" + general.getName() + "技能触发：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
                 lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
                 System.out.println("进攻方互相攻击造成损失" + lostNum);
@@ -636,7 +636,6 @@ public class SkillFactory {
         // 水战 45 操舵 46 水将 47 水神  地形  1 平原 2 山地 3 水道
         if (("45".equals(general.getSkill()) || "46".equals(general.getSkill()) || "47".equals(general.getSkill())) && BF.getCity().getTopography() == 3) {
             Skill skill = SkillFactory.getSkillByID(general.getSkill());
-
             System.out.println("武将：" + general.getName() + "触发技能：" + skill.getName() + " : " + skill.getMemo());
             if (attOrDef == 1) {
                 BF.setAttLost((int) (BF.getAttLost() * (1 - (double) data / 100)));
