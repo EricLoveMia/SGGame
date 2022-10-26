@@ -28,7 +28,6 @@ public class ArmsService {
         armsList.add(arms4);
 
         // 设定特殊兵种
-
         player.setArmsTotal(armsList);
     }
 

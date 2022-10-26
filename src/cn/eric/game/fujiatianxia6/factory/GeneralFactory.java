@@ -140,8 +140,7 @@ public class GeneralFactory {
     // 排序来返回最合适的i个武将
     private static List<General> sortBestThreeGeneral(List<General> wineGenerals, final Integer id, int max) {
         //按照适应性进行排序
-        int a = 1;
-        Collections.sort(wineGenerals, (o1, o2) -> {
+        wineGenerals.sort((o1, o2) -> {
             if (Integer.parseInt(o2.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))
                     > Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))) {
                 return 1;
@@ -152,9 +151,6 @@ public class GeneralFactory {
                 return 0;
             }
         });
-        if (a == 1) {
-            a = 2;
-        }
         return wineGenerals.subList(0, max);
     }
 
@@ -303,7 +299,7 @@ public class GeneralFactory {
                 return optional.get();
             }
         }
-        // 平原
+        // 山地
         if (city.getTopography() == 2) {
             List<String> skills = SkillFactory.infantrySkills;
             optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))
@@ -312,7 +308,7 @@ public class GeneralFactory {
                 return optional.get();
             }
         }
-        // 平原
+        // 水域
         if (city.getTopography() == 3) {
             List<String> skills = SkillFactory.archersSkills;
             optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))

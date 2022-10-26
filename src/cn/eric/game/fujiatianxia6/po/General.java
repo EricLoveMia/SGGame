@@ -287,7 +287,7 @@ public class General implements Cloneable, Serializable {
 	}
 	
 	public int computeDefence(){
-		return (int) (Integer.parseInt(attack) * 0.7 + Integer.parseInt(command) * 0.3);
+		return (int) (Integer.parseInt(attack) * 0.3 + Integer.parseInt(command) * 0.7);
 	}
 	
 	public int computeVitality(){

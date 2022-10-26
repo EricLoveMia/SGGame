@@ -1,5 +1,7 @@
 package cn.eric.game.fujiatianxia6.po;
 
+import java.io.Serializable;
+
 /**
  * @author Eric
  * @version 1.0
@@ -8,11 +10,13 @@ package cn.eric.game.fujiatianxia6.po;
  * @company lsj
  * @date 2019/2/28 9:33
  **/
-public class Arms {
+public class Arms implements Serializable {
 
     String name;
 
-    /** 1 - 10级 */
+    /**
+     * 1 - 10级
+     */
     Integer level;
 
     boolean lock = false;

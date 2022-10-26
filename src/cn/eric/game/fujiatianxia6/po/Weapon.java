@@ -1,5 +1,7 @@
 package cn.eric.game.fujiatianxia6.po;
 
+import java.io.Serializable;
+
 /**
  * @author Eric
  * @version 1.0
@@ -8,7 +10,7 @@ package cn.eric.game.fujiatianxia6.po;
  * @company lsj
  * @date 2019/2/28 9:39
  **/
-public class Weapon {
+public class Weapon implements Serializable {
 
     private Integer id;
     private String name;

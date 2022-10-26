@@ -8,15 +8,15 @@ package cn.eric.game.fujiatianxia6.enums;
 public enum FightSingleAttackTypeEnum {
 
     /**
-     * 拒绝
+     * 一直防守
      */
     DEFENCE(0, "一直防守"),
     /**
-     * 批准
+     * 一直防守
      */
-    ATTACK(1, "一直进攻"),
+    ATTACK(1, "一直防守"),
     /**
-     * 撤回
+     * 默认
      */
     DEFAULT(9, "默认"),
     ;

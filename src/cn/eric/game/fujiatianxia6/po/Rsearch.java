@@ -1,5 +1,7 @@
 package cn.eric.game.fujiatianxia6.po;
 
+import java.io.Serializable;
+
 /**
  * @author Eric
  * @version 1.0
@@ -8,7 +10,7 @@ package cn.eric.game.fujiatianxia6.po;
  * @company lsj
  * @date 2019/7/11 18:22
  **/
-public class Rsearch {
+public class Rsearch implements Serializable {
 
     String name;
     Integer level;

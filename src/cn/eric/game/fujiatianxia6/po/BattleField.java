@@ -6,6 +6,7 @@ import cn.eric.game.fujiatianxia6.service.ArmsService;
 import cn.eric.game.fujiatianxia6.service.Util;
 
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Optional;
 
 public class BattleField {
@@ -193,7 +194,7 @@ public class BattleField {
                         attackAmyNum = 1000;
                     }
                     armType = "剑士";
-                    attackFactor = 1.0 * (1 + (ArmsService.getArmsByGeneralAndName(general,"剑兵").getLevel() + attactlevelAddition ) * 0.1);
+                    attackFactor = 1.0 * (1 + (Objects.requireNonNull(ArmsService.getArmsByGeneralAndName(general, "剑兵")).getLevel() + attactlevelAddition) * 0.1);
                     break;
                 case 2: // 骑兵
                     if (general.getCavalrys() < 1000) {
@@ -210,7 +211,7 @@ public class BattleField {
                     } else {
                         attackFactor = FightConfig.factorOfCavalrysInRiver;
                     }
-                    attackFactor = attackFactor * (1 + (ArmsService.getArmsByGeneralAndName(general, "骑兵").getLevel() + attactlevelAddition ) * 0.1);
+                    attackFactor = attackFactor * (1 + (ArmsService.getArmsByGeneralAndName(general, "骑兵").getLevel() + attactlevelAddition) * 0.1);
                     break;
                 case 3: // 枪兵
                     if (general.getInfantry() < 1000) {
@@ -219,12 +220,14 @@ public class BattleField {
                         attackAmyNum = 1000;
                     }
                     armType = "枪兵";
-                    if (defence.getTopography() == 2) {
+                    if (defence.getTopography() == 1) {
+                        attackFactor = FightConfig.factorOfInfantryInLand;
+                    } else if (defence.getTopography() == 2) {
                         attackFactor = FightConfig.factorOfInfantryInMountain;
                     } else {
-                        attackFactor = FightConfig.factorOfInfantryInLand;
+                        attackFactor = FightConfig.factorOfInfantryInRiver;
                     }
-                    attackFactor = attackFactor * (1 + (ArmsService.getArmsByGeneralAndName(general, "枪兵").getLevel() + attactlevelAddition ) * 0.1);
+                    attackFactor = attackFactor * (1 + (ArmsService.getArmsByGeneralAndName(general, "枪兵").getLevel() + attactlevelAddition) * 0.1);
                     break;
                 case 4: // 弓兵
                     if (general.getArchers() < 1000) {
@@ -236,9 +239,9 @@ public class BattleField {
                     if (defence.getTopography() == 3) {
                         attackFactor = FightConfig.factorOfArchersInRiver;
                     } else if (defence.getTopography() == 1) {
-                        attackFactor = FightConfig.factorOfArchersInMountain;
-                    } else {
                         attackFactor = FightConfig.factorOfArchersInLand;
+                    } else {
+                        attackFactor = FightConfig.factorOfArchersInMountain;
                     }
                     attackFactor = attackFactor * (1 + ( ArmsService.getArmsByGeneralAndName(general, "弓兵").getLevel() + attactlevelAddition ) * 0.1);
                     break;

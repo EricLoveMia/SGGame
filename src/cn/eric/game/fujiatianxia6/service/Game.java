@@ -421,6 +421,9 @@ public class Game {
         }
         Scanner input = new Scanner(System.in);
         int choise = input.nextInt();
+        if (choise == 0) {
+            return;
+        }
         silkBags.get(choise - 1).execute(player);
     }
 
@@ -833,47 +836,51 @@ public class Game {
     }
 
     private void buyGoods(City defence, General player) {
-        if (defence.getCityStore() != null) {
-            if (player.getTransportTeam() == null) {
-                player.setTransportTeam(new TransportTeam(new ArrayList<>(), player.getGenerals().size() * 2, 0));
-            }
-            // 是否卖出
-            if (!player.getTransportTeam().getGoodsList().isEmpty()) {
-                sale(defence, player);
-            }
+        try {
+            if (defence.getCityStore() != null) {
+                if (player.getTransportTeam() == null) {
+                    player.setTransportTeam(new TransportTeam(new ArrayList<>(), player.getGenerals().size() * 2, 0));
+                }
+                // 是否卖出
+                if (!player.getTransportTeam().getGoodsList().isEmpty()) {
+                    sale(defence, player);
+                }
 
-            // 是否买入
-            CityStore cityStore = defence.getCityStore();
-            System.out.println(cityStore.toString());
+                // 是否买入
+                CityStore cityStore = defence.getCityStore();
+                System.out.println(cityStore.toString());
 
-            int commonGoodsId = cityStore.getCommonGoodsId();
-            Goods goods = GoodsFactory.getById(commonGoodsId);
-            if (cityStore.getCommonRest() > 0) {
-                int buy = buy(player, goods, 5, cityStore.getCommonRest());
-                cityStore.setCommonRest(cityStore.getCommonRest() - buy);
-            }
+                int commonGoodsId = cityStore.getCommonGoodsId();
+                Goods goods = GoodsFactory.getById(commonGoodsId);
+                if (cityStore.getCommonRest() > 0) {
+                    int buy = buy(player, goods, 5, cityStore.getCommonRest());
+                    cityStore.setCommonRest(cityStore.getCommonRest() - buy);
+                }
 
-            // 如果有特产坊，才能购买特产 且是自己的城市
-            if (defence.getBelongTo() != Integer.parseInt(player.getId())) {
-                return;
-            }
+                // 如果有特产坊，才能购买特产 且是自己的城市
+                if (defence.getBelongTo() != Integer.parseInt(player.getId())) {
+                    return;
+                }
 
-            if (defence.checkSpecialBuilding()) {
-                if (cityStore.getSpecialtyGoodsId() > 0) {
-                    Goods specialty = GoodsFactory.getById(cityStore.getSpecialtyGoodsId());
-                    int buy = buy(player, specialty, 1, cityStore.getSpecialtyRest());
-                    cityStore.setSpecialtyRest(cityStore.getSeniorRest() - buy);
+                if (defence.checkSpecialBuilding()) {
+                    if (cityStore.getSpecialtyGoodsId() > 0) {
+                        Goods specialty = GoodsFactory.getById(cityStore.getSpecialtyGoodsId());
+                        int buy = buy(player, specialty, 1, cityStore.getSpecialtyRest());
+                        cityStore.setSpecialtyRest(cityStore.getSeniorRest() - buy);
+                    }
+                }
+
+                // 如果有特产坊，才能购买特产
+                if (defence.checkSeniorBuilding()) {
+                    if (cityStore.getSeniorGoodsId() > 0) {
+                        Goods senior = GoodsFactory.getById(cityStore.getSeniorGoodsId());
+                        int buy = buy(player, senior, 1, cityStore.getSeniorRest());
+                        cityStore.setSeniorRest(cityStore.getSeniorRest() - buy);
+                    }
                 }
             }
-
-            // 如果有特产坊，才能购买特产
-            if (defence.checkSeniorBuilding()) {
-                if (cityStore.getSeniorGoodsId() > 0) {
-                    Goods senior = GoodsFactory.getById(cityStore.getSeniorGoodsId());
-                    int buy = buy(player, senior, 1, cityStore.getSeniorRest());
-                    cityStore.setSeniorRest(cityStore.getSeniorRest() - buy);
-                }
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -1044,12 +1051,7 @@ public class Game {
                 general.setInfantry(general.getInfantry() + city.getInfantry());
                 general.setCavalrys(general.getCavalrys() + city.getCavalrys());
 
-                city.setMoney(0);
-                city.setSoilders(0);
-                city.setInfantry(0);
-                city.setArchers(0);
-                city.setCavalrys(0);
-                city.setBelongTo(0);
+                city.clear();
                 return 0;
             }
         }
@@ -1161,12 +1163,14 @@ public class Game {
         Integer topography = city.getTopography();
         switch (topography) {
             case 1:
+                // 随军骑兵数大于2000
                 if (general.getCavalrys() > 2000) {
                     if (city.getCavalrys() > 3000) {
                         break;
                     }
                     city.setCavalrys(city.getCavalrys() + 1000);
                     general.setCavalrys(general.getCavalrys() - 1000);
+                    // 随军骑兵数大于1000
                 } else if (general.getCavalrys() > 1000) {
                     // 如果城市大于2000
                     if (city.getCavalrys() > 2000) {
@@ -1183,6 +1187,7 @@ public class Game {
                     add = 1000 - Optional.ofNullable(city.getCavalrys()).orElse(0);
                     city.setCavalrys(Optional.ofNullable(city.getCavalrys()).orElse(0) + add);
                     general.setCavalrys(general.getCavalrys() - add);
+                    // 随军骑兵数小于1000
                 } else {
                     // 如果自己数量不够1000了，看城市当中的情况
                     if (city.getCavalrys() < 1000) {
@@ -1372,7 +1377,7 @@ public class Game {
                     players[i].setMoney(50000);
                     players[i].setArmy(30000);
                     players[i].setReputation(450);
-                    players[i].setCavalrys(6000); // 骑兵
+                    players[i].setCavalrys(4000); // 骑兵
                     players[i].setInfantry(2000); // 枪兵
                     players[i].setArchers(2000); // 弓兵
                     break;
@@ -1380,29 +1385,41 @@ public class Game {
                     players[i].setMoney(25000);
                     players[i].setArmy(15000);
                     players[i].setReputation(200);
-                    players[i].setCavalrys(1000); // 骑兵
-                    players[i].setInfantry(3000); // 枪兵
+                    players[i].setCavalrys(1500); // 骑兵
+                    players[i].setInfantry(3500); // 枪兵
                     players[i].setArchers(2000); // 弓兵
                     break;
                 case "曹操":
                     players[i].setReputation(300);
                     players[i].setCavalrys(4000); // 骑兵
-                    players[i].setInfantry(1000); // 枪兵
-                    players[i].setArchers(1000); // 弓兵
+                    players[i].setInfantry(2000); // 枪兵
+                    players[i].setArchers(2000); // 弓兵
                     break;
                 case "孙权":
                     players[i].setReputation(200);
                     players[i].setCavalrys(0); // 骑兵
-                    players[i].setInfantry(1000); // 枪兵
+                    players[i].setInfantry(2000); // 枪兵
                     players[i].setArchers(5000); // 弓兵
                     break;
                 case "袁绍":
                     players[i].setMoney(50000);
                     players[i].setArmy(20000);
                     players[i].setReputation(400);
-                    players[i].setCavalrys(2500); // 骑兵
-                    players[i].setInfantry(2500); // 枪兵
-                    players[i].setArchers(2500); // 弓兵
+                    players[i].setCavalrys(2000); // 骑兵
+                    players[i].setInfantry(4000); // 枪兵
+                    players[i].setArchers(2000); // 弓兵
+                    break;
+                case "袁术":
+                    players[i].setReputation(200);
+                    players[i].setCavalrys(2000); // 骑兵
+                    players[i].setInfantry(2000); // 枪兵
+                    players[i].setArchers(2000); // 弓兵
+                    break;
+                case "刘表":
+                    players[i].setReputation(200);
+                    players[i].setCavalrys(1000); // 骑兵
+                    players[i].setInfantry(2000); // 枪兵
+                    players[i].setArchers(4000); // 弓兵
                     break;
                 default:
                     players[i].setReputation(250);

@@ -101,11 +101,44 @@ public class CommandLineSerivce {
                 case "-citys all":
                     commandCitysAll(commandArray[1]);
                     break;
+                case "-load":
+                    commandLoad(commandArray);
+                    break;
                 default:
                     break;
             }
         }
 
+    }
+
+    private void commandLoad(String[] commandArray) {
+        File file = new File("data/save");
+        File[] tempList = file.listFiles();
+        if (tempList == null) {
+            System.out.println("暂时没有存档");
+            return;
+        }
+        System.out.println("加载哪个存档 ");
+        for (int i = 0; i < tempList.length; i++) {
+            long time = tempList[i].lastModified();
+            cal.setTimeInMillis(time);
+            System.out.println(i + ":" + tempList[i].getName() + " 修改时间：" + formatter.format(cal.getTime()));
+        }
+        int choose;
+        Scanner input = new Scanner(System.in);
+        while (true) {
+            choose = input.nextInt();
+            if (choose > tempList.length || choose < 0) {
+                System.out.println("请重新选择");
+                continue;
+            }
+            try {
+                LoadService.loadAutoSave(tempList[choose].getName());
+            } catch (CloneNotSupportedException e) {
+                e.printStackTrace();
+            }
+            break;
+        }
     }
 
     private void commandShowPlayers() {

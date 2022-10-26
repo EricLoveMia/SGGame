@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.po;
 
+import cn.eric.game.fujiatianxia6.enums.CityTopographyEnum;
 import cn.eric.game.fujiatianxia6.factory.CityFactory;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.factory.GoodsFactory;
@@ -217,10 +218,10 @@ public class City implements Serializable {
 	}
 	@Override
 	public String toString() {
-        return "City [类型=" + type + ", 名称=" + name + ", 介绍=" + memo + ", 购买费用=" + purchase + ", 升级费用="
-                + upgradeLevel + ", 当前金钱=" + money + ", 繁荣度=" + prosperity + ", 骑=" + cavalrys
-                + ", 枪=" + infantry + ", 弓=" + archers + ", 剑=" + soilders + ", 属于="
-                + Optional.ofNullable(GeneralFactory.getGeneralById(belongTo + "")).orElse(new General("空白")).getName() + ", 地形 =" + topography + "]";
+		return "City [类型=" + type + ", 名称=" + name + ", 介绍=" + memo + ", 购买费用=" + purchase + ", 升级费用="
+				+ upgradeLevel + ", 当前金钱=" + money + ", 繁荣度=" + prosperity + ", 骑=" + cavalrys
+				+ ", 枪=" + infantry + ", 弓=" + archers + ", 剑=" + soilders + ", 属于="
+				+ Optional.ofNullable(GeneralFactory.getGeneralById(belongTo + "")).orElse(new General("空白")).getName() + ", 地形 =" + CityTopographyEnum.getText(topography) + "]";
 	}
 
 	public void setPurchase(int purchase) {
@@ -319,6 +320,15 @@ public class City implements Serializable {
 		this.money = 0;
 		this.cavalrys = 0;
 		this.setBildings(new ArrayList<>());
+		this.infantry = 0;
+		this.archers = 0;
+	}
+
+	public void clear() {
+		this.soilders = 0;
+		this.belongTo = 0;
+		this.money = 0;
+		this.cavalrys = 0;
 		this.infantry = 0;
 		this.archers = 0;
 	}

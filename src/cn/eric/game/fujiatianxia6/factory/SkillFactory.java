@@ -160,6 +160,37 @@ public class SkillFactory {
                 virgin.setDefencelevelAddition(data);
             }
         }
+        if ("12".equals(general.getSkill()) && new Random().nextInt(100) <= data) {  // 深谋
+            System.out.println("武将：" + general.getName() + "触发技能：深谋 野战或者攻城前，有几率直接对敌方造成伤害，伤害值与智力值有关，初始几率为60%，获得专属提升为100%（司马懿）");
+            int lostNum = 0;
+            if (attOrDef == 1) {
+                lostNum = (int) (virgin.getAttackSoliderTotal() * (Float.parseFloat(general.getIntelligence())) / 1000);
+                System.out.println("防守方损失兵力：" + lostNum);
+                virgin.setDeffenceSoliderTotal(virgin.getDeffenceSoliderTotal() - lostNum);
+            } else {
+                lostNum = (int) (virgin.getDeffenceSoliderTotal() * (Float.parseFloat(general.getIntelligence())) / 1000);
+                System.out.println("进攻方损失兵力：" + lostNum);
+                virgin.setAttackSoliderTotal(virgin.getAttackSoliderTotal() - lostNum);
+            }
+        }
+
+        if ("28".equals(general.getSkill())) {  // 辅佐
+            System.out.println("武将：" + general.getName() + "触发技能：辅佐 提高上阵武将的技能发动几率");
+            if (attOrDef == 1) {
+                virgin.setAttackSkillProbability(virgin.getAttackSkillProbability() + data);
+            } else {
+                virgin.setDefenceSkillProbability(virgin.getDefenceSkillProbability() + data);
+            }
+        }
+        if ("35".equals(general.getSkill())) {  // 倾城
+            System.out.println("武将：" + general.getName() + "触发技能：辅佐 提高上阵武将的技能发动几率");
+            if (attOrDef == 1) {
+                virgin.setAttackSkillProbability(virgin.getAttackSkillProbability() + data);
+            } else {
+                virgin.setDefenceSkillProbability(virgin.getDefenceSkillProbability() + data);
+            }
+        }
+
         // 造谣 逃走兵力
         return virgin;
     }
@@ -201,33 +232,33 @@ public class SkillFactory {
         if ("16".equals(general.getSkill())) {  // 威风
             System.out.println("武将：" + general.getName() + "触发技能：威风 对方所有兵种等级降" + data + "级");
             if (attOrDef == 1) {
-                BF.setDefencelevelAddition(-data);
+                BF.setDefencelevelAddition(BF.getDefencelevelAddition() - data);
             } else {
-                BF.setAttactlevelAddition(-data);
+                BF.setAttactlevelAddition(BF.getAttactlevelAddition() - data);
             }
         }
         if ("28".equals(general.getSkill())) {  // 辅佐
             System.out.println("武将：" + general.getName() + "触发技能：辅佐 提高上阵武将的技能发动几率");
             if (attOrDef == 1) {
-                BF.setAttactSkillProbability(data);
+                BF.setAttactSkillProbability(BF.getAttactSkillProbability() + data);
             } else {
-                BF.setDefenceSkillProbability(data);
+                BF.setDefenceSkillProbability(BF.getDefenceSkillProbability() + data);
             }
         }
         if ("35".equals(general.getSkill())) {  // 倾城
             System.out.println("武将：" + general.getName() + "触发技能：辅佐 提高上阵武将的技能发动几率");
             if (attOrDef == 1) {
-                BF.setAttactSkillProbability(data);
+                BF.setAttactSkillProbability(BF.getAttactSkillProbability() + data);
             } else {
-                BF.setDefenceSkillProbability(data);
+                BF.setDefenceSkillProbability(BF.getDefenceSkillProbability() + data);
             }
         }
         if ("39".equals(general.getSkill())) {  // 昂扬
             System.out.println("武将：" + general.getName() + "触发技能：昂扬 所有兵种等级升" + data + "级");
             if (attOrDef == 1) {
-                BF.setAttactlevelAddition(data);
+                BF.setAttactlevelAddition(BF.getAttactlevelAddition() + data);
             } else {
-                BF.setDefencelevelAddition(data);
+                BF.setDefencelevelAddition(BF.getDefencelevelAddition() + data);
             }
         }
 //        // 攻心
@@ -1388,6 +1419,9 @@ public class SkillFactory {
         // 裸衣
         if ("9".equals(generalA.getSkill())) {//裸衣
             int addAtt = (100 - fight.getVitalityA()) * SkillFactory.getSkillByID(generalA.getSkill()).getData() / 100;
+            if (addAtt > 4) {
+                addAtt = 4;
+            }
             System.out.println("武将" + generalA.getName() + "技能：" + SkillFactory.getSkillByID(generalA.getSkill()).getName() + "触发,增加" + addAtt + "攻击力");
             fight.setAttackA(fight.getAttackA() + addAtt);
         }

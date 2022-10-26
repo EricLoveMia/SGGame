@@ -3,34 +3,34 @@ package cn.eric.game.fujiatianxia6.po;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 
 /**
- * 
-* <p>Title: Fight<／p>
-* <p>Description: 打架类<／p>
-* @author eric
-* @date 2017年8月10日 下午1:11:14
+ * <p>Title: Fight<／p>
+ * <p>Description: 打架类<／p>
+ *
+ * @author eric
+ * @date 2017年8月10日 下午1:11:14
  */
 public class FightConfig {
-	
+
 	public static final double factorOfCavalrysInLand = 2.0;
-	public static final double factorOfCavalrysInMountain = 1.2;
-	public static final double factorOfCavalrysInRiver = 0.6;
-	
-	public static final double factorOfInfantryInLand = 1.6;
+	public static final double factorOfCavalrysInMountain = 1.5;
+	public static final double factorOfCavalrysInRiver = 1.1;
+
+	public static final double factorOfInfantryInLand = 1.5;
 	public static final double factorOfInfantryInMountain = 2.0;
-	public static final double factorOfInfantryInRiver = 1.6;
-	
-	public static final double factorOfArchersInLand = 1.2;
-	public static final double factorOfArchersInMountain = 1.6;
+	public static final double factorOfInfantryInRiver = 1.2;
+
+	public static final double factorOfArchersInLand = 1.3;
+	public static final double factorOfArchersInMountain = 1.4;
 	public static final double factorOfArchersInRiver = 2.0;
-	
-	public FightConfig(){
+
+	public FightConfig() {
 		//初始化打架类
 	}
-	
+
 	/**
-	 * 
-	* @Title: SingleFight 
-	* @Description: 单挑
+	 *
+	 * @Title: SingleFight
+	 * @Description: 单挑
 	* @param
 	* @return void    返回类型 
 	* @throws
