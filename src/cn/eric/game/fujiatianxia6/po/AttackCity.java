@@ -68,9 +68,9 @@ public class AttackCity {
 		// 根据城市的属性 计算总战力
 		if(city.getTopography() == 1){
 			attackSoliderTotal = (int) (soliders * (1 + swordLevel * 0.1)
-					+ cavalrys * FightConfig.factorOfArchersInLand * (1 + cavalrysLevel * 0.1)
-					+ infantry * FightConfig.factorOfInfantryInLand * (1 + infantrysLevel*0.1)
-					+ archers * FightConfig.factorOfArchersInLand * (1 + archersLevel*0.1));
+					+ cavalrys * FightConfig.factorOfCavalrysInLand * (1 + cavalrysLevel * 0.1)
+					+ infantry * FightConfig.factorOfInfantryInLand * (1 + infantrysLevel * 0.1)
+					+ archers * FightConfig.factorOfArchersInLand * (1 + archersLevel * 0.1));
 		}else if(city.getTopography() == 2){
 			attackSoliderTotal = (int) (soliders * (1 + swordLevel * 0.1)
 					+ cavalrys * FightConfig.factorOfCavalrysInMountain * (1 + cavalrysLevel*0.1)
@@ -105,9 +105,9 @@ public class AttackCity {
 		int deffenceSoliderTotal = 0;
 		if(city.getTopography() == 1){
 			deffenceSoliderTotal = (int) (city.getSoilders() * (1 + swordLevel * 0.1)
-					+ city.getCavalrys() * FightConfig.factorOfArchersInLand * (1 + cavalrysLevel*0.1)
-					+ city.getInfantry() * FightConfig.factorOfInfantryInLand * (1 + infantrysLevel*0.1)
-					+ city.getArchers() * FightConfig.factorOfArchersInLand * (1 + archersLevel*0.1));
+					+ city.getCavalrys() * FightConfig.factorOfCavalrysInLand * (1 + cavalrysLevel * 0.1)
+					+ city.getInfantry() * FightConfig.factorOfInfantryInLand * (1 + infantrysLevel * 0.1)
+					+ city.getArchers() * FightConfig.factorOfArchersInLand * (1 + archersLevel * 0.1));
 		}else if(city.getTopography() == 2){
 			deffenceSoliderTotal = (int) (city.getSoilders() * (1 + swordLevel * 0.1)
 					+ city.getCavalrys() * FightConfig.factorOfCavalrysInMountain * (1 + cavalrysLevel*0.1)
@@ -366,29 +366,35 @@ public class AttackCity {
 		// 先损失剑兵
 
 		if(city.getSoilders() > 0){
-			if(city.getSoilders() * perS >= temp){
-				city.setSoilders((int) (city.getSoilders() - temp/perS));
+			if (city.getSoilders() * perS >= temp) {
+				city.setSoilders((int) (city.getSoilders() - temp / perS));
 				return;
-			}else{
+			} else {
 				temp = (int) (temp - city.getSoilders() * perS);
 				city.setSoilders(0);
 			}
 		}
-		
+
 		// 首先获得加成百分比
-		if(city.getTopography() == 1){
-			perC = perC * FightConfig.factorOfCavalrysInLand; perI = perI * FightConfig.factorOfInfantryInLand ; perA = perA * FightConfig.factorOfArchersInLand ;
-		}else if(city.getTopography() == 2){
-			perC = perC * FightConfig.factorOfCavalrysInLand; perI = perI * FightConfig.factorOfInfantryInMountain; perA = perA * FightConfig.factorOfArchersInLand ;
-		}else if(city.getTopography() == 3){
-			perC = perC * FightConfig.factorOfCavalrysInLand; perI = perI * FightConfig.factorOfInfantryInLand ; perA = perA * FightConfig.factorOfArchersInLand ;
+		if (city.getTopography() == 1) {
+			perC = perC * FightConfig.factorOfCavalrysInLand;
+			perI = perI * FightConfig.factorOfInfantryInLand;
+			perA = perA * FightConfig.factorOfArchersInLand;
+		} else if (city.getTopography() == 2) {
+			perC = perC * FightConfig.factorOfCavalrysInLand;
+			perI = perI * FightConfig.factorOfInfantryInMountain;
+			perA = perA * FightConfig.factorOfArchersInLand;
+		} else if (city.getTopography() == 3) {
+			perC = perC * FightConfig.factorOfCavalrysInLand;
+			perI = perI * FightConfig.factorOfInfantryInLand;
+			perA = perA * FightConfig.factorOfArchersInLand;
 		}
-		
+
 		// 获得城内各兵种的加成战斗力
 		int countC = (int) (city.getCavalrys() * perC);
 		int countI = (int) (city.getInfantry() * perI);
 		int countA = (int) (city.getArchers() * perA);
-		
+
 		int lostC = 0;
 		int lostI = 0;
 		int lostA = 0;
