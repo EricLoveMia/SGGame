@@ -699,7 +699,18 @@ public class GeneralFactory {
             System.out.println("玩家" + player.getName() + "--->消耗军资:" + cost);
             player.setMoney(player.getMoney() - cost);
             if (player.getMoney() < 0) {
-                System.out.println("玩家没有足够的军资");
+                int armyReduce = Math.min(200, player.getArmy());
+                int cavalryReduce = Math.min(100, player.getCavalrys());
+                int infantryReduce = Math.min(100, player.getInfantry());
+                int archerReduce = Math.min(100, player.getArchers());
+                System.out.println("玩家没有足够的军资,逃跑士兵" + armyReduce + ",逃跑骑兵" + cavalryReduce
+                        + ",逃跑枪兵" + infantryReduce + ",逃跑弓兵" + archerReduce);
+
+                player.setArmy(player.getArmy() - armyReduce);
+                player.setCavalrys(player.getCavalrys() - cavalryReduce);
+                player.setInfantry(player.getCavalrys() - infantryReduce);
+                player.setArchers(player.getCavalrys() - archerReduce);
+                player.setMoney(0);
             }
         }
     }
