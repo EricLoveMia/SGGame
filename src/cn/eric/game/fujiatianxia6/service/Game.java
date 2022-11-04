@@ -303,7 +303,7 @@ public class Game {
             GeneralFactory.militarySpending(players);
 
             // 如果玩家的金钱小于0 所属城市归0 所属武将下野
-            GeneralFactory.checkDeadGenerals(players);
+            // GeneralFactory.checkDeadGenerals(players);
             // 自动保存进度
             try {
                 SaveService.save(null);
@@ -652,30 +652,47 @@ public class Game {
                             // 机器人自动选择
                             int defencCount = Optional.ofNullable(defence.getSoilders()).orElse(0) + Optional.ofNullable(defence.getArchers()).orElse(0) + Optional.ofNullable(defence.getInfantry()).orElse(0) + Optional.ofNullable(defence.getCavalrys()).orElse(0);
                             int attCount = Optional.ofNullable(players[no - 1].getArmy()).orElse(0) + Optional.ofNullable(players[no - 1].getArchers()).orElse(0) + Optional.ofNullable(players[no - 1].getInfantry()).orElse(0) + Optional.ofNullable(players[no - 1].getCavalrys()).orElse(0);
-
+                            List<General> denfenceGenerals = defence.getDenfenceGenerals();
                             // 如果多于城内的兵力5倍直接攻城
-                            if (attCount > defencCount * 5) {
+                            if (attCount > defencCount * 5 || denfenceGenerals.size() == 0) {
                                 choiseBuySoilder = 3;
-                                // 如果多于城内的兵力4倍 3倍 概率攻城
+                                // 如果多于城内的兵力3倍 概率攻城
                             } else if (attCount > defencCount * 4 && new Random().nextInt(100) <= 60) {
                                 choiseBuySoilder = 3;
+                                // 如果多于城内的兵力3倍 概率攻城
                             } else if (attCount > defencCount * 3 && new Random().nextInt(100) <= 10) {
                                 choiseBuySoilder = 3;
                             } else {
-                                // 如果人数少于防守方，只选择单挑, 二十几率交钱
-                                if (attCount < defencCount) {
-//                                    if (new Random().nextInt(100) <= 20) {
-//                                        choiseBuySoilder = 4;
-//                                    } else {
-                                    choiseBuySoilder = 2;
-//                                    }
-                                } else {
-                                    // 如果人数大于防守方，又不够攻城，默认野战 二十几率交钱
-//                                    if (new Random().nextInt(100) <= 20) {
-//                                        choiseBuySoilder = 4;
-//                                    } else {
+                                List<General> aoundGeneral = GeneralFactory.getAoundGeneral(players[no - 1].getGenerals());
+                                GeneralFactory.sortByCommand(aoundGeneral);
+                                GeneralFactory.sortByCommand(denfenceGenerals);
+                                // 如果高级兵种大于1000 且统帅大
+                                if (((defence.getTopography() == 1 && players[no - 1].getCavalrys() > 1000)
+                                        || (defence.getTopography() == 2 && players[no - 1].getInfantry() > 1000)
+                                        || (defence.getTopography() == 3 && players[no - 1].getArchers() > 1000))
+                                        && Integer.parseInt(aoundGeneral.get(0).getCommand()) > (Integer.parseInt(denfenceGenerals.get(0).getCommand()) - 10)) {
                                     choiseBuySoilder = 1;
-//                                    }
+                                    // 如果没有高级兵种，看看钱够不够
+                                } else {
+                                    // 如果武将攻击力高 单挑
+                                    GeneralFactory.sortByAttack(aoundGeneral);
+                                    GeneralFactory.sortByAttack(denfenceGenerals);
+                                    if (Integer.parseInt(aoundGeneral.get(0).getAttack()) > (Integer.parseInt(denfenceGenerals.get(0).getAttack()) + 5)) {
+                                        choiseBuySoilder = 2;
+                                    }
+                                    // 尝试野战 如果城内也没有高级兵种
+                                    else if (((defence.getTopography() == 1 && defence.getCavalrys() < 600)
+                                            || (defence.getTopography() == 2 && defence.getInfantry() < 600)
+                                            || (defence.getTopography() == 3 && defence.getArchers() < 600))
+                                            && players[no - 1].getMoney() > passMoney * 2) {
+                                        choiseBuySoilder = 1;
+                                    } else {
+                                        if (players[no - 1].getMoney() > passMoney) {
+                                            choiseBuySoilder = 4;
+                                        } else {
+                                            choiseBuySoilder = 2;
+                                        }
+                                    }
                                 }
                             }
                         } else {
@@ -761,8 +778,8 @@ public class Game {
                                 if (players[no - 1].getMoney() < passMoney) {
                                     System.out.println("您没钱了，游戏失败");
                                     generalById.setMoney(generalById.getMoney() + players[no - 1].getMoney());
-                                    players[no - 1].setMoney(players[no - 1].getMoney() - passMoney);
-                                    players[no - 1].setStatus("4");
+                                    players[no - 1].setMoney(0);
+                                    GeneralFactory.checkDead(players[no - 1]);
                                 } else {
                                     players[no - 1].setMoney(players[no - 1].getMoney() - passMoney);
                                     generalById.setMoney(generalById.getMoney() + passMoney);
@@ -1017,7 +1034,7 @@ public class Game {
             System.out.println("您没钱了，游戏失败");
             generalById.setMoney(generalById.getMoney() + players[no - 1].getMoney());
             players[no - 1].setMoney(0);
-            players[no - 1].setStatus("4");
+            GeneralFactory.checkDead(players[no - 1]);
         } else {
             players[no - 1].setMoney(players[no - 1].getMoney() - passMoney);
             generalById.setMoney(generalById.getMoney() + passMoney);
@@ -1333,8 +1350,10 @@ public class Game {
         Integer cityMoney = (Integer) FunctionService.setMoneyByFunction(general.getMoney(), setCityMoney);
 
         if (cityMoney == -1) {
-            general.setMoney((int) (general.getMoney() + city.getMoney() * 0.9));
-            city.setMoney((int) (city.getMoney() * 0.1));
+            int v = (int) (city.getMoney() * 0.9);
+            general.setMoney(general.getMoney() + v);
+            city.setMoney(city.getMoney() - v);
+            System.out.println("从城市拿走" + v + "金");
         } else {
             city.setMoney(city.getMoney() + cityMoney);
             general.setMoney(general.getMoney() - cityMoney);

@@ -66,7 +66,7 @@ public class StartCampaign {
     public void startWithSave() {
         boolean win = game.startWithSave();
         try {
-            while (win && campaign.getIndex() < campaign.getCampaignMaps().size()) {
+            while (win && campaign.getIndex() < campaign.getCampaignMaps().size() - 1) {
                 GeneralFactory.init(); //初始化武将
                 SkillFactory.init();// 初始化技能
                 BuildingFactory.initBuildings(); // 初始化建筑

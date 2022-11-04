@@ -152,9 +152,9 @@
 		<name>华雄</name>
 		<king>0</king>
 		<attack>89</attack>
-		<command>85</command>
+		<command>75</command>
 		<intelligence>60</intelligence>
-		<charm>85</charm>
+		<charm>65</charm>
 		<politics>60</politics>
 		<vitality>92</vitality>
 		<arms>1</arms>

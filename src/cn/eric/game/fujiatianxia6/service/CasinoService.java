@@ -106,7 +106,7 @@ public class CasinoService {
 
         int sum = dice[0] + dice[1] + dice[2];
         System.out.println("三个数字分别是" + dice[0] + " " + dice[1] + " " + dice[2] + " ,合计:" + sum);
-        boolean booleanBigOrSmall = sum > 10;
+        boolean booleanBigOrSmall = sum >= 10;
         boolean booleanOddOrEven = sum % 2 == 0;
         System.out.println("大小 " + (booleanBigOrSmall ? "大" : "小") + ",单双 " + (booleanOddOrEven ? "双" : "单"));
         System.out.println("下注 " + (bigOrSmall == 1 ? "大" : "小") + ",单双 " + (singleOrDouble == 2 ? "双" : "单"));

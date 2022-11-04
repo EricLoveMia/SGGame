@@ -57,12 +57,6 @@ public class StartGame {
 					System.out.println("请重新选择");
 					lord = input.nextInt();
 				}
-				if (lord == 6) {
-					lord = 96;
-				}
-				if (lord == 7) {
-					lord = 107;
-				}
 				// 根据id 选择开启的战役
 				CampaignFactory.CampaignFoundation campaignByGeneralId = CampaignFactory.getCampaignByGeneralId(lord + "");
 				// 开启刘备战役

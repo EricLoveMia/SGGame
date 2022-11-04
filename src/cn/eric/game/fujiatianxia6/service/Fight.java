@@ -21,8 +21,8 @@ public class Fight {
 
     private static boolean attack;
 
-    private static final int deadPercent = 5;
-    private static final int catchPercent = 10;
+    private static final int deadPercent = 4;
+    private static final int catchPercent = 7;
 
     static BattleField BF;
 
@@ -402,8 +402,8 @@ public class Fight {
         General attack;
         General defence;
         boolean result;
-        int deadPercent = 5;
-        int catchPercent = 10;
+        int deadPercent = 3;
+        int catchPercent = 7;
 
         public PostwarCalculation(General attack, General defence, boolean result, int deadPercent, int catchPercent) {
             super();

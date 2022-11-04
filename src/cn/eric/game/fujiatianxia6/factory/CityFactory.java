@@ -47,7 +47,7 @@ public class CityFactory {
         for (City city : citys) {
             if (city.getBelongTo() != null && city.getBelongTo() > 0) {
                 //如果没有守城的人或者没有资金，跳过
-                if (city.getDenfenceGenerals().size() > 0 && city.getMoney() > 0) {
+                if (city.getDenfenceGenerals().size() > 0 && city.getMoney() >= 0) {
                     int politics = 0;
                     for (Iterator iterator = city.getDenfenceGenerals().iterator(); iterator.hasNext(); ) {
                         General g = (General) iterator.next();
@@ -55,7 +55,7 @@ public class CityFactory {
                     }
                     // 政治总和/1000 * 繁荣度 + 原来的钱
                     // 看看有没有技能触发
-                    int add = politics * city.getProsperity() * city.getType() / 1000;
+                    int add = politics * city.getProsperity() * city.getType() / 800;
                     add = SkillFactory.CheckCitySkill(add, city.getDenfenceGenerals(), 1);
                     city.setMoney(city.getMoney() + (add));
                 }
@@ -109,22 +109,25 @@ public class CityFactory {
         for (City city : citys) {
             if (city.getBelongTo() != null && city.getBelongTo() > 0) {
                 int addSoilders = 0;
+                city.getDenfenceGenerals().sort(Comparator.comparing(General::getCharm).reversed());
                 // 如果没有建筑，跳过
                 if (city.getBildings() != null && city.getBildings().size() > 0) {
                     for (int j = 0; j < city.getBildings().size(); j++) {
                         if (city.getDenfenceGenerals().size() > 0) {
                             GeneralFactory.sortByCommand(city.getDenfenceGenerals());
-                            if (city.getBildings().get(j).id == 9) { // 存在徽兵所
-                                // 增加守城主将的魅力 * 2 个普通士兵
+                            // 存在徽兵所
+                            if (city.getBildings().get(j).id == 9) {
+                                int level = city.getBildings().get(j).level;
+                                // 增加守城主将的魅力 * 1.2 个普通士兵
                                 addSoilders = (int) (city.getSoilders()
-                                        + Integer.parseInt(city.getDenfenceGenerals().get(0).getCharm()) * 1.2);
+                                        + Integer.parseInt(city.getDenfenceGenerals().get(0).getCharm()) * 1.2 * level);
                             }
                         }
                     }
                 } else {
-                    // 增加守城主将的魅力 * 0.2 个普通士兵
+                    // 增加守城主将的魅力 * 0.5 个普通士兵
                     if (city.getDenfenceGenerals() != null && city.getDenfenceGenerals().size() > 0) {
-                        addSoilders = (int) (city.getSoilders() + Integer.parseInt(city.getDenfenceGenerals().get(0).getCharm()) * 0.2);
+                        addSoilders = (int) (city.getSoilders() + Integer.parseInt(city.getDenfenceGenerals().get(0).getCharm()) * 0.5);
                     }
                 }
                 if (addSoilders == 0) {

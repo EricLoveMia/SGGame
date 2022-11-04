@@ -234,7 +234,7 @@ public class GeneralFactory {
                 case 2:
                     GeneralFactory.sortByCommand(aoundGenerals);
                     // 根据技能加权
-                    return findBySkill(aoundGenerals, city, "0");
+                    return findBySkill(aoundGenerals, city, "0", null);
                 case 3:
                     GeneralFactory.sortByAttack(aoundGenerals);
                     //return aoundGenerals.get(aoundGenerals.size()-1);
@@ -254,7 +254,7 @@ public class GeneralFactory {
                     }
                     // 根据技能值 加权取将军
                     GeneralFactory.sortByCommand(aoundGenerals);
-                    return findBySkill(aoundGenerals, city, leader.getId());
+                    return findBySkill(aoundGenerals, city, leader.getId(), null);
                 default:
                     return null;
             }
@@ -282,7 +282,7 @@ public class GeneralFactory {
 
     }
 
-    private static General findBySkill(List<General> aoundGenerals, City city, String leaderId) {
+    private static General findBySkill(List<General> aoundGenerals, City city, String leaderId, List<General> exclude) {
         List<String> superSkills = SkillFactory.superSkills;
         Optional<General> optional = aoundGenerals.stream()
                 .filter(e -> !e.getId().equals(leaderId))
@@ -332,7 +332,7 @@ public class GeneralFactory {
 
     }
 
-    private static void sortByAttack(List<General> aoundGenerals) {
+    public static void sortByAttack(List<General> aoundGenerals) {
         aoundGenerals.sort(Comparator.comparingInt((General o) -> Integer.parseInt(o.getAttack())).reversed());
     }
 
@@ -421,20 +421,25 @@ public class GeneralFactory {
         denfenceGenerals.sort(Comparator.comparingInt((General o) -> Integer.parseInt(o.getCharm())).reversed());
     }
 
+
     public static void chooseDefenceCityGenerals(AttackCity ac, City defence) {
         List<General> denfenceGenerals = defence.getDenfenceGenerals();
-        //先选择主将 统帅、武力、智力，按照统帅排序后找到第一个
-        denfenceGenerals.sort(Comparator.comparingInt(o -> Integer.parseInt(o.getCommand())));
-        ac.setDefenceChief(denfenceGenerals.get(0));
-        System.out.println("防守主将：" + denfenceGenerals.get(0).toString());
 
+        //先选择主将 统帅、武力、智力，按照统帅排序后找到第一个
+        GeneralFactory.sortByCommand(denfenceGenerals);
+        // 主将
+        ac.setDefenceChief(denfenceGenerals.get(0));
+        System.out.println("防守主将：" + ac.getDefenceChief().toString());
+        List<General> exclude = new ArrayList<>();
         if (denfenceGenerals.size() > 1) {
-            ac.setDefenceCounsellor(denfenceGenerals.get(1));
-            System.out.println("防守副将：" + denfenceGenerals.get(1).toString());
+            exclude.add(ac.getDefenceChief());
+            ac.setDefenceVice(findBySkill(denfenceGenerals, defence, "0", exclude));
+            System.out.println("防守副将：" + ac.getDefenceVice().toString());
         }
         if (denfenceGenerals.size() > 2) {
-            ac.setDefenceVice(denfenceGenerals.get(2));
-            System.out.println("防守军师：" + denfenceGenerals.get(2).toString());
+            exclude.add(ac.getDefenceVice());
+            ac.setDefenceCounsellor(findBySkill(denfenceGenerals, defence, "0", exclude));
+            System.out.println("防守军师：" + ac.getDefenceCounsellor().toString());
         }
 
         //denfenceGenerals.remove(0);
@@ -527,7 +532,7 @@ public class GeneralFactory {
         }
     }
 
-    private static void checkDead(General player) {
+    public static void checkDead(General player) {
         if (player.getMoney() <= 0 && !"4".equals(player.getStatus())) {
             System.out.println(player.getName() + "已经破产，所有武将下野，所属城市武将下野，士兵减半，城市发展金减半");
             List<General> generals = player.getGenerals();
@@ -690,10 +695,12 @@ public class GeneralFactory {
                 continue;
             }
             // 一个士兵 0.02金币  骑兵 枪兵 弓兵  0.04 金币  后期高级兵种  0.3金币
-            int cost =
-                    (int) (player.getArmy() * 0.02 + (player.getCavalrys() + player.getInfantry() + player.getArchers()) * 0.04);
+            int cost = (int) (player.getArmy() * 0.02 + (player.getCavalrys() + player.getInfantry() + player.getArchers()) * 0.04);
             System.out.println("玩家" + player.getName() + "--->消耗军资:" + cost);
             player.setMoney(player.getMoney() - cost);
+            if (player.getMoney() < 0) {
+                System.out.println("玩家没有足够的军资");
+            }
         }
     }
 

@@ -12,7 +12,7 @@ import java.util.List;
  **/
 public class VictoryCondition {
 
-    // 1 默认干掉所有的其他主公  2 占领固定的城池
+    // 1 默认干掉所有的其他主公  2 占领固定的城池 3 消灭固定NPC城市
     private int type = 1;
 
     private List<String> cityIds;

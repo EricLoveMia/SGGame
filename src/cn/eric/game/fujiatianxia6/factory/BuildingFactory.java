@@ -13,18 +13,18 @@ public class BuildingFactory {
 	public static List<Building> buildings = new ArrayList<>();
 	
 	public static void initBuildings(){
-		buildings = new ArrayList<>();
-		buildings.add(new Building(1, "城墙", "防守时增加进攻方损失15%，每升一级增加5%的损失，仅守城适用", 15, 1, 5000, 5000));
-		buildings.add(new Building(2, "弩炮", "防守时增加进攻方损失8%，每升一级增加2%的损失,守城野战适用", 8, 1, 5000, 5000));
-		buildings.add(new Building(3, "市场", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
-		buildings.add(new Building(4, "道路", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
-		buildings.add(new Building(5, "武器阁", "购买武将专属的地方，每升一级降低购买价格10%", 50, 4, 10000, 10000));
-		buildings.add(new Building(6, "屯兵所", "减少城内守军的钱粮消耗", 50, 4, 10000, 10000));
-		buildings.add(new Building(7, "马厩", "每回合结束驯养马匹，将城市内的剑兵转换成骑兵，升级增加转换率", 50, 3, 10000, 10000));
-		buildings.add(new Building(8, "兵器厂", "每回合结束生产枪和弓，并将城市内的剑兵转换成弓兵和枪兵，升级增加转换率", 25, 3, 10000, 10000));
-		buildings.add(new Building(9, "徽兵所", "每回合结束招募剑兵，升级增加招募的数量", 25, 3, 10000, 10000));
-		buildings.add(new Building(10, "特产店", "购买特产的地方", 25, 3, 5000, 5000));
-	}
+        buildings = new ArrayList<>();
+        buildings.add(new Building(1, "城墙", "防守时增加进攻方损失15%，每升一级增加5%的损失，仅守城适用", 15, 1, 5000, 5000));
+        buildings.add(new Building(2, "弩炮", "防守时增加进攻方损失8%，每升一级增加2%的损失,守城野战适用", 8, 1, 5000, 5000));
+        buildings.add(new Building(3, "市场", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
+        buildings.add(new Building(4, "道路", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
+        buildings.add(new Building(5, "武器阁", "购买武将专属的地方，每升一级降低购买价格10%", 50, 4, 30000, 30000));
+        buildings.add(new Building(6, "屯兵所", "减少城内守军的钱粮消耗", 50, 4, 5000, 5000));
+        buildings.add(new Building(7, "马厩", "每回合结束驯养马匹，将城市内的剑兵转换成骑兵，升级增加转换率", 50, 3, 5000, 5000));
+        buildings.add(new Building(8, "兵器厂", "每回合结束生产枪和弓，并将城市内的剑兵转换成弓兵和枪兵，升级增加转换率", 25, 3, 5000, 5000));
+        buildings.add(new Building(9, "徽兵所", "每回合结束招募剑兵，升级增加招募的数量", 25, 3, 5000, 5000));
+        buildings.add(new Building(10, "特产店", "购买特产的地方", 25, 3, 5000, 5000));
+    }
 	
 	/**
 	 * 
@@ -243,7 +243,7 @@ public class BuildingFactory {
         }
         GeneralFactory.sortByCharm(denfenceGenerals);
         General general = denfenceGenerals.get(0);
-        int add = (int) (Integer.parseInt(general.getCharm()) * 0.15 + 4 * buildingLevel);
+        int add = (int) (Integer.parseInt(general.getCharm()) * 0.5 * buildingLevel);
         add = SkillFactory.CheckCitySkill(add, denfenceGenerals, 3);
 
         // 如果已经超过了本城的数量
@@ -270,20 +270,20 @@ public class BuildingFactory {
         if (denfenceGenerals != null && denfenceGenerals.size() > 0) {
             GeneralFactory.sortByCharm(denfenceGenerals);
             General general = denfenceGenerals.get(0);
-            int add = (int) (Integer.parseInt(general.getCharm()) * 0.15 + 4 * buildingLevel);
+            int add = (int) (Integer.parseInt(general.getCharm()) * 0.4 * buildingLevel);
 
             add = SkillFactory.CheckCitySkill(add, city.getDenfenceGenerals(), 2);
 
             // 如果已经超过了本城的数量
-            if (add > city.getSoilders()) {
-                add = city.getSoilders();
+            if (add * 2 > city.getSoilders()) {
+                add = 0;
             }
             // 增加弓兵和枪兵 减少步兵
-            city.setInfantry(Optional.ofNullable(city.getInfantry()).orElse(0) + add / 2);
-            city.setArchers(Optional.ofNullable(city.getArchers()).orElse(0) + add / 2);
-            city.setSoilders(city.getSoilders() - add);
-            System.out.println("城市" + city.getName() + "增加了枪兵" + add / 2 + "个");
-            System.out.println("城市" + city.getName() + "增加了弓兵" + add / 2 + "个");
+            city.setInfantry(Optional.ofNullable(city.getInfantry()).orElse(0) + add);
+            city.setArchers(Optional.ofNullable(city.getArchers()).orElse(0) + add);
+            city.setSoilders(city.getSoilders() - add * 2);
+            System.out.println("城市" + city.getName() + "增加了枪兵" + add + "个");
+            System.out.println("城市" + city.getName() + "增加了弓兵" + add + "个");
         }
 	}
 

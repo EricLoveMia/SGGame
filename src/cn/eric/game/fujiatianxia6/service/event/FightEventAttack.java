@@ -26,8 +26,8 @@ public class FightEventAttack extends Event {
         eventSingleWrapper.setMemo("单挑上古武将，10回合造成100点伤害，获得奖励，否则惩罚");
         this.setEventSingle(eventSingleWrapper);
         generalDead.setName("神龟将军");
-        generalDead.setAttack("100");
-        generalDead.setCommand("150");
+        generalDead.setAttack("1");
+        generalDead.setCommand("190");
         generalDead.setIntelligence("100");
         generalDead.setPolitics("100");
         generalDead.setVitality("1000");

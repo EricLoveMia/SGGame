@@ -1584,7 +1584,7 @@ public class SkillFactory {
         for (General denfenceGeneral : denfenceGenerals) {
             // 名声
             if ("36".equals(denfenceGeneral.getSkill())) {
-                addSoilders = (int) (addSoilders + Integer.parseInt(denfenceGeneral.getCharm()) * 0.2);
+                addSoilders = (int) (addSoilders + Integer.parseInt(denfenceGeneral.getCharm()) * 0.7);
                 System.out.println(denfenceGeneral.getName() + "技能名声触发，增加剑士,总数" + addSoilders);
             }
         }

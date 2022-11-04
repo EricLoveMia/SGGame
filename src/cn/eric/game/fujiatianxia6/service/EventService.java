@@ -74,7 +74,10 @@ public class EventService {
     public static void beginEvent(General general, Event event) {
         System.out.println("触发事件" + event.getEventSingle().getMemo());
         if (general.isReboot()) {
-            if (event instanceof SilkBagEvent) {
+            if (event instanceof SilkBagEvent
+                    || event instanceof FortuneAttackEvent
+                    || event instanceof FortuneCommandEvent
+                    || event instanceof FortuneIntelligenceEvent) {
                 event.trigger(general);
             }
         } else {
