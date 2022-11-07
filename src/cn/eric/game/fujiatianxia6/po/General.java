@@ -371,9 +371,8 @@ public class General implements Cloneable, Serializable {
     @Override
     public String toString() {
 		return "将领 [姓名 =" + name + ", 攻 =" + attack + ", 统 =" + command + ", 智 ="
-				+ intelligence + ", 魅=" + charm + ", 政=" + politics + ", 命=" + vitality + ", 陆战="
-				+ landfc + ", 山战=" + mountainfc + ", 水战=" + riverfc
-				+ ";\n 技能 ：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getName()
+				+ intelligence + ", 魅=" + charm + ", 政=" + politics + ", 命=" + vitality
+				+ "; 技能 ：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getName()
 				+ "：" + Objects.requireNonNull(SkillFactory.getSkillByID(skill)).getMemo() + "]";
 	}
 

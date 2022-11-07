@@ -602,8 +602,15 @@ public class Game {
             default:
                 City defence = (City) map.mapObj[position];
                 System.out.println(defence.toString());
-                System.out.println(defence.getDenfenceGenerals().toString());
-                System.out.println(defence.getBildings().toString());
+                defence.getDenfenceGenerals().forEach(e -> {
+                            System.out.println(e.toString());
+                        }
+                );
+                defence.getBildings().forEach(e -> {
+                            System.out.println(e.toString());
+                        }
+                );
+
                 if (base == map.map[position]) {
                     System.out.println("======主公好====== 选择0 放弃增减武将和兵力金钱\n");
                     // 查看技能
@@ -1222,6 +1229,15 @@ public class Game {
                         break;
                     }
                 }
+                // 其他的类型兵种要提取出来
+                if (city.getInfantry() > 200) {
+                    general.setInfantry(general.getInfantry() + city.getInfantry());
+                    city.setInfantry(0);
+                }
+                if (city.getArchers() > 200) {
+                    general.setArchers(general.getArchers() + city.getArchers());
+                    city.setArchers(0);
+                }
                 break;
             case 2:
                 if (general.getInfantry() > 2000) {
@@ -1260,6 +1276,15 @@ public class Game {
                         break;
                     }
                 }
+                // 其他的类型兵种要提取出来
+                if (city.getCavalrys() > 200) {
+                    general.setCavalrys(general.getCavalrys() + city.getCavalrys());
+                    city.setCavalrys(0);
+                }
+                if (city.getArchers() > 200) {
+                    general.setArchers(general.getArchers() + city.getArchers());
+                    city.setArchers(0);
+                }
                 break;
             case 3:
                 if (general.getArchers() > 2000) {
@@ -1297,6 +1322,15 @@ public class Game {
                         city.setArchers(city.getArchers() - add);
                         break;
                     }
+                }
+                // 其他的类型兵种要提取出来
+                if (city.getCavalrys() > 200) {
+                    general.setCavalrys(general.getCavalrys() + city.getCavalrys());
+                    city.setCavalrys(0);
+                }
+                if (city.getInfantry() > 200) {
+                    general.setInfantry(general.getInfantry() + city.getInfantry());
+                    city.setInfantry(0);
                 }
                 break;
             default:

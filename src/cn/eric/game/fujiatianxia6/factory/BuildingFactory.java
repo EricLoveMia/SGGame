@@ -94,9 +94,13 @@ public class BuildingFactory {
 				System.out.println("请选择您想要建设的建筑,0表示不建设");
 				showBuildingsWithCity(city);
 				// 检查是否是机器人
-				int choise = 1;
+				int choise;
 				// TODO
 				if (general.isReboot()) {
+					// 如果没钱
+					if (general.getMoney() < 10000) {
+						break;
+					}
 					// 如果都被建满了
 					if (city.getBildings().size() >= 9) {
 						break;
@@ -298,14 +302,14 @@ public class BuildingFactory {
 		if(player.isReboot()){
 			if(collect.size() == 0){
 				choise = 0;
-			}else{
-				// 查看金额够升级哪个的 先看级别 再看金钱 升级费用不能超过总金额的一半
+			}else {
+				// 查看金额够升级哪个的 先看级别 再看金钱 升级费用不能超过总金额的1/4
 				Set<Map.Entry<Integer, Building>> entries = collect.entrySet();
 				Iterator<Map.Entry<Integer, Building>> iterator = entries.iterator();
 				while (iterator.hasNext()) {
 					Map.Entry<Integer, Building> next = iterator.next();
-					if(next.getValue().level < defence.getType()){
-						if(next.getValue().upgradeLevel < player.getMoney()/2){
+					if (next.getValue().level < defence.getType()) {
+						if (next.getValue().upgradeLevel < player.getMoney() / 4) {
 							choise = next.getKey();
 							break;
 						}

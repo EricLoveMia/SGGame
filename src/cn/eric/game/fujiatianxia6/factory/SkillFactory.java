@@ -1081,11 +1081,11 @@ public class SkillFactory {
         }
 
         // 猛将
-        if ("11".equals(generalA.getSkill()) && new Random().nextInt(101) <= dataA) {//鬼将 单挑时，普通攻击造成1.2倍的伤害 1表示普通攻击
+        if (sigleFight.defenceLostHealth > 0 && "11".equals(generalA.getSkill()) && new Random().nextInt(100) <= dataA) {//猛将 单挑时，普通攻击造成1.2倍的伤害 1表示普通攻击
             System.out.println("武将" + generalA.getName() + "技能：" + skillName + "触发,额外造成" + dataA + "%的伤害");
             sigleFight.defenceLostHealth = sigleFight.defenceLostHealth * (dataA + 100) / 100;
         }
-        if ("11".equals(generalD.getSkill()) && new Random().nextInt(101) <= dataD) {//鬼将 单挑时，普通攻击造成1.2倍的伤害 1表示普通攻击
+        if (sigleFight.attackLostHealth > 0 && "11".equals(generalD.getSkill()) && new Random().nextInt(100) <= dataD) {//猛将 单挑时，普通攻击造成1.2倍的伤害 1表示普通攻击
             System.out.println("武将" + generalD.getName() + "技能：" + skillNameD + "触发,额外造成" + dataD + "%的伤害");
             sigleFight.attackLostHealth = sigleFight.attackLostHealth * (dataD + 100) / 100;
         }

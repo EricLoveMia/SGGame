@@ -240,12 +240,18 @@ public class GeneralFactory {
                     //return aoundGenerals.get(aoundGenerals.size()-1);
                     return aoundGenerals.get(0);
                 case 4:
-                    if (aoundGenerals.size() <= 2) {
+                    // 身边至少留三个武将
+                    if (aoundGenerals.size() <= 3) {
+                        return null;
+                    }
+                    // 一个城市最多放4个武将
+                    if (city.getDenfenceGenerals().size() >= 4) {
                         return null;
                     }
                     // 如果城市已经很多，武将又不是很多，也不设置 要保证主公身边
                     List<City> cityByLeader = CityFactory.findCityByLeader(leader);
-                    if (cityByLeader.size() > aoundGenerals.size() && (cityByLeader.size() - aoundGenerals.size()) > aoundGenerals.size() * 0.75) {
+                    if (cityByLeader.size() > aoundGenerals.size()
+                            && ((cityByLeader.size() - aoundGenerals.size()) > aoundGenerals.size() * 0.6)) {
                         return null;
                     }
                     // 如果士兵数量少于4000 返回null

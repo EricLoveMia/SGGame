@@ -45,8 +45,8 @@
 	<skill>
 		<id>7</id>
 		<name>鬼将</name>
-        <memo>单挑时，普通攻击造成1.2倍的伤害，专属后造成2倍伤害</memo>
-		<data>120</data>
+		<memo>单挑时，普通攻击造成1.3倍的伤害，专属后造成2倍伤害</memo>
+		<data>130</data>
 		<time>12</time>
 	</skill>
 	<skill>
@@ -73,8 +73,8 @@
 	<skill>
 		<id>11</id>
 		<name>猛将</name>
-        <memo>单挑时，有几率造成额外伤害，几率为50%，额外伤害为20%</memo>
-        <data>50</data>
+		<memo>单挑时，有几率造成额外伤害，几率为40%，额外伤害为40%</memo>
+		<data>40</data>
 		<time>12</time>
 	</skill>
 	<skill>
