@@ -86,7 +86,32 @@
         <cityId>1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22</cityId>
         <memo>夷陵之战</memo>
     </map>
-
+    <map>
+        <id>8</id>
+        <name>中原大战</name>
+        <size>64</size>
+        <city>
+            1,2,3,4,5,6,11,12,13,14,15,16,21,22,23,24,25,26,33,34,35,36,37,38,41,42,43,44,45,46,51,52,53,54,55,56,59,60,61
+        </city>
+        <luckyTurn>0,7,8,27,28,47,48</luckyTurn>
+        <wine>9,10,29,30,49,50,62</wine>
+        <pause>17,18,31,32,63</pause>
+        <soldiers>19,20,39,40,57,58</soldiers>
+        <cityId>4,5,6,7,8,9,10,11,12,13,23,35,56</cityId>
+        <memo>中原大战</memo>
+    </map>
+    <map>
+        <id>9</id>
+        <name>官渡之战</name>
+        <size>32</size>
+        <city>1,2,3,4,5,6,11,12,13,14,15,16,21,22,23,24,25,26</city>
+        <luckyTurn>7,18,27</luckyTurn>
+        <wine>9,17,28,29</wine>
+        <pause>10,30</pause>
+        <soldiers>0,8,19,20</soldiers>
+        <cityId>18,19,20,27,28,30</cityId>
+        <memo>官渡之战</memo>
+    </map>
     <map>
         <id>99</id>
         <name>全国</name>

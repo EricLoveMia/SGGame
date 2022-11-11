@@ -4,6 +4,7 @@ import cn.eric.game.fujiatianxia6.factory.CityFactory;
 import cn.eric.game.fujiatianxia6.factory.GeneralFactory;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
+import cn.eric.game.fujiatianxia6.po.TransportTeam;
 import cn.eric.game.fujiatianxia6.po.store.Goods;
 import cn.eric.game.fujiatianxia6.service.Game;
 
@@ -264,7 +265,11 @@ public abstract class SilkBag implements Bag, Cloneable {
             if (player.getId().equals(origin.getId())) {
                 continue;
             }
-            List<Goods> goods = player.getTransportTeam().getGoodsList();
+            TransportTeam transportTeam = player.getTransportTeam();
+            if (transportTeam == null) {
+                continue;
+            }
+            List<Goods> goods = transportTeam.getGoodsList();
             if (goods == null || goods.size() == 0) {
                 continue;
             }

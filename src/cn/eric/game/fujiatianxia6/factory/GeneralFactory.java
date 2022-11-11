@@ -151,6 +151,7 @@ public class GeneralFactory {
                 return 0;
             }
         });
+        // 是否必须要大于0 比如
         return wineGenerals.subList(0, max);
     }
 
@@ -260,7 +261,9 @@ public class GeneralFactory {
                     }
                     // 根据技能值 加权取将军
                     GeneralFactory.sortByCommand(aoundGenerals);
-                    return findBySkill(aoundGenerals, city, leader.getId(), null);
+                    List<General> exclude = new ArrayList<>();
+                    exclude.add(leader);
+                    return findBySkill(aoundGenerals, city, leader.getId(), exclude);
                 default:
                     return null;
             }
@@ -289,6 +292,7 @@ public class GeneralFactory {
     }
 
     private static General findBySkill(List<General> aoundGenerals, City city, String leaderId, List<General> exclude) {
+        // 无敌技能
         List<String> superSkills = SkillFactory.superSkills;
         Optional<General> optional = aoundGenerals.stream()
                 .filter(e -> !e.getId().equals(leaderId))
@@ -330,12 +334,15 @@ public class GeneralFactory {
         if (optional.isPresent()) {
             return optional.get();
         }
-        // 主公不能作为守城将领
-        if (leaderId.equals(aoundGenerals.get(0).getId())) {
-            return aoundGenerals.get(1);
+        // 去掉要排除的将领
+        General general = null;
+        for (int i = 0; i < aoundGenerals.size(); i++) {
+            general = aoundGenerals.get(i);
+            if (!exclude.contains(general)) {
+                break;
+            }
         }
-        return aoundGenerals.get(0);
-
+        return general;
     }
 
     public static void sortByAttack(List<General> aoundGenerals) {

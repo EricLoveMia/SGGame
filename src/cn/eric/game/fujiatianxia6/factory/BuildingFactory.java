@@ -19,7 +19,7 @@ public class BuildingFactory {
         buildings.add(new Building(3, "市场", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
         buildings.add(new Building(4, "道路", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
         buildings.add(new Building(5, "武器阁", "购买武将专属的地方，每升一级降低购买价格10%", 50, 4, 30000, 30000));
-        buildings.add(new Building(6, "屯兵所", "减少城内守军的钱粮消耗", 50, 4, 5000, 5000));
+        buildings.add(new Building(6, "屯兵所", "每回合根据守军数量增加钱粮", 50, 4, 5000, 5000));
         buildings.add(new Building(7, "马厩", "每回合结束驯养马匹，将城市内的剑兵转换成骑兵，升级增加转换率", 50, 3, 5000, 5000));
         buildings.add(new Building(8, "兵器厂", "每回合结束生产枪和弓，并将城市内的剑兵转换成弓兵和枪兵，升级增加转换率", 25, 3, 5000, 5000));
         buildings.add(new Building(9, "徽兵所", "每回合结束招募剑兵，升级增加招募的数量", 25, 3, 5000, 5000));
@@ -344,8 +344,12 @@ public class BuildingFactory {
 	}
 
 	private static void checkEffect(Building building, City city) {
-		if (building.id == 10 && building.level == 2) {
-			city.getCityStore().setSeniorRest(city.getCityStore().getSeniorTotal());
-		}
-	}
+        if (building.id == 10 && building.level == 2) {
+            city.getCityStore().setSeniorRest(city.getCityStore().getSeniorTotal());
+        }
+
+        if (building.id == 3 || building.id == 4) {
+            city.setProsperity(city.getProsperity() + 100);
+        }
+    }
 }

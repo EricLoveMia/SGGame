@@ -203,13 +203,13 @@ public class Game {
                 players[no - 1] = GeneralFactory.getGeneral("袁绍");
                 break;
             case 6:
-                players[no - 1] = GeneralFactory.getGeneral("刘表");
+                players[no - 1] = GeneralFactory.getGeneral("袁术");
                 break;
             case 7:
-                players[no - 1] = GeneralFactory.getGeneral("刘璋");
+                players[no - 1] = GeneralFactory.getGeneral("刘表");
                 break;
             case 8:
-                players[no - 1] = GeneralFactory.getGeneral("韩遂");
+                players[no - 1] = GeneralFactory.getGeneral("待定");
                 break;
             default:
                 break;
@@ -469,6 +469,12 @@ public class Game {
                         if (i == 1) {
                             getCity(position, base, city);
                         }
+                        try {
+                            BuildingFactory.buildInCity(city, players[no - 1]);
+                        } catch (CloneNotSupportedException e) {
+                            e.printStackTrace();
+                        }
+                        saleGoods(city, players[no - 1]);
                         buyGoods(city, players[no - 1]);
                     } else {
                         System.out.println("钱不够");
@@ -617,8 +623,8 @@ public class Game {
                     SkillFactory.checkSkillViaCity(defence, players[no - 1]);
                     // 选择武将及放置的兵力
                     chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
-                    // 购买商品
-                    buyGoods(defence, players[no - 1]);
+                    // 卖出商品
+                    saleGoods(defence, players[no - 1]);
                     // 升级城市
                     CityFactory.upgradeCity(defence, players[no - 1]);
                     // 升级建筑
@@ -628,6 +634,8 @@ public class Game {
                     } catch (CloneNotSupportedException e) {
                         e.printStackTrace();
                     }
+                    // 购买商品
+                    buyGoods(defence, players[no - 1]);
                 } else {
                     if (defence.getBelongTo() == 0) {
                         System.out.println("该城市没有归属主公，直接占领");
@@ -726,6 +734,7 @@ public class Game {
                                     }
                                     players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) + 40);
                                     // 购买商品
+                                    saleGoods(defence, players[no - 1]);
                                     buyGoods(defence, players[no - 1]);
                                 } else {
                                     System.out.println("您失败了 声望下降20，要交双倍过路费:" + passMoney * 2);
@@ -740,6 +749,7 @@ public class Game {
                                     System.out.println("您胜利了，不需要交过路费 声望提升15");
                                     players[no - 1].setReputation(Optional.ofNullable(players[no - 1].getReputation()).orElse(0) + 15);
                                     // 购买商品
+                                    saleGoods(defence, players[no - 1]);
                                     buyGoods(defence, players[no - 1]);
                                 } else {
                                     System.out.println("您失败了 声望下降5，要交双倍过路费:" + passMoney * 2);
@@ -768,7 +778,8 @@ public class Game {
                                     if (i == 1) {
                                         getCity(position, base, defence);
                                     }
-                                    // TODO 购买商品
+                                    // 购买商品
+                                    saleGoods(defence, players[no - 1]);
                                     buyGoods(defence, players[no - 1]);
                                 } else {
                                     System.out.println("您失败了 声望下降50 ，要交双倍过路费 :" + passMoney * 2);
@@ -790,7 +801,8 @@ public class Game {
                                 } else {
                                     players[no - 1].setMoney(players[no - 1].getMoney() - passMoney);
                                     generalById.setMoney(generalById.getMoney() + passMoney);
-                                    // TODO 购买商品
+                                    // 购买商品
+                                    saleGoods(defence, players[no - 1]);
                                     buyGoods(defence, players[no - 1]);
                                 }
                                 break;
@@ -859,15 +871,18 @@ public class Game {
         return null;
     }
 
+    private void saleGoods(City defence, General player) {
+        // 是否卖出
+        if (player.getTransportTeam() != null && !player.getTransportTeam().getGoodsList().isEmpty()) {
+            sale(defence, player);
+        }
+    }
+
     private void buyGoods(City defence, General player) {
         try {
             if (defence.getCityStore() != null) {
                 if (player.getTransportTeam() == null) {
                     player.setTransportTeam(new TransportTeam(new ArrayList<>(), player.getGenerals().size() * 2, 0));
-                }
-                // 是否卖出
-                if (!player.getTransportTeam().getGoodsList().isEmpty()) {
-                    sale(defence, player);
                 }
 
                 // 是否买入
@@ -889,8 +904,8 @@ public class Game {
                 if (defence.checkSpecialBuilding()) {
                     if (cityStore.getSpecialtyGoodsId() > 0) {
                         Goods specialty = GoodsFactory.getById(cityStore.getSpecialtyGoodsId());
-                        int buy = buy(player, specialty, 1, cityStore.getSpecialtyRest());
-                        cityStore.setSpecialtyRest(cityStore.getSeniorRest() - buy);
+                        int buy = buy(player, specialty, 3, cityStore.getSpecialtyRest());
+                        cityStore.setSpecialtyRest(cityStore.getSpecialtyRest() - buy);
                     }
                 }
 

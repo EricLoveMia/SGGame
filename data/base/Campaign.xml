@@ -26,14 +26,14 @@
     </campaing>
     <campaing>
         <lordId>5</lordId>
-        <maps>1,2,3,4,5,99</maps>
-        <enemies>5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3</enemies>
+        <maps>1,2,8,5,4,6,99</maps>
+        <enemies>5,1,2,3;5,1,2,3;5,6,2;5,1,2,3;5,1,2,3;5,1,2,3;5,1,2,3</enemies>
         <memo>袁绍一统天下</memo>
     </campaing>
     <campaing>
         <lordId>6</lordId>
-        <maps>1,2,3,4,5,99</maps>
-        <enemies>6,1,2,3;6,1,2,4;6,1,2,3;6,1,2,3;6,1,2,3;6,1,2,3</enemies>
+        <maps>1,2,8,5,4,6,99</maps>
+        <enemies>6,1,2,3;6,1,2,4;6,5,2;6,1,2,3;6,1,2,3;6,1,2,3;6,1,2,3</enemies>
         <memo>袁术一统天下</memo>
     </campaing>
     <campaing>

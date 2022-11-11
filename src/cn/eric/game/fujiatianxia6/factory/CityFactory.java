@@ -1,5 +1,6 @@
 package cn.eric.game.fujiatianxia6.factory;
 
+import cn.eric.game.fujiatianxia6.po.Building;
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.CityStore;
 import cn.eric.game.fujiatianxia6.po.General;
@@ -55,12 +56,31 @@ public class CityFactory {
                     }
                     // 政治总和/1000 * 繁荣度 + 原来的钱
                     // 看看有没有技能触发
-                    int add = politics * city.getProsperity() * city.getType() / 800;
+                    int add = politics * city.getProsperity() * city.getType() / 600;
                     add = SkillFactory.CheckCitySkill(add, city.getDenfenceGenerals(), 1);
                     city.setMoney(city.getMoney() + (add));
+
+                    // 如果城内有屯兵所
+                    // 看看城市里面的建筑
+                    List<Building> bildings = city.getBildings();
+                    if (bildings != null) {
+                        for (Building building : bildings) {
+                            if (building.id == 6) {
+                                addMoneyByBuilding(city, building);
+                            }
+                        }
+                    }
                 }
             }
         }
+    }
+
+    private static void addMoneyByBuilding(City city, Building building) {
+        int total = city.getSoilders() + (city.getCavalrys() + city.getInfantry() + city.getArchers()) * 2;
+        int level = building.level;
+        int add = total * level / 70;
+        System.out.println("城市" + city.getName() + "拥有屯兵所" + building.level + "级，增加发展金 " + add);
+        city.setMoney(city.getMoney() + add);
     }
 
     /**

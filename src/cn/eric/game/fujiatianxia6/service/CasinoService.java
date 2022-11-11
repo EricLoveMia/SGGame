@@ -87,7 +87,7 @@ public class CasinoService {
                 else if (bigOrSmall == 1) {
                     dice[0] = 6;
                     dice[1] = 6;
-                    dice[2] = 1;
+                    dice[2] = 2;
                 }
                 // 小单
                 else if (singleOrDouble == 1) {

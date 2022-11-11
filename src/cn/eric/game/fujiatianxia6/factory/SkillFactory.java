@@ -13,15 +13,15 @@ public class SkillFactory {
     private static List<Skill> skills;
 
     // 神技
-    public static List<String> superSkills = Arrays.asList("15", "36", "38", "50", "52", "54");
+    public static List<String> superSkills = Arrays.asList("2", "15", "38", "49", "50", "54");
     // 骑兵相关技能
-    public static List<String> cavalrysSkills = Arrays.asList("21", "22", "44", "37");
+    public static List<String> cavalrysSkills = Arrays.asList("21", "22", "44", "37", "42");
     // 枪兵相关技能
-    public static List<String> infantrySkills = Arrays.asList("19", "20", "37");
+    public static List<String> infantrySkills = Arrays.asList("19", "20", "37", "43");
     // 弓兵相关技能
-    public static List<String> archersSkills = Arrays.asList("18", "17", "51");
+    public static List<String> archersSkills = Arrays.asList("18", "17", "51", "45", "46", "47", "43");
     // 通用相关技能
-    public static List<String> allArmsSkills = Arrays.asList("5", "6", "8", "12", "14", "16", "23", "24", "25", "26", "27", "30", "34", "39", "40", "42", "43", "49");
+    public static List<String> allArmsSkills = Arrays.asList("5", "6", "12", "14", "16", "23", "24", "52", "25", "26", "27", "30", "34", "36", "39", "40", "48", "56", "8", "9", "10", "11", "70");
 
     /**
      * @param
@@ -681,15 +681,17 @@ public class SkillFactory {
         if ("49".equals(general.getSkill())) {
             // 增加的损失数
             int addLost = 0;
+            float rate = (Float.parseFloat(general.getCommand()) + Float.parseFloat(general.getIntelligence())) / 650;
             if (attOrDef == 1 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
                 System.out.println("武将：" + general.getName() + "触发技能毒神：" + Objects.requireNonNull(SkillFactory.getSkillByID(general.getSkill())).getMemo());
-                addLost = (int) (BF.getDefLost() * 0.6);
+
+                addLost = (int) (BF.getDefLost() * rate);
                 System.out.println("增加伤亡：" + addLost + "(" + BF.getDefLost() + ")");
                 BF.setDefLost(BF.getDefLost() + addLost);
             }
             if (attOrDef == 2 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
                 System.out.println("武将：" + general.getName() + "触发技能毒神：" + Objects.requireNonNull(SkillFactory.getSkillByID(general.getSkill())).getMemo());
-                addLost = (int) (BF.getAttLost() * 0.6);
+                addLost = (int) (BF.getAttLost() * rate);
                 System.out.println("增加伤亡：" + addLost + "(" + BF.getAttLost() + ")");
                 BF.setAttLost(BF.getAttLost() + addLost);
             }
@@ -821,8 +823,8 @@ public class SkillFactory {
         if ("56".equals(general.getSkill())) {
             Skill skill = SkillFactory.getSkillByID(general.getSkill());
 
-            double percent = data / 100 + (Integer.parseInt(general.getCommand())
-                    + Integer.parseInt(general.getIntelligence()) + Integer.parseInt(general.getAttack())) / 3000;
+            double percent = data * 1.0 / 100 + (Integer.parseInt(general.getCommand())
+                    + Integer.parseInt(general.getIntelligence()) + Integer.parseInt(general.getAttack())) * 1.0 / 3000;
             // 增加的损失数
             int addLost = 0;
             if (attOrDef == 1 && BF.getAttackAmyNum() < BF.getDefenceAmyNum()) {
@@ -1229,6 +1231,7 @@ public class SkillFactory {
             } else {
                 extra = 15;
             }
+
             int data = attackLost * (skillByID.getData() + extra) / 100;
             System.out.println(general.getName() + "技能" + skillByID.getName() + "触发,救治兵力" + data + "(" + attackLost + ")");
             virgin.setAttackLost(attackLost - data);
