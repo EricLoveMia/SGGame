@@ -2219,5 +2219,149 @@
         <belongTo>1</belongTo>
         <status>0</status>
     </general>
-    <!-- 张翼 -->
+    <!-- 袁涣 杨弘 桥蕤 李丰 杨奉 陈纪 陈兰 韩暹 乐就 刘勋 俞涉-->
+    <general id="134">
+        <name>袁涣</name>
+        <king>0</king>
+        <attack>17</attack>
+        <command>30</command>
+        <intelligence>72</intelligence>
+        <charm>83</charm>
+        <politics>83</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>B</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>62</skill>
+        <relation>00050000009500</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="135">
+        <name>杨弘</name>
+        <king>0</king>
+        <attack>17</attack>
+        <command>18</command>
+        <intelligence>76</intelligence>
+        <charm>43</charm>
+        <politics>63</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>B</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>56</skill>
+        <relation>00000000009500</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="136">
+        <name>桥蕤</name>
+        <king>0</king>
+        <attack>69</attack>
+        <command>64</command>
+        <intelligence>38</intelligence>
+        <charm>58</charm>
+        <politics>41</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>B</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>21</skill>
+        <relation>00000000009500</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="138">
+        <name>杨奉</name>
+        <king>0</king>
+        <attack>65</attack>
+        <command>66</command>
+        <intelligence>38</intelligence>
+        <charm>58</charm>
+        <politics>41</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>B</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>75</skill>
+        <relation>00000000009500</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="139">
+        <name>陈纪</name>
+        <king>0</king>
+        <attack>65</attack>
+        <command>60</command>
+        <intelligence>38</intelligence>
+        <charm>32</charm>
+        <politics>41</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>B</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>99</skill>
+        <relation>00000000009500</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="140">
+        <name>韩暹</name>
+        <king>0</king>
+        <attack>66</attack>
+        <command>69</command>
+        <intelligence>38</intelligence>
+        <charm>32</charm>
+        <politics>41</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>B</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>76</skill>
+        <relation>00000000009500</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="141">
+        <name>俞涉</name>
+        <king>0</king>
+        <attack>79</attack>
+        <command>62</command>
+        <intelligence>18</intelligence>
+        <charm>12</charm>
+        <politics>11</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>B</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>11</skill>
+        <relation>00000000009800</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
+    <general id="142">
+        <name>乐就</name>
+        <king>0</king>
+        <attack>66</attack>
+        <command>53</command>
+        <intelligence>53</intelligence>
+        <charm>43</charm>
+        <politics>53</politics>
+        <vitality>100</vitality>
+        <arms>2</arms>
+        <landfc>B</landfc>
+        <mountainfc>B</mountainfc>
+        <riverfc>C</riverfc>
+        <skill>51</skill>
+        <relation>00000000009500</relation>
+        <belongTo>0</belongTo>
+        <status>0</status>
+    </general>
 </generals>

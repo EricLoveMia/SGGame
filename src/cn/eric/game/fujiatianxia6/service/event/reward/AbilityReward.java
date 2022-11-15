@@ -21,8 +21,12 @@ public class AbilityReward extends EventReward {
 
     @Override
     public void reward(General general, Boolean success) {
+        if (getCostMoney() > general.getMoney()) {
+            System.out.println("您没有这么多钱，本次提升取消");
+            return;
+        }
         // 选择一个武将增加 属性
-        General luckyDog = null;
+        General luckyDog;
         System.out.println("选择一个武将增加" + this.getDataGive() + "点" + EventRewardTypeEnum.getText(this.getType()) + " 0 放弃");
         List<General> generals = general.getGenerals();
         if (general.isReboot()) {

@@ -31,6 +31,11 @@ public abstract class EventReward {
      */
     private String type;
 
+    /**
+     * 需要支付的金钱
+     */
+    private int costMoney;
+
     public EventReward(String name, String dataGive, String dataPunish, String type) {
         this.name = name;
         this.dataGive = dataGive;
@@ -116,4 +121,11 @@ public abstract class EventReward {
         }
     }
 
+    public int getCostMoney() {
+        return costMoney;
+    }
+
+    public void setCostMoney(int costMoney) {
+        this.costMoney = costMoney;
+    }
 }

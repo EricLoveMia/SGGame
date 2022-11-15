@@ -338,7 +338,7 @@ public class GeneralFactory {
         General general = null;
         for (int i = 0; i < aoundGenerals.size(); i++) {
             general = aoundGenerals.get(i);
-            if (!exclude.contains(general)) {
+            if (exclude != null && !exclude.contains(general)) {
                 break;
             }
         }

@@ -24,6 +24,7 @@ public class BuildingFactory {
         buildings.add(new Building(8, "兵器厂", "每回合结束生产枪和弓，并将城市内的剑兵转换成弓兵和枪兵，升级增加转换率", 25, 3, 5000, 5000));
         buildings.add(new Building(9, "徽兵所", "每回合结束招募剑兵，升级增加招募的数量", 25, 3, 5000, 5000));
         buildings.add(new Building(10, "特产店", "购买特产的地方", 25, 3, 5000, 5000));
+//        buildings.add(new Building(11, "重修堂", "武将重修技能的地方，花费一定的金额可以重修技能", 25, 3, 50000, 5000));
     }
 	
 	/**

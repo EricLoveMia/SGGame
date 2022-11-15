@@ -52,6 +52,9 @@ public class CityFactory {
                     int politics = 0;
                     for (Iterator iterator = city.getDenfenceGenerals().iterator(); iterator.hasNext(); ) {
                         General g = (General) iterator.next();
+//                        if(g == null){
+//                            break;
+//                        }
                         politics += Integer.parseInt(g.getPolitics());
                     }
                     // 政治总和/1000 * 繁荣度 + 原来的钱

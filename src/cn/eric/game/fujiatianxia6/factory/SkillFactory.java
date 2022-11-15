@@ -15,9 +15,9 @@ public class SkillFactory {
     // 神技
     public static List<String> superSkills = Arrays.asList("2", "15", "38", "49", "50", "54");
     // 骑兵相关技能
-    public static List<String> cavalrysSkills = Arrays.asList("21", "22", "44", "37", "42");
+    public static List<String> cavalrysSkills = Arrays.asList("21", "22", "44", "37", "42", "76", "75");
     // 枪兵相关技能
-    public static List<String> infantrySkills = Arrays.asList("19", "20", "37", "43");
+    public static List<String> infantrySkills = Arrays.asList("19", "20", "37", "43", "75", "77");
     // 弓兵相关技能
     public static List<String> archersSkills = Arrays.asList("18", "17", "51", "45", "46", "47", "43");
     // 通用相关技能
@@ -320,16 +320,17 @@ public class SkillFactory {
         int defenceSkillProbability = BF.getDefenceSkillProbability();
         // 奸雄
         if ("2".equals(general.getSkill())) {
+            Skill skill = SkillFactory.getSkillByID(general.getSkill());
             if (new Random().nextInt(100) <= data) {
                 // 如果是进攻方 进攻方损失降低到0
                 if (attOrDef == 1) {
                     if (IntelligenceCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
-                        System.out.println("武将：" + general.getName() + "触发技能：奸雄，野战或攻城时，若敌方所有武将加成后智力小于自己，敌方每回合有15%的几率陷入混乱，无法造成伤害，获得专属武器将会提升几率(30%)");
+                        System.out.println("武将：" + general.getName() + "触发技能：" + skill.getName() + "," + skill.getMemo());
                         BF.setAttLost(0);
                     }
                 } else {
                     if (IntelligenceCompare(general, BF.getAttackChief(), BF.getAttackCounsellor(), BF.getAttackVice())) {
-                        System.out.println("武将：" + general.getName() + "触发技能：奸雄，野战或攻城时，若敌方所有武将加成后智力小于自己，敌方每回合有15%的几率陷入混乱，无法造成伤害，获得专属武器将会提升几率(30%)");
+                        System.out.println("武将：" + general.getName() + "触发技能：" + skill.getName() + "," + skill.getMemo());
                         BF.setDefLost(0);
                     }
                 }
@@ -895,6 +896,81 @@ public class SkillFactory {
                 BF.setAttLost(BF.getAttLost() + addLost);
             }
         }
+        // 勇者
+        if ("75".equals(general.getSkill())) {
+            Skill skill = SkillFactory.getSkillByID(general.getSkill());
+            // 增加的损失数
+            if (attOrDef == 1 && (BF.getAttackType() == 2 || BF.getAttackType() == 3) && new Random().nextInt(100) <= data) {
+                System.out.println("武将：" + general.getName() + "触发技能" + skill.getName() + " ：" + skill.getMemo());
+                int add = Integer.parseInt(general.getCommand()) + Integer.parseInt(general.getAttack()) / 10;
+                System.out.println("增加伤害" + add + "(" + BF.getDefLost() + ")");
+                BF.setDefLost(BF.getDefLost() + add);
+            }
+            // 增加的损失数
+            if (attOrDef == 2 && (BF.getAttackType() == 2 || BF.getAttackType() == 3) && new Random().nextInt(100) <= data) {
+                System.out.println("武将：" + general.getName() + "触发技能" + skill.getName() + " ：" + skill.getMemo());
+                int add = Integer.parseInt(general.getCommand()) + Integer.parseInt(general.getAttack()) / 10;
+                System.out.println("增加伤害" + add + "(" + BF.getAttLost() + ")");
+                BF.setAttLost(BF.getAttLost() + add);
+            }
+        }
+        // 突袭
+        if ("76".equals(general.getSkill())) {
+            Skill skill = SkillFactory.getSkillByID(general.getSkill());
+            // 增加的损失数
+            if (attOrDef == 1 && attackCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
+                System.out.println("武将：" + general.getName() + "触发技能" + skill.getName() + " ：" + skill.getMemo());
+                int add = (Integer.parseInt(general.getCommand()) + Integer.parseInt(general.getAttack())) / 8;
+                System.out.println("增加伤害" + add + "(" + BF.getDefLost() + ")");
+                BF.setDefLost(BF.getDefLost() + add);
+                // 几率溃散
+                int amyNum = BF.getDefenceAmyNum();
+                if (new Random().nextInt(100) <= data) {
+                    float intelligence = Float.parseFloat(general.getIntelligence());
+                    float percents = intelligence * intelligence / 50000;
+                    System.out.println("造成溃散" + amyNum * percents);
+                    BF.setDefLost((int) (BF.getDefLost() + amyNum * percents));
+                }
+            }
+        }
+        // 乱战
+        if ("77".equals(general.getSkill())) {
+            Skill skill = SkillFactory.getSkillByID(general.getSkill());
+            if (BF.getAttackType() == 3 && new Random().nextInt(100) <= data) {
+                // 如果是进攻方 进攻方损失降低到0
+                if (attOrDef == 1 && attackCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
+                    if (IntelligenceCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
+                        System.out.println("武将：" + general.getName() + "触发技能：" + skill.getName() + "," + skill.getMemo());
+                        BF.setAttLost(0);
+                    }
+                } else if (attackCompare(general, BF.getAttackChief(), BF.getAttackCounsellor(), BF.getAttackVice())) {
+                    if (IntelligenceCompare(general, BF.getAttackChief(), BF.getAttackCounsellor(), BF.getAttackVice())) {
+                        System.out.println("武将：" + general.getName() + "触发技能：" + skill.getName() + "," + skill.getMemo());
+                        BF.setDefLost(0);
+                    }
+                }
+            }
+        }
+        // 奇袭
+        if ("78".equals(general.getSkill())) {
+            Skill skill = SkillFactory.getSkillByID(general.getSkill());
+            // 增加的损失数
+            if (attOrDef == 1 && attackCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
+                System.out.println("武将：" + general.getName() + "触发技能" + skill.getName() + " ：" + skill.getMemo());
+                int add = Integer.parseInt(general.getCommand()) + Integer.parseInt(general.getAttack()) / 3;
+                System.out.println("增加伤害" + add + "(" + BF.getDefLost() + ")");
+                BF.setDefLost(BF.getDefLost() + add);
+                // 几率溃散
+                int amyNum = BF.getDefenceAmyNum();
+                if (new Random().nextInt(100) <= data) {
+                    float intelligence = Float.parseFloat(general.getIntelligence());
+                    float command = Float.parseFloat(general.getCommand());
+                    float percents = intelligence * command / 50000;
+                    System.out.println("造成溃散" + amyNum * percents);
+                    BF.setDefLost((int) (BF.getDefLost() + amyNum * percents));
+                }
+            }
+        }
         return BF;
     }
 
@@ -906,6 +982,36 @@ public class SkillFactory {
             return false;
         }
         return vice == null || Integer.parseInt(general.getIntelligence()) >= Integer.parseInt(vice.getIntelligence());
+    }
+
+    private static boolean attackCompare(General general, General chief, General counsellor, General vice) {
+        if (Integer.parseInt(general.getAttack()) < Integer.parseInt(chief.getAttack())) {
+            return false;
+        }
+        if (counsellor != null && Integer.parseInt(general.getAttack()) < Integer.parseInt(counsellor.getAttack())) {
+            return false;
+        }
+        return vice == null || Integer.parseInt(general.getAttack()) >= Integer.parseInt(vice.getAttack());
+    }
+
+    private static boolean commandCompare(General general, General chief, General counsellor, General vice) {
+        if (Integer.parseInt(general.getCommand()) < Integer.parseInt(chief.getCommand())) {
+            return false;
+        }
+        if (counsellor != null && Integer.parseInt(general.getCommand()) < Integer.parseInt(counsellor.getCommand())) {
+            return false;
+        }
+        return vice == null || Integer.parseInt(general.getCommand()) >= Integer.parseInt(vice.getCommand());
+    }
+
+    private static boolean charmCompare(General general, General chief, General counsellor, General vice) {
+        if (Integer.parseInt(general.getCharm()) < Integer.parseInt(chief.getCharm())) {
+            return false;
+        }
+        if (counsellor != null && Integer.parseInt(general.getCharm()) < Integer.parseInt(counsellor.getCharm())) {
+            return false;
+        }
+        return vice == null || Integer.parseInt(general.getCharm()) >= Integer.parseInt(vice.getCharm());
     }
 
 
