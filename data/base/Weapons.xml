@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <weapons>
 	<weapon>
-		<id>1</id>
-		<name>青龙偃月刀</name>
-		<price>20000</price>
-		<data>15</data>
+        <id>1</id>
+        <name>青龙偃月刀</name>
+        <price>15000</price>
+        <data>15</data>
         <generalId>105</generalId>
-		<attack>10</attack>
-		<command>0</command>
-		<intelligence>0</intelligence>
-		<charm>0</charm>
-		<politics>0</politics>
-		<memo>关羽专属</memo>
-	</weapon>
-	<weapon>
-		<id>2</id>
-		<name>丈八蛇矛</name>
-		<price>20000</price>
-		<data>10</data>
-		<generalId>104</generalId>
-		<attack>5</attack>
+        <attack>10</attack>
+        <command>0</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>关羽专属</memo>
+    </weapon>
+    <weapon>
+        <id>2</id>
+        <name>丈八蛇矛</name>
+        <price>15000</price>
+        <data>10</data>
+        <generalId>104</generalId>
+        <attack>5</attack>
         <command>5</command>
-		<intelligence>0</intelligence>
-		<charm>0</charm>
-		<politics>0</politics>
-		<memo>张飞专属</memo>
-	</weapon>
-	<weapon>
-		<id>3</id>
-		<name>青虹剑</name>
-		<price>20000</price>
-		<data>15</data>
-		<generalId>2</generalId>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>张飞专属</memo>
+    </weapon>
+    <weapon>
+        <id>3</id>
+        <name>青虹剑</name>
+        <price>15000</price>
+        <data>15</data>
+        <generalId>2</generalId>
         <attack>2</attack>
-		<command>6</command>
-		<intelligence>2</intelligence>
-		<charm>0</charm>
-		<politics>0</politics>
-		<memo>曹操专属</memo>
-	</weapon>
-	<weapon>
-		<id>4</id>
-		<name>酸与羽扇</name>
-		<price>20000</price>
-		<data>40</data>
-		<generalId>23</generalId>
+        <command>6</command>
+        <intelligence>2</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>曹操专属</memo>
+    </weapon>
+    <weapon>
+        <id>4</id>
+        <name>酸与羽扇</name>
+        <price>15000</price>
+        <data>40</data>
+        <generalId>23</generalId>
         <attack>2</attack>
-		<command>4</command>
-		<intelligence>4</intelligence>
-		<charm>0</charm>
-		<politics>0</politics>
-		<memo>司马懿专属</memo>
-	</weapon>
-	<weapon>
-		<id>5</id>
-		<name>方天画戟</name>
-		<price>20000</price>
+        <command>4</command>
+        <intelligence>4</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>司马懿专属</memo>
+    </weapon>
+    <weapon>
+        <id>5</id>
+        <name>方天画戟</name>
+        <price>15000</price>
         <data>80</data>
-		<generalId>10</generalId>
+        <generalId>10</generalId>
         <attack>12</attack>
-		<command>0</command>
-		<intelligence>0</intelligence>
-		<charm>0</charm>
-		<politics>0</politics>
-		<memo>吕布专属</memo>
-	</weapon>
-	<weapon>
-		<id>6</id>
-		<name>紫燕剑</name>
-		<price>20000</price>
+        <command>0</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>吕布专属</memo>
+    </weapon>
+    <weapon>
+        <id>6</id>
+        <name>紫燕剑</name>
+        <price>15000</price>
         <data>25</data>
         <generalId>108</generalId>
         <attack>2</attack>
         <command>6</command>
         <intelligence>2</intelligence>
-		<charm>0</charm>
-		<politics>0</politics>
-		<memo>周瑜专属</memo>
-	</weapon>
-	<weapon>
-		<id>7</id>
-		<name>雌雄双股剑</name>
-		<price>20000</price>
-		<data>1</data>
-		<generalId>1</generalId>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>周瑜专属</memo>
+    </weapon>
+    <weapon>
+        <id>7</id>
+        <name>雌雄双股剑</name>
+        <price>15000</price>
+        <data>1</data>
+        <generalId>1</generalId>
         <attack>2</attack>
         <command>2</command>
         <intelligence>2</intelligence>
@@ -94,7 +94,7 @@
     <weapon>
         <id>8</id>
         <name>黄龙钩镰刀</name>
-        <price>18000</price>
+        <price>14000</price>
         <data>1</data>
         <generalId>63</generalId>
         <attack>6</attack>
@@ -107,8 +107,8 @@
     <weapon>
         <id>9</id>
         <name>龙胆亮银枪</name>
-        <price>20000</price>
-        <data>30</data>
+        <price>15000</price>
+        <data>15</data>
         <generalId>12</generalId>
         <attack>6</attack>
         <command>4</command>
@@ -120,7 +120,7 @@
     <weapon>
         <id>10</id>
         <name>绞鲵</name>
-        <price>16000</price>
+        <price>13000</price>
         <data>20</data>
         <generalId>11</generalId>
         <attack>8</attack>
@@ -133,7 +133,7 @@
     <weapon>
         <id>11</id>
         <name>七星刀</name>
-        <price>15000</price>
+        <price>12000</price>
         <data>-3</data>
         <generalId>4</generalId>
         <attack>6</attack>
@@ -146,7 +146,7 @@
     <weapon>
         <id>12</id>
         <name>双手戟</name>
-        <price>15000</price>
+        <price>12000</price>
         <data>20</data>
         <generalId>17</generalId>
         <attack>6</attack>
@@ -159,7 +159,7 @@
     <weapon>
         <id>13</id>
         <name>龙纹剑</name>
-        <price>20000</price>
+        <price>15000</price>
         <data>25</data>
         <generalId>29</generalId>
         <attack>3</attack>
@@ -168,5 +168,194 @@
         <charm>0</charm>
         <politics>0</politics>
         <memo>陆逊专属</memo>
-	</weapon>
+    </weapon>
+    <!-- 双铁戟 典韦 -->
+    <weapon>
+        <id>13</id>
+        <name>双铁戟</name>
+        <price>15000</price>
+        <data>4</data>
+        <generalId>106</generalId>
+        <attack>10</attack>
+        <command>0</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>典韦专属</memo>
+    </weapon>
+    <!-- 凤嘴刀 黄忠 -->
+    <weapon>
+        <id>13</id>
+        <name>凤嘴刀</name>
+        <price>15000</price>
+        <data>25</data>
+        <generalId>59</generalId>
+        <attack>6</attack>
+        <command>4</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>黄忠专属</memo>
+    </weapon>
+    <!-- 霸王枪 孙策 -->
+    <weapon>
+        <id>14</id>
+        <name>霸王枪</name>
+        <price>15000</price>
+        <data>25</data>
+        <generalId>59</generalId>
+        <attack>6</attack>
+        <command>4</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>孙策专属</memo>
+    </weapon>
+    <!-- 开山斧 徐晃 -->
+    <weapon>
+        <id>15</id>
+        <name>开山斧</name>
+        <price>15000</price>
+        <data>25</data>
+        <generalId>73</generalId>
+        <attack>6</attack>
+        <command>4</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>徐晃专属</memo>
+    </weapon>
+    <!-- 虎头金枪 张绣 -->
+    <weapon>
+        <id>16</id>
+        <name>虎头金枪</name>
+        <price>15000</price>
+        <data>25</data>
+        <generalId>143</generalId>
+        <attack>7</attack>
+        <command>3</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>张绣专属</memo>
+    </weapon>
+    <!-- 绿沉枪 姜维 -->
+    <weapon>
+        <id>17</id>
+        <name>绿沉枪</name>
+        <price>15000</price>
+        <data>25</data>
+        <generalId>31</generalId>
+        <attack>5</attack>
+        <command>5</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>姜维专属</memo>
+    </weapon>
+    <!-- 通用装备 -->
+    <weapon>
+        <id>101</id>
+        <name>大斧</name>
+        <price>5000</price>
+        <data>0</data>
+        <generalId>-1</generalId>
+        <attack>5</attack>
+        <command>0</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>通用武器-大斧</memo>
+    </weapon>
+    <weapon>
+        <id>102</id>
+        <name>虎头斧</name>
+        <price>10000</price>
+        <data>0</data>
+        <generalId>-1</generalId>
+        <attack>9</attack>
+        <command>0</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>通用武器-虎头斧</memo>
+    </weapon>
+    <weapon>
+        <id>103</id>
+        <name>铁弓</name>
+        <price>5000</price>
+        <data>0</data>
+        <generalId>-1</generalId>
+        <attack>4</attack>
+        <command>1</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>通用武器-铁弓</memo>
+    </weapon>
+    <weapon>
+        <id>104</id>
+        <name>铁胆弓</name>
+        <price>10000</price>
+        <data>0</data>
+        <generalId>-1</generalId>
+        <attack>8</attack>
+        <command>1</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>通用武器-铁胆弓</memo>
+    </weapon>
+    <weapon>
+        <id>105</id>
+        <name>羽扇</name>
+        <price>5000</price>
+        <data>0</data>
+        <generalId>-1</generalId>
+        <attack>0</attack>
+        <command>1</command>
+        <intelligence>4</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>通用武器-羽扇</memo>
+    </weapon>
+    <weapon>
+        <id>106</id>
+        <name>军师羽扇</name>
+        <price>10000</price>
+        <data>0</data>
+        <generalId>-1</generalId>
+        <attack>0</attack>
+        <command>5</command>
+        <intelligence>4</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>通用武器-军师羽扇</memo>
+    </weapon>
+    <weapon>
+        <id>107</id>
+        <name>铁剑</name>
+        <price>5000</price>
+        <data>0</data>
+        <generalId>-1</generalId>
+        <attack>2</attack>
+        <command>3</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>通用武器-将军剑</memo>
+    </weapon>
+    <weapon>
+        <id>108</id>
+        <name>将军印</name>
+        <price>5000</price>
+        <data>0</data>
+        <generalId>-1</generalId>
+        <attack>0</attack>
+        <command>5</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <politics>0</politics>
+        <memo>通用武器-将军印</memo>
+    </weapon>
 </weapons>

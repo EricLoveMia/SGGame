@@ -130,7 +130,7 @@ public class Map {
                 graph = ConsoleColors.YELLOW +"酒"+ ConsoleColors.RESET + "";
                 break;
             case 3:   //赌场
-                graph = ConsoleColors.YELLOW +"财"+ ConsoleColors.RESET + "";
+                graph = ConsoleColors.YELLOW + "赌" + ConsoleColors.RESET + "";
                 break;
             case 4:   //募兵
                 graph = ConsoleColors.YELLOW + "兵"+ ConsoleColors.RESET + "";

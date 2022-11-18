@@ -9,7 +9,7 @@
 		<intelligence>86</intelligence>
 		<charm>99</charm>
 		<politics>90</politics>
-		<vitality>85</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>A</landfc>
 		<mountainfc>A</mountainfc>
@@ -27,7 +27,7 @@
 		<intelligence>95</intelligence>
 		<charm>80</charm>
 		<politics>90</politics>
-		<vitality>85</vitality>
+		<vitality>100</vitality>
 		<arms>1</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
@@ -45,7 +45,7 @@
 		<intelligence>95</intelligence>
 		<charm>80</charm>
 		<politics>90</politics>
-		<vitality>85</vitality>
+		<vitality>100</vitality>
 		<arms>1</arms>
 		<landfc>B</landfc>
 		<mountainfc>B</mountainfc>
@@ -63,7 +63,7 @@
 		<intelligence>75</intelligence>
 		<charm>75</charm>
 		<politics>85</politics>
-		<vitality>85</vitality>
+		<vitality>100</vitality>
 		<arms>1</arms>
 		<landfc>A</landfc>
 		<mountainfc>A</mountainfc>
@@ -137,7 +137,7 @@
 		<intelligence>25</intelligence>
 		<charm>85</charm>
 		<politics>24</politics>
-		<vitality>92</vitality>
+		<vitality>100</vitality>
 		<arms>1</arms>
 		<landfc>A</landfc>
 		<mountainfc>A</mountainfc>
@@ -155,7 +155,7 @@
 		<intelligence>30</intelligence>
 		<charm>35</charm>
 		<politics>30</politics>
-		<vitality>92</vitality>
+		<vitality>100</vitality>
 		<arms>1</arms>
 		<landfc>A</landfc>
 		<mountainfc>A</mountainfc>
@@ -165,7 +165,7 @@
 		<belongTo>4</belongTo>
 		<status>0</status>
 	</general>
-	
+
 	<general id="12">
 		<name>赵云</name>
 		<king>0</king>
@@ -174,17 +174,17 @@
 		<intelligence>90</intelligence>
 		<charm>90</charm>
 		<politics>85</politics>
-		<vitality>95</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
-        <skill>50</skill>
+		<skill>50</skill>
 		<relation>95050505350000</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
-	
+
 	<general id="13">
 		<name>魏延</name>
 		<king>0</king>
@@ -193,7 +193,7 @@
 		<intelligence>75</intelligence>
 		<charm>75</charm>
 		<politics>60</politics>
-		<vitality>95</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
@@ -203,7 +203,7 @@
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
-	
+
 	<general id="14">
 		<name>许褚</name>
 		<king>0</king>
@@ -212,7 +212,7 @@
 		<intelligence>65</intelligence>
 		<charm>71</charm>
 		<politics>81</politics>
-		<vitality>95</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
@@ -230,7 +230,7 @@
 		<intelligence>82</intelligence>
 		<charm>90</charm>
 		<politics>75</politics>
-		<vitality>95</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
@@ -240,16 +240,16 @@
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
-	
+
 	<general id="16">
-        <name>甘宁</name>
-        <king>0</king>
-        <attack>93</attack>
+		<name>甘宁</name>
+		<king>0</king>
+		<attack>93</attack>
 		<command>89</command>
 		<intelligence>80</intelligence>
 		<charm>90</charm>
 		<politics>70</politics>
-		<vitality>95</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
@@ -259,7 +259,7 @@
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
-	
+
 	<general id="17">
 		<name>太史慈</name>
 		<king>0</king>
@@ -268,7 +268,7 @@
 		<intelligence>80</intelligence>
 		<charm>85</charm>
 		<politics>65</politics>
-		<vitality>95</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
@@ -278,7 +278,7 @@
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
-	
+
 	<general id="18">
 		<name>颜良</name>
 		<king>0</king>
@@ -287,14 +287,14 @@
 		<intelligence>65</intelligence>
 		<charm>70</charm>
 		<politics>65</politics>
-		<vitality>95</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>22</skill>
 		<relation>05050535990505</relation>
-        <belongTo>5</belongTo>
+		<belongTo>5</belongTo>
 		<status>0</status>
 	</general>
 	<general id="19">
@@ -305,17 +305,17 @@
 		<intelligence>60</intelligence>
 		<charm>70</charm>
 		<politics>65</politics>
-		<vitality>95</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>22</skill>
 		<relation>05050555990505</relation>
-        <belongTo>5</belongTo>
+		<belongTo>5</belongTo>
 		<status>0</status>
 	</general>
-	
+
 	<general id="20">
 		<name>法正</name>
 		<king>0</king>
@@ -324,7 +324,7 @@
 		<intelligence>94</intelligence>
 		<charm>80</charm>
 		<politics>85</politics>
-		<vitality>90</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>A</landfc>
 		<mountainfc>S</mountainfc>
@@ -342,7 +342,7 @@
 		<intelligence>85</intelligence>
 		<charm>80</charm>
 		<politics>85</politics>
-		<vitality>90</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>B</landfc>
 		<mountainfc>B</mountainfc>
@@ -360,7 +360,7 @@
 		<intelligence>100</intelligence>
 		<charm>91</charm>
 		<politics>99</politics>
-		<vitality>85</vitality>
+		<vitality>100</vitality>
 		<arms>1</arms>
 		<landfc>S</landfc>
 		<mountainfc>S</mountainfc>
@@ -378,7 +378,7 @@
 		<intelligence>97</intelligence>
 		<charm>90</charm>
 		<politics>95</politics>
-		<vitality>85</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>S</landfc>
 		<mountainfc>A</mountainfc>
@@ -396,7 +396,7 @@
         <intelligence>78</intelligence>
         <charm>70</charm>
         <politics>75</politics>
-        <vitality>90</vitality>
+		<vitality>100</vitality>
         <arms>1</arms>
         <landfc>A</landfc>
         <mountainfc>A</mountainfc>
@@ -414,7 +414,7 @@
         <intelligence>76</intelligence>
         <charm>60</charm>
         <politics>60</politics>
-        <vitality>80</vitality>
+		<vitality>100</vitality>
         <arms>3</arms>
         <landfc>A</landfc>
         <mountainfc>A</mountainfc>
@@ -1026,7 +1026,7 @@
 		<intelligence>83</intelligence>
 		<charm>85</charm>
 		<politics>65</politics>
-		<vitality>90</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>A</landfc>
 		<mountainfc>S</mountainfc>
@@ -1044,7 +1044,7 @@
 		<intelligence>80</intelligence>
 		<charm>75</charm>
 		<politics>65</politics>
-		<vitality>90</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>A</landfc>
 		<mountainfc>A</mountainfc>
@@ -1062,7 +1062,7 @@
 		<intelligence>81</intelligence>
 		<charm>75</charm>
 		<politics>80</politics>
-		<vitality>90</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>A</landfc>
 		<mountainfc>A</mountainfc>
@@ -1080,16 +1080,16 @@
 		<intelligence>76</intelligence>
 		<charm>75</charm>
 		<politics>80</politics>
-		<vitality>90</vitality>
+		<vitality>100</vitality>
 		<arms>3</arms>
 		<landfc>A</landfc>
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>44</skill>
 		<relation>90101010000000</relation>
-        <belongTo>0</belongTo>
-        <status>0</status>
-    </general>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
     <general id="63">
         <name>张辽</name>
         <king>0</king>
@@ -1098,7 +1098,7 @@
         <intelligence>82</intelligence>
         <charm>83</charm>
         <politics>75</politics>
-        <vitality>95</vitality>
+		<vitality>100</vitality>
         <arms>2</arms>
         <landfc>S</landfc>
         <mountainfc>A</mountainfc>
@@ -1785,7 +1785,7 @@
         <intelligence>70</intelligence>
         <charm>50</charm>
         <politics>20</politics>
-        <vitality>95</vitality>
+		<vitality>100</vitality>
         <arms>1</arms>
         <landfc>A</landfc>
         <mountainfc>S</mountainfc>
@@ -1803,7 +1803,7 @@
         <intelligence>80</intelligence>
         <charm>85</charm>
         <politics>70</politics>
-        <vitality>90</vitality>
+		<vitality>100</vitality>
         <arms>1</arms>
         <landfc>S</landfc>
         <mountainfc>A</mountainfc>
@@ -1821,7 +1821,7 @@
         <intelligence>70</intelligence>
         <charm>85</charm>
         <politics>85</politics>
-        <vitality>87</vitality>
+		<vitality>100</vitality>
         <arms>1</arms>
         <landfc>A</landfc>
         <mountainfc>A</mountainfc>
@@ -1839,7 +1839,7 @@
         <intelligence>80</intelligence>
         <charm>85</charm>
         <politics>88</politics>
-        <vitality>90</vitality>
+		<vitality>100</vitality>
         <arms>1</arms>
         <landfc>A</landfc>
         <mountainfc>A</mountainfc>
@@ -1857,7 +1857,7 @@
         <intelligence>98</intelligence>
         <charm>85</charm>
         <politics>98</politics>
-        <vitality>80</vitality>
+		<vitality>100</vitality>
         <arms>1</arms>
         <landfc>A</landfc>
         <mountainfc>A</mountainfc>
@@ -1875,7 +1875,7 @@
         <intelligence>80</intelligence>
         <charm>85</charm>
         <politics>85</politics>
-        <vitality>85</vitality>
+		<vitality>100</vitality>
         <arms>1</arms>
         <landfc>A</landfc>
         <mountainfc>A</mountainfc>
@@ -2209,7 +2209,7 @@
         <intelligence>88</intelligence>
         <charm>88</charm>
         <politics>88</politics>
-        <vitality>85</vitality>
+		<vitality>100</vitality>
         <arms>1</arms>
         <landfc>A</landfc>
         <mountainfc>S</mountainfc>
@@ -2354,14 +2354,32 @@
         <intelligence>53</intelligence>
         <charm>43</charm>
         <politics>53</politics>
-        <vitality>100</vitality>
-        <arms>2</arms>
-        <landfc>B</landfc>
-        <mountainfc>B</mountainfc>
-        <riverfc>C</riverfc>
-        <skill>51</skill>
-        <relation>00000000009500</relation>
-        <belongTo>0</belongTo>
-        <status>0</status>
-    </general>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>B</landfc>
+		<mountainfc>B</mountainfc>
+		<riverfc>C</riverfc>
+		<skill>51</skill>
+		<relation>00000000009500</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="143">
+		<name>张绣</name>
+		<king>0</king>
+		<attack>81</attack>
+		<command>82</command>
+		<intelligence>63</intelligence>
+		<charm>73</charm>
+		<politics>53</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>B</landfc>
+		<mountainfc>B</mountainfc>
+		<riverfc>C</riverfc>
+		<skill>78</skill>
+		<relation>00500000000000</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
 </generals>

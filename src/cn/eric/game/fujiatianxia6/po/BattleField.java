@@ -21,7 +21,7 @@ public class BattleField {
 
     private City city;
 
-    private boolean result;
+    private Boolean result = null;
 
     private int attackAmyNum = 0;
 
@@ -304,6 +304,10 @@ public class BattleField {
                 System.out.println("初始损失，进攻方" + attLost + ",防守方" + defLost);
                 // 野战中技能触发
                 SkillFactory.changeMiddle(2, 3, null, null, this);
+                // 检查直接判定胜负的标志
+                if (result != null) {
+                    break;
+                }
 
                 System.out.println("技能释放完成后损失，进攻方" + attLost + ",防守方" + defLost);
                 // 技能放完后，损失的数量要减去对方统帅 统帅越高，免伤越多
@@ -374,7 +378,9 @@ public class BattleField {
 
             // 武将回归
 
-
+            if (result != null) {
+                return result;
+            }
             // 如果攻击方剩余的兵力多，则获胜
             return attackAmyNum >= defenceAmyNum;
         }

@@ -38,8 +38,8 @@
 	<skill>
 		<id>6</id>
 		<name>大吼</name>
-        <memo>野战防守、守城时，额外增加进攻方的损失，根据武力值决定，张飞专属后增加到100%</memo>
-        <data>40</data>
+		<memo>野战防守、守城时，额外增加进攻方的损失，且有几率直接使敌方退军，张飞专属后增加伤害</memo>
+		<data>30</data>
 		<time>4</time>
 	</skill>
 	<skill>
@@ -66,8 +66,8 @@
 	<skill>
 		<id>10</id>
 		<name>恶来</name>
-		<memo>单挑时，血量越少，防御力越高，防御力增加值为（100-当前血量）*0.16</memo>
-		<data>16</data>
+		<memo>单挑时，血量越少，防御力越高，每次最高增加4点防御，专属后最高增加8点防御</memo>
+		<data>4</data>
 		<time>13</time>
 	</skill>
 	<skill>
@@ -169,12 +169,12 @@
 		<time>3</time>
 	</skill>
 	<skill>
-        <id>25</id>
-        <name>金刚</name>
-        <memo>野战中，如果伤害超过限定值，则只承受限定值伤害，限定值与统帅、武力相关，基础限定值300</memo>
-        <data>300</data>
-        <time>4</time>
-    </skill>
+		<id>25</id>
+		<name>金刚</name>
+		<memo>野战中，如果伤害超过限定值，则只承受限定值伤害，限定值与统帅、武力相关，基础限定值270</memo>
+		<data>270</data>
+		<time>4</time>
+	</skill>
 	<skill>
 		<id>26</id>
 		<name>医疗</name>
@@ -391,7 +391,7 @@
         <id>56</id>
         <name>不屈</name>
         <memo>野战中，如果己方人数少于敌方人数，伤害减免，减免的值与统帅、武力和智利有关</memo>
-        <data>10</data>
+		<data>15</data>
         <time>4</time>
     </skill>
     <skill>
@@ -538,21 +538,35 @@
         <id>77</id>
         <name>乱战</name>
         <memo>野战中，统帅枪兵，如果敌方加成武力小于自己，有30%几率使敌方眩晕一回合无法造成伤害</memo>
-        <data>50</data>
-        <time>3</time>
-    </skill>
-    <skill>
-        <id>78</id>
-        <name>奇袭</name>
-        <memo>野战中，统帅骑兵进攻，如果敌方加成武力小于自己，增加中等伤害（武统），中等概率使敌方按比例溃散（智、统）</memo>
-        <data>30</data>
-        <time>3</time>
-    </skill>
-    <skill>
-        <id>99</id>
-        <name>普通</name>
-        <memo>普通</memo>
-        <data>30</data>
-        <time>3</time>
-    </skill>
+		<data>30</data>
+		<time>3</time>
+	</skill>
+	<skill>
+		<id>78</id>
+		<name>奇袭</name>
+		<memo>野战中，统帅骑兵进攻，如果敌方加成武力小于自己，增加中等伤害（武统），中等概率使敌方按比例溃散（智、统）</memo>
+		<data>30</data>
+		<time>3</time>
+	</skill>
+	<skill>
+		<id>79</id>
+		<name>奇谋</name>
+		<memo>野战前，如敌方加成智力小于自己，有机率提前发动一次无伤进攻</memo>
+		<data>40</data>
+		<time>2</time>
+	</skill>
+	<skill>
+		<id>80</id>
+		<name>志继</name>
+		<memo>野战、攻城中，全兵种增加伤害15%，增加已方武将的技能释放机率，并降低敌方武将的技能释放机率，获得专属后提升机率</memo>
+		<data>15</data>
+		<time>3</time>
+	</skill>
+	<skill>
+		<id>99</id>
+		<name>普通</name>
+		<memo>普通</memo>
+		<data>30</data>
+		<time>3</time>
+	</skill>
 </skills>

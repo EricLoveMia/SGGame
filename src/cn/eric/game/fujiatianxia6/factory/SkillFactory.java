@@ -340,14 +340,22 @@ public class SkillFactory {
         // 大吼
         if ("6".equals(general.getSkill())) {
             System.out.println("武将：" + general.getName() + "触发技能：大吼，野战，城战时，额外增加对方的损失，根据武力值决定，获得专属武器，会额外提升损失的兵力");
-            // 增加最大30%的损失 专属后 最大50%
+            // 增加最大30%的损失 专属后 最大50% 有几率直接吓退敌军 10% 20%
             int addLost = 0;
             if (attOrDef == 1) {
                 addLost = (int) (BF.getDefLost() * (Float.parseFloat(general.getAttack())) / 1000) * data / 10;
                 BF.setDefLost(BF.getDefLost() + addLost);
+                if (new Random().nextInt(100) <= (data - 20)) {
+                    System.out.println("吓退敌军");
+                    BF.setResult(true);
+                }
             } else {
                 addLost = (int) (BF.getAttLost() * (Float.parseFloat(general.getAttack())) / 1000) * data / 10;
                 BF.setAttLost(BF.getAttLost() + addLost);
+                if (new Random().nextInt(100) <= (data - 20)) {
+                    System.out.println("吓退敌军");
+                    BF.setResult(false);
+                }
             }
             System.out.println("增加伤亡：" + addLost);
         }
@@ -1542,12 +1550,18 @@ public class SkillFactory {
 
         // 恶来
         if ("10".equals(generalA.getSkill())) {//恶来
-            int addDef = (100 - fight.getVitalityA()) * SkillFactory.getSkillByID(generalA.getSkill()).getData() / 100;
+            int data = SkillFactory.getSkillByID(generalA.getSkill()).getData();
+            int addDef = (100 - fight.getVitalityA()) * 15 / 100;
+            // 最大加防御
+            addDef = Math.min(addDef, data);
             System.out.println("武将" + generalA.getName() + "技能：" + SkillFactory.getSkillByID(generalA.getSkill()).getName() + "触发,增加" + addDef + "防御力");
             fight.setDefenceA(fight.getDefenceA() + addDef);
         }
         if ("10".equals(generalD.getSkill())) {//恶来
-            int addDef = (100 - fight.getVitalityB()) * SkillFactory.getSkillByID(generalD.getSkill()).getData() / 100;
+            int data = SkillFactory.getSkillByID(generalD.getSkill()).getData();
+            int addDef = (100 - fight.getVitalityB()) * 15 / 100;
+            // 最大加3点防御
+            addDef = Math.min(addDef, data);
             System.out.println("武将" + generalD.getName() + "技能：" + SkillFactory.getSkillByID(generalD.getSkill()).getName() + "触发,增加" + addDef + "防御力");
             fight.setDefenceB(fight.getDefenceB() + addDef);
         }

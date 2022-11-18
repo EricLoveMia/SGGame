@@ -562,17 +562,16 @@ public class Game {
                     System.out.println("|-P  " + "请选择您要购买的兵力数量，一个兵" + price + "个金币,最多买10000个士兵");
                     int choiseBuySoilder = 0;
                     if (players[no - 1].isReboot()) {
-                        if (players[no - 1].getArmy() < 20000) {
+                        if (players[no - 1].getMoney() < 8000) {
+                            choiseBuySoilder = 1;
+                        } else if (players[no - 1].getArmy() < 10000) {
                             choiseBuySoilder =
-                                    players[no - 1].getMoney() / 2 / price > 10000 ? 10000 : (choiseBuySoilder =
-                                            players[no - 1].getMoney() / 2 / price);
+                                    Math.min(players[no - 1].getMoney() / 2 / price, 10000);
                         } else {
                             if (players[no - 1].getMoney() > 30000) {
-                                choiseBuySoilder = players[no - 1].getMoney() / 2 / price > 10000 ? 10000 : (choiseBuySoilder =
-                                        players[no - 1].getMoney() / 2 / price);
+                                choiseBuySoilder = Math.min(players[no - 1].getMoney() / 2 / price, 10000);
                             } else {
-                                choiseBuySoilder = players[no - 1].getMoney() / 5 / price > 10000 ? 10000 : (choiseBuySoilder =
-                                        players[no - 1].getMoney() / 5 / price);
+                                choiseBuySoilder = Math.min(players[no - 1].getMoney() / 5 / price, 10000);
                             }
                         }
                     } else {
@@ -1352,20 +1351,20 @@ public class Game {
                 break;
         }
 
-        // 设置剑兵 放剑兵的 1/5 最多4000 可以回收
+        // 设置剑兵 放剑兵的 1/5 最多6000 可以回收
         int number;
         if (city.getSoilders() >= 8000) {
             if (general.getArmy() < 8000) {
-                number = -Math.min(8000 - general.getArmy(), 4000);
+                number = -Math.min(8000 - general.getArmy(), 6000);
             } else {
-                number = Math.min(general.getArmy() / 5, 4000);
+                number = Math.min(general.getArmy() / 5, 6000);
                 number = number / 4;
             }
-        } else if (city.getSoilders() >= 4000) {
-            if (general.getArmy() < 4000) {
-                number = -Math.min(4000 - general.getArmy(), 2000);
+        } else if (city.getSoilders() >= 6000) {
+            if (general.getArmy() < 6000) {
+                number = -Math.min(6000 - general.getArmy(), 2000);
             } else {
-                number = Math.min(general.getArmy() / 5, 4000);
+                number = Math.min(general.getArmy() / 5, 6000);
                 number = number / 2;
             }
         } else if (city.getSoilders() >= 2000) {
@@ -1375,7 +1374,7 @@ public class Game {
                 number = 2000;
             }
         } else {
-            number = Math.min(general.getArmy(), 4000);
+            number = Math.min(general.getArmy(), 6000);
         }
         city.setSoilders(city.getSoilders() + number);
         general.setArmy(general.getArmy() - number);
