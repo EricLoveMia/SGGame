@@ -82,6 +82,10 @@ public class LoadService {
                         general.setCityId("");
                     }
                 }
+                // 如果有专属武器
+                if (general.getWeapon() != null && !"-1".equals(general.getWeapon().getGeneralId())) {
+                    WeaponFactory.removeFromMap(general.getId());
+                }
             }
         }
         // 给城池配置武将（不能直接从文本中读取，这样就变成了两个对象，两个相同的武将了,必须要从武将工厂里面获取）

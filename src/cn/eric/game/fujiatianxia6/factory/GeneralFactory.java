@@ -126,33 +126,52 @@ public class GeneralFactory {
                 wineGenerals.add(general);
             }
         }
-        if (wineGenerals.size() <= 3) {
-            return wineGenerals;
-        } else {
-            //找到最佳3个 排序算法
-            List<General> sortBestThreeGeneral = sortBestThreeGeneral(wineGenerals, id, 3);
-            return sortBestThreeGeneral;
-        }
-
-
+//        if (wineGenerals.size() <= 3) {
+//            return wineGenerals;
+//        } else {
+        //找到最佳3个 排序算法
+        return sortBestThreeGeneral(wineGenerals, id, 3);
+//        }
     }
 
     // 排序来返回最合适的i个武将
     private static List<General> sortBestThreeGeneral(List<General> wineGenerals, final Integer id, int max) {
-        //按照适应性进行排序
-        wineGenerals.sort((o1, o2) -> {
-            if (Integer.parseInt(o2.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))
-                    > Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))) {
-                return 1;
-            } else if (Integer.parseInt(o2.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))
-                    < Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))) {
-                return -1;
-            } else {
-                return 0;
+        List<General> result = new ArrayList<>();
+        Map<Integer, General> map = new TreeMap<>(Comparator.reverseOrder());
+        for (General wineGeneral : wineGenerals) {
+            int relationShip = Integer.parseInt(wineGeneral.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2));
+            if (relationShip > -1) {
+                map.put(relationShip, wineGeneral);
             }
-        });
-        // 是否必须要大于0 比如
-        return wineGenerals.subList(0, max);
+        }
+
+        int size = Math.min(map.size(), max);
+
+        if (size > 0) {
+            Iterator<Map.Entry<Integer, General>> iterator = map.entrySet().iterator();
+            while (iterator.hasNext()) {
+                if (size-- > 0) {
+                    result.add(iterator.next().getValue());
+                }
+            }
+        }
+//
+//        //按照适应性进行排序
+//        wineGenerals.sort((o1, o2) -> {
+//            if (Integer.parseInt(o2.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))
+//                    > Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))) {
+//                return 1;
+//            } else if (Integer.parseInt(o2.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))
+//                    < Integer.parseInt(o1.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2))) {
+//                return -1;
+//            } else {
+//                return 0;
+//            }
+//        });
+//        // 是否必须要大于0 比如
+//        return wineGenerals.subList(0, max);
+
+        return result;
     }
 
     /**

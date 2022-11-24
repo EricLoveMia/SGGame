@@ -129,4 +129,8 @@ public class WeaponFactory {
         }
         return weaponList;
     }
+
+    public static void removeFromMap(String generalId) {
+        weaponMap.remove(generalId);
+    }
 }

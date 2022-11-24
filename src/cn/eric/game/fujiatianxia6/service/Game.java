@@ -562,7 +562,7 @@ public class Game {
                     System.out.println("|-P  " + "请选择您要购买的兵力数量，一个兵" + price + "个金币,最多买10000个士兵");
                     int choiseBuySoilder = 0;
                     if (players[no - 1].isReboot()) {
-                        if (players[no - 1].getMoney() < 8000) {
+                        if (players[no - 1].getMoney() < 10000) {
                             choiseBuySoilder = 1;
                         } else if (players[no - 1].getArmy() < 10000) {
                             choiseBuySoilder =

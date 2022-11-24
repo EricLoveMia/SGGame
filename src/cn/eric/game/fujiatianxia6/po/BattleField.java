@@ -11,6 +11,7 @@ import java.util.Optional;
 
 public class BattleField {
 
+    private General attackLord = null;
     private General AttackChief = null;
     private General AttackVice = null;
     private General AttackCounsellor = null;
@@ -262,7 +263,10 @@ public class BattleField {
             System.out.println("防守方主将：" + DefenceChief.getName() + "统帅：" + DefenceChief.getCommand() + "技能：" + SkillFactory.getSkillByID(DefenceChief.getSkill()).getName() + "-->:" + SkillFactory.getSkillByID(DefenceChief.getSkill()).getMemo() + "\n" + "兵种" + (defenceType == 1 ? "剑士" : defenceType == 2 ? "骑兵" : defenceType == 3 ? "枪兵" : "弓兵") + "兵力：" + defenceAmyNum);
 
             // 开战 野战
-            // 野战前技能触发 伏兵 辅佐
+            // 野战前技能触发 伏兵 辅佐 清流
+            if (attackLord != null) {
+                SkillFactory.changeBefore(2, 1, attackLord, null, this);
+            }
             if (AttackChief != null && SkillFactory.getSkillByID(AttackChief.getSkill()).getTime() == 2) {
                 SkillFactory.changeBefore(2, 1, AttackChief, null, this);
             }
@@ -273,6 +277,8 @@ public class BattleField {
                 SkillFactory.changeBefore(2, 1, AttackCounsellor, null, this);
             }
             // 防守方技能触发
+            General defenceLord = GeneralFactory.getGeneralById(city.getBelongTo() + "");
+            SkillFactory.changeBefore(2, 2, defenceLord, null, this);
             if (DefenceChief != null && SkillFactory.getSkillByID(DefenceChief.getSkill()).getTime() == 2) {
                 SkillFactory.changeBefore(2, 2, DefenceChief, null, this);
             }
@@ -601,5 +607,13 @@ public class BattleField {
 
     public void setDefencelevelAddition(int defencelevelAddition) {
         this.defencelevelAddition = defencelevelAddition;
+    }
+
+    public General getAttackLord() {
+        return attackLord;
+    }
+
+    public void setAttackLord(General attackLord) {
+        this.attackLord = attackLord;
     }
 }

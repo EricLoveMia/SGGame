@@ -92,12 +92,12 @@
 		<time>2</time>
 	</skill>
 	<skill>
-		<id>14</id>
-		<name>坚守</name>
-		<memo>野战或者攻城防守中，极大的减少本队损失的人数，减少的额度与统帅值有关，最大20%</memo>
-		<data>50</data>
-		<time>4</time>
-	</skill>
+        <id>14</id>
+        <name>坚守</name>
+        <memo>野战或者攻城防守中，极大的减少本队损失的人数，减少的额度与统帅值有关</memo>
+        <data>20</data>
+        <time>4</time>
+    </skill>
 	<skill>
 		<id>15</id>
 		<name>火神</name>
@@ -168,13 +168,13 @@
 		<data>30</data>
 		<time>3</time>
 	</skill>
-	<skill>
-		<id>25</id>
-		<name>金刚</name>
-		<memo>野战中，如果伤害超过限定值，则只承受限定值伤害，限定值与统帅、武力相关，基础限定值270</memo>
-		<data>270</data>
-		<time>4</time>
-	</skill>
+    <skill>
+        <id>25</id>
+        <name>金刚</name>
+        <memo>野战中，如果伤害超过限定值，则只承受限定值伤害，限定值与统帅、武力相关，基础限定值270</memo>
+        <data>-270</data>
+        <time>4</time>
+    </skill>
 	<skill>
 		<id>26</id>
 		<name>医疗</name>
@@ -359,13 +359,13 @@
 		<data>15</data>
 		<time>3</time>
 	</skill>
-	<skill>
-		<id>52</id>
-		<name>沈着</name>
-		<memo>野战或攻城中，所有兵种减少伤害5%，每回合有几率收拢残兵重整旗鼓，数量由统帅、智力、魅力决定</memo>
-		<data>50</data>
-		<time>3</time>
-	</skill>
+    <skill>
+        <id>52</id>
+        <name>沈着</name>
+        <memo>野战或攻城中，所有兵种减少伤害10%，每回合有几率收拢残兵重整旗鼓，数量由统帅、智力、魅力决定</memo>
+        <data>50</data>
+        <time>3</time>
+    </skill>
     <skill>
 		<id>53</id>
 		<name>虎将</name>
@@ -492,13 +492,13 @@
         <data>10</data>
         <time>1</time>
     </skill>
-	<skill>
-		<id>71</id>
-		<name>清流</name>
-		<memo>主公技(刘表)：所属城市的发展金增长速度加快15%</memo>
-		<data>15</data>
-		<time>1</time>
-	</skill>
+    <skill>
+        <id>71</id>
+        <name>清流</name>
+        <memo>主公技(刘表)：所属武将的技能效果或机率提升5%</memo>
+        <data>5</data>
+        <time>1</time>
+    </skill>
     <skill>
         <id>72</id>
         <name>赌圣</name>
@@ -551,22 +551,36 @@
 	<skill>
 		<id>79</id>
 		<name>奇谋</name>
-		<memo>野战前，如敌方加成智力小于自己，有机率提前发动一次无伤进攻</memo>
-		<data>40</data>
-		<time>2</time>
-	</skill>
-	<skill>
-		<id>80</id>
-		<name>志继</name>
-		<memo>野战、攻城中，全兵种增加伤害15%，增加已方武将的技能释放机率，并降低敌方武将的技能释放机率，获得专属后提升机率</memo>
-		<data>15</data>
-		<time>3</time>
-	</skill>
-	<skill>
-		<id>99</id>
-		<name>普通</name>
-		<memo>普通</memo>
-		<data>30</data>
-		<time>3</time>
-	</skill>
+        <memo>野战前，如敌方加成智力小于自己，有机率提前发动一次无伤进攻</memo>
+        <data>40</data>
+        <time>2</time>
+    </skill>
+    <skill>
+        <id>80</id>
+        <name>志继</name>
+        <memo>野战、攻城中，全兵种增加伤害15%，增加已方武将的技能释放机率，并降低敌方武将的技能释放机率，获得专属后提升机率</memo>
+        <data>15</data>
+        <time>3</time>
+    </skill>
+    <skill>
+        <id>81</id>
+        <name>富贾</name>
+        <memo>主公技(刘璋)：交易货物所获得利润提升20%，城池发展金增速提升20%，专属后50%</memo>
+        <data>20</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>82</id>
+        <name>铁骑</name>
+        <memo>主公技(马腾)：锁定技，骑兵造成伤害提升30%，城市骑兵增长率提升30%。获得专属后50%</memo>
+        <data>30</data>
+        <time>1</time>
+    </skill>
+    <skill>
+        <id>99</id>
+        <name>普通</name>
+        <memo>普通</memo>
+        <data>30</data>
+        <time>3</time>
+    </skill>
 </skills>
