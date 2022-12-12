@@ -447,7 +447,6 @@ public class Game {
                 City city = (City) map.mapObj[position];
                 System.out.println(city.toString());
                 System.out.println("进入" + city.getName() + "的领地，购买费用" + city.getPurchase() + "金币，请问是否购买");
-                Scanner input2 = new Scanner(System.in);
                 System.out.println(" 1 毫不犹豫买  2 日子都活不了了，买啥买");
                 int choise = 2;
                 if (players[no - 1].isReboot()) {
@@ -777,6 +776,12 @@ public class Game {
                                     if (i == 1) {
                                         getCity(position, base, defence);
                                     }
+                                    // 建设
+                                    try {
+                                        BuildingFactory.buildInCity(defence, players[no - 1]);
+                                    } catch (CloneNotSupportedException e) {
+                                        e.printStackTrace();
+                                    }
                                     // 购买商品
                                     saleGoods(defence, players[no - 1]);
                                     buyGoods(defence, players[no - 1]);
@@ -849,7 +854,7 @@ public class Game {
             if (list.size() > 0) {
                 SiegeWeapon weapon = list.get(0);
                 player.setMoney(player.getMoney() - weapon.getPrice());
-                System.out.println("购买武器" + weapon.toString() + "成功");
+                System.out.println("购买武器" + weapon + "成功");
                 return weapon;
             } else {
                 return null;
@@ -891,7 +896,7 @@ public class Game {
                 int commonGoodsId = cityStore.getCommonGoodsId();
                 Goods goods = GoodsFactory.getById(commonGoodsId);
                 if (cityStore.getCommonRest() > 0) {
-                    int buy = buy(player, goods, 5, cityStore.getCommonRest());
+                    int buy = buy(player, goods, 5, cityStore.getCommonRest(), defence);
                     cityStore.setCommonRest(cityStore.getCommonRest() - buy);
                 }
 
@@ -901,18 +906,18 @@ public class Game {
                 }
 
                 if (defence.checkSpecialBuilding()) {
-                    if (cityStore.getSpecialtyGoodsId() > 0) {
+                    if (cityStore.getSpecialtyRest() > 0) {
                         Goods specialty = GoodsFactory.getById(cityStore.getSpecialtyGoodsId());
-                        int buy = buy(player, specialty, 3, cityStore.getSpecialtyRest());
+                        int buy = buy(player, specialty, 3, cityStore.getSpecialtyRest(), defence);
                         cityStore.setSpecialtyRest(cityStore.getSpecialtyRest() - buy);
                     }
                 }
 
                 // 如果有特产坊，才能购买特产
                 if (defence.checkSeniorBuilding()) {
-                    if (cityStore.getSeniorGoodsId() > 0) {
+                    if (cityStore.getSeniorRest() > 0) {
                         Goods senior = GoodsFactory.getById(cityStore.getSeniorGoodsId());
-                        int buy = buy(player, senior, 1, cityStore.getSeniorRest());
+                        int buy = buy(player, senior, 1, cityStore.getSeniorRest(), defence);
                         cityStore.setSeniorRest(cityStore.getSeniorRest() - buy);
                     }
                 }
@@ -922,16 +927,20 @@ public class Game {
         }
     }
 
-    private int buy(General player, Goods goods, int rebootNum, int goodsRestNum) {
+    private int buy(General player, Goods goods, int rebootNum, int goodsRestNum, City defence) {
         int num = 0;
         System.out.println("请输入您需要购买商品[" + goods.getName() + "]的数量，当前持有💰" + player.getMoney());
+
+        int price = goods.getPrice();
+        price = SkillFactory.buyGoodsCheck(price, defence);
+
         try {
             if (player.isReboot()) {
-                int max = (int) ((player.getMoney() * 0.5) / goods.getPrice());
+                int max = (int) ((player.getMoney() * 0.5) / price);
                 // 电脑普通商品最多买5个
                 num = Math.min(max, rebootNum);
                 num = Math.min(num, goodsRestNum);
-                player.setMoney(player.getMoney() - num * goods.getPrice());
+                player.setMoney(player.getMoney() - num * price);
 
                 for (int i = 0; i < num; i++) {
                     player.getTransportTeam().getGoodsList().add((Goods) goods.clone());
@@ -944,7 +953,7 @@ public class Game {
                         System.out.println("数量过大，请重新输入，0表示放弃");
                         num = input.nextInt();
                     } else {
-                        int total = goods.getPrice() * num;
+                        int total = price * num;
                         if (total > player.getMoney()) {
                             System.out.println("金额不足，需要需要 " + total + "，当前持有💰" + player.getMoney());
                             System.out.println("请重新输入数量，0表示放弃");
@@ -980,6 +989,7 @@ public class Game {
             } else {
                 salePrice = (int) (goods.getMaxProfit() * 0.6 + salePrice);
             }
+            salePrice = SkillFactory.saleGoodsCheck(salePrice, defence);
             goods.setSalePrice(salePrice);
             System.out.println((i + 1) + ": 名称" + goods.getName() + ", 原价" + goods.getPrice() + ", 售价" + goods.getSalePrice());
         }
@@ -989,7 +999,7 @@ public class Game {
         List<Integer> ids = new ArrayList<>();
         if (player.isReboot()) {
             int total = goodsList.stream().filter(e -> e.getSalePrice() > e.getPrice()).mapToInt(Goods::getSalePrice).sum();
-            if (total > 0) {
+            if (total > 1) {
                 System.out.println("卖出货物总计获得💰" + total);
                 player.setMoney(player.getMoney() + total);
                 goodsList.removeIf(e -> e.getSalePrice() > e.getPrice());
@@ -1188,7 +1198,7 @@ public class Game {
             }
         }
         city.setBelongTo(Integer.parseInt(general.getId()));
-        System.out.println(city.toString());
+        System.out.println(city);
         return 1;
     }
 

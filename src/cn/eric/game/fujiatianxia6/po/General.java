@@ -300,13 +300,16 @@ public class General implements Cloneable, Serializable {
 
 	public void setWeapon(Weapon weapon) {
 		if(weapon != null) {
-			this.weapon = weapon;
-			this.attack = Integer.parseInt(this.attack) + weapon.getAttack() + "";
-			this.command = Integer.parseInt(this.command) + weapon.getCommand() + "";
-			this.charm = Integer.parseInt(this.charm) + weapon.getCharm() + "";
-			this.intelligence = Integer.parseInt(this.intelligence) + weapon.getIntelligence() + "";
-			this.politics = Integer.parseInt(this.politics) + weapon.getPolitics() + "";
-		}
+            this.weapon = weapon;
+            this.attack = Integer.parseInt(this.attack) + weapon.getAttack() + "";
+            this.command = Integer.parseInt(this.command) + weapon.getCommand() + "";
+            this.charm = Integer.parseInt(this.charm) + weapon.getCharm() + "";
+            this.intelligence = Integer.parseInt(this.intelligence) + weapon.getIntelligence() + "";
+            this.politics = Integer.parseInt(this.politics) + weapon.getPolitics() + "";
+            if (weapon.getNewSkillId() != null && "".equals(weapon.getNewSkillId())) {
+                this.skill = weapon.getNewSkillId();
+            }
+        }
 	}
 
 	public Integer getCavalrys() {

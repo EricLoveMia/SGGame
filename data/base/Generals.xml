@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- 刘备｜曹操｜孙权｜董卓｜袁绍｜袁术｜刘表|马腾｜刘璋-->
+<!-- 刘备｜ 曹操 ｜ 孙权 ｜ 董卓 ｜ 袁绍 ｜ 袁术 ｜ 刘表 | 马腾｜ 刘璋 ｜ 孟获 -->
 <generals name="all">
 	<general id="1">
 		<name>刘备</name>
@@ -128,25 +128,8 @@
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
-	<!-- 8 马腾 / 9 刘璋 共9个可用主公-->
-	<general id="10">
-		<name>吕布</name>
-		<king>0</king>
-		<attack>99</attack>
-		<command>85</command>
-		<intelligence>25</intelligence>
-		<charm>85</charm>
-		<politics>24</politics>
-		<vitality>100</vitality>
-		<arms>1</arms>
-		<landfc>A</landfc>
-		<mountainfc>A</mountainfc>
-		<riverfc>C</riverfc>
-		<skill>7</skill>
-		<relation>333333903301-1</relation>
-		<belongTo>4</belongTo>
-		<status>0</status>
-	</general>
+	<!-- 8 马腾 / 9 刘璋 /  10 孟获-->
+
 	<general id="11">
 		<name>华雄</name>
 		<king>0</king>
@@ -420,7 +403,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>17</skill>
-		<relation>00009900000202</relation>
+		<relation>-1-199-1-10202</relation>
 		<belongTo>3</belongTo>
 		<status>0</status>
 	</general>
@@ -474,7 +457,7 @@
 		<mountainfc>C</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>28</skill>
-		<relation>00850000000000</relation>
+		<relation>-195-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -492,7 +475,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>S</riverfc>
 		<skill>15</skill>
-		<relation>00009900000000</relation>
+		<relation>-1-199-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -510,7 +493,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>29</skill>
-		<relation>00990000000000</relation>
+		<relation>-119-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -528,7 +511,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>20</skill>
-		<relation>88300000000000</relation>
+		<relation>8830-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -564,7 +547,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>A</riverfc>
 		<skill>8</skill>
-		<relation>00009000000000</relation>
+		<relation>00-190-1-1-1-1</relation>
 		<belongTo>3</belongTo>
 		<status>0</status>
 	</general>
@@ -600,7 +583,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>28</skill>
-		<relation>10901010000000</relation>
+		<relation>-1901010-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -618,7 +601,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>17</skill>
-		<relation>00990000000000</relation>
+		<relation>-199-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -636,7 +619,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>21</skill>
-		<relation>00990000000000</relation>
+		<relation>-179-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -654,7 +637,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>22</skill>
-		<relation>00990000000000</relation>
+		<relation>-199-1-1-1-1-1</relation>
 		<belongTo>2</belongTo>
 		<status>0</status>
 	</general>
@@ -672,7 +655,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>17</skill>
-		<relation>00202020000000</relation>
+		<relation>-12020-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -690,7 +673,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>S</riverfc>
 		<skill>30</skill>
-		<relation>00009000000505</relation>
+		<relation>-1-190-1-10505</relation>
 		<belongTo>3</belongTo>
 		<status>0</status>
 	</general>
@@ -708,7 +691,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>30</skill>
-		<relation>00900000000000</relation>
+		<relation>-170-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -798,7 +781,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>34</skill>
-		<relation>00008500000000</relation>
+		<relation>-1-185-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -816,7 +799,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>5</skill>
-		<relation>00000099050505</relation>
+		<relation>0000009905-1-1</relation>
 		<belongTo>4</belongTo>
 		<status>0</status>
 	</general>
@@ -834,7 +817,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>21</skill>
-		<relation>00000099050000</relation>
+		<relation>0000009905-1-1</relation>
 		<belongTo>4</belongTo>
 		<status>0</status>
 	</general>
@@ -852,7 +835,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>24</skill>
-		<relation>20202070000000</relation>
+		<relation>20202070-1-1-1</relation>
 		<belongTo>4</belongTo>
 		<status>0</status>
 	</general>
@@ -1288,20 +1271,20 @@
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
-    <general id="74">
-        <name>李典</name>
-        <king>0</king>
-        <attack>78</attack>
-        <command>78</command>
-        <intelligence>79</intelligence>
-        <charm>74</charm>
-        <politics>74</politics>
-        <vitality>100</vitality>
-        <arms>2</arms>
-        <landfc>A</landfc>
-        <mountainfc>A</mountainfc>
-        <riverfc>B</riverfc>
-        <skill>17</skill>
+	<general id="74">
+		<name>李典</name>
+		<king>0</king>
+		<attack>82</attack>
+		<command>81</command>
+		<intelligence>79</intelligence>
+		<charm>74</charm>
+		<politics>74</politics>
+		<vitality>100</vitality>
+		<arms>2</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>17</skill>
 		<relation>00950000000000</relation>
         <belongTo>2</belongTo>
         <status>0</status>
@@ -1525,10 +1508,10 @@
 	<general id="88">
 		<name>羊祜</name>
 		<king>0</king>
-		<attack>92</attack>
-		<command>92</command>
-		<intelligence>69</intelligence>
-		<charm>92</charm>
+		<attack>82</attack>
+		<command>87</command>
+		<intelligence>80</intelligence>
+		<charm>72</charm>
 		<politics>69</politics>
 		<vitality>100</vitality>
 		<arms>2</arms>
@@ -1827,7 +1810,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>C</riverfc>
         <skill>10</skill>
-        <relation>00990000000000</relation>
+		<relation>-199-1-1-1-1-1</relation>
         <belongTo>2</belongTo>
         <status>0</status>
     </general>
@@ -1845,7 +1828,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>C</riverfc>
         <skill>14</skill>
-        <relation>00990000000000</relation>
+		<relation>-199-1-1-1-1-1</relation>
         <belongTo>2</belongTo>
         <status>0</status>
     </general>
@@ -1863,7 +1846,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>C</riverfc>
         <skill>15</skill>
-		<relation>00009900000100</relation>
+		<relation>-1-199-1-1-1-1</relation>
         <belongTo>3</belongTo>
         <status>0</status>
     </general>
@@ -1881,7 +1864,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>C</riverfc>
         <skill>25</skill>
-        <relation>00009900001515</relation>
+		<relation>-1-199-1-11515</relation>
         <belongTo>3</belongTo>
         <status>0</status>
     </general>
@@ -2044,7 +2027,7 @@
         <mountainfc>C</mountainfc>
         <riverfc>C</riverfc>
         <skill>62</skill>
-        <relation>00000000000090</relation>
+		<relation>0000-1-1-1-190</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -2062,7 +2045,7 @@
         <mountainfc>C</mountainfc>
         <riverfc>A</riverfc>
         <skill>45</skill>
-        <relation>00000000000090</relation>
+		<relation>-100-1-1-1-190</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -2080,7 +2063,7 @@
         <mountainfc>C</mountainfc>
         <riverfc>C</riverfc>
         <skill>99</skill>
-        <relation>00000000000080</relation>
+		<relation>-10000-1-1-180</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -2098,7 +2081,7 @@
         <mountainfc>C</mountainfc>
         <riverfc>C</riverfc>
         <skill>11</skill>
-        <relation>00000000000080</relation>
+		<relation>-1-1-1-1-10080</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -2161,7 +2144,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>C</riverfc>
         <skill>29</skill>
-        <relation>30000000040404</relation>
+		<relation>30-1-1-1040404</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -2179,7 +2162,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>C</riverfc>
         <skill>23</skill>
-        <relation>30000000040404</relation>
+		<relation>30-100-1040404</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -2197,7 +2180,7 @@
         <mountainfc>S</mountainfc>
         <riverfc>B</riverfc>
         <skill>40</skill>
-        <relation>02800202020202</relation>
+		<relation>01800101010101</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -2215,7 +2198,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>19</skill>
-		<relation>70000000000050</relation>
+		<relation>70-1-1-1-1-150</relation>
 		<belongTo>1</belongTo>
 		<status>0</status>
 	</general>
@@ -2234,7 +2217,7 @@
         <mountainfc>B</mountainfc>
         <riverfc>C</riverfc>
         <skill>62</skill>
-        <relation>00050000009500</relation>
+		<relation>-105-1-1-195-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -2473,5 +2456,262 @@
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
-	<!-- 张嶷 王濬(魏 水神）罗宪（魏 坚守）黄权 蒋琬-->
+	<general id="149">
+		<name>吕蒙</name>
+		<king>0</king>
+		<attack>82</attack>
+		<command>91</command>
+		<intelligence>89</intelligence>
+		<charm>75</charm>
+		<politics>78</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>S</riverfc>
+		<skill>23</skill>
+		<relation>-1-195-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="150">
+		<name>吕布</name>
+		<king>0</king>
+		<attack>99</attack>
+		<command>85</command>
+		<intelligence>25</intelligence>
+		<charm>85</charm>
+		<politics>24</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>C</riverfc>
+		<skill>7</skill>
+		<relation>333333903301-1</relation>
+		<belongTo>4</belongTo>
+		<status>0</status>
+	</general>
+	<!-- 沙摩柯 张嶷 马忠 王濬(魏 水神）罗宪（魏 坚守）黄权 蒋琬-->
+	<general id="151">
+		<name>沙摩柯</name>
+		<king>0</king>
+		<attack>83</attack>
+		<command>78</command>
+		<intelligence>84</intelligence>
+		<charm>81</charm>
+		<politics>83</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>S</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>65</skill>
+		<relation>10-1-1-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="152">
+		<name>张嶷</name>
+		<king>0</king>
+		<attack>73</attack>
+		<command>79</command>
+		<intelligence>74</intelligence>
+		<charm>75</charm>
+		<politics>77</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>S</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>75</skill>
+		<relation>10-1-1-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="153">
+		<name>马忠</name>
+		<king>0</king>
+		<attack>76</attack>
+		<command>77</command>
+		<intelligence>73</intelligence>
+		<charm>75</charm>
+		<politics>75</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>S</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>76</skill>
+		<relation>10-1-1-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="154">
+		<name>王濬</name>
+		<king>0</king>
+		<attack>74</attack>
+		<command>81</command>
+		<intelligence>71</intelligence>
+		<charm>75</charm>
+		<politics>77</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>B</landfc>
+		<mountainfc>B</mountainfc>
+		<riverfc>S</riverfc>
+		<skill>47</skill>
+		<relation>-110-1-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="155">
+		<name>罗宪</name>
+		<king>0</king>
+		<attack>74</attack>
+		<command>85</command>
+		<intelligence>71</intelligence>
+		<charm>73</charm>
+		<politics>71</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>B</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>30</skill>
+		<relation>-110-1-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="156">
+		<name>黄权</name>
+		<king>0</king>
+		<attack>64</attack>
+		<command>78</command>
+		<intelligence>82</intelligence>
+		<charm>78</charm>
+		<politics>83</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>B</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>52</skill>
+		<relation>03-1-1-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="157">
+		<name>蒋琬</name>
+		<king>0</king>
+		<attack>34</attack>
+		<command>38</command>
+		<intelligence>85</intelligence>
+		<charm>78</charm>
+		<politics>87</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>B</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>70</skill>
+		<relation>05-1-1-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<!-- 陈武、董袭、凌统、潘璋 -->
+	<general id="158">
+		<name>陈武</name>
+		<king>0</king>
+		<attack>87</attack>
+		<command>74</command>
+		<intelligence>43</intelligence>
+		<charm>62</charm>
+		<politics>40</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>A</riverfc>
+		<skill>75</skill>
+		<relation>-1-199-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="159">
+		<name>董袭</name>
+		<king>0</king>
+		<attack>85</attack>
+		<command>72</command>
+		<intelligence>50</intelligence>
+		<charm>62</charm>
+		<politics>48</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>S</riverfc>
+		<skill>45</skill>
+		<relation>-1-199-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="160">
+		<name>凌统</name>
+		<king>0</king>
+		<attack>89</attack>
+		<command>77</command>
+		<intelligence>50</intelligence>
+		<charm>72</charm>
+		<politics>48</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>S</riverfc>
+		<skill>56</skill>
+		<relation>-1-199-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="161">
+		<name>凌操</name>
+		<king>0</king>
+		<attack>81</attack>
+		<command>75</command>
+		<intelligence>50</intelligence>
+		<charm>62</charm>
+		<politics>48</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>S</riverfc>
+		<skill>46</skill>
+		<relation>-1-199-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="162">
+		<name>潘璋</name>
+		<king>0</king>
+		<attack>81</attack>
+		<command>75</command>
+		<intelligence>50</intelligence>
+		<charm>62</charm>
+		<politics>48</politics>
+		<vitality>100</vitality>
+		<arms>1</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>S</riverfc>
+		<skill>66</skill>
+		<relation>-1-199-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<!-- 糜芳 廖化 孙乾 糜竺 刘封 张苞 关索 -->
+	<!-- 曹爽 曹昂 曹休 曹彰 曹纯 曹洪 文鸯 -->
+
+
 </generals>

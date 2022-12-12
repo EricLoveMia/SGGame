@@ -243,7 +243,8 @@
 		<name>倾城</name>
 		<memo>野战、攻城时提高其他将领技能发动几率增加20%</memo>
 		<data>20</data>
-		<time>3</time>  <!-- 1表示行走回合结束时触发  2表示野战、攻城前触发  3表示野战攻城中每回合开始前触发 4表示野战攻城中每回合结束后触发 5表示野战攻城后触发 11表示单挑前触发 12表示单挑中触发 13表示单挑每回合结束后触发-->
+		<time>2
+		</time>  <!-- 1表示行走回合结束时触发  2表示野战、攻城前触发  3表示野战攻城中每回合开始前触发 4表示野战攻城中每回合结束后触发 5表示野战攻城后触发 11表示单挑前触发 12表示单挑中触发 13表示单挑每回合结束后触发-->
 	</skill>
 	<skill>
 		<id>36</id>
@@ -284,7 +285,7 @@
 		<id>41</id>
 		<name>血路</name>
 		<memo>所在城市武将，或者所在队伍武将不会在野战、攻城中被俘虏</memo>
-		<data>100</data>
+		<data>-100</data>
 		<time>5</time>
 		<!-- 1表示行走回合结束时触发  2表示野战、攻城前触发  3表示野战攻城中每回合开始前触发 4表示野战攻城中每回合结束后触发 5表示野战攻城后触发 11表示单挑前触发 12表示单挑中触发 13表示单挑每回合结束后触发-->
 	</skill>
@@ -419,7 +420,7 @@
         <id>60</id>
         <name>荆棘</name>
         <memo>全兵种在野战中，每回合依据敌方给自身造成的伤害反弹一定比例的伤害，与统帅、武力、智力决定</memo>
-		<data>5</data>
+		<data>10</data>
         <time>1</time>
     </skill>
     <skill>
@@ -436,39 +437,39 @@
 		<data>10</data>
 		<time>1</time>
 	</skill>
-    <skill>
-        <id>63</id>
-        <name>经商</name>
-        <memo>所在城市的市场效果翻倍</memo>
-        <data>100</data>
-        <time>1</time>
-    </skill>
-    <skill>
-        <id>64</id>
-        <name>筑城</name>
-        <memo>所在城市的防御建筑效果翻倍</memo>
-        <data>100</data>
-        <time>1</time>
-    </skill>
+	<skill>
+		<id>63</id>
+		<name>经商</name>
+		<memo>所在城市的特产品购买价格下降20%，卖出获利增加20%</memo>
+		<data>20</data>
+		<time>1</time>
+	</skill>
+	<skill>
+		<id>64</id>
+		<name>筑城</name>
+		<memo>所在城市的建筑建造及升级费用减少30%</memo>
+		<data>20</data>
+		<time>1</time>
+	</skill>
     <skill>
         <id>65</id>
         <name>无畏</name>
-        <memo>野战时，计算攻击力永远按照100的倍数向上取整（如901按照1000人满员计算攻击力）</memo>
-        <data>100</data>
-        <time>3</time>
-    </skill>
-    <skill>
-        <id>66</id>
-        <name>抓捕</name>
-        <memo>单挑或攻城胜利后，提升抓铺敌方武将的概率</memo>
+		<memo>野战时，计算攻击力永远按照100的倍数向上取整</memo>
         <data>100</data>
         <time>3</time>
     </skill>
 	<skill>
+		<id>66</id>
+		<name>抓捕</name>
+		<memo>单挑或攻城胜利后，提升抓铺敌方武将的概率</memo>
+		<data>20</data>
+		<time>5</time>
+	</skill>
+	<skill>
 		<id>67</id>
 		<name>攻城</name>
 		<memo>攻城时，增加攻击军队的战斗力，增幅与统帅、武力、魅力相关</memo>
-		<data>5</data>
+		<data>10</data>
 		<time>2</time>
 	</skill>
     <skill>
@@ -552,7 +553,7 @@
 		<id>79</id>
 		<name>奇谋</name>
         <memo>野战前，如敌方加成智力小于自己，有机率提前发动一次无伤进攻</memo>
-        <data>40</data>
+		<data>50</data>
         <time>2</time>
     </skill>
     <skill>

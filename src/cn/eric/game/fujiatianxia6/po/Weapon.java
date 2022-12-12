@@ -7,7 +7,6 @@ import java.io.Serializable;
  * @version 1.0
  * @ClassName: Weapon
  * @Description: TODO
- * @company lsj
  * @date 2019/2/28 9:39
  **/
 public class Weapon implements Serializable {
@@ -27,6 +26,8 @@ public class Weapon implements Serializable {
     private Integer charm;
     // 政治+
     private Integer politics;
+    // 新技能（替换老的技能）
+    private String newSkillId;
 
     private String memo;
 
@@ -126,5 +127,13 @@ public class Weapon implements Serializable {
 
     public void setHasGet(boolean hasGet) {
         this.hasGet = hasGet;
+    }
+
+    public String getNewSkillId() {
+        return newSkillId;
+    }
+
+    public void setNewSkillId(String newSkillId) {
+        this.newSkillId = newSkillId;
     }
 }

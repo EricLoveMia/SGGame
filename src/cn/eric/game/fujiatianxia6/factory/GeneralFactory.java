@@ -148,10 +148,11 @@ public class GeneralFactory {
         int size = Math.min(map.size(), max);
 
         if (size > 0) {
-            Iterator<Map.Entry<Integer, General>> iterator = map.entrySet().iterator();
-            while (iterator.hasNext()) {
+            for (Map.Entry<Integer, General> integerGeneralEntry : map.entrySet()) {
                 if (size-- > 0) {
-                    result.add(iterator.next().getValue());
+                    result.add(integerGeneralEntry.getValue());
+                } else {
+                    break;
                 }
             }
         }
@@ -625,7 +626,7 @@ public class GeneralFactory {
         int choose = 1;
         for (General capturedGeneral : capturedGenerals) {
             System.out.print(choose + ":亲和度:" + capturedGeneral.getRelations().substring(2 * (id - 1), 2 * (id - 1) + 2));
-            System.out.print(capturedGeneral.toString());
+            System.out.print(capturedGeneral);
             System.out.println();
         }
         System.out.println("请选择您要亲厚的武将，每100块增加1点好感度，好感度越大被感动几率越大，好感度100直接归顺，0放弃");
@@ -661,7 +662,11 @@ public class GeneralFactory {
                     }
                 }
                 // 替换新的relation
-                String newRelations = general.getRelations().substring(0, 2 * (id - 1)) + newRelation + general.getRelations().substring(2 * (id - 1) + 2);
+                String newRelationStr = newRelation + "";
+                if (newRelation > 0 && newRelation < 10) {
+                    newRelationStr = "0" + newRelation;
+                }
+                String newRelations = general.getRelations().substring(0, 2 * (id - 1)) + newRelationStr + general.getRelations().substring(2 * (id - 1) + 2);
                 System.out.println("新的亲和度：" + newRelations);
                 general.setRelations(newRelations);
             }

@@ -3,6 +3,7 @@ package cn.eric.game.fujiatianxia6.factory;
 import cn.eric.game.fujiatianxia6.factory.OneOnOne.FightData;
 import cn.eric.game.fujiatianxia6.po.*;
 import cn.eric.game.fujiatianxia6.service.Fight;
+import cn.eric.game.fujiatianxia6.service.Util;
 import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
 import org.dom4j.DocumentException;
 
@@ -341,7 +342,28 @@ public class SkillFactory {
                 BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
             }
         }
-
+        // 奇谋
+        if ("79".equals(general.getSkill()) && new Random().nextInt(100) <= data) {
+            int lostNum = 0;
+            float random = Util.getMaxFloatNum(10);
+            if (attOrDef == 1 && intelligenceCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
+                System.out.println("武将：" + general.getName() + "触发技能：" + skill.getName() + "," + skill.getMemo());
+                lostNum = (int) (BF.getAttackAmyNum() * BF.getAttackFactor() * ((1.5 * (random * (Math.max(Integer.parseInt(BF.getAttackChief().getAttack())
+                        , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(BF.getAttackCounsellor()).orElse(new General()).getAttack()).orElse("0")))))) +
+                        (1.5 * (random * (Math.max(Integer.parseInt(BF.getAttackChief().getCommand())
+                                , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(BF.getAttackCounsellor()).orElse(new General()).getCommand()).orElse("0"))))))) / 2000);
+                System.out.println("造成一次无伤伤害" + lostNum);
+                BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
+            } else if (attOrDef == 2 && intelligenceCompare(general, BF.getAttackChief(), BF.getAttackCounsellor(), BF.getAttackVice())) {
+                System.out.println("武将：" + general.getName() + "触发技能：" + skill.getName() + "," + skill.getMemo());
+                lostNum = (int) (BF.getDefenceAmyNum() * BF.getDefenceFactor() * ((1.5 * (random * (Math.max(Integer.parseInt(BF.getDefenceChief().getAttack())
+                        , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(BF.getDefenceCounsellor()).orElse(new General()).getAttack()).orElse("0")))))) +
+                        (1.5 * (random * (Math.max(Integer.parseInt(BF.getDefenceChief().getCommand())
+                                , Integer.parseInt(Optional.ofNullable(Optional.ofNullable(BF.getDefenceCounsellor()).orElse(new General()).getCommand()).orElse("0"))))))) / 2000);
+                System.out.println("造成一次无伤伤害" + lostNum);
+                BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
+            }
+        }
         return virgin;
     }
 
@@ -600,7 +622,7 @@ public class SkillFactory {
                 BF.setDefLost(BF.getDefLost() + lostNum);
                 // BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
                 BF.setAttackAmyNum(BF.getAttackAmyNum() + lostNum);
-            } else if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
+            } else if (attOrDef == 2 && new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                 System.out.println("武将：" + general.getName() + SkillFactory.getSkillByID(general.getSkill()).getMemo());
                 lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
                 System.out.println("进攻方有" + lostNum + "兵力进入防守方部队");
@@ -614,13 +636,13 @@ public class SkillFactory {
             int lostNum;
             if (attOrDef == 1 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
                 System.out.println("武将-" + general.getName() + "技能触发：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
-                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
+                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) + Float.parseFloat(general.getCharm())) / 1500);
                 System.out.println("防守方互相攻击造成损失" + lostNum);
                 BF.setDefLost(BF.getDefLost() + lostNum);
                 // BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
             } else if (attOrDef == 2 && new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                 System.out.println("武将-" + general.getName() + "技能触发：" + SkillFactory.getSkillByID(general.getSkill()).getMemo());
-                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence()) * 2) / 1000);
+                lostNum = (int) (BF.getAttackAmyNum() * (Float.parseFloat(general.getIntelligence()) + Float.parseFloat(general.getCharm())) / 1500);
                 System.out.println("进攻方互相攻击造成损失" + lostNum);
                 BF.setAttLost(BF.getAttLost() + lostNum);
                 // BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
@@ -893,7 +915,7 @@ public class SkillFactory {
             Skill skill = SkillFactory.getSkillByID(general.getSkill());
 
             double percent = data * 1.0 / 100 + (Double.parseDouble(general.getCommand())
-                    + Double.parseDouble(general.getIntelligence()) + Double.parseDouble(general.getAttack())) / 3000;
+                    + Double.parseDouble(general.getIntelligence()) + Double.parseDouble(general.getAttack())) / 1500;
             // 增加的损失数
             int addLost = 0;
             if (attOrDef == 1) {
@@ -911,8 +933,6 @@ public class SkillFactory {
         if ("65".equals(general.getSkill())) {
             Skill skill = SkillFactory.getSkillByID(general.getSkill());
 
-            double percent = data / 100 + (Integer.parseInt(general.getCommand())
-                    + Integer.parseInt(general.getIntelligence()) + Integer.parseInt(general.getAttack())) / 3000;
             // 增加的损失数
             int addLost = 0;
             if (attOrDef == 1) {
@@ -1065,6 +1085,16 @@ public class SkillFactory {
         return vice == null || Integer.parseInt(general.getCharm()) >= Integer.parseInt(vice.getCharm());
     }
 
+    private static boolean intelligenceCompare(General general, General chief, General counsellor, General vice) {
+        if (Integer.parseInt(general.getIntelligence()) < Integer.parseInt(chief.getIntelligence())) {
+            return false;
+        }
+        if (counsellor != null && Integer.parseInt(general.getIntelligence()) < Integer.parseInt(counsellor.getIntelligence())) {
+            return false;
+        }
+        return vice == null || Integer.parseInt(general.getIntelligence()) >= Integer.parseInt(vice.getIntelligence());
+    }
+
 
     // 单挑修改
     private static Object OneOnOne_Change(int attOrDef, General general, Object virgin) {
@@ -1153,7 +1183,8 @@ public class SkillFactory {
 
     private static void AttackCity_Change_Middle(int attOrDef, General general, AttackCity ac) {
         // 增加辅佐
-        int data = SkillFactory.getSkillByID(general.getSkill()).getData();
+        Skill skill = SkillFactory.getSkillByID(general.getSkill());
+        int data = skill.getData();
         if (general.getWeapon() != null && general.getWeapon().getData() != null) {
             data += general.getWeapon().getData();
         }
@@ -1161,12 +1192,15 @@ public class SkillFactory {
         int defenceSkillProbability = ac.getDefenceSkillProbability();
         // 攻城
         if ("67".equals(general.getSkill())) {
-            // 如果是进攻方 进攻方损失降低到0
+            // 如果是进攻方 增加防守方的损失
             if (attOrDef == 1) {
-                double percent = data / 100 + (Integer.parseInt(general.getAttack()) +
-                        Integer.parseInt(general.getCommand()) + Integer.parseInt(general.getIntelligence())) / 2000;
+                double percent = data * 1.0 / 100 + (Double.parseDouble(general.getAttack()) +
+                        Double.parseDouble(general.getCommand()) + Double.parseDouble(general.getIntelligence())) / 1500;
                 int defenceLost = ac.getDefenceLost();
-                // int add = defenceLost * (data )
+                int add = (int) (defenceLost * percent);
+                System.out.println("武将" + general.getName() + "技能：" + skill.getName() + "触发" + skill.getMemo());
+                System.out.println("增加伤害" + add);
+                ac.setDefenceLost(defenceLost + add);
             }
         }
 
@@ -1252,7 +1286,7 @@ public class SkillFactory {
     }
 
     /**
-     * @param @param  type 1 单挑 2 野战 3 攻城  4 俘虏后 5 单挑结束后 9 回合结束后
+     * @param @param  type 1 单挑 2 野战 3 攻城  4 俘虏后 5 单挑结束后  6 野战结束后 7 攻城结束后 9 回合结束后
      * @param @param  AttOrDef 1 进攻方  2 防守方 3 所有一起算
      * @param @param  generalA 进攻方的英雄
      * @param @param  generalD 防御方的英雄
@@ -1288,6 +1322,12 @@ public class SkillFactory {
             OneOnOne_ChangeAfterComplete(generalA, generalD, pc);
         }
 
+        // 单挑结束后
+        if (type == 7) {
+            attackCity_end_attcak((AttackCity) virgin);
+            attackCity_end_defence((AttackCity) virgin);
+        }
+
         // 回合结束后
         if (type == 9) {
             rountAfter(generalA);
@@ -1308,6 +1348,20 @@ public class SkillFactory {
         }
         if (virgin.getDefenceVice() != null) {
             attackCity_After_Defence(virgin.getDefenceVice(), virgin);
+        }
+
+    }
+
+    private static void attackCity_end_attcak(AttackCity virgin) {
+
+        if (virgin.getDefenceChief() != null) {
+            attackCity_end_check(virgin.getDefenceChief(), virgin);
+        }
+        if (virgin.getDefenceCounsellor() != null) {
+            attackCity_end_check(virgin.getDefenceCounsellor(), virgin);
+        }
+        if (virgin.getDefenceVice() != null) {
+            attackCity_end_check(virgin.getDefenceVice(), virgin);
         }
 
     }
@@ -1369,6 +1423,37 @@ public class SkillFactory {
             attackCity_After_Attack(virgin.getAttackVice(), virgin);
         }
 
+
+    }
+
+    private static void attackCity_end_defence(AttackCity virgin) {
+        if (virgin.getAttackChief() != null) {
+            attackCity_end_check(virgin.getAttackChief(), virgin);
+        }
+        if (virgin.getAttackCounsellor() != null) {
+            attackCity_end_check(virgin.getAttackCounsellor(), virgin);
+        }
+        if (virgin.getAttackVice() != null) {
+            attackCity_end_check(virgin.getAttackVice(), virgin);
+        }
+    }
+
+    private static void attackCity_end_check(General general, AttackCity virgin) {
+        Skill skill = SkillFactory.getSkillByID(general.getSkill());
+        int data = skill.getData();
+        if (general.getWeapon() != null && general.getWeapon().getData() != null) {
+            data += general.getWeapon().getData();
+        }
+        // 抓捕
+        if ("66".equals(general.getSkill())) {
+            System.out.println("武将" + general.getName() + "技能" + skill.getName() + "触发，" + skill.getMemo());
+            virgin.setCatchPercent(virgin.getCatchPercent() + data + virgin.getAttackSkillProbability());
+        }
+        // 血路
+        if ("41".equals(general.getSkill())) {
+            System.out.println("武将" + general.getName() + "技能" + skill.getName() + "触发，" + skill.getMemo());
+            virgin.setCatchPercent(virgin.getCatchPercent() + data + virgin.getAttackSkillProbability());
+        }
 
     }
 
@@ -1682,6 +1767,7 @@ public class SkillFactory {
     }
 
     private static int citySkillHorseChange(int data, General general) {
+        // TODO 要加成智力魅力政治
         // 繁殖
         if ("42".equals(general.getSkill())) {
             System.out.println(general.getName() + "技能繁殖触发，骑兵数量增加50%");
@@ -1796,5 +1882,45 @@ public class SkillFactory {
             System.out.println(player.getName() + "技能统业触发，增加发展金" + 1000);
             defence.setMoney(defence.getMoney() + 1000);
         }
+    }
+
+    public static int saleGoodsCheck(int salePrice, City defence) {
+        List<General> generals = defence.getDenfenceGenerals();
+        for (General general : generals) {
+            salePrice = saleGoodsCheckGeneral(salePrice, general);
+        }
+        return salePrice;
+    }
+
+    private static int saleGoodsCheckGeneral(int salePrice, General player) {
+        Skill skill = SkillFactory.getSkillByID(player.getSkill());
+        int data = skill.getData();
+        // 经商
+        if ("63".equals(player.getSkill())) {
+            System.out.println(player.getName() + "技能" + skill.getName() + "触发，" + skill.getMemo());
+            salePrice = (int) (salePrice * (1 + data * 1.0 / 100));
+        }
+
+        return salePrice;
+    }
+
+    public static int buyGoodsCheck(int price, City defence) {
+        List<General> generals = defence.getDenfenceGenerals();
+        for (General general : generals) {
+            price = buyGoodsCheckGeneral(price, general);
+        }
+        return price;
+    }
+
+    private static int buyGoodsCheckGeneral(int price, General player) {
+        Skill skill = SkillFactory.getSkillByID(player.getSkill());
+        int data = skill.getData();
+        // 经商
+        if ("63".equals(player.getSkill())) {
+            System.out.println(player.getName() + "技能" + skill.getName() + "触发，" + skill.getMemo());
+            price = (int) (price * (1 - data * 1.0 / 100));
+        }
+
+        return price;
     }
 }

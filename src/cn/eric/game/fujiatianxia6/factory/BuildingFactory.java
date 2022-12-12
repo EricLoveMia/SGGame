@@ -76,16 +76,6 @@ public class BuildingFactory {
 	}
 	
 	public static void buildInCity(City city, General general) throws CloneNotSupportedException {
-		// 升级已有的建筑
-//		if(city.getBildings().size() > 0) {
-//			System.out.println("是否要升级建筑");
-//			for (Building building : city.getBildings()) {
-//				System.out.println(building.toString());
-//			}
-//			System.out.println("选择要升级的建筑");
-//			// TODO
-//		}
-
 		System.out.println("是否要建设新的建筑");
 		// 首先看还有没有空地
 		if (city.getBlank() <= 0) {

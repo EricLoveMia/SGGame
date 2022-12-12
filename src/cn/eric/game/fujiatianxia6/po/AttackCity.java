@@ -47,16 +47,18 @@ public class AttackCity {
 	private int defenceLost = 0;
 	private int attackLost = 0;
 
+	private int catchPercent = 30;
+
 	public General getLeader() {
 		return Leader;
 	}
 
-	public Integer getAttackSoliderTotal() {
+	public Integer computeAttackSoliderTotal() {
 		int attackSoliderTotal = 0;
 		//
 		// 得到 骑 枪 弓的级别
-		HashMap<String,Integer> levelMap = new HashMap<>();
-		for(Arms arms : Leader.getArmsTotal()){
+		HashMap<String, Integer> levelMap = new HashMap<>();
+		for (Arms arms : Leader.getArmsTotal()) {
 			levelMap.put(arms.getName(), arms.getLevel());
 		}
 
@@ -71,17 +73,17 @@ public class AttackCity {
 					+ cavalrys * FightConfig.factorOfCavalrysInLand * (1 + cavalrysLevel * 0.1)
 					+ infantry * FightConfig.factorOfInfantryInLand * (1 + infantrysLevel * 0.1)
 					+ archers * FightConfig.factorOfArchersInLand * (1 + archersLevel * 0.1));
-		}else if(city.getTopography() == 2){
+		}else if (city.getTopography() == 2) {
 			attackSoliderTotal = (int) (soliders * (1 + swordLevel * 0.1)
-					+ cavalrys * FightConfig.factorOfCavalrysInMountain * (1 + cavalrysLevel*0.1)
-					+ infantry * FightConfig.factorOfInfantryInMountain * (1 + infantrysLevel*0.1)
-					+ archers * FightConfig.factorOfArchersInMountain * (1 + archersLevel*0.1));
-		}else if(city.getTopography() == 3){
+					+ cavalrys * FightConfig.factorOfCavalrysInMountain * (1 + cavalrysLevel * 0.1)
+					+ infantry * FightConfig.factorOfInfantryInMountain * (1 + infantrysLevel * 0.1)
+					+ archers * FightConfig.factorOfArchersInMountain * (1 + archersLevel * 0.1));
+		} else if (city.getTopography() == 3) {
 			attackSoliderTotal = (int) (soliders * (1 + swordLevel * 0.1)
-					+ cavalrys * FightConfig.factorOfCavalrysInRiver * (1 + cavalrysLevel*0.1)
-					+ infantry * FightConfig.factorOfInfantryInRiver * (1 + infantrysLevel*0.1)
-					+ archers * FightConfig.factorOfArchersInRiver * (1 + archersLevel*0.1));
-		}	
+					+ cavalrys * FightConfig.factorOfCavalrysInRiver * (1 + cavalrysLevel * 0.1)
+					+ infantry * FightConfig.factorOfInfantryInRiver * (1 + infantrysLevel * 0.1)
+					+ archers * FightConfig.factorOfArchersInRiver * (1 + archersLevel * 0.1));
+		}
 		return attackSoliderTotal;
 	}
 
@@ -89,11 +91,11 @@ public class AttackCity {
 		this.attackSoliderTotal = attackSoliderTotal;
 	}
 
-	public Integer getDeffenceSoliderTotal() {
+	public Integer computeDeffenceSoliderTotal() {
 		General general = GeneralFactory.getGeneralById(city.getBelongTo().toString());
 		// 得到 骑 枪 弓的级别
-		HashMap<String,Integer> levelMap = new HashMap<>();
-		for(Arms arms : general.getArmsTotal()){
+		HashMap<String, Integer> levelMap = new HashMap<>();
+		for (Arms arms : general.getArmsTotal()) {
 			levelMap.put(arms.getName(), arms.getLevel());
 		}
 
@@ -122,11 +124,15 @@ public class AttackCity {
 
 
 		// 加上城中建筑的加成
-		if(city.getBildings().size() > 0){
+		if(city.getBildings().size() > 0) {
 			for (Building bilding : city.getBildings()) {
-				if(bilding.id == 1 || bilding.id == 2){
-					defenceBulidingAdd = defenceBulidingAdd + 0.1 + 0.1 * bilding.level;
+				if (bilding.id == 1 || bilding.id == 2) {
+					defenceBulidingAdd += 0.1 * bilding.level;
 				}
+			}
+			if (defenceBulidingAdd > 1.0) {
+				// 检查技能
+
 			}
 		}
 
@@ -156,8 +162,8 @@ public class AttackCity {
 			attackWeaponAdd = attackWeaponAdd + siegeWeapon.getPower() / 50000;
 		}
 		// 获得加成值
-		attackSoliderTotal = getAttackSoliderTotal();
-		deffenceSoliderTotal = getDeffenceSoliderTotal();
+		attackSoliderTotal = computeAttackSoliderTotal();
+		deffenceSoliderTotal = computeDeffenceSoliderTotal();
 		this.attackSoliderTotalCopy = this.attackSoliderTotal;
 		System.out.println("进攻方加成总兵力" + attackSoliderTotal + "防守方加成总兵力" + deffenceSoliderTotal);
 		// 
@@ -223,26 +229,30 @@ public class AttackCity {
 			return false;			
 		}
          System.out.println("守城人数已全部损失，占领城市");
-         // 进攻方结算
-         resetLeaderArmy();
-         // 防守方结算
-         city.setSoilders(0);
-         city.setArchers(0);
-         city.setCavalrys(0);
-         city.setInfantry(0);
-         // 守城将领被俘虏 概率30%
-         List<General> denfenceGenerals = city.getDenfenceGenerals();
-         Iterator<General> generalIterator = denfenceGenerals.iterator();
-         while (generalIterator.hasNext()) {
-             General denfenceGeneral = generalIterator.next();
-             if (new Random().nextInt(100) < 30) {
-                 System.out.println(denfenceGeneral.getName() + "被俘虏");
-                 GeneralFactory.beCatch(denfenceGeneral, getAttackChief());
-             } else {
-                 System.out.println(denfenceGeneral.getName() + "回归阵营");
-                 denfenceGeneral.setCityId("");
-             }
-             generalIterator.remove();
+		// 进攻方结算
+		resetLeaderArmy();
+		// 防守方结算
+		city.setSoilders(0);
+		city.setArchers(0);
+		city.setCavalrys(0);
+		city.setInfantry(0);
+		// 守城将领被俘虏 概率30%
+		List<General> denfenceGenerals = city.getDenfenceGenerals();
+		Iterator<General> generalIterator = denfenceGenerals.iterator();
+
+
+		SkillFactory.changeAfter(7, 1, null, null, this);
+		SkillFactory.changeAfter(7, 2, null, null, this);
+		while (generalIterator.hasNext()) {
+			General denfenceGeneral = generalIterator.next();
+			if (new Random().nextInt(100) < getCatchPercent()) {
+				System.out.println(denfenceGeneral.getName() + "被俘虏");
+				GeneralFactory.beCatch(denfenceGeneral, getAttackChief());
+			} else {
+				System.out.println(denfenceGeneral.getName() + "回归阵营");
+				denfenceGeneral.setCityId("");
+			}
+			generalIterator.remove();
          }
          city.setDenfenceGenerals(new ArrayList<>());
          return true;
@@ -577,5 +587,21 @@ public class AttackCity {
 
 	public void setDefenceSkillProbability(int defenceSkillProbability) {
 		this.defenceSkillProbability = defenceSkillProbability;
+	}
+
+	public Integer getAttackSoliderTotal() {
+		return attackSoliderTotal;
+	}
+
+	public Integer getDeffenceSoliderTotal() {
+		return deffenceSoliderTotal;
+	}
+
+	public int getCatchPercent() {
+		return catchPercent;
+	}
+
+	public void setCatchPercent(int catchPercent) {
+		this.catchPercent = catchPercent;
 	}
 }
