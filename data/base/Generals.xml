@@ -2711,6 +2711,24 @@
 		<status>0</status>
 	</general>
 	<!-- 糜芳 廖化 孙乾 糜竺 刘封 张苞 关索 -->
+	<general id="163">
+		<name>糜芳</name>
+		<king>0</king>
+		<attack>70</attack>
+		<command>71</command>
+		<intelligence>50</intelligence>
+		<charm>50</charm>
+		<politics>40</politics>
+		<vitality>100</vitality>
+		<arms>3</arms>
+		<landfc>A</landfc>
+		<mountainfc>S</mountainfc>
+		<riverfc>B</riverfc>
+		<skill>41</skill>
+		<relation>9500-1-1-1-1-1</relation>
+		<belongTo>1</belongTo>
+		<status>0</status>
+	</general>
 	<!-- 曹爽 曹昂 曹休 曹彰 曹纯 曹洪 文鸯 -->
 
 
