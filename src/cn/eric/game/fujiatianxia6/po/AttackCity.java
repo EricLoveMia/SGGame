@@ -154,9 +154,6 @@ public class AttackCity {
 	public boolean attack(SiegeWeapon siegeWeapon) {
 		int count = 0;
 		// 攻城至一方的兵力完全消耗完为止
-		// 攻城前技能触发
-		SkillFactory.changeBefore(3, 3, null, null, this);
-
 		// 攻城器械加成
 		if (siegeWeapon != null) {
 			attackWeaponAdd = attackWeaponAdd + siegeWeapon.getPower() / 50000;
@@ -166,7 +163,9 @@ public class AttackCity {
 		deffenceSoliderTotal = computeDeffenceSoliderTotal();
 		this.attackSoliderTotalCopy = this.attackSoliderTotal;
 		System.out.println("进攻方加成总兵力" + attackSoliderTotal + "防守方加成总兵力" + deffenceSoliderTotal);
-		// 
+		// 攻城前技能触发
+		SkillFactory.changeBefore(3, 3, null, null, this);
+
 		while (attackSoliderTotal > 0 && deffenceSoliderTotal > 0) {
 			count++;
 			// 当守城人数大于攻城人数时，攻城失败
@@ -175,7 +174,7 @@ public class AttackCity {
 				return false;
 			}
 			// 每次攻城，攻城方先消耗守城兵力的10%-20% 根据守将的统帅  (int)(5000 - 2000 * (0.1 + (float)((int)(Math.random() * 99))/1000 ))
-			if(count == 1 && checkSkillOfAttack()) {
+			if (count == 1 && checkSkillOfAttack()) {
 				System.out.println("第" + count + "波进攻，进攻方推进到城墙，未损失兵力，剩余总兵力" + attackSoliderTotal);
 			}else {
 				attackSoliderTotal = (int) (attackSoliderTotal - defenceBulidingAdd * deffenceSoliderTotal * (0.2 + (float) ((int) (Math.random() * (Integer.parseInt(DefenceChief.getCommand())))) / 1000));

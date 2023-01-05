@@ -715,8 +715,12 @@ public class GeneralFactory {
                     System.out.println("武将心如磐石");
                 }
             }
+            String relationStr = newRelation + "";
+            if (newRelation >= 0 && newRelation < 10) {
+                relationStr = "0" + relationStr;
+            }
             // 替换新的relation
-            String newRelations = general.getRelations().substring(0, 2 * (id - 1)) + newRelation + general.getRelations().substring(2 * (id - 1) + 2);
+            String newRelations = general.getRelations().substring(0, 2 * (id - 1)) + relationStr + general.getRelations().substring(2 * (id - 1) + 2);
             System.out.println("新的亲和度：" + newRelations);
             general.setRelations(newRelations);
             System.out.println("请选择您要亲厚的武将，每100块增加1点好感度，好感度越大被感动几率越大，好感度99直接归顺，0放弃");
