@@ -716,14 +716,14 @@ public class SkillFactory {
             if (attOrDef == 1 && BF.getAttackType() == 2) {
                 if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能：白马，每回合有50%的几率发动骑射，专属后100%几率,伤害和统帅武力有关");
-                    addLost = (int) ((int) (BF.getDefLost() * (Float.parseFloat(general.getAttack())) / 2000) * (Float.parseFloat(general.getCommand()) / 30));
+                    addLost = (int) ((int) (BF.getDefLost() * (Float.parseFloat(general.getAttack())) / 1000) * (Float.parseFloat(general.getCommand()) / 30));
                     BF.setDefLost(BF.getDefLost() + addLost);
                     System.out.println("增加伤亡：" + addLost);
                 }
             } else if (attOrDef == 2 && BF.getDefenceType() == 2) {
                 if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能：白马，每回合有50%的几率发动骑射，专属后100%几率,伤害和统帅武力有关");
-                    addLost = (int) ((int) (BF.getAttLost() * (Float.parseFloat(general.getAttack())) / 2000) * (Float.parseFloat(general.getCommand()) / 30));
+                    addLost = (int) ((int) (BF.getAttLost() * (Float.parseFloat(general.getAttack())) / 1000) * (Float.parseFloat(general.getCommand()) / 30));
                     BF.setAttLost(BF.getAttLost() + addLost);
                     System.out.println("增加伤亡：" + addLost);
                 }
@@ -1694,13 +1694,17 @@ public class SkillFactory {
             if (addAtt > 4) {
                 addAtt = 4;
             }
-            System.out.println("武将" + generalA.getName() + "技能：" + SkillFactory.getSkillByID(generalA.getSkill()).getName() + "触发,增加" + addAtt + "攻击力");
+            System.out.println("武将" + generalA.getName() + "技能：" + SkillFactory.getSkillByID(generalA.getSkill()).getName()
+                    + "触发,增加" + addAtt + "攻击力,减少防御力" + addAtt / 2);
             fight.setAttackA(fight.getAttackA() + addAtt);
+            fight.setDefenceA(fight.getDefenceA() - addAtt / 2);
         }
         if ("9".equals(generalD.getSkill())) {//鬼将 单挑时，普通攻击造成1.2倍的伤害 1表示普通攻击
             int addAtt = (100 - fight.getVitalityB()) * dataD / 100;
-            System.out.println("武将" + generalD.getName() + "技能：" + SkillFactory.getSkillByID(generalD.getSkill()).getName() + "触发,增加" + addAtt + "攻击力");
+            System.out.println("武将" + generalD.getName() + "技能：" + SkillFactory.getSkillByID(generalD.getSkill()).getName()
+                    + "触发,增加" + addAtt + "攻击力,减少防御力" + addAtt / 2);
             fight.setAttackB(fight.getAttackB() + addAtt);
+            fight.setDefenceB(fight.getDefenceB() - addAtt / 2);
         }
 
         // 恶来
@@ -1712,7 +1716,6 @@ public class SkillFactory {
             fight.setDefenceA(fight.getDefenceA() + addDef);
         }
         if ("10".equals(generalD.getSkill())) {//恶来
-
             int addDef = (100 - fight.getVitalityB()) * 15 / 100;
             // 最大加3点防御
             addDef = Math.min(addDef, dataD);

@@ -72,9 +72,13 @@ public class CityStore implements Serializable {
         this.hasSpecialty = specialty != null;
         if (specialty != null) {
             this.specialtyGoodsId = specialty.getId();
-            if (common.getPrice() < 4000) {
+            if (specialty.getPrice() < 1000) {
+                this.specialtyTotal = 16;
+            } else if (specialty.getPrice() < 2000) {
+                this.specialtyTotal = 8;
+            } else if (specialty.getPrice() < 4000) {
                 this.specialtyTotal = 4;
-            } else if (common.getPrice() < 8000) {
+            } else if (specialty.getPrice() < 8000) {
                 this.specialtyTotal = 2;
             } else {
                 this.specialtyTotal = 1;
@@ -85,9 +89,13 @@ public class CityStore implements Serializable {
         this.hasSenior = seniorSpecialty != null;
         if (seniorSpecialty != null) {
             this.seniorGoodsId = seniorSpecialty.getId();
-            if (common.getPrice() < 4000) {
+            if (seniorSpecialty.getPrice() < 1000) {
+                this.seniorTotal = 16;
+            } else if (seniorSpecialty.getPrice() < 2000) {
+                this.seniorTotal = 8;
+            } else if (seniorSpecialty.getPrice() < 4000) {
                 this.seniorTotal = 4;
-            } else if (common.getPrice() < 8000) {
+            } else if (seniorSpecialty.getPrice() < 8000) {
                 this.seniorTotal = 2;
             } else {
                 this.seniorTotal = 1;

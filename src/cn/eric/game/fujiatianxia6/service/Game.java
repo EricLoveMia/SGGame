@@ -656,7 +656,7 @@ public class Game {
                             }
                         }
                     } else {
-                        int passMoney = (int) (defence.getMoney() * defence.getType() * 0.1 * (defence.getProsperity() / 1000 + 1));
+                        int passMoney = (int) (defence.getMoney() * defence.getType() * 0.05 * (defence.getProsperity() / 1000 + 1));
 
                         System.out.println("======快交过路费：" + passMoney + "\n");
                         System.out.println("请选择：1、野战 2、单挑 3、攻城 4、乖乖交钱\n");
