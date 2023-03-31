@@ -384,25 +384,32 @@ public class General implements Cloneable, Serializable {
 				+ intelligence + ", 魅力 =" + charm + ", 政治 =" + politics + ", 生命 =" + vitality + ", 金钱 ="
 				+ money + ", 剑兵 =" + army + ", 骑兵 =" + cavalrys + ", 枪兵 =" + infantry + ", 弓兵 =" + archers
 				+ ", 兵种等级 =" + JSONObject.toJSONString(armsTotal) + ", 城市数量 =" + CityFactory.findCityByLeader(this).size() + "]";
-	}
+    }
 
-	public String playerInfo() {
-		return "将领 [姓名 =" + name + ", 状态 = " + (status.equals("4") ? "亡国" : "正常") + ", 金钱 =" + money
-				+ ", 剑兵 =" + army + ", 骑兵 =" + cavalrys + ", 枪兵 =" + infantry
-				+ ", 弓兵 =" + archers + ", 兵种等级 =" + JSONObject.toJSONString(armsTotal)
-				+ ", 武将数量 =" + generals.size()
-				+ ", 城市数量 =" + CityFactory.findCityByLeader(this).size() + "]";
-	}
+    public String playerInfo() {
+        return "将领 [姓名 =" + name + ", 状态 = " + (status.equals("4") ? "亡国" : "正常") + ", 金钱 =" + money
+                + ", 剑兵 =" + army + ", 骑兵 =" + cavalrys + ", 枪兵 =" + infantry
+                + ", 弓兵 =" + archers + ", 兵种等级 =" + JSONObject.toJSONString(armsTotal)
+                + ", 武将数量 =" + generals.size()
+                + ", 城市数量 =" + CityFactory.findCityByLeader(this).size() + "]";
+    }
 
-	public boolean isReboot() {
-		return reboot;
-	}
+    public String armyInfo() {
+        return "将领 [姓名 =" + name
+                + ", 剑兵 =" + army + ", 骑兵 =" + cavalrys + ", 枪兵 =" + infantry
+                + ", 弓兵 =" + archers + ", 兵种等级 =" + JSONObject.toJSONString(armsTotal)
+                + ", 武将数量 =" + generals.size();
+    }
 
-	public void setReboot(boolean reboot) {
-		this.reboot = reboot;
-	}
+    public boolean isReboot() {
+        return reboot;
+    }
 
-	public Integer getReputation() {
+    public void setReboot(boolean reboot) {
+        this.reboot = reboot;
+    }
+
+    public Integer getReputation() {
 		return reputation;
 	}
 

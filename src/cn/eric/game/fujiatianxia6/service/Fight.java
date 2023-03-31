@@ -50,7 +50,7 @@ public class Fight {
                     GeneralFactory.getAoundGeneral(attack.getGenerals()), 3, null);
 
             assert generalByChoose != null;
-            System.out.println(generalByChoose.toString());
+            System.out.println(generalByChoose);
             System.out.println("防守方 自动选择武将来单挑");
             General generalByDefenceAuto = GeneralFactory.generalByDefenceAuto(defence);
             System.out.println("出战武将" + generalByDefenceAuto.toString());
@@ -78,35 +78,7 @@ public class Fight {
         //进入战役地图
         BF = new BattleField();
         try {
-            // 1、进攻方挑选将领 主将 副将 军师 野战上阵士兵数1000 如果随身人数不足，则取最大值
-            while (BF.getAttackChief() == null) {
-                System.out.println("请选择主将");
-                General generalChief = GeneralFactory.getGeneralByChoose(general, null, 2, defence);
-                if (generalChief == null) {
-                    System.out.println("进攻方 主将不能为空，请重新选择");
-                } else {
-                    BF.setAttackChief(generalChief);
-                    generalChief.setCityId(defence.getId());// 暂时放在城里进行交战，交战结束后恢复
-                }
-            }
-
-            System.out.println("请选择副将");
-            General generalVice = GeneralFactory.getGeneralByChoose(general, null, 2, defence);
-            if (generalVice != null) {
-                generalVice.setCityId(defence.getId());
-                BF.setAttackVice(generalVice);
-            }
-
-            System.out.println("请选择军师");
-            General counsellor = GeneralFactory.getGeneralByChoose(general, null, 2, defence);
-            if (counsellor != null) {
-                counsellor.setCityId(defence.getId());
-                BF.setAttackCounsellor(counsellor);
-            }
-
             // 选择兵种
-            System.out.println("请选择兵种 ： 1 普通 2 骑兵 3 枪兵 4 弓兵，当前城市的地形为：" + CityTopographyEnum.getText(defence.getTopography()) + "\n"
-                    + "推荐兵种：" + CityTopographyEnum.getMemo(defence.getTopography()));
             Scanner input;
             int type;
             if (general.isReboot()) {
@@ -149,26 +121,109 @@ public class Fight {
                 }
             } else {
                 while (true) {
+                    System.out.println(general.armyInfo());
+                    System.out.println("请选择兵种 ： 1 普通 2 骑兵 3 枪兵 4 弓兵，当前城市的地形为：" + CityTopographyEnum.getText(defence.getTopography()) + "\n"
+                            + "推荐兵种：" + CityTopographyEnum.getMemo(defence.getTopography()));
                     input = new Scanner(System.in);
                     type = input.nextInt();
                     // TODO
                     if (type == 1) {
-                        System.out.println("您选择了普通步兵");
+                        System.out.println("您选择了普通剑兵");
+                        if (general.getArmy() < 1000) {
+                            System.out.println("当前剑兵数量不足1000，是否继续 1 继续 0 重新选择");
+                            try {
+                                type = input.nextInt();
+                                if (type == 1) {
+                                    break;
+                                } else {
+                                    continue;
+                                }
+                            } catch (Exception e) {
+                                break;
+                            }
+                        }
                         break;
                     } else if (type == 2) {
                         System.out.println("您选择了骑兵");
+                        if (general.getCavalrys() < 1000) {
+                            System.out.println("当前骑兵数量不足1000，是否继续 1 继续 0 重新选择");
+                            try {
+                                type = input.nextInt();
+                                if (type == 1) {
+                                    break;
+                                } else {
+                                    continue;
+                                }
+                            } catch (Exception e) {
+                                break;
+                            }
+                        }
                         break;
                     } else if (type == 3) {
                         System.out.println("您选择了枪兵");
+                        if (general.getInfantry() < 1000) {
+                            System.out.println("当前枪兵数量不足1000，是否继续 1 继续 0 重新选择");
+                            try {
+                                type = input.nextInt();
+                                if (type == 1) {
+                                    break;
+                                } else {
+                                    continue;
+                                }
+                            } catch (Exception e) {
+                                break;
+                            }
+                        }
                         break;
                     } else if (type == 4) {
                         System.out.println("您选择了弓兵");
+                        if (general.getArchers() < 1000) {
+                            System.out.println("当前弓兵数量不足1000，是否继续 1 继续 0 重新选择");
+                            try {
+                                type = input.nextInt();
+                                if (type == 1) {
+                                    break;
+                                } else {
+                                    continue;
+                                }
+                            } catch (Exception e) {
+                                break;
+                            }
+                        }
                         break;
                     } else {
                         System.out.println("请重新选择");
                     }
                 }
             }
+
+            // 1、进攻方挑选将领 主将 副将 军师 野战上阵士兵数1000 如果随身人数不足，则取最大值
+            while (BF.getAttackChief() == null) {
+                System.out.println("请选择主将");
+                General generalChief = GeneralFactory.getGeneralByChoose(general, null, 2, defence);
+                if (generalChief == null) {
+                    System.out.println("进攻方 主将不能为空，请重新选择");
+                } else {
+                    BF.setAttackChief(generalChief);
+                    generalChief.setCityId(defence.getId());// 暂时放在城里进行交战，交战结束后恢复
+                }
+            }
+
+            System.out.println("请选择副将");
+            General generalVice = GeneralFactory.getGeneralByChoose(general, null, 2, defence);
+            if (generalVice != null) {
+                generalVice.setCityId(defence.getId());
+                BF.setAttackVice(generalVice);
+            }
+
+            System.out.println("请选择军师");
+            General counsellor = GeneralFactory.getGeneralByChoose(general, null, 2, defence);
+            if (counsellor != null) {
+                counsellor.setCityId(defence.getId());
+                BF.setAttackCounsellor(counsellor);
+            }
+
+
             // 2、防守方自动挑选将领 选择统帅最高的作为主将、智力最高的作为军师
             GeneralFactory.chooseFieldGenerals(BF, defence);
 

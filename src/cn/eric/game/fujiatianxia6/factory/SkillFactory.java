@@ -426,13 +426,15 @@ public class SkillFactory {
                 System.out.println("武将：" + general.getName() + "触发技能：火神 野战或者攻城中，有机率施展火攻术，造成极大伤害，威力值与统帅、武力值有关，初始几率为10%，获得专属提升为20%");
                 addLost = (int) (BF.getDefLost() * ((Float.parseFloat(general.getCommand())) / 200 + (Float.parseFloat(general.getAttack())) / 200));
                 BF.setDefLost(BF.getDefLost() + addLost);
+                System.out.println("增加伤亡：" + addLost);
             }
             if (attOrDef == 2 && new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                 System.out.println("武将：" + general.getName() + "触发技能：火神 野战或者攻城中，有机率施展火攻术，造成极大伤害，威力值与统帅、武力值有关，初始几率为10%，获得专属提升为20%");
                 addLost = (int) (BF.getAttLost() * ((Float.parseFloat(general.getCommand())) / 200 + (Float.parseFloat(general.getAttack())) / 200));
                 BF.setAttLost(BF.getAttLost() + addLost);
+                System.out.println("增加伤亡：" + addLost);
             }
-            System.out.println("增加伤亡：" + addLost);
+
         }
         // 1 普通 2 骑兵 3 枪兵 4 弓兵
         // 弓将 野战中 弓兵有几率释放会心一击，增加30%的伤害，并减少伤害10%
