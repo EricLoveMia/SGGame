@@ -617,14 +617,14 @@ public class SkillFactory {
             int lostNum;
             if (attOrDef == 1 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
                 System.out.println("武将：" + general.getName() + SkillFactory.getSkillByID(general.getSkill()).getMemo());
-                lostNum = (int) (BF.getAttackAmyNum() * ((Float.parseFloat(general.getCommand())) / 50 + (Float.parseFloat(general.getIntelligence())) / 50) / 100);
+                lostNum = (int) (BF.getAttackAmyNum() * ((Float.parseFloat(general.getAttack())) / 70 + (Float.parseFloat(general.getCommand())) / 30 + (Float.parseFloat(general.getIntelligence())) / 30) / 100);
                 System.out.println("防守方有" + lostNum + "兵力进入进攻方部队");
                 BF.setDefLost(BF.getDefLost() + lostNum);
                 // BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
                 BF.setAttackAmyNum(BF.getAttackAmyNum() + lostNum);
             } else if (attOrDef == 2 && new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                 System.out.println("武将：" + general.getName() + SkillFactory.getSkillByID(general.getSkill()).getMemo());
-                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
+                lostNum = (int) (BF.getDefenceAmyNum() * ((Float.parseFloat(general.getAttack())) / 70 + (Float.parseFloat(general.getCommand())) / 30 + (Float.parseFloat(general.getIntelligence())) / 30) / 100);
                 System.out.println("进攻方有" + lostNum + "兵力进入防守方部队");
                 BF.setAttLost(BF.getAttLost() + lostNum);
                 // BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
@@ -1002,16 +1002,14 @@ public class SkillFactory {
                 }
             }
         }
-        // 乱战
+        // 乱战 枪兵
         if ("77".equals(general.getSkill())) {
             Skill skill = SkillFactory.getSkillByID(general.getSkill());
             if (attOrDef == 1 && BF.getAttackType() == 3 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
                 // 如果是进攻方 进攻方损失降低到0
                 if (attackCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
-
                     System.out.println("武将：" + general.getName() + "触发技能：" + skill.getName() + "," + skill.getMemo());
                     BF.setAttLost(0);
-
                 }
             }
             if (attOrDef == 2 && BF.getAttackType() == 3 && new Random().nextInt(100) <= (data + defenceSkillProbability)) {
@@ -1020,7 +1018,6 @@ public class SkillFactory {
                     BF.setDefLost(0);
                 }
             }
-
         }
         // 奇袭
         if ("78".equals(general.getSkill())) {

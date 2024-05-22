@@ -311,7 +311,7 @@ public class GeneralFactory {
 
     }
 
-    private static General findBySkill(List<General> aoundGenerals, City city, String leaderId, List<General> exclude) {
+    public static General findBySkill(List<General> aoundGenerals, City city, String leaderId, List<General> exclude) {
         // 无敌技能
         List<String> superSkills = SkillFactory.superSkills;
         Optional<General> optional = aoundGenerals.stream()
@@ -415,18 +415,24 @@ public class GeneralFactory {
         List<General> denfenceGenerals = defence.getDenfenceGenerals();
         //先选择主将 统帅、武力、智力，按照统帅排序后找到第一个
         sortByCommand(denfenceGenerals);
-        bF.setDefenceChief(denfenceGenerals.get(0));
+        General general = denfenceGenerals.get(0);
+        bF.setDefenceChief(general);
         System.out.println("防守主将：" + denfenceGenerals.get(0).toString());
-        denfenceGenerals.remove(0);
+        denfenceGenerals.remove(general);
         //其次军师 统帅加成、智力加成、后期有地形适应性加成
         if (denfenceGenerals.size() > 0) {
             sortByCommand(denfenceGenerals);
-            bF.setDefenceCounsellor(denfenceGenerals.get(0));
-            System.out.println("防守副将：" + denfenceGenerals.get(0).toString());
-            denfenceGenerals.remove(0);
+            // 根据技能加权
+            findBySkill(denfenceGenerals,defence,"0",null);
+            General general2 = denfenceGenerals.get(0);
+            bF.setDefenceCounsellor(general2);
+            System.out.println("防守副将：" + general2.toString());
+            denfenceGenerals.remove(general2);
         }
         if (denfenceGenerals.size() > 0) {
             sortByIntel(denfenceGenerals);
+            // 根据技能加权
+            findBySkill(denfenceGenerals,defence,"0",null);
             bF.setDefenceVice(denfenceGenerals.get(0));
             System.out.println("防守军师：" + denfenceGenerals.get(0).toString());
             denfenceGenerals.remove(0);

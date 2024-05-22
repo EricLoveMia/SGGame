@@ -257,7 +257,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>A</riverfc>
 		<skill>20</skill>
-		<relation>35009500000005</relation>
+		<relation>35-195-1-1-105</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -276,7 +276,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>22</skill>
-		<relation>-1-1-100990101</relation>
+		<relation>-1-1-10099-1-1</relation>
 		<belongTo>5</belongTo>
 		<status>0</status>
 	</general>
@@ -294,7 +294,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>22</skill>
-		<relation>-1-1-100990101</relation>
+		<relation>-1-1-10099-1-1</relation>
 		<belongTo>5</belongTo>
 		<status>0</status>
 	</general>
@@ -320,9 +320,9 @@
 	<general id="21">
 		<name>麋竺</name>
 		<king>0</king>
-		<attack>70</attack>
-		<command>70</command>
-		<intelligence>85</intelligence>
+		<attack>35</attack>
+		<command>35</command>
+		<intelligence>73</intelligence>
 		<charm>80</charm>
 		<politics>85</politics>
 		<vitality>100</vitality>
@@ -384,7 +384,7 @@
 		<landfc>A</landfc>
 		<mountainfc>A</mountainfc>
 		<riverfc>C</riverfc>
-		<skill>33</skill>
+		<skill>77</skill>
 		<relation>-1-199-1-11020</relation>
 		<belongTo>3</belongTo>
 		<status>0</status>
@@ -662,8 +662,8 @@
 	<general id="40">
 		<name>徐盛</name>
 		<king>0</king>
-		<attack>81</attack>
-		<command>87</command>
+		<attack>83</attack>
+		<command>85</command>
 		<intelligence>80</intelligence>
 		<charm>73</charm>
 		<politics>65</politics>
@@ -698,8 +698,8 @@
 	<general id="42">
 		<name>大乔</name>
 		<king>0</king>
-		<attack>79</attack>
-		<command>89</command>
+		<attack>9</attack>
+		<command>9</command>
 		<intelligence>85</intelligence>
 		<charm>73</charm>
 		<politics>75</politics>
@@ -716,8 +716,8 @@
 	<general id="43">
 		<name>小乔</name>
 		<king>0</king>
-		<attack>79</attack>
-		<command>89</command>
+		<attack>9</attack>
+		<command>9</command>
 		<intelligence>85</intelligence>
 		<charm>73</charm>
 		<politics>75</politics>
@@ -735,17 +735,17 @@
 		<name>孙尚香</name>
 		<king>0</king>
 		<attack>79</attack>
-		<command>89</command>
-		<intelligence>85</intelligence>
+		<command>69</command>
+		<intelligence>68</intelligence>
 		<charm>73</charm>
 		<politics>75</politics>
 		<vitality>100</vitality>
 		<arms>3</arms>
-		<landfc>S</landfc>
-		<mountainfc>A</mountainfc>
-		<riverfc>C</riverfc>
+		<landfc>B</landfc>
+		<mountainfc>B</mountainfc>
+		<riverfc>A</riverfc>
 		<skill>30</skill>
-		<relation>00409000000000</relation>
+		<relation>-14090-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -771,7 +771,7 @@
 		<name>陆绩</name>
 		<king>0</king>
 		<attack>65</attack>
-		<command>80</command>
+		<command>50</command>
 		<intelligence>85</intelligence>
 		<charm>73</charm>
 		<politics>75</politics>
@@ -799,7 +799,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>5</skill>
-		<relation>0000009905-1-1</relation>
+		<relation>-1-1-19905-100</relation>
 		<belongTo>4</belongTo>
 		<status>0</status>
 	</general>
@@ -817,7 +817,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>21</skill>
-		<relation>0000009905-1-1</relation>
+		<relation>-1-1-19905-1-1</relation>
 		<belongTo>4</belongTo>
 		<status>0</status>
 	</general>
@@ -835,7 +835,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>24</skill>
-		<relation>20202070-1-1-1</relation>
+		<relation>01010170-1-1-1</relation>
 		<belongTo>4</belongTo>
 		<status>0</status>
 	</general>
@@ -853,7 +853,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>20</skill>
-		<relation>00000080000000</relation>
+		<relation>00-1-18000-1-1</relation>
 		<belongTo>4</belongTo>
 		<status>0</status>
 	</general>
@@ -889,7 +889,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>S</riverfc>
 		<skill>36</skill>
-		<relation>00009900001000</relation>
+		<relation>-1-199-1-110-1</relation>
 		<belongTo>3</belongTo>
 		<status>0</status>
 	</general>
@@ -907,7 +907,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>A</riverfc>
 		<skill>17</skill>
-		<relation>00920000000000</relation>
+		<relation>-192-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -925,7 +925,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>A</riverfc>
 		<skill>21</skill>
-		<relation>30800000000505</relation>
+		<relation>3080000000-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -943,7 +943,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>A</riverfc>
 		<skill>37</skill>
-		<relation>00009900000500</relation>
+		<relation>-1-199-1-105-1</relation>
 		<belongTo>3</belongTo>
 		<status>0</status>
 	</general>
@@ -961,7 +961,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>39</skill>
-		<relation>00500030800000</relation>
+		<relation>-130-13080-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -979,7 +979,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>A</riverfc>
 		<skill>17</skill>
-		<relation>70000000000000</relation>
+		<relation>70-1-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1015,7 +1015,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>S</riverfc>
 		<skill>18</skill>
-		<relation>60000000000085</relation>
+		<relation>60-1-1-1-1-185</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1033,7 +1033,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>19</skill>
-		<relation>90000000000000</relation>
+		<relation>90-1-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1051,7 +1051,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>40</skill>
-		<relation>90200020000020</relation>
+		<relation>5050-120-1-120</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1069,7 +1069,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>44</skill>
-		<relation>90101010000000</relation>
+		<relation>901010-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1087,7 +1087,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>B</riverfc>
         <skill>16</skill>
-		<relation>05850505000000</relation>
+		<relation>05850505-1-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1105,7 +1105,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>B</riverfc>
         <skill>36</skill>
-		<relation>65050505550000</relation>
+		<relation>6505050555-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1123,7 +1123,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>B</riverfc>
         <skill>28</skill>
-		<relation>25350555550000</relation>
+		<relation>2535055555-1-1</relation>
         <belongTo>4</belongTo>
         <status>0</status>
     </general>
@@ -1141,7 +1141,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>B</riverfc>
         <skill>30</skill>
-		<relation>35353535950000</relation>
+		<relation>3535353595-1-1</relation>
         <belongTo>5</belongTo>
         <status>0</status>
     </general>
@@ -1159,7 +1159,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>B</riverfc>
         <skill>30</skill>
-		<relation>35353535950000</relation>
+		<relation>35-1353595-1-1</relation>
         <belongTo>5</belongTo>
         <status>0</status>
     </general>
@@ -1177,7 +1177,7 @@
         <mountainfc>S</mountainfc>
         <riverfc>B</riverfc>
         <skill>19</skill>
-		<relation>35353535950000</relation>
+		<relation>3535353595-1-1</relation>
         <belongTo>5</belongTo>
         <status>0</status>
     </general>
@@ -1195,7 +1195,7 @@
         <mountainfc>B</mountainfc>
         <riverfc>B</riverfc>
         <skill>34</skill>
-		<relation>35353535950000</relation>
+		<relation>35-1353595-1-1</relation>
         <belongTo>5</belongTo>
         <status>0</status>
     </general>
@@ -1203,7 +1203,7 @@
         <name>许攸</name>
         <king>0</king>
         <attack>34</attack>
-        <command>40</command>
+        <command>65</command>
         <intelligence>83</intelligence>
         <charm>60</charm>
         <politics>60</politics>
@@ -1213,7 +1213,7 @@
         <mountainfc>B</mountainfc>
         <riverfc>B</riverfc>
         <skill>40</skill>
-		<relation>35353535950000</relation>
+		<relation>1535151595-1-1</relation>
         <belongTo>5</belongTo>
         <status>0</status>
     </general>
@@ -1231,7 +1231,7 @@
         <mountainfc>B</mountainfc>
         <riverfc>B</riverfc>
         <skill>29</skill>
-		<relation>65353535350000</relation>
+		<relation>35353535-1-1-1</relation>
 		<belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1249,7 +1249,7 @@
         <mountainfc>B</mountainfc>
         <riverfc>B</riverfc>
         <skill>25</skill>
-		<relation>00950000000000</relation>
+		<relation>-195-1-1-1-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1267,7 +1267,7 @@
         <mountainfc>B</mountainfc>
         <riverfc>B</riverfc>
         <skill>20</skill>
-		<relation>00950000000000</relation>
+		<relation>-195-1-1-1-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1285,7 +1285,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>17</skill>
-		<relation>00950000000000</relation>
+		<relation>-195-1-1-1-1-1</relation>
         <belongTo>2</belongTo>
         <status>0</status>
     </general>
@@ -1303,7 +1303,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>B</riverfc>
         <skill>52</skill>
-		<relation>00950000000000</relation>
+		<relation>-195-1-1-1-1-1</relation>
         <belongTo>2</belongTo>
         <status>0</status>
     </general>
@@ -1321,7 +1321,7 @@
         <mountainfc>C</mountainfc>
         <riverfc>C</riverfc>
         <skill>99</skill>
-		<relation>00950000000000</relation>
+		<relation>-195-1-1-1-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1357,7 +1357,7 @@
         <mountainfc>S</mountainfc>
         <riverfc>C</riverfc>
         <skill>19</skill>
-		<relation>00800000000000</relation>
+		<relation>-180-1-1-1-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1375,7 +1375,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>C</riverfc>
         <skill>40</skill>
-		<relation>65000000000000</relation>
+		<relation>65-1-1-1-1-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1393,7 +1393,7 @@
 		<mountainfc>C</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>36</skill>
-		<relation>01750101010000</relation>
+		<relation>0175010101-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1411,7 +1411,7 @@
 		<mountainfc>C</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>23</skill>
-		<relation>00850000000000</relation>
+		<relation>-185-1-1-1-1-1</relation>
 		<belongTo>2</belongTo>
 		<status>0</status>
 	</general>
@@ -1429,7 +1429,7 @@
 		<mountainfc>C</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>43</skill>
-		<relation>00850000000000</relation>
+		<relation>-185-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1447,7 +1447,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>44</skill>
-		<relation>10351010350000</relation>
+		<relation>1035101035-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1483,7 +1483,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>A</riverfc>
 		<skill>52</skill>
-		<relation>75051010100500</relation>
+		<relation>750510101005-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1501,7 +1501,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>A</riverfc>
 		<skill>53</skill>
-		<relation>00009900000000</relation>
+		<relation>-1-199-1-1-1-1</relation>
 		<belongTo>3</belongTo>
 		<status>0</status>
 	</general>
@@ -1519,7 +1519,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>S</riverfc>
 		<skill>54</skill>
-		<relation>00600000000000</relation>
+		<relation>-110-1-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1537,7 +1537,7 @@
 		<mountainfc>B</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>34</skill>
-		<relation>64010101150000</relation>
+		<relation>6401010115-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1555,7 +1555,7 @@
         <mountainfc>S</mountainfc>
         <riverfc>C</riverfc>
         <skill>22</skill>
-		<relation>75000000000000</relation>
+		<relation>75-1-1-1-1-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1573,7 +1573,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>S</riverfc>
 		<skill>19</skill>
-		<relation>00009000000105</relation>
+		<relation>-1-190-1-10105</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1591,7 +1591,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>B</riverfc>
 		<skill>70</skill>
-		<relation>00820000000000</relation>
+		<relation>-182-1-1-1-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1609,7 +1609,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>S</riverfc>
         <skill>25</skill>
-		<relation>00009400000000</relation>
+		<relation>-1-194-1-1-1-1</relation>
         <belongTo>0</belongTo>
         <status>0</status>
     </general>
@@ -1665,7 +1665,7 @@
         <mountainfc>C</mountainfc>
         <riverfc>C</riverfc>
         <skill>99</skill>
-        <relation>00000000009000</relation>
+        <relation>-1-1-1-1-190-1</relation>
         <belongTo>6</belongTo>
         <status>0</status>
     </general>
@@ -1774,7 +1774,7 @@
         <mountainfc>S</mountainfc>
         <riverfc>C</riverfc>
         <skill>6</skill>
-		<relation>99000000000001</relation>
+		<relation>99-1-1-1-1-101</relation>
         <belongTo>1</belongTo>
         <status>0</status>
     </general>

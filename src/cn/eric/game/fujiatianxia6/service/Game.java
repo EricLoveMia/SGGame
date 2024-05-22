@@ -619,6 +619,8 @@ public class Game {
                     System.out.println("======主公好====== 选择0 放弃增减武将和兵力金钱\n");
                     // 查看技能
                     SkillFactory.checkSkillViaCity(defence, players[no - 1]);
+                    // 收回武将
+                    getBackGenerals(defence,players[no-1]);
                     // 选择武将及放置的兵力
                     chooseDefenceGeneralAndSoilders(defence, players[no - 1]);
                     // 卖出商品
@@ -838,6 +840,47 @@ public class Game {
         } else {
             return position;
         }
+    }
+
+    /***
+     * 收回武将
+     * @param defence
+     * @param player
+     */
+    private void getBackGenerals(City defence, General player) {
+        if(player.isReboot()){
+            return;
+        }
+        // 大于1个才能回收
+        if(defence.getDenfenceGenerals().size() > 1) {
+            System.out.println("选择要返回军队的将军 0 取消");
+            int index = 1;
+            for (General general : defence.getDenfenceGenerals()) {
+                System.out.println(index++ + "：" + general.toString());
+            }
+
+            Scanner input = new Scanner(System.in);
+            int num = input.nextInt();
+
+            while (num != 0) {
+                if(num < 0 || num > defence.getDenfenceGenerals().size()) {
+                    System.out.println("选择要返回军队的将军 0 取消");
+                    index = 1;
+                    for (General general : defence.getDenfenceGenerals()) {
+                        System.out.println(index++ + "：" + general.toString());
+                    }
+                    num = input.nextInt();
+                }
+                if(num <0 || num > defence.getDenfenceGenerals().size()){
+                    continue;
+                }
+                General general = defence.getDenfenceGenerals().get(index - 1);
+
+                defence.getDenfenceGenerals().remove(general);
+                general.setCityId("");
+            }
+        }
+
     }
 
     private SiegeWeapon buySiegeWeapon(General player) {
@@ -1398,7 +1441,7 @@ public class Game {
                 return 2000;
             } else if ((a < 10000) && stepCount > 50) {
                 return -1;
-            } else if ((a < 10000) && stepCount < 50) {
+            } else if ((a < 10000 && a > 3000) && stepCount < 50) {
                 return a * 10 / 100;
             } else {
                 return -1;
