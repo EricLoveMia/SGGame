@@ -209,7 +209,7 @@ public class Game {
                 players[no - 1] = GeneralFactory.getGeneral("刘表");
                 break;
             case 8:
-                players[no - 1] = GeneralFactory.getGeneral("待定");
+                players[no - 1] = GeneralFactory.getGeneral("马腾");
                 break;
             default:
                 break;
@@ -1530,16 +1530,23 @@ public class Game {
                     players[i].setArchers(2000); // 弓兵
                     break;
                 case "袁术":
+                    players[i].setReputation(400);
                     players[i].setReputation(200);
                     players[i].setCavalrys(2000); // 骑兵
                     players[i].setInfantry(2000); // 枪兵
                     players[i].setArchers(2000); // 弓兵
                     break;
                 case "刘表":
-                    players[i].setReputation(200);
+                    players[i].setReputation(400);
                     players[i].setCavalrys(1000); // 骑兵
                     players[i].setInfantry(2000); // 枪兵
                     players[i].setArchers(4000); // 弓兵
+                    break;
+                case "马腾":
+                    players[i].setReputation(350);
+                    players[i].setCavalrys(7000); // 骑兵
+                    players[i].setInfantry(1000); // 枪兵
+                    players[i].setArchers(0); // 弓兵
                     break;
                 default:
                     players[i].setReputation(250);

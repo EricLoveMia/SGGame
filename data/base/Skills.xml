@@ -478,8 +478,8 @@
     <skill>
         <id>68</id>
         <name>隐蔽</name>
-        <memo>在山地城市野战时，每回合有30%的机率隐藏自身免于敌方的伤害</memo>
-        <data>30</data>
+        <memo>在山地城市野战时，每回合有15%的机率隐藏自身免于敌方的伤害</memo>
+        <data>15</data>
         <time>3</time>
     </skill>
     <skill>

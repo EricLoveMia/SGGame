@@ -2,8 +2,10 @@ package cn.eric.game.fujiatianxia6.po.bag;
 
 import cn.eric.game.fujiatianxia6.po.City;
 import cn.eric.game.fujiatianxia6.po.General;
+import cn.eric.game.fujiatianxia6.po.TransportTeam;
 import cn.eric.game.fujiatianxia6.po.store.Goods;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -31,6 +33,10 @@ public class 五鬼搬运 extends SilkBag {
         Collections.shuffle(goodsList);
         Goods remove = goodsList.remove(0);
         System.out.println("主公" + origin.getName() + "获得特产" + remove.getName());
+        if(origin.getTransportTeam() == null){
+            origin.setTransportTeam(new TransportTeam(new ArrayList<>(), origin.getGenerals().size() * 2, 0));
+        }
+
         origin.getTransportTeam().getGoodsList().add(remove);
         return true;
     }

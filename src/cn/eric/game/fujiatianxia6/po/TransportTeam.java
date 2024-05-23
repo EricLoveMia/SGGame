@@ -3,6 +3,7 @@ package cn.eric.game.fujiatianxia6.po;
 import cn.eric.game.fujiatianxia6.po.store.Goods;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**

@@ -788,4 +788,14 @@ public class GeneralFactory {
             System.out.println(general.toString());
         }
     }
+
+    public static void main(String[] args) {
+        GeneralFactory.init();
+        for (General initGeneral : GeneralFactory.initGenerals) {
+            String relations = initGeneral.getRelations();
+            if(relations.length() < 16){
+                System.out.println(initGeneral.getName());
+            }
+        }
+    }
 }

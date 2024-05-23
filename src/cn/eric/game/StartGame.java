@@ -51,9 +51,9 @@ public class StartGame {
 				System.out.println("请选择人物");
 				System.out.println("\n请选择角色: 1. 刘备 容易收服武将，诸葛亮bug  \n " + "2. 曹操 野战单挑都厉害 " +
 						" \n 3. 孙权 水战无敌，周瑜陆逊野战bug  \n 4. 董卓 三国第一武将在手，单挑无敌，群雄归附初始兵钱加倍 \n  " +
-						"5. 袁绍 四世三公 文臣武将诸多 \n 6. 袁术 赌神 \n 7.刘表 ");
+						"5. 袁绍 四世三公 文臣武将诸多 \n 6. 袁术 赌神 \n 7.刘表 经营有方，武将谋士平衡 \n 8.马腾 骑兵纵横天下 ");
 				int lord = input.nextInt();
-				while (lord < 1 || lord > 7) {
+				while (lord < 1 || lord > 8) {
 					System.out.println("请重新选择");
 					lord = input.nextInt();
 				}

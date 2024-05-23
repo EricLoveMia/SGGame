@@ -197,11 +197,11 @@ public class SkillFactory {
             System.out.println("武将：" + general.getName() + "触发技能：深谋 野战或者攻城前，有几率直接对敌方造成伤害，伤害值与智力值有关，初始几率为60%，获得专属提升为100%（司马懿）");
             int lostNum = 0;
             if (attOrDef == 1) {
-                lostNum = (int) (virgin.getAttackSoliderTotal() * (Float.parseFloat(general.getIntelligence())) / 1000);
+                lostNum = Math.min(1000, (int) (virgin.getAttackSoliderTotal() * (Float.parseFloat(general.getIntelligence())) / 1000));
                 System.out.println("防守方损失兵力：" + lostNum);
                 virgin.setDeffenceSoliderTotal(virgin.getDeffenceSoliderTotal() - lostNum);
             } else {
-                lostNum = (int) (virgin.getDeffenceSoliderTotal() * (Float.parseFloat(general.getIntelligence())) / 1000);
+                lostNum = Math.min(1000,(int) (virgin.getDeffenceSoliderTotal() * (Float.parseFloat(general.getIntelligence())) / 1000));
                 System.out.println("进攻方损失兵力：" + lostNum);
                 virgin.setAttackSoliderTotal(virgin.getAttackSoliderTotal() - lostNum);
             }
@@ -264,11 +264,11 @@ public class SkillFactory {
             System.out.println("武将：" + general.getName() + "触发技能：深谋 野战或者攻城前，有几率直接对敌方造成伤害，伤害值与智力值有关，初始几率为60%，获得专属提升为100%（司马懿）");
             int lostNum = 0;
             if (attOrDef == 1) {
-                lostNum = (int) (BF.getAttackAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
+                lostNum = Math.min(1000, (int) (BF.getAttackAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000));
                 System.out.println("防守方损失兵力：" + lostNum);
                 BF.setDefenceAmyNum(BF.getDefenceAmyNum() - lostNum);
             } else {
-                lostNum = (int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000);
+                lostNum = Math.min(1000,(int) (BF.getDefenceAmyNum() * (Float.parseFloat(general.getIntelligence())) / 1000));
                 System.out.println("进攻方损失兵力：" + lostNum);
                 BF.setAttackAmyNum(BF.getAttackAmyNum() - lostNum);
             }
@@ -1023,7 +1023,7 @@ public class SkillFactory {
         if ("78".equals(general.getSkill())) {
             Skill skill = SkillFactory.getSkillByID(general.getSkill());
             // 增加的损失数
-            if (attOrDef == 1 && attackCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
+            if (attOrDef == 1 && BF.getAttackType() == 1  && attackCompare(general, BF.getDefenceChief(), BF.getDefenceCounsellor(), BF.getDefenceVice())) {
                 System.out.println("武将：" + general.getName() + "触发技能" + skill.getName() + " ：" + skill.getMemo());
                 int add = Integer.parseInt(general.getCommand()) + Integer.parseInt(general.getAttack()) / 3;
                 System.out.println("增加伤害" + add + "(" + BF.getDefLost() + ")");
@@ -1037,6 +1037,23 @@ public class SkillFactory {
                     System.out.println("造成溃散" + amyNum * percents);
                     BF.setDefLost((int) (BF.getDefLost() + amyNum * percents));
                 }
+            }
+        }
+        // 铁骑
+        if ("82".equals(general.getSkill())) {
+            Skill skill = SkillFactory.getSkillByID(general.getSkill());
+            // 增加的损失数
+            if (attOrDef == 1 && BF.getAttackType() == 1) {
+                System.out.println("武将：" + general.getName() + "主公技能触发技能" + skill.getName() + " ：" + skill.getMemo());
+                int add = (int) (BF.getDefLost() *0.3);
+                System.out.println("增加防守方伤害" + add + "(" + BF.getDefLost() + ")");
+                BF.setDefLost(BF.getDefLost() + add);
+            }
+            else if (attOrDef == 2 && BF.getAttackType() == 1){
+                System.out.println("武将：" + general.getName() + "主公技能触发技能" + skill.getName() + " ：" + skill.getMemo());
+                int add = (int) (BF.getAttLost() * 0.3);
+                System.out.println("增加进攻方伤害" + add + "点 (" + BF.getDefLost() + ")");
+                BF.setAttLost(BF.getAttLost() + add);
             }
         }
         return BF;
@@ -1234,6 +1251,10 @@ public class SkillFactory {
         if (BF.getDefenceCounsellor() != null) {
             BattleField_ChangeMiddle(2, BF.getDefenceCounsellor(), BF);
         }
+        General defenceLord = GeneralFactory.getGeneralById(BF.getDefenceChief().getBelongTo());
+        if(defenceLord != null) {
+            BattleField_ChangeMiddle(1, defenceLord, BF);
+        }
     }
 
     private static void battleField_Middle_Attack(BattleField BF) {
@@ -1245,6 +1266,10 @@ public class SkillFactory {
         }
         if (BF.getAttackCounsellor() != null) {
             BattleField_ChangeMiddle(1, BF.getAttackCounsellor(), BF);
+        }
+        General attackLord = GeneralFactory.getGeneralById(BF.getAttackChief().getBelongTo());
+        if(attackLord != null) {
+            BattleField_ChangeMiddle(1, attackLord, BF);
         }
     }
 
@@ -1768,10 +1793,12 @@ public class SkillFactory {
 
     private static int citySkillHorseChange(int data, General general) {
         // TODO 要加成智力魅力政治
+        int sum = Integer.parseInt(general.getIntelligence()) + Integer.parseInt(general.getPolitics());
+        float percent = (float) sum / 350;
         // 繁殖
         if ("42".equals(general.getSkill())) {
-            System.out.println(general.getName() + "技能繁殖触发，骑兵数量增加50%");
-            data = (int) (data + data * 0.5);
+            System.out.println(general.getName() + "技能繁殖触发，骑兵数量增加" + percent*100 + "%");
+            data = (int) (data + data * percent);
         }
         // 清廉
         if ("34".equals(general.getSkill())) {
@@ -1787,6 +1814,13 @@ public class SkillFactory {
             System.out.println(general.getName() + "技能勤政触发，" + skill.getMemo());
             data = (int) (data * (double) (100 + skill.getData()) / 100);
         }
+        // 铁骑
+        if ("82".equals(general.getSkill())) {
+            System.out.println(general.getName() + "技能铁骑触发，骑兵数量增加" + 30 + "%");
+            data = (int) (data + data * 0.3);
+        }
+
+
         return data;
     }
 
