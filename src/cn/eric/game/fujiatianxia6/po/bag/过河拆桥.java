@@ -5,6 +5,7 @@ import cn.eric.game.fujiatianxia6.po.General;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @version 1.0.0
@@ -26,8 +27,7 @@ public class 过河拆桥 extends SilkBag {
             return false;
         }
         // 随机拆掉一个锦囊
-        Collections.shuffle(silkBags);
-        SilkBag remove = silkBags.remove(0);
+        SilkBag remove = silkBags.remove(new Random().nextInt(silkBags.size()));
         System.out.println("主公" + targetGeneral.getName() + "遗失锦囊" + remove.name());
         return true;
     }

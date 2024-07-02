@@ -18,8 +18,16 @@ public class 人去楼空 extends SilkBag {
 
     @Override
     public boolean run(General origin, General targetGeneral, City targetCity) {
-        // 减少城市的人口
+        // 减少城市的兵力
+        Integer soilders = targetCity.getSoilders();
 
+        int reduce = 500 + Integer.parseInt(targetGeneral.getIntelligence()) * 4
+                + Integer.parseInt(targetGeneral.getCharm()) * 2;
+        if(soilders <= reduce) {
+            reduce = soilders;
+        }
+        System.out.println("城市" + targetCity.getName() + "减少剑兵" + reduce);
+        targetCity.setSoilders(soilders - reduce);
         return false;
     }
 

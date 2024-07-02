@@ -287,10 +287,10 @@ public class AttackCity {
 			levelMap.put(arms.getName(), arms.getLevel());
 		}
 
-		double perS = 1 * (1 + levelMap.get("剑兵")*0.1);
-		double perC = 1 * (1 + levelMap.get("骑兵")*0.1);
-		double perI = 1 * (1 + levelMap.get("枪兵")*0.1);
-		double perA = 1 * (1 + levelMap.get("弓兵")*0.1);
+		double perS = 1 * (1 + levelMap.get("剑兵")*0.1 + attactlevelAddition*0.1);
+		double perC = 1 * (1 + levelMap.get("骑兵")*0.1 + attactlevelAddition*0.1);
+		double perI = 1 * (1 + levelMap.get("枪兵")*0.1 + attactlevelAddition*0.1);
+		double perA = 1 * (1 + levelMap.get("弓兵")*0.1 + attactlevelAddition*0.1);
 		// 获得兵力比例
 		// 先损失剑兵
 		int solidersV = (int) (soliders * perS);

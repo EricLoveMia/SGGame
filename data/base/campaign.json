@@ -1,0 +1,12 @@
+[
+  {
+    "id": 1,
+    "winFactor": 3,
+    "citys": [
+      {
+        "cityId": 1,
+        "belongTo": 2
+      }
+    ]
+  }
+]

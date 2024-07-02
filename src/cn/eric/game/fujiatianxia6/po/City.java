@@ -221,7 +221,9 @@ public class City implements Serializable {
 		return "City [类型=" + type + ", 名称=" + name + ", 介绍=" + memo + ", 购买费用=" + purchase + ", 升级费用="
 				+ upgradeLevel + ", 当前金钱=" + money + ", 繁荣度=" + prosperity + ", 骑=" + cavalrys
 				+ ", 枪=" + infantry + ", 弓=" + archers + ", 剑=" + soilders + ", 属于="
-				+ Optional.ofNullable(GeneralFactory.getGeneralById(belongTo + "")).orElse(new General("空白")).getName() + ", 地形 =" + CityTopographyEnum.getText(topography) + "]";
+				+ Optional.ofNullable(GeneralFactory.getGeneralById(belongTo + ""))
+				.orElse(new General("空白")).getName() + ", 地形 =" + CityTopographyEnum.getText(topography)
+				+ ",特产房："  + (getSpecial()==0?"无":"有") +  "]";
 	}
 
 	public void setPurchase(int purchase) {

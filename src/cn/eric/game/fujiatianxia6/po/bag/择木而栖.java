@@ -17,7 +17,16 @@ public class 择木而栖 extends SilkBag {
 
     @Override
     public boolean run(General origin, General targetGeneral, City targetCity) {
-        // 放弃攻城
+        // 减少城市的兵力
+        Integer soilders = targetCity.getSoilders();
+        int reduce = Integer.parseInt(targetGeneral.getIntelligence()) * 4
+                + Integer.parseInt(targetGeneral.getCharm()) * 2;
+        if(soilders <= reduce) {
+            reduce = soilders;
+        }
+        System.out.println("从城市" + targetCity.getName() + "中投诚剑兵" + reduce);
+        targetCity.setSoilders(soilders - reduce);
+        origin.setArmy(origin.getArmy() + reduce);
         return true;
     }
 }

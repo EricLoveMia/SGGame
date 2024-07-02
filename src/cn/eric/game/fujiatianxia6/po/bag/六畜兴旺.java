@@ -5,7 +5,7 @@ import cn.eric.game.fujiatianxia6.po.General;
 
 /**
  * @version 1.0.0
- * @description:
+ * @description: 应该是增加人口，目前还没有人口这个说法
  * @author: eric
  * @date: 2022-10-17 11:45
  **/
@@ -17,7 +17,7 @@ public class 六畜兴旺 extends SilkBag {
 
     @Override
     public boolean run(General origin, General targetGeneral, City targetCity) {
-        // 直接走到指定的位置
+        //
 
         return true;
     }

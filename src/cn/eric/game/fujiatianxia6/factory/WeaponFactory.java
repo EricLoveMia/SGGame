@@ -29,14 +29,17 @@ public class WeaponFactory {
             weaponMap = new HashMap<>();
             weapons = Dom4JforXML.createWeapons();
             commonWeapons = weapons.stream().filter(e -> e.getGeneralId().equals("-1")).collect(Collectors.toList());
-            weaponMap = weapons.stream().collect(Collectors.toMap(Weapon::getGeneralId, a -> a, (key1, key2) -> key2));
-            // System.out.println(weaponMap.toString());
+            weaponMap = weapons.stream().filter(e -> !e.getGeneralId().equals("-1"))
+                    .collect(Collectors.toMap(Weapon::getGeneralId, a -> a, (key1, key2) -> key2));
+            System.out.println(weaponMap.toString());
         } catch (DocumentException e) {
             e.printStackTrace();
         }
     }
 
     public static void purchaseWeapon(General player) {
+        if(player.isReboot())
+            return;
         System.out.println("根据您目前手下的武将，可以购买专属的有");
 
         List<General> generals = player.getGenerals();
@@ -67,6 +70,7 @@ public class WeaponFactory {
                     System.out.println("购买武器" + weapon.getName());
                     String generalId = weapon.getGeneralId();
                     General generalForWeapon;
+                    // 专属武器
                     if (!"-1".equals(generalId)) {
                         // 武将自动装备武器
                         generalForWeapon = GeneralFactory.getGeneralById(generalId);

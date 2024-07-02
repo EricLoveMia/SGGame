@@ -5,6 +5,7 @@ import cn.eric.game.fujiatianxia6.po.General;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @version 1.0.0
@@ -23,13 +24,12 @@ public class 顺手牵羊 extends SilkBag {
         // 从另一个主公手中夺取一个锦囊
         List<SilkBag> silkBags = targetGeneral.getBag().getSilkBags();
         if (silkBags == null || silkBags.size() == 0) {
-            System.out.println("主公" + targetGeneral.getName() + "没有锦囊");
+            System.out.println("目标主公" + targetGeneral.getName() + "没有锦囊");
             return false;
         }
         // 随机抽取一个锦囊
-        Collections.shuffle(silkBags);
-        SilkBag remove = silkBags.remove(0);
-        System.out.println("主公" + origin.getName() + "获得锦囊" + remove.name());
+        SilkBag remove = silkBags.remove(new Random().nextInt(silkBags.size()));
+        System.out.println("主公" + origin.getName() + "从【" + targetGeneral.getName() + "】处获得锦囊" + remove.name());
         origin.getBag().getSilkBags().add(remove);
         return true;
     }

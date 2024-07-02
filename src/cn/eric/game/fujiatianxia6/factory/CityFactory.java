@@ -181,28 +181,39 @@ public class CityFactory {
         System.out.println("您目前的金钱有:" + player.getMoney());
         int choise = 1;
         if (player.isReboot()) {
-            if (player.getMoney() / 2 > defence.getUpgradeLevel()) {
-                player.setMoney(player.getMoney() - defence.getUpgradeLevel());
-                defence.setType(defence.getType() + 1);
-                System.out.println("城市升级成功");
-                return;
-            } else {
-                System.out.println("暂不升级");
+            if(defence.getType() < 5) {
+                if (player.getMoney() / 3 > defence.getUpgradeLevel()) {
+                    player.setMoney(player.getMoney() - defence.getUpgradeLevel());
+                    defence.setType(defence.getType() + 1);
+                    System.out.println("城市升级成功");
+                    return;
+                } else {
+                    System.out.println("暂不升级");
+                    return;
+                }
+            }
+            else{
+                System.out.println("已经到了最高级别");
                 return;
             }
         }
         Scanner input = new Scanner(System.in);
         choise = input.nextInt();
         if (choise == 1) {
-            if (player.getMoney() > defence.getUpgradeLevel()) {
-                player.setMoney(player.getMoney() - defence.getUpgradeLevel());
-                defence.setType(defence.getType() + 1);
-                System.out.println("城市升级成功");
-                return;
-            } else {
-                System.out.println("对不起，您的钱不够");
-                return;
+            if(defence.getType() < 5) {
+                if (player.getMoney() > defence.getUpgradeLevel()) {
+                    player.setMoney(player.getMoney() - defence.getUpgradeLevel());
+                    defence.setType(defence.getType() + 1);
+                    System.out.println("城市升级成功");
+                    return;
+                } else {
+                    System.out.println("对不起，您的钱不够");
+                    return;
+                }
+            }else{
+                System.out.println("已经到了最高级别");
             }
+
         } else {
             System.out.println("暂不升级");
             return;

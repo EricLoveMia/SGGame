@@ -45,7 +45,7 @@
     <campaing>
         <lordId>8</lordId>
         <maps>1,2,8,5,4,6,99</maps>
-        <enemies>8,1,2,3;8,1,2,3;8,6,2;8,1,2,3;8,1,2,3;8,1,2,3;8,1,2,3</enemies>
+        <enemies>8,1,2,3;8,1,2,4;8,6,2;8,1,2,3;8,1,2,3;8,1,2,3;8,1,2,3</enemies>
         <memo>马腾一统天下</memo>
     </campaing>
 </campaings>

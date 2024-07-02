@@ -22,7 +22,7 @@ public class Building implements Cloneable, Serializable {
      */
     public Integer upgradeLevel;
     /**
-     * 1 防御型 增加守城防守伤害 城墙、弩炮各可以增加4个 2 一次性 增加商业值 市场、酒馆  3 周期型 马厩、武器厂、兵器厂、徽兵所
+     * 1 防御型 增加守城防守伤害 城墙、弩炮各可以增加4个 2 一次性 增加商业值 市场、酒馆  3 周期型 马厩、武器厂、兵器厂、徽兵所 4 固定不能升级的
      */
     public int type;
     /**
@@ -56,7 +56,7 @@ public class Building implements Cloneable, Serializable {
 
     @Override
     public String toString() {
-        return "建筑 [id=" + id + ", 名称=" + name + ", 说明=" + memo + ", 购买费用=" + purchase
+        return "建筑 [id=" + id + ", 名称=" + name + ", 等级" +  level + " , 说明=" + memo + ", 购买费用=" + purchase
                 + ", 升级费用=" + upgradeLevel + ", 类型=" + (type == 1 ? "防御型" : type == 2 ? "一次性" : "周期") + "]";
     }
 

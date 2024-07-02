@@ -18,13 +18,13 @@ public class BuildingFactory {
         buildings.add(new Building(2, "弩炮", "防守时增加进攻方损失8%，每升一级增加2%的损失,守城野战适用", 8, 1, 5000, 5000));
         buildings.add(new Building(3, "市场", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
         buildings.add(new Building(4, "道路", "增加繁荣度50%，每升一级增加10%的繁荣度", 50, 2, 5000, 5000));
-		buildings.add(new Building(5, "武器阁", "购买武将专属的地方，每升一级降低购买价格10%", 50, 4, 10000, 10000));
+		buildings.add(new Building(5, "武器阁", "购买武将专属的地方，每升一级降低购买价格10%", 50, 4, 5000, 5000));
 		buildings.add(new Building(6, "屯兵所", "每回合根据守军数量增加钱粮", 50, 4, 5000, 5000));
         buildings.add(new Building(7, "马厩", "每回合结束驯养马匹，将城市内的剑兵转换成骑兵，升级增加转换率", 50, 3, 5000, 5000));
         buildings.add(new Building(8, "兵器厂", "每回合结束生产枪和弓，并将城市内的剑兵转换成弓兵和枪兵，升级增加转换率", 25, 3, 5000, 5000));
         buildings.add(new Building(9, "徽兵所", "每回合结束招募剑兵，升级增加招募的数量", 25, 3, 5000, 5000));
         buildings.add(new Building(10, "特产店", "购买特产的地方", 25, 3, 5000, 5000));
-//        buildings.add(new Building(11, "重修堂", "武将重修技能的地方，花费一定的金额可以重修技能", 25, 3, 50000, 5000));
+       // buildings.add(new Building(11, "重修堂", "武将重修技能的地方，花费一定的金额可以重修技能", 25, 2, 20000, 10000));
     }
 	
 	/**
@@ -102,6 +102,7 @@ public class BuildingFactory {
 							|| (choise == 5 && (countBuildsInCity(city, 5) >= 1)) || (choise == 6 && (countBuildsInCity(city, 6) >= 1))
 							|| (choise == 7 && (countBuildsInCity(city, 7) >= 1)) || (choise == 8 && (countBuildsInCity(city, 8) >= 1))
 							|| (choise == 9 && (countBuildsInCity(city, 9) >= 1)) || (choise == 10 && (countBuildsInCity(city, 10) >= 1))) {
+
 						choise = new Random().nextInt(8) + 1;
 					}
 				}else {
@@ -299,10 +300,14 @@ public class BuildingFactory {
 				Iterator<Map.Entry<Integer, Building>> iterator = entries.iterator();
 				while (iterator.hasNext()) {
 					Map.Entry<Integer, Building> next = iterator.next();
-					if (next.getValue().level < defence.getType()) {
-						if (next.getValue().upgradeLevel < player.getMoney() / 4) {
-							choise = next.getKey();
-							break;
+					Building building = next.getValue();
+					if (building.level < defence.getType()) {
+						if (building.upgradeLevel < player.getMoney() / 3) {
+							// 等级不能高于城市等级
+							if(building.level < defence.getType()){
+								choise = next.getKey();
+								break;
+							}
 						}
 					}
 				}

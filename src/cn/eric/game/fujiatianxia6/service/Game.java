@@ -874,7 +874,10 @@ public class Game {
                 if(num <0 || num > defence.getDenfenceGenerals().size()){
                     continue;
                 }
-                General general = defence.getDenfenceGenerals().get(index - 1);
+                if(num == 0) {
+                    break;
+                }
+                General general = defence.getDenfenceGenerals().get(num - 1);
 
                 defence.getDenfenceGenerals().remove(general);
                 general.setCityId("");

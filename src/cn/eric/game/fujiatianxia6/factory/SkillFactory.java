@@ -716,14 +716,14 @@ public class SkillFactory {
             if (attOrDef == 1 && BF.getAttackType() == 2) {
                 if (new Random().nextInt(100) <= (data + attactSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能：白马，每回合有50%的几率发动骑射，专属后100%几率,伤害和统帅武力有关");
-                    addLost = (int) ((int) (BF.getDefLost() * (Float.parseFloat(general.getAttack())) / 1000) * (Float.parseFloat(general.getCommand()) / 30));
+                    addLost = (int) ((int) ((Float.parseFloat(general.getAttack()) * 1.3 + Float.parseFloat(general.getCommand()) * 1.1 )) * 0.35);
                     BF.setDefLost(BF.getDefLost() + addLost);
                     System.out.println("增加伤亡：" + addLost);
                 }
             } else if (attOrDef == 2 && BF.getDefenceType() == 2) {
                 if (new Random().nextInt(100) <= (data + defenceSkillProbability)) {
                     System.out.println("武将：" + general.getName() + "触发技能：白马，每回合有50%的几率发动骑射，专属后100%几率,伤害和统帅武力有关");
-                    addLost = (int) ((int) (BF.getAttLost() * (Float.parseFloat(general.getAttack())) / 1000) * (Float.parseFloat(general.getCommand()) / 30));
+                    addLost = (int) ((int) ((Float.parseFloat(general.getAttack()) * 1.3 + Float.parseFloat(general.getCommand()) * 1.1 )) * 0.35);
                     BF.setAttLost(BF.getAttLost() + addLost);
                     System.out.println("增加伤亡：" + addLost);
                 }

@@ -457,7 +457,7 @@
 		<mountainfc>C</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>27</skill>
-		<relation>3030305535101001</relation>
+		<relation>1010100505010101</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -979,7 +979,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>39</skill>
-		<relation>-130-13080-1-1-1</relation>
+		<relation>-130-1-180-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -2506,7 +2506,7 @@
 		<mountainfc>A</mountainfc>
 		<riverfc>C</riverfc>
 		<skill>7</skill>
-		<relation>0101019001010101</relation>
+		<relation>01-1-190-1-1-1-1</relation>
 		<belongTo>4</belongTo>
 		<status>0</status>
 	</general>
