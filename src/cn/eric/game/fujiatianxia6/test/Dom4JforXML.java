@@ -1,7 +1,9 @@
 package cn.eric.game.fujiatianxia6.test;
 
 import cn.eric.game.fujiatianxia6.factory.CampaignFactory;
+import cn.eric.game.fujiatianxia6.factory.WeaponFactory;
 import cn.eric.game.fujiatianxia6.po.*;
+import com.sun.deploy.util.StringUtils;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -333,10 +335,16 @@ public class Dom4JforXML {
             //System.out.println("当前节点的名称：" + e.getName());
             //首先获取当前节点的所有属性节点  
             List<Attribute> listA = e.attributes();
-            //遍历属性节点  
+            //遍历属性节点
+            String generalId = "";
+            // 就只有一个属性
             for (Attribute attribute : listA) {
-                //System.out.println("属性"+attribute.getName() +":" + attribute.getValue()); 
-                g.setId(attribute.getValue());
+                // System.out.println("属性"+attribute.getName() +":" + attribute.getValue());
+                if("id".equals(attribute.getName())) {
+                    g.setId(attribute.getValue());
+                    generalId = attribute.getValue();
+                    break;
+                }
             }
             Iterator iterator2 = e.elementIterator();
             while (iterator2.hasNext()) {
@@ -394,6 +402,16 @@ public class Dom4JforXML {
                             break;
                         case "city":
                             g.setCityId(e2.getText());
+                            break;
+                        case "weapon":
+                            if (e2.getText() != null && !"".equals(e2.getText())) {
+                                Weapon weapon = WeaponFactory.findWeaponById(Integer.parseInt(e2.getText()));
+                                g.setWeapon(weapon);
+                                // 如果是专属
+                                if(weapon != null && !"-1".equals(weapon.getGeneralId())){
+                                    WeaponFactory.removeFromMap(generalId);
+                                }
+                            }
                             break;
                         default:
                             break;

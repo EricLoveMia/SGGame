@@ -634,6 +634,8 @@ public class Game {
                     } catch (CloneNotSupportedException e) {
                         e.printStackTrace();
                     }
+                    // 检查特殊建筑
+                    BuildingFactory.checkSpecialBuilding(defence,players[no-1]);
                     // 购买商品
                     buyGoods(defence, players[no - 1]);
                 } else {

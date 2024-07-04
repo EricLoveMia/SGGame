@@ -13,19 +13,19 @@ public class Weapon implements Serializable {
 
     private Integer id;
     private String name;
-    private Integer price;
+    private Integer price = 0;
     // 技能增加值
-    private Integer data;
+    private Integer data = 0;
     private String generalId;
-    private Integer attack;
+    private Integer attack = 0;
     // 统帅力+
-    private Integer command;
+    private Integer command = 0;
     // 智力+
-    private Integer intelligence;
+    private Integer intelligence = 0;
     // 魅力+
-    private Integer charm;
+    private Integer charm = 0;
     // 政治+
-    private Integer politics;
+    private Integer politics = 0;
     // 新技能（替换老的技能）
     private String newSkillId;
 

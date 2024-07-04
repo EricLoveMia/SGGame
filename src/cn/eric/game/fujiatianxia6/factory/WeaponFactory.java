@@ -76,7 +76,7 @@ public class WeaponFactory {
                         generalForWeapon = GeneralFactory.getGeneralById(generalId);
                         // 专属只能买一个
                         weaponMap.remove(generalId);
-                        generalForWeapon.setWeapon(weapon);
+                        generalForWeapon.resetWeapon(weapon);
                     } else {
                         chooseGeneralForWeapon(player, weapon);
                     }
@@ -114,7 +114,7 @@ public class WeaponFactory {
             } else {
                 General general = generals.get(choise - 1);
                 Weapon generalWeapon = general.getWeapon();
-                general.setWeapon(weapon);
+                general.resetWeapon(weapon);
                 if (generalWeapon != null) {
                     chooseGeneralForWeapon(player, generalWeapon);
                 }
@@ -136,5 +136,14 @@ public class WeaponFactory {
 
     public static void removeFromMap(String generalId) {
         weaponMap.remove(generalId);
+    }
+
+
+    public static Weapon findWeaponById(Integer weaponId) {
+        Optional<Weapon> weapon = weapons.stream().filter(e -> e.getId().equals(weaponId)).findFirst();
+        if(weapon.isPresent()){
+            return weapon.get();
+        }
+        return null;
     }
 }

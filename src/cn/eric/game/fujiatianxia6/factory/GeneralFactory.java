@@ -798,4 +798,28 @@ public class GeneralFactory {
             }
         }
     }
+
+    public static General chooseOneGeneral(General lord) {
+        List<General> generals = lord.getGenerals();
+
+        int index = 1;
+        for (General general : generals) {
+            System.out.println(index++ + ": " + general.toString());
+        }
+        Scanner input = new Scanner(System.in);
+        int choose = -1;
+        while(true){
+            System.out.print("请选择武将：");
+            choose = input.nextInt();
+            if(choose < 0 || choose > generals.size()) {
+                System.out.println("太大或太小");
+                continue;
+            }
+            if(choose == 0) {
+                break;
+            }
+            return generals.get(choose-1);
+        }
+        return null;
+    }
 }

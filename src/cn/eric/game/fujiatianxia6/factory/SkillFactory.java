@@ -5,6 +5,7 @@ import cn.eric.game.fujiatianxia6.po.*;
 import cn.eric.game.fujiatianxia6.service.Fight;
 import cn.eric.game.fujiatianxia6.service.Util;
 import cn.eric.game.fujiatianxia6.test.Dom4JforXML;
+import cn.eric.game.fujiatianxia6.util.ScannerInput;
 import org.dom4j.DocumentException;
 
 import java.util.*;
@@ -1956,5 +1957,20 @@ public class SkillFactory {
         }
 
         return price;
+    }
+
+    public static void resetSkill(List<String> skillIds, General general, General player, Integer costMoney) {
+        System.out.println("请选择要重修的技能 0 是否取消");
+        for (int i = 0; i < skillIds.size(); i++) {
+            System.out.println(i+1 + ":" + getSkillByID(skillIds.get(i)).getName() + "：" + getSkillByID(skillIds.get(i)).getMemo());
+        }
+        int choose = ScannerInput.inputInt(1, skillIds.size(), 0);
+        if(choose != 0) {
+            String chooseSkillId = skillIds.get(choose - 1);
+            general.setSkill(chooseSkillId);
+            System.out.println("武将" + general.getName() + "重修技能为" + getSkillByID(chooseSkillId).getName());
+            player.setMoney(player.getMoney() - costMoney);
+        }
+
     }
 }

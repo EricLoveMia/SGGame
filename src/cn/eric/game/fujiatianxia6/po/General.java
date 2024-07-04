@@ -299,6 +299,10 @@ public class General implements Cloneable, Serializable {
 	}
 
 	public void setWeapon(Weapon weapon) {
+		this.weapon = weapon;
+	}
+
+	public void resetWeapon(Weapon weapon) {
 		if(weapon != null) {
             this.weapon = weapon;
             this.attack = Integer.parseInt(this.attack) + weapon.getAttack() + "";

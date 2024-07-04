@@ -32,15 +32,15 @@ public class LoadService {
         } else {
             prePath = "data/save/" + path + "/";
         }
-        // 读取武将数据
-        // 初始化武将  TODO  cityId的问题
-        new GeneralFactory(prePath + "Generals.xml");
         // 初始化技能
         SkillFactory.init();
         // 初始化建筑
         BuildingFactory.initBuildings();
         // 初始化专属武器库
         WeaponFactory.init();
+        // 读取武将数据
+        // 初始化武将  TODO  cityId的问题
+        new GeneralFactory(prePath + "Generals.xml");
         // 设定城市
         String cityString = Util.readFileContentAsBuffer(prePath + "city.txt");
         List<City> cityList = JSONObject.parseArray(cityString, City.class);
@@ -85,6 +85,7 @@ public class LoadService {
                 // 如果有专属武器
                 if (general.getWeapon() != null && !"-1".equals(general.getWeapon().getGeneralId())) {
                     WeaponFactory.removeFromMap(general.getId());
+                    general.resetWeapon(general.getWeapon());
                 }
             }
         }
@@ -165,6 +166,7 @@ public class LoadService {
             generalById.setArmsTotal(general.getArmsTotal());
             generalById.setResearch(general.getResearch());
             generalById.setWeapon(general.getWeapon());
+            generalById.resetWeapon(general.getWeapon());
             generalById.setReputation(general.getReputation());
             generalById.setGenerals(GeneralFactory.setBeginGenerals(generalById.getId()));
             generalById.setTransportTeam(general.getTransportTeam());

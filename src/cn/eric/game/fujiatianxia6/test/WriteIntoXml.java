@@ -183,9 +183,17 @@ public class WriteIntoXml {
             Element statusEle = empEle.addElement("status");
             statusEle.addText(general.getStatus());
 
-            //添加status信息
+            //添加城市归属信息
             Element cityEle = empEle.addElement("city");
             cityEle.addText(Optional.ofNullable(general.getCityId()).orElse(""));
+
+            //添加武器的信息
+            Element weaponEle = empEle.addElement("weapon");
+            if(general.getWeapon() != null) {
+                weaponEle.addText(Optional.of(general.getWeapon().getId().toString()).orElse(""));
+            }else {
+                weaponEle.addText("");
+            }
             /*
              * 向当前元素中添加指定名字以及对应值的属性
              */
