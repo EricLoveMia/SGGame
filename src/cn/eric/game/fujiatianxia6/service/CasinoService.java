@@ -49,8 +49,8 @@ public class CasinoService {
             if (counter == 0) {
                 return;
             }
-            while (counter > general.getMoney() || counter < 0) {
-                System.out.println("太大 或小于0 请重新下注");
+            while (counter > general.getMoney() || counter > 10000 || counter < 0) {
+                System.out.println("太大(不能超过10000） 或小于0 请重新下注");
                 counter = input.nextInt();
                 if (counter == 0) {
                     break;

@@ -1501,7 +1501,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>A</riverfc>
 		<skill>52</skill>
-		<relation>750510101005-1-1</relation>
+		<relation>75051010-1-1-1-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1645,7 +1645,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>52</skill>
-		<relation>05650505052085-1</relation>
+		<relation>0165010101-185-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1663,7 +1663,7 @@
 		<mountainfc>S</mountainfc>
 		<riverfc>B</riverfc>
 		<skill>56</skill>
-		<relation>3505050505005000</relation>
+		<relation>3505050505-150-1</relation>
 		<belongTo>0</belongTo>
 		<status>0</status>
 	</general>
@@ -1673,7 +1673,7 @@
 		<name>袁胤</name>
 		<king>0</king>
 		<attack>65</attack>
-		<command>60</command>
+		<command>55</command>
         <intelligence>53</intelligence>
         <charm>40</charm>
         <politics>52</politics>
@@ -1690,8 +1690,8 @@
 	<general id="98">
 		<name>阎象</name>
 		<king>0</king>
-		<attack>65</attack>
-		<command>70</command>
+		<attack>35</attack>
+		<command>40</command>
         <intelligence>83</intelligence>
         <charm>40</charm>
         <politics>52</politics>
@@ -1745,7 +1745,7 @@
 		<name>韩胤</name>
 		<king>0</king>
 		<attack>62</attack>
-		<command>60</command>
+		<command>68</command>
         <intelligence>65</intelligence>
         <charm>50</charm>
         <politics>50</politics>
@@ -2459,7 +2459,7 @@
 	<general id="148">
 		<name>周泰</name>
 		<king>0</king>
-		<attack>81</attack>
+		<attack>89</attack>
 		<command>79</command>
 		<intelligence>70</intelligence>
 		<charm>55</charm>

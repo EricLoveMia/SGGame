@@ -28,7 +28,7 @@ public class 人去楼空 extends SilkBag {
         }
         System.out.println("城市" + targetCity.getName() + "减少剑兵" + reduce);
         targetCity.setSoilders(soilders - reduce);
-        return false;
+        return true;
     }
 
 }

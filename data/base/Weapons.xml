@@ -282,11 +282,11 @@
     <weapon>
         <id>21</id>
         <name>虎贲弓</name>
-        <price>15000</price>
+        <price>25000</price>
         <data>5</data>
         <generalId>43</generalId>
-        <attack>4</attack>
-        <command>6</command>
+        <attack>6</attack>
+        <command>9</command>
         <intelligence>0</intelligence>
         <charm>0</charm>
         <politics>0</politics>
@@ -296,15 +296,15 @@
     <weapon>
         <id>22</id>
         <name>白衣枪</name>
-        <price>15000</price>
+        <price>25000</price>
         <data>25</data>
         <generalId>149</generalId>
-        <attack>4</attack>
-        <command>6</command>
+        <attack>8</attack>
+        <command>10</command>
         <intelligence>0</intelligence>
         <charm>0</charm>
         <politics>0</politics>
-        <memo>吕蒙专属</memo>
+        <memo>吕蒙专属,大大提升属性</memo>
     </weapon>
     <weapon>
         <id>23</id>
@@ -332,6 +332,32 @@
         <poli5ics>0</poli5ics>
         <memo>孙权专属</memo>
     </weapon>
+    <weapon>
+        <id>25</id>
+        <name>幼平刀</name>
+        <price>15000</price>
+        <data>20</data>
+        <generalId>148</generalId>
+        <attack>5</attack>
+        <command>4</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <poli5ics>0</poli5ics>
+        <memo>周泰专属</memo>
+    </weapon>
+    <weapon>
+        <id>26</id>
+        <name>湛卢剑</name>
+        <price>15000</price>
+        <data>20</data>
+        <generalId>58</generalId>
+        <attack>0</attack>
+        <command>5</command>
+        <intelligence>5</intelligence>
+        <charm>0</charm>
+        <poli5ics>0</poli5ics>
+        <memo>贾诩专属</memo>
+    </weapon>
     <!-- 通用装备 -->
     <!--    <weapon>-->
     <!--        <id>101</id>-->
@@ -352,7 +378,7 @@
         <price>10000</price>
         <data>0</data>
         <generalId>-1</generalId>
-        <attack>9</attack>
+        <attack>5</attack>
         <command>0</command>
         <intelligence>0</intelligence>
         <charm>0</charm>
@@ -378,7 +404,7 @@
         <price>10000</price>
         <data>0</data>
         <generalId>-1</generalId>
-        <attack>8</attack>
+        <attack>4</attack>
         <command>1</command>
         <intelligence>0</intelligence>
         <charm>0</charm>
@@ -405,8 +431,8 @@
         <data>0</data>
         <generalId>-1</generalId>
         <attack>0</attack>
-        <command>5</command>
-        <intelligence>4</intelligence>
+        <command>4</command>
+        <intelligence>3</intelligence>
         <charm>0</charm>
         <politics>0</politics>
         <memo>通用武器-军师羽扇</memo>

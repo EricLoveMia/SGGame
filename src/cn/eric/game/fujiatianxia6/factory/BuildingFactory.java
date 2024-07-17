@@ -373,6 +373,7 @@ public class BuildingFactory {
             for (Building building : buildings) {
                 if (building.id == 5) {
                     // 购买武器
+                    WeaponFactory.purchaseWeapon(player,building);
                 }
                 if (building.id == 11) {
                     // 重修技能

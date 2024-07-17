@@ -136,4 +136,17 @@ public class Weapon implements Serializable {
     public void setNewSkillId(String newSkillId) {
         this.newSkillId = newSkillId;
     }
+
+    @Override
+    public String toString() {
+        return "装备 {" +
+                "名字 ='" + name + '\'' +
+                ", 攻击 =" + attack +
+                ", 统帅 =" + command +
+                ", 智力 =" + intelligence +
+                ", 魅力 =" + charm +
+                ", 政治 =" + politics +
+                ", 说明 ='" + memo + '\'' +
+                '}';
+    }
 }

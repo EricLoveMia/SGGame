@@ -527,7 +527,7 @@ public class Game {
                         break;
                     case 6:
                         System.out.println("恭喜你，可以购买一个专属武器");
-                        WeaponFactory.purchaseWeapon(players[no - 1]);
+                        WeaponFactory.purchaseWeapon(players[no - 1], null);
                         break;
                     default:
                         break;

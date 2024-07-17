@@ -752,7 +752,7 @@ public class SkillFactory {
         if ("49".equals(general.getSkill())) {
             // 增加的损失数
             int addLost = 0;
-            float rate = (Float.parseFloat(general.getCommand()) + Float.parseFloat(general.getIntelligence())) / 650;
+            float rate = (Float.parseFloat(general.getCommand()) + Float.parseFloat(general.getIntelligence())) / 350;
             if (attOrDef == 1 && new Random().nextInt(100) <= (data + attactSkillProbability)) {
                 System.out.println("武将：" + general.getName() + "触发技能毒神：" + Objects.requireNonNull(SkillFactory.getSkillByID(general.getSkill())).getMemo());
 
@@ -1243,6 +1243,12 @@ public class SkillFactory {
     }
 
     private static void battleField_Middle_Defence(BattleField BF) {
+        General defenceLord = GeneralFactory.getGeneralById(BF.getDefenceChief().getBelongTo());
+        // 曹操的奸雄不能参与防守
+        if(defenceLord != null && !Objects.equals(defenceLord.getId(), "2")) {
+            BattleField_ChangeMiddle(1, defenceLord, BF);
+        }
+
         if (BF.getDefenceChief() != null) {
             BattleField_ChangeMiddle(2, BF.getDefenceChief(), BF);
         }
@@ -1252,10 +1258,7 @@ public class SkillFactory {
         if (BF.getDefenceCounsellor() != null) {
             BattleField_ChangeMiddle(2, BF.getDefenceCounsellor(), BF);
         }
-        General defenceLord = GeneralFactory.getGeneralById(BF.getDefenceChief().getBelongTo());
-        if(defenceLord != null) {
-            BattleField_ChangeMiddle(1, defenceLord, BF);
-        }
+
     }
 
     private static void battleField_Middle_Attack(BattleField BF) {

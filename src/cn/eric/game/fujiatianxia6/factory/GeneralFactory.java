@@ -312,10 +312,15 @@ public class GeneralFactory {
     }
 
     public static General findBySkill(List<General> aoundGenerals, City city, String leaderId, List<General> exclude) {
+        if(exclude == null) {
+            exclude = new ArrayList<>();
+        }
         // 无敌技能
         List<String> superSkills = SkillFactory.superSkills;
+        List<General> finalExclude = exclude;
         Optional<General> optional = aoundGenerals.stream()
                 .filter(e -> !e.getId().equals(leaderId))
+                .filter(e -> !finalExclude.contains(e))
                 .filter(e -> superSkills.contains(e.getSkill())).findFirst();
         if (optional.isPresent()) {
             return optional.get();
@@ -323,7 +328,9 @@ public class GeneralFactory {
         // 平原
         if (city.getTopography() == 1) {
             List<String> skills = SkillFactory.cavalrysSkills;
-            optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))
+            optional = aoundGenerals.stream()
+                    .filter(e -> !e.getId().equals(leaderId))
+                    .filter(e -> !finalExclude.contains(e))
                     .filter(e -> skills.contains(e.getSkill())).findFirst();
             if (optional.isPresent()) {
                 return optional.get();
@@ -332,7 +339,9 @@ public class GeneralFactory {
         // 山地
         if (city.getTopography() == 2) {
             List<String> skills = SkillFactory.infantrySkills;
-            optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))
+            optional = aoundGenerals.stream()
+                    .filter(e -> !e.getId().equals(leaderId))
+                    .filter(e -> !finalExclude.contains(e))
                     .filter(e -> skills.contains(e.getSkill())).findFirst();
             if (optional.isPresent()) {
                 return optional.get();
@@ -341,7 +350,9 @@ public class GeneralFactory {
         // 水域
         if (city.getTopography() == 3) {
             List<String> skills = SkillFactory.archersSkills;
-            optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))
+            optional = aoundGenerals.stream()
+                    .filter(e -> !e.getId().equals(leaderId))
+                    .filter(e -> !finalExclude.contains(e))
                     .filter(e -> skills.contains(e.getSkill())).findFirst();
             if (optional.isPresent()) {
                 return optional.get();
@@ -349,7 +360,9 @@ public class GeneralFactory {
         }
         // 通用型
         List<String> skills = SkillFactory.allArmsSkills;
-        optional = aoundGenerals.stream().filter(e -> !e.getId().equals(leaderId))
+        optional = aoundGenerals.stream()
+                .filter(e -> !e.getId().equals(leaderId))
+                .filter(e -> !finalExclude.contains(e))
                 .filter(e -> skills.contains(e.getSkill())).findFirst();
         if (optional.isPresent()) {
             return optional.get();
@@ -358,7 +371,7 @@ public class GeneralFactory {
         General general = null;
         for (int i = 0; i < aoundGenerals.size(); i++) {
             general = aoundGenerals.get(i);
-            if (exclude != null && !exclude.contains(general)) {
+            if (!exclude.contains(general)) {
                 break;
             }
         }
@@ -612,9 +625,22 @@ public class GeneralFactory {
             player.setMoney(player.getMoney() + player.getReputation() / 3);
             // 增加士兵
             player.setArmy(player.getArmy() + player.getReputation() / 10);
+            if(player.getArmy() < 0){
+                player.setArmy(0);
+            }
+
             player.setArchers(player.getArchers() + player.getReputation() / 30);
+            if(player.getArchers() < 0){
+                player.setArchers(0);
+            }
             player.setInfantry(player.getInfantry() + player.getReputation() / 30);
+            if(player.getInfantry() < 0){
+                player.setInfantry(0);
+            }
             player.setCavalrys(player.getCavalrys() + player.getReputation() / 30);
+            if(player.getCavalrys() < 0){
+                player.setCavalrys(0);
+            }
         }
     }
 
