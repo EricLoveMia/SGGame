@@ -58,8 +58,8 @@
         <price>15000</price>
         <data>80</data>
         <generalId>10</generalId>
-        <attack>12</attack>
-        <command>0</command>
+        <attack>9</attack>
+        <command>3</command>
         <intelligence>0</intelligence>
         <charm>0</charm>
         <politics>0</politics>
@@ -95,7 +95,7 @@
         <id>8</id>
         <name>黄龙钩镰刀</name>
         <price>14000</price>
-        <data>1</data>
+        <data>2</data>
         <generalId>63</generalId>
         <attack>6</attack>
         <command>2</command>
@@ -353,10 +353,62 @@
         <generalId>58</generalId>
         <attack>0</attack>
         <command>5</command>
-        <intelligence>5</intelligence>
+        <intelligence>6</intelligence>
         <charm>0</charm>
         <poli5ics>0</poli5ics>
         <memo>贾诩专属</memo>
+    </weapon>
+    <weapon>
+        <id>27</id>
+        <name>虎胆湛金枪</name>
+        <price>15000</price>
+        <data>20</data>
+        <generalId>90</generalId>
+        <attack>7</attack>
+        <command>4</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <poli5ics>0</poli5ics>
+        <memo>马超专属</memo>
+    </weapon>
+    <weapon>
+        <id>28</id>
+        <name>盾牌刀</name>
+        <price>16000</price>
+        <data>15</data>
+        <generalId>40</generalId>
+        <attack>4</attack>
+        <command>4</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <poli5ics>0</poli5ics>
+        <memo>徐盛专属</memo>
+    </weapon>
+    <weapon>
+        <id>29</id>
+        <name>镔铁大砍刀</name>
+        <price>16000</price>
+        <data>6</data>
+        <generalId>14</generalId>
+        <attack>9</attack>
+        <command>0</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <poli5ics>0</poli5ics>
+        <memo>许褚专属</memo>
+    </weapon>
+    <weapon>
+        <id>30</id>
+        <name>冰晶羽扇</name>
+        <price>16000</price>
+        <data>6</data>
+        <generalId>14</generalId>
+        <attack>9</attack>
+        <command>0</command>
+        <intelligence>0</intelligence>
+        <charm>0</charm>
+        <poli5ics>0</poli5ics>
+        <memo>郭嘉专属</memo>
     </weapon>
     <!-- 通用装备 -->
     <!--    <weapon>-->

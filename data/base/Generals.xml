@@ -1810,7 +1810,7 @@
         <mountainfc>A</mountainfc>
         <riverfc>S</riverfc>
         <skill>4</skill>
-		<relation>99000000000001-1</relation>
+		<relation>99-1-1-1-1-1-1-1</relation>
         <belongTo>1</belongTo>
         <status>0</status>
     </general>
@@ -2748,6 +2748,96 @@
 		<status>0</status>
 	</general>
 	<!-- 曹爽 曹昂 曹休 曹彰 曹纯 曹洪 文鸯 -->
+	<general id="180">
+		<name>郭嘉</name>
+		<king>0</king>
+		<attack>25</attack>
+		<command>69</command>
+		<intelligence>99</intelligence>
+		<charm>80</charm>
+		<politics>85</politics>
+		<vitality>100</vitality>
+		<arms>3</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>A</riverfc>
+		<skill>40</skill>
+		<relation>-185-1-1-1-1-1-1</relation>
+		<belongTo>2</belongTo>
+		<status>0</status>
+	</general>
+	<general id="181">
+		<name>曹昂</name>
+		<king>0</king>
+		<attack>80</attack>
+		<command>83</command>
+		<intelligence>69</intelligence>
+		<charm>80</charm>
+		<politics>65</politics>
+		<vitality>100</vitality>
+		<arms>3</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>A</riverfc>
+		<skill>37</skill>
+		<relation>-199-1-1-1-1-1-1</relation>
+		<belongTo>2</belongTo>
+		<status>0</status>
+	</general>
+	<general id="182">
+		<name>曹休</name>
+		<king>0</king>
+		<attack>78</attack>
+		<command>75</command>
+		<intelligence>69</intelligence>
+		<charm>60</charm>
+		<politics>65</politics>
+		<vitality>100</vitality>
+		<arms>3</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>A</riverfc>
+		<skill>51</skill>
+		<relation>-199-1-1-1-1-1-1</relation>
+		<belongTo>0</belongTo>
+		<status>0</status>
+	</general>
+	<general id="183">
+		<name>曹彰</name>
+		<king>0</king>
+		<attack>90</attack>
+		<command>82</command>
+		<intelligence>49</intelligence>
+		<charm>60</charm>
+		<politics>35</politics>
+		<vitality>100</vitality>
+		<arms>3</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>A</riverfc>
+		<skill>78</skill>
+		<relation>-199-1-1-1-1-1-1</relation>
+		<belongTo>2</belongTo>
+		<status>0</status>
+	</general>
+	<general id="184">
+		<name>曹洪</name>
+		<king>0</king>
+		<attack>81</attack>
+		<command>79</command>
+		<intelligence>49</intelligence>
+		<charm>60</charm>
+		<politics>35</politics>
+		<vitality>100</vitality>
+		<arms>3</arms>
+		<landfc>A</landfc>
+		<mountainfc>A</mountainfc>
+		<riverfc>A</riverfc>
+		<skill>60</skill>
+		<relation>-199-1-1-1-1-1-1</relation>
+		<belongTo>2</belongTo>
+		<status>0</status>
+	</general>
 
 	<!-- 马岱 马铁 马休 侯选-->
 	<general id="200">
