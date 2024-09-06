@@ -109,7 +109,6 @@ public class BuildingFactory {
                             || (choise == 7 && (countBuildsInCity(city, 7) >= 1)) || (choise == 8 && (countBuildsInCity(city, 8) >= 1))
                             || (choise == 9 && (countBuildsInCity(city, 9) >= 1)) || (choise == 10 && (countBuildsInCity(city, 10) >= 1))
                     ) {
-
                         choise = new Random().nextInt(9) + 1;
                     }
                 } else {

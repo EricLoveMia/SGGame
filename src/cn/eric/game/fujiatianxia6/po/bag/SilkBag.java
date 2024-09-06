@@ -88,6 +88,7 @@ public abstract class SilkBag implements Bag, Cloneable {
             if (targetCity == null) {
                 return;
             }
+            System.out.println("目标城市" + targetCity.getName());
             targetGeneral = chooseExecute(origin);
         } else if (type == 4) {
             System.out.println("请选择目标城市");
